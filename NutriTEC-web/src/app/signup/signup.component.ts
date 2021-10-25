@@ -6,11 +6,27 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-    test : Date = new Date();
-    focus;
-    focus1;
-    focus2;
+
+
+    registerAsClient = true;
+    registerAsNutricionist = false; 
+
+
+
+
     constructor() { }
 
     ngOnInit() {}
+
+
+    toggleRegisterAsClient(){
+        this.registerAsClient = true;
+        this.registerAsNutricionist = false;
+
+    }
+
+    toggleRegisterAsNutricionist(){
+        this.registerAsNutricionist = true;
+        this.registerAsClient = false;
+    }
 }
