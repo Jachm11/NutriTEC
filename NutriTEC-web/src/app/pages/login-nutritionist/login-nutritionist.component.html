@@ -1,0 +1,65 @@
+<main>
+    <section class="section section-shaped section-lg">
+      <div class="shape shape-style-1 bg-gradient-default">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="container pt-lg-md">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="card bg-secondary shadow border-0">
+
+            <div class="card-body px-lg-5 py-lg-5">
+
+                <h3>Bienenidos a NutriTec</h3>
+                <br>
+
+                <form role="form">
+                  <div class="form-group mb-3" [ngClass]="{'focused':focus===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Correo electrónico" type="email" (focus)="focus=true" (blur)="focus=false">
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Contraseña" type="password" (focus)="focus1=true" (blur)="focus1=false">
+                    </div>
+                  </div>
+            
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary my-4">Ingresar</button>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-6 text-center">
+                      <a href="#/login-client" class="text-light">
+                        <small>Ingresar como cliente</small>
+                      </a>
+                    </div>
+                    <div class="col-5 text-center">
+                      <a href="#/register-nutritionist" class="text-light">
+                        <small>Registrarse como nutricionista</small>
+                      </a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  

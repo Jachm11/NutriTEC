@@ -1,0 +1,10 @@
+.product {
+    background: #0b013800;
+    margin: 10px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-left: 5px solid #041b35;
+    border-style: solid;
+    border-color: #a79c08;
+    color: aliceblue;
+  }
