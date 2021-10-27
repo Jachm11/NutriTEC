@@ -19,6 +19,7 @@ import { SignupClientComponent } from './pages/signup-client/signup-client.compo
 import { RegisterComponent } from './components/register/register.component';
 import { ProductsApprovalComponent } from './pages/products-approval/products-approval.component';
 import { ProductComponent } from './components/product/product.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -30,8 +31,6 @@ import { ProductComponent } from './components/product/product.component';
     FooterComponent,
     SignupNutritionistComponent,
     SignupClientComponent,
-    RegisterComponent,
-    ProductComponent,
     ProductsApprovalComponent
   
   ],
@@ -41,7 +40,8 @@ import { ProductComponent } from './components/product/product.component';
     FormsModule,
     RouterModule,
     AppRoutingModule,
-    HomeModule
+    HomeModule, 
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

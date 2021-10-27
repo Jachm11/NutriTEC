@@ -13,15 +13,19 @@
         </div>
 
         <div class = "frame">
-          <div class="container">
-              <h1 class="text-white">Aprobacion de productos</h1>
-    
-              <app-product></app-product>
-      
-          </div>
-      </div>
 
-        
+          <h1 class="text-white">Aprobación de productos</h1>
+          
+          <div class="container-product-approval">
+            
+  
+            <app-product
+              *ngFor="let product of products" [product]="product"></app-product>
+    
+          </div>
+
+        </div>
+
     </section>
 
 </div>

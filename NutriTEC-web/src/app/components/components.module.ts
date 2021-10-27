@@ -16,7 +16,7 @@ import { ProductComponent } from './product/product.component';
     ],
     declarations: [
         RegisterComponent,
-        ProductComponent,
+        ProductComponent
   
         
     ],

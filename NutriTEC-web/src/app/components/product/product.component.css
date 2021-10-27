@@ -1,10 +1,102 @@
-.product {
-    background: #0b013800;
-    margin: 10px;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    border-left: 5px solid #041b35;
-    border-style: solid;
-    border-color: #a79c08;
-    color: aliceblue;
-  }
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+}
+
+.product-button{
+  width: 700px;
+  height: 50px;
+  appearance: none;
+  text-align: left;
+  cursor: pointer;
+
+}
+
+.dropdown-icon {
+  color: black;
+  position: relative;
+  right: 40px;
+  top: 15px;
+  cursor: pointer;
+
+}
+
+.btn-outline-danger{
+  color:white
+
+}
+
+.btn-outline-danger:hover{
+  color: white !important;
+  border-color: #92374D !important;
+  background-color: #92374D  !important;
+}
+
+
+.data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 0px;
+
+}
+
+.info-general {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 10px;
+
+
+}
+
+.info-general span {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.info-general strong {
+  color: black;
+  font-size: 15px;
+
+}
+
+
+.dropdown {
+  display: flex;
+
+}
+
+.product-data {
+  display: flex;
+  background-color: #FAFAFA;
+  flex-direction: column;
+  width: 700px;
+  border: 2px solid black
+  
+
+}
+
+.product-data li {
+  color:black;
+  font-size: 20px;
+  margin:5px;
+}
+
+.option-button {
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.aprove-button {
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+.reject-button {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}

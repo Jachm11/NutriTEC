@@ -1,25 +1,140 @@
-<div class="product">
 
-    <div>
+    <div class="product-item">
 
-        <label>Pollo</label>
+        <div class="dropdown">
 
-        <button (click)="toggleShowMe()">mostar</button>
+            <button (click)="toggleShowMe()" [ngStyle]="showMe ? {'background-color':'#92374D'} : {'background': 'transparent'}" class="product-button btn btn-outline-danger btn-round"> 
+                
 
-        <div *ngIf="showMe" class="product">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 50px;" >
+
+                    <div>
+
+                        <label>  <strong> Producto: </strong> {{product.name}} </label>  
 
 
-            <label>Sebastian</label>
-            <label>Mora</label>
-        
-            
+                    </div>
 
+                    <div>
+                        <label style="margin-left: 40px;">  <strong> Código de barras: </strong> {{product.barcode}}  </label>
+
+                    </div>
+                
+                    <div>
+                        
+                    </div>
+    
+                </div>
+         
+            </button>
+         
+
+             <label class="dropdown-icon ni ni-bold-down"> </label>
 
         </div>
 
-    </div>
   
+            <div *ngIf="showMe" class="product-data">
+
+
+                <div class="info-general">
+
+                    <div>
+                        
+                        <span class="badge badge-pill badge-info">Descripción: </span> <strong class="text-muted mb-0"> {{product.descripcion}}</strong>
+
+                    </div>
+
+                    <div>
+
+                        <span class="badge badge-pill badge-info">Tamaño de porción: </span> <strong class="text-muted mb-0"> {{product.porcion}} </strong>
+                        
+
+                    </div>
+
+
+            
+
+                </div>
+
+
+                <br>
+
+
+
+                <div class="data">
+
+
+                    <div>
+
+                        <label>
+
+                            <ul>
+
+                                <li>
+                                    <span class="badge badge-primary">Proteína:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.proteina}} g</span>
+                                </li>
+        
+                                <li>
+                                    <span class="badge badge-primary">Vitamina:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.vitamina}}</span>
+                                </li>
+        
+                                <li>
+                                    <span class="badge badge-primary">Calcio:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.calcio}} mg</span>
+                                </li>
+        
+                                <li>
+                                    <span class="badge badge-primary">Hierro:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.hierro}} mg</span>
+                                </li>
+        
+    
+                            </ul>
+            
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+
+                            <ul>
+            
+                                <li>
+                                    <span class="badge badge-primary">Energía:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.energia}} Kcal</span>
+
+                                </li>
+            
+                                <li>
+                                    <span class="badge badge-primary">Grasa:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.grasa}} g</span>
+                                </li>
+        
+                                <li>
+                                    <span class="badge badge-primary">Sodio:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.sodio}} mg</span>
+                                </li>
+        
+                                <li>
+                                    <span class="badge badge-primary">Carbohidratos:</span> <span style="margin-left: 10px;" class="badge badge-pill badge-dark"> {{product.carbohidratos}} g</span>
+                                </li>
+        
+
+                            </ul>
+            
+                        </label>
+                    </div>
+
+                  
     
 
+                </div>
 
-</div>
+            
+
+                <div class="option-button">
+                
+                    <button class="aprove-button btn btn-1 btn-success"> Aprobar </button>
+                    <button class="reject-button btn btn-1 btn-danger"> Rechazar </button>
+
+                </div>
+
+            </div>
+        
+        </div>
