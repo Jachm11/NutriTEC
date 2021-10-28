@@ -5,19 +5,21 @@ WHERE  TABLE_TYPE = 'BASE TABLE'
 Exec Sp_executesql @sql
 
 
-CREATE TABLE Patients (
-    Id int NOT NULL PRIMARY KEY,
-    Name varchar(255) NOT NULL,
-	Address varchar(255),
-	City varchar(255),
-    Age int,
-    Gender char(1)
+CREATE TABLE Employees (
+    id int NOT NULL PRIMARY KEY,
+    username varchar(12) NOT NULL,
+	password varchar(8) NOT NULL,
+	birthdate Date NOT NULL
 );
 
-INSERT INTO Patients (Id, Name, City, Age, Gender)
-	   VALUES ('1', 'Shakime', 'San Jose', 21, 'M');
-INSERT INTO Patients (Id, Name, Address, Age, Gender)
-	   VALUES ('2', 'Adrian', 'adrian.420@gmail.com', 22, 'M');
-INSERT INTO Patients (Id, Name, Address, City, Age, Gender)
-	   VALUES ('3', 'Alexandra', 'a.jara@gmail.com', 'Heredia', 21, 'F');
-SELECT * FROM Patients;
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('1', 'Shak', '123', '10/21/2000');
+
+INSERT INTO Employees (id, username, password, birthdate) 
+		VALUES ('2', 'Adrian', '123', '06/21/1999');
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('3', 'Jose', '123', '09/15/2001');
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('4', 'Sebas', '123', '12/31/2000');
