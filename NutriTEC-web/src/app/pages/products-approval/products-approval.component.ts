@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 export class ProductsApprovalComponent implements OnInit {
 
   url:string;
+  filter_option:string = "Aprobado";
 
   products = [
 
@@ -67,6 +68,16 @@ export class ProductsApprovalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+
+
+  filter(){
+
+    //Se filtra los items
+
+
+
   }
 
 }

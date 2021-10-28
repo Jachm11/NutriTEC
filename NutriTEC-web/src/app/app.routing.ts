@@ -11,6 +11,8 @@ import { SignupNutritionistComponent} from './pages/signup-nutritionist/signup-n
 import { LoginClientComponent } from './pages/login-client/login-client.component';
 import { LoginNutritionistComponent } from './pages/login-nutritionist/login-nutritionist.component';
 import { ProductsApprovalComponent } from './pages/products-approval/products-approval.component';
+import { RegisterProductsComponent } from './pages/register-products/register-products.component';
+
 
 const routes: Routes =[
     { path: 'home',             component: HomeComponent },
@@ -21,6 +23,7 @@ const routes: Routes =[
     { path: 'login-client',     component:LoginClientComponent},
     { path: 'login-nutritionist', component:LoginNutritionistComponent},
     { path: 'products-approval', component:ProductsApprovalComponent},
+    { path: 'register-product', component:RegisterProductsComponent},
     { path: '', redirectTo: 'login-client', pathMatch: 'full' }
 ];
 

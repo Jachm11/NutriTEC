@@ -15,7 +15,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Nombre" type="text" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Nombre" type="text" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
   
@@ -24,7 +24,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Primer Apellido" type="text" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Primer Apellido" type="text" [(ngModel)]="primer_apellido" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
   
@@ -34,18 +34,18 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Segundo Apellido" type="text" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Segundo Apellido" type="text" [(ngModel)]="segundo_apellido" [ngModelOptions]="{standalone: true}"  (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
   
   
   
-                  <div *ngIf="registerAsClient || registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus===true}">
+                  <div *ngIf="registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus===true}">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-badge"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Cedula" type="numeric" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Cedula" type="numeric" [(ngModel)]="cedula" [ngModelOptions]="{standalone: true}" (focus)="focus=true"  (blur)="focus=false">
                     </div>
                   </div>
   
@@ -57,7 +57,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-istanbul"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Fecha de nacimiento" type="date" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Fecha de nacimiento" type="date" [(ngModel)]="fecha_nacimiento" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
   
@@ -67,7 +67,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Altura" type="numeric" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Altura" type="numeric" [(ngModel)]="altura" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
   
@@ -76,7 +76,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-pin-3"></i></span>
                       </div>
-                      <select id="country" name="country" class="form-control" (focus)="focus=true" (blur)="focus=false">
+                      <select id="country" name="country" class="form-control" [(ngModel)]="pais" [ngModelOptions]="{standalone: true}" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                         <option value="" disabled selected hidden>Pais</option>
                         <option value="Afghanistan">Afghanistan</option>
                         <option value="Åland Islands">Åland Islands</option>
@@ -327,25 +327,24 @@
                 
                     </div>
                   </div>
-  
-  
-                  
-                  <div *ngIf="registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus2===true}">
+
+
+                  <div *ngIf="registerAsClient || registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus2===true}">
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Peso" type="number" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Peso" type="number" [(ngModel)]="peso" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
-  
+
   
                   <div *ngIf="registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus2===true}">
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                       </div>
-                      <input class="form-control" placeholder="IMC" type="number" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="IMC" type="number" [(ngModel)]="imc" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   
@@ -355,7 +354,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Dirección" type="text" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Dirección" type="text" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   
@@ -365,7 +364,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-album-2"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Foto" type="file" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Foto" type="file" [(ngModel)]="foto" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   
@@ -375,7 +374,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Tarjeta" type="numeric" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Tarjeta" type="numeric" [(ngModel)]="tarjeta" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   
@@ -384,16 +383,82 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-bag-17"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Tipo de cobro" type="text" (focus)="focus2=true" (blur)="focus2=false">
+                      
+                      <select class="form-control" [(ngModel)]="tipo_cobro" [ngModelOptions]="{standalone: true}">
+                        <option disabled selected>Tipo de cobro</option>
+                        <option value="semanal">Semanal</option>
+                        <option value="Mensual">Mensual</option>
+                        <option value="Anual">Anual</option>
+
+                      </select>
                     </div>
                   </div>
-  
+
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Medida de cadera" type="number" [(ngModel)]="medida_cadera" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Medida de cuello" type="number" [(ngModel)]="medida_cuello" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                    </div>
+                  </div>
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Medida de cintura" type="number" [(ngModel)]="medida_cintura" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Porcentaje de musculo" type="number" [(ngModel)]="porcentaje_musculo" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Porcentaje de grasa" type="number" [(ngModel)]="porcentaje_grasa" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                    </div>
+                  </div>
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Cosumo máximo de calorias" type="number" [(ngModel)]="consumo_maximo_calorias" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                    </div>
+                  </div>
+
+
                   <div *ngIf="registerAsClient || registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus1===true}">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Correo electronico" type="email" (focus)="focus1=true" (blur)="focus1=false">
+                      <input class="form-control" placeholder="Correo electronico" type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" (focus)="focus1=true" (blur)="focus1=false">
                     </div>
                   </div>
   
@@ -404,16 +469,13 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Contraseña" type="password" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Contraseña" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   
   
-  
-  
-  
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary mt-4">Crear cuenta </button>
+                    <button type="button" class="btn btn-primary mt-4" (click)="createAccount()">Crear cuenta </button>
                   </div>
                 </form>
               </div>

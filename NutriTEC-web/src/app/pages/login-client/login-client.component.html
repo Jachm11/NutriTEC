@@ -21,25 +21,25 @@
                 <br>
 
                 <form role="form">
-                  <div class="form-group mb-3" [ngClass]="{'focused':focus===true}">
+                  <div class="form-group mb-3">
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Correo electronico" type="email" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Correo electronico" type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
-                  <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                  <div class="form-group" >
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Contraseña" type="password" (focus)="focus1=true" (blur)="focus1=false">
+                      <input class="form-control" placeholder="Contraseña" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
             
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary my-4">Ingresar</button>
+                    <button type="button" class="btn btn-primary my-4" (click)="login()">Ingresar</button>
                   </div>
 
                   <div class="row mt-3">

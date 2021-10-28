@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginNutritionistComponent implements OnInit {
 
+  email:string;
+  password:string;
+
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+
+
+  login(){
+
+    console.log(this.email);
+
+
+
   }
 
 }

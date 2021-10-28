@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { RegisterComponent } from './register/register.component';
 import { ProductComponent } from './product/product.component';
+import { AlertsComponent } from './alerts/alerts.component';
+import { GlobalService } from '../services/global.service';
 
 
 @NgModule({
@@ -16,11 +18,13 @@ import { ProductComponent } from './product/product.component';
     ],
     declarations: [
         RegisterComponent,
-        ProductComponent
+        ProductComponent,
+        AlertsComponent
   
         
     ],
+    providers:[GlobalService],
     entryComponents: [],
-    exports: [RegisterComponent, ProductComponent],
+    exports: [RegisterComponent, ProductComponent, AlertsComponent],
 })
 export class ComponentsModule { }

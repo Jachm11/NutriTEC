@@ -8,7 +8,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { LandingComponent } from './landing/landing.component';
 import { ComponentsModule } from '../components/components.module';
 import { LoginClientComponent } from './login-client/login-client.component';
-import { LoginNutritionistComponent } from './login-nutritionist/login-nutritionist.component'
+import { LoginNutritionistComponent } from './login-nutritionist/login-nutritionist.component';
+import { RegisterProductsComponent } from './register-products/register-products.component';
+import { SignupNutritionistComponent } from './signup-nutritionist/signup-nutritionist.component';
+import { SignupClientComponent } from './signup-client/signup-client.component';
+import { ProductsApprovalComponent } from './products-approval/products-approval.component';
+import { GlobalService } from '../services/global.service';
+
 
 @NgModule({
     imports: [
@@ -19,13 +25,18 @@ import { LoginNutritionistComponent } from './login-nutritionist/login-nutrition
   
     ],
     declarations: [
-        HomeComponent,
         ProfileComponent,
         LandingComponent,
         LoginClientComponent,
         LoginNutritionistComponent,
-          
+        RegisterProductsComponent,
+        SignupClientComponent,
+        SignupNutritionistComponent,
+        ProductsApprovalComponent
+        
+       
     ],
+    providers:[GlobalService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

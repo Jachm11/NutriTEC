@@ -12,13 +12,36 @@
           <span></span>
         </div>
 
+
+        <app-alerts></app-alerts>
+
         <div class = "frame">
 
-          <h1 class="text-white">Aprobación de productos</h1>
-          
-          <div class="container-product-approval">
-            
+
   
+          <h1 class="text-white">Aprobación de productos</h1>
+
+
+
+          <div class="container-filter">
+
+            <div class="filter">
+            <label class="filter-label" (change)="filter()">Filtrar por:</label>
+            <select class="filter-option" [(ngModel)]="filter_option">
+              <option [defaultSelected] value="Aprobado">Aprobado</option>
+              <option value="Rechazdo">Rechazado</option>
+              <option value="En espera">En espera</option>
+            </select>
+            </div>
+
+
+          </div>
+
+        
+          <div class="container-product-approval">
+
+      
+
             <app-product
               *ngFor="let product of products" [product]="product"></app-product>
     

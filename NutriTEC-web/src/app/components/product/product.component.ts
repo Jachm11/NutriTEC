@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-product',
@@ -11,7 +12,7 @@ export class ProductComponent implements OnInit {
 
   showMe:boolean = false;
 
-  constructor() { }
+  constructor(private global:GlobalService) { }
 
   ngOnInit(): void {
   
@@ -20,6 +21,22 @@ export class ProductComponent implements OnInit {
   toggleShowMe()
   {
     this.showMe = !this.showMe;
+  }
+
+
+  acceptProduct(){
+
+    this.global.transactionSuccess("Producto aprobado exitosamente");
+
+
+  }
+
+
+  rejectProduct(){
+
+    this.global.transactionSuccess("Producto rechazado exitosamente");
+
+
   }
 
 
