@@ -14,6 +14,7 @@ import { SignupNutritionistComponent } from './signup-nutritionist/signup-nutrit
 import { SignupClientComponent } from './signup-client/signup-client.component';
 import { ProductsApprovalComponent } from './products-approval/products-approval.component';
 import { GlobalService } from '../services/global.service';
+import { ManagerRecipeComponent } from './manager-recipe/manager-recipe.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { GlobalService } from '../services/global.service';
         RegisterProductsComponent,
         SignupClientComponent,
         SignupNutritionistComponent,
-        ProductsApprovalComponent
+        ProductsApprovalComponent,
+        ManagerRecipeComponent
         
        
     ],

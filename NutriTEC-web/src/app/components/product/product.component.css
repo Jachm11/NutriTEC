@@ -3,11 +3,13 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  padding: 5px;
+  align-items: center;
 
 }
 
 .product-button{
-  width: 700px;
+  width: 550px;
   height: 50px;
   appearance: none;
   text-align: left;
@@ -25,7 +27,7 @@
 }
 
 .btn-outline-danger{
-  color:white
+  color:black
 
 }
 
@@ -74,7 +76,7 @@
   display: flex;
   background-color: #FAFAFA;
   flex-direction: column;
-  width: 700px;
+  width: 550px;
   border: 2px solid black
   
 

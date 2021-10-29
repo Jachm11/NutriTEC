@@ -1,0 +1,65 @@
+
+<div>
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+
+        <app-alerts></app-alerts>
+
+
+        <div class = "frame">
+
+     
+            <h1 class="text-white">GESTION DE RECETAS</h1>
+
+
+      
+        
+
+            <div class="container-manager-recipe">
+
+                
+            <div>
+                <button class="btn btn-success" (click)="addRecipe()"> Agregar receta</button>
+
+
+            </div>
+
+
+            <div class="container-recipe">
+
+                <app-item-recipe *ngFor="let recipe of recipes" [recipe]="recipe" (delete_recipe)="delete_recipe($event)"></app-item-recipe>
+
+            </div>
+
+
+
+
+
+            </div>
+       
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </section>
+
+</div>

@@ -1,0 +1,36 @@
+.item-recipe {
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    grid-column-gap: 30px;
+    background: #0b013800;
+    margin: 10px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border: 6px solid #92374D; 
+    border-radius: 20px;
+    color: aliceblue;
+    width: 720px;
+  }
+
+label {
+    font-weight: bold;
+    font-size: 0.5cm;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container-item-recipe-products {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 350px;
+
+}
+
+label {
+    color:white;
+}
+
+
+app-product {
+    margin-bottom: 5px;
+}

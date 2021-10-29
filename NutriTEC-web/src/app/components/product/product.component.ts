@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
-
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -9,10 +9,12 @@ import { GlobalService } from 'src/app/services/global.service';
 export class ProductComponent implements OnInit {
 
   @Input() product;
+  @Input() url;
+  @Output() addProductRecipe: EventEmitter<any> = new EventEmitter();
 
   showMe:boolean = false;
 
-  constructor(private global:GlobalService) { }
+  constructor(private global:GlobalService, private matDialog:MatDialog) { }
 
   ngOnInit(): void {
   
@@ -36,6 +38,12 @@ export class ProductComponent implements OnInit {
 
     this.global.transactionSuccess("Producto rechazado exitosamente");
 
+
+  }
+
+
+  addProductToRecipe(){
+    this.addProductRecipe.emit(this.product);
 
   }
 

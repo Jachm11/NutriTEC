@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { isThisTypeNode } from 'typescript';
 
 
 @Injectable({
@@ -13,20 +14,20 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 export class GlobalService {
 
 
-
-
-  //success_alert:boolean = false;
-  //danger_alert:boolean  = false;
   alert_message:string = "";
-
   private success_alert: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private danger_alert: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isSuccessAlert: Observable<boolean> = this.success_alert.asObservable();
   public isDangerAlert: Observable<boolean> = this.danger_alert.asObservable();
 
 
+  private editing: boolean = false;
+  private adding: boolean = false;
+
+  current_recipe:any;
+
+
   hideAlert(){
-    console.log("Entra");
     this.success_alert.next(false);
     this.danger_alert.next(false);
 
@@ -42,11 +43,37 @@ export class GlobalService {
 
   }
 
-  transactionFail(message:string){
+  transactionFailed(message:string){
     this.success_alert.next(false);
     this.danger_alert.next(true);
     this.alert_message = message;
 
+  }
+
+
+
+  startEditing(){
+    this.editing = true;
+    this.adding = false;
+
+  }
+
+  startAdding(){
+    this.adding = true;
+    this.editing = false;;
+  }
+
+  isEditing(){
+    return this.editing;
+  }
+
+  isAdding(){
+    return this.adding;
+  }
+
+  cancel(){
+    this.adding = false;
+    this.editing = false;
   }
 
 

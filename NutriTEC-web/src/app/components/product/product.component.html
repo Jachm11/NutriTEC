@@ -3,10 +3,10 @@
 
         <div class="dropdown">
 
-            <button (click)="toggleShowMe()" [ngStyle]="showMe ? {'background-color':'#92374D'} : {'background': 'transparent'}" class="product-button btn btn-outline-danger btn-round"> 
+            <button (click)="toggleShowMe()" [ngStyle]="showMe ? {'background-color':'#92374D'} : {'background': 'white'}" class="product-button btn btn-outline-danger btn-round"> 
                 
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 50px;" >
+                <div style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px;" >
 
                     <div>
 
@@ -16,7 +16,7 @@
                     </div>
 
                     <div>
-                        <label style="margin-left: 40px;">  <strong> Código de barras: </strong> {{product.barcode}}  </label>
+                        <label style="margin-left: 10px;">  <strong> Código de barras: </strong> {{product.barcode}}  </label>
 
                     </div>
                 
@@ -127,8 +127,10 @@
 
                 <div class="option-button">
                 
-                    <button class="aprove-button btn btn-1 btn-success" (click)="acceptProduct()"> Aprobar </button>
-                    <button class="reject-button btn btn-1 btn-danger" (click)="rejectProduct()"> Rechazar </button>
+                    <button *ngIf="url == '/products-approval'" class="aprove-button btn btn-1 btn-success" (click)="acceptProduct()"> Aprobar </button>
+                    <button *ngIf="url == '/products-approval'" class="reject-button btn btn-1 btn-danger" (click)="rejectProduct()"> Rechazar </button>
+
+                    <button *ngIf="url == '/manager-recipe'" class="aprove-button btn btn-1 btn-success" (click)="addProductToRecipe()"> Agregar </button>
 
                 </div>
 

@@ -64,7 +64,7 @@ export class ProductsApprovalComponent implements OnInit {
 
   constructor(private router:Router) { 
 
-    this.url = "/register-client";
+    this.url = this.router.url;
   }
 
   ngOnInit(): void {

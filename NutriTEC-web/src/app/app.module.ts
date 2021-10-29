@@ -9,19 +9,14 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
-
-
 import { PagesModule } from './pages/pages.module';
-
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-  
   ],
   imports: [
     BrowserModule,
@@ -29,7 +24,7 @@ import { PagesModule } from './pages/pages.module';
     FormsModule,
     RouterModule,
     AppRoutingModule, 
-    PagesModule
+    PagesModule, BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

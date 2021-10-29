@@ -1,6 +1,8 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
+import { GlobalService } from 'src/app/services/global.service';
+
 
 @Component({
     selector: 'app-register',
@@ -40,7 +42,7 @@ export class RegisterComponent implements OnInit {
     email:string;
     password:string;
 
-    constructor() {}
+    constructor(private global : GlobalService) {}
 
 
     ngOnInit() {
@@ -85,75 +87,75 @@ export class RegisterComponent implements OnInit {
     createClientAccount(){
 
       if(!this.nombre){
-        alert("Ingrese su nombre");
+        this.global.transactionFailed("Ingrese su nombre");
         return; 
 
       }
       if(!this.primer_apellido){
-
-        alert("Ingrese su primer apellido");
+        this.global.transactionFailed("Ingrese su primer apellido");
         return;
       }
 
       if(!this.segundo_apellido){
+        this.global.transactionFailed("Ingrese su segundo apellido");
         alert("Ingrese su segundo apellido");
         return;
       }
 
       if(!this.fecha_de_nacimiento){
-        alert("ingrese su fecha de nacimiento");
+        this.global.transactionFailed("ingrese su fecha de nacimiento");
         return;
       }
 
       if(!this.altura){
-        alert("Ingrese su altura");
+        this.global.transactionFailed("Ingrese su altura");
         return;
       }
 
       if(!this.peso){
-        alert("Ingrese su peso");
+        this.global.transactionFailed("Ingrese su peso");
         return;
       }
 
       if(!this.direccion){
-        alert("Ingrese su direccion");
+        this.global.transactionFailed("Ingrese su direccion");
         return;
       }
       if(!this.medida_cadera){
-        alert("Ingrese su medida de cadera");
+        this.global.transactionFailed("Ingrese su medida de cadera");
         return;
       }
 
       if(!this.medida_cintura){
-        alert("Ingrese su medida de cintura");
+        this.global.transactionFailed("Ingrese su medida de cintura");
         return; 
       }
 
       if(!this.medida_cuello){
-        alert("Ingrese su medida de ")
+        this.global.transactionFailed("Ingrese su medida de cuello");
       }
 
       if(!this.porcentaje_grasa){
-        alert("Ingrese su porcentaje de grasa");
+        this.global.transactionFailed("Ingrese su porcentaje de grasa");
       }
       
       if(!this.porcentaje_musculo){
-        alert("Ingrese su porcentaje de musculo");
+        this.global.transactionFailed("Ingrese su porcentaje de musculo");
         return;
       }
 
       if(!this.consumo_maximo_calorias){
-        alert("Ingrese su consumo maximo de calorias");
+        this.global.transactionFailed("Ingrese su consumo maximo de calorias");
         return;
       }
 
       if(!this.email){
-        alert("Ingrese su correo electronico");
+        this.global.transactionFailed("Ingrese su correo electronico");
         return;
       }
 
       if(!this.password){
-        alert("Ingrese su contraseña");
+        this.global.transactionFailed("Ingrese su contraseña");
         return;
       }
 
@@ -169,63 +171,62 @@ export class RegisterComponent implements OnInit {
     createNutritionistAccount(){
 
       if(!this.nombre){
-        alert("Ingrese su nombre");
+        this.global.transactionFailed("Ingrese su nombre");
         return; 
       }
       if(!this.primer_apellido){
-
-        alert("Ingrese su primer apellido");
+        this.global.transactionFailed("Ingrese su primer apellido");
         return;
       }
 
       if(!this.segundo_apellido){
-        alert("Ingrese su segundo apellido");
+        this.global.transactionFailed("Ingrese su segundo apellido");
         return;
       }
 
       if(!this.fecha_de_nacimiento){
-        alert("ingrese su fecha de nacimiento");
+        this.global.transactionFailed("ingrese su fecha de nacimiento");
         return;
       }
 
       if(!this.altura){
-        alert("Ingrese su altura");
+        this.global.transactionFailed("Ingrese su altura");
         return;
       }
 
       if(!this.peso){
-        alert("Ingrese su peso");
+        this.global.transactionFailed("Ingrese su peso");
         return;
       }
 
       if(!this.direccion){
-        alert("Ingrese su direccion");
+        this.global.transactionFailed("Ingrese su direccion");
         return;
       }
       
       if(!this.foto){
-        alert("Suba su foto de perfil");
+        this.global.transactionFailed("Suba su foto de perfil");
         return;
       }
 
       if(!this.tarjeta){
-        alert("Ingrese su numero de tarjeta");
+        this.global.transactionFailed("Ingrese su numero de tarjeta");
         return; 
 
       }
 
       if(!this.tipo_cobro){
-        alert("Ingrese el tipo de cobro");
+        this.global.transactionFailed("Ingrese el tipo de cobro");
         return;
       }
 
       if(!this.email){
-        alert("Ingrese su correo electronico");
+        this.global.transactionFailed("Ingrese su correo electronico");
         return;
       }
 
       if(!this.password){
-        alert("Ingrese su contraseña");
+        this.global.transactionFailed("Ingrese su contraseña");
         return;
       }
 

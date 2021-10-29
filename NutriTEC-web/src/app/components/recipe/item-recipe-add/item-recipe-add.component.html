@@ -1,0 +1,156 @@
+
+<div class="item-recipe-add-container">
+
+  
+  
+    <div>
+
+
+        <form>
+
+
+
+
+            <div>
+                <label for="name_recipe"></label>
+                <input
+                    type="text"
+                    class="input-name-recipe"
+                    name="name_recipe"
+                    [(ngModel)]="name_recipe"
+                    id="name_recipe"
+                    placeholder="Nombre de la receta"
+                >
+            </div>
+
+            <br>
+
+        </form>
+
+   </div>
+
+   <br>
+   <br>
+
+   
+
+
+    <div>
+
+            
+
+    
+        <div class="container-input-productList">
+
+            <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">
+
+                
+            <div class="products-list">
+
+                <app-product *ngFor="let product of products | filter:filterProducts" [product]="product" [url]="url" (addProductRecipe)="addProductRecipe($event)"></app-product>
+
+
+            </div>
+    
+        </div>
+
+
+
+
+
+    </div>
+
+
+   <div style="display: flex; flex-direction: column; align-items: center;">
+
+
+    <label class="text-black">Productos Seleccionados:</label>
+    <div class="container-productSelected">
+
+        <app-item-product *ngFor="let product_selected of products_selected" [product_selected]="product_selected" (update_porcion)="update_porcion($event)" (delete_product)="delete_product($event)"></app-item-product>
+
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+
+        <h4 class="header-info-nutritional-recipe"> Información nutricional de la receta</h4>
+
+        <div class="data">
+            <div>
+
+                <label>
+
+                    <ul>
+
+                        <li>
+                            <span class="label label-info">Proteína:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_proteinas}} g</span>
+                        </li>
+
+                        <li>
+                            <span class="label label-info">Vitamina:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_vitaminas}} </span>
+                        </li>
+
+                        <li>
+                            <span class="label label-info">Calcio:</span> <span style="margin-left: 10px;" class="label label-info">{{this.total_calcio}} mg</span>
+                        </li>
+
+                        <li>
+                            <span class="label label-info">Hierro:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_hierro}} mg</span>
+                        </li>
+
+
+                    </ul>
+    
+                </label>
+            </div>
+
+            <div>
+                <label>
+
+                    <ul>
+    
+                        <li>
+                            <span class="label label-info">Energía:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_energia}}  Kcal</span>
+
+                        </li>
+    
+                        <li>
+                            <span class="label label-info">Grasa:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_grasa}} g</span>
+                        </li>
+
+                        <li>
+                            <span class="label label-info">Sodio:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_sodio}} mg</span>
+                        </li>
+
+                        <li>
+                            <span class="label label-info">Carbohidratos:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_carbohidratos}} g</span>
+                        </li>
+
+
+                    </ul>
+    
+                </label>
+            </div>
+
+          
+        </div>
+    
+       </div>
+
+
+   </div>
+
+
+   <div style="display: flex; justify-content: space-around; align-items: center;">
+
+        <button (click)="apply()" class="btn btn-success"> Aplicar</button>
+        <button (click)="cancel()" class="btn btn-secondary"> Cancel</button>
+    </div>
+
+
+
+
+
+
+
+</div>

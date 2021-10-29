@@ -1,0 +1,18 @@
+<div class="container-item-product">
+
+
+
+    <div>
+        <span class="badge badge-success">{{product_selected.product.name}}</span> 
+    </div>
+
+    <div>
+        <input type="number" min=0 placeholder="Porción" [(ngModel)]="porcion" (change)="updatePorcion()">
+    </div>
+
+    <div>
+        <button (click)="deleteProduct()">Eliminar</button>
+    </div>
+
+
+</div>

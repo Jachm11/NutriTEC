@@ -12,6 +12,8 @@ import { LoginClientComponent } from './pages/login-client/login-client.componen
 import { LoginNutritionistComponent } from './pages/login-nutritionist/login-nutritionist.component';
 import { ProductsApprovalComponent } from './pages/products-approval/products-approval.component';
 import { RegisterProductsComponent } from './pages/register-products/register-products.component';
+import { ManagerRecipeComponent } from './pages/manager-recipe/manager-recipe.component';
+import { SectionsComponent } from './sections/sections.component';
 
 
 const routes: Routes =[
@@ -24,6 +26,8 @@ const routes: Routes =[
     { path: 'login-nutritionist', component:LoginNutritionistComponent},
     { path: 'products-approval', component:ProductsApprovalComponent},
     { path: 'register-product', component:RegisterProductsComponent},
+    { path: 'manager-recipe', component:ManagerRecipeComponent},
+    { path: 'sections', component:SectionsComponent},
     { path: '', redirectTo: 'login-client', pathMatch: 'full' }
 ];
 

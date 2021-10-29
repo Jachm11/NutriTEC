@@ -1,0 +1,31 @@
+.container-item-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.container-item-product input {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 70px;
+
+}
+
+.btn, .btn-primary {
+    background-color: red;
+    text-align: center;
+}
+
+
+button {
+    background-color: red;
+}
+
+span {
+    margin-left: 5px;
+}
+
+.label .label-info {
+    color: white;
+}
