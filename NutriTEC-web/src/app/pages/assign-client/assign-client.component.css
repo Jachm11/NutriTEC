@@ -1,0 +1,29 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.container-clients {
+    display: flex;
+    overflow-y: scroll;
+    height: 450px;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-color: black;
+    color: aliceblue;
+    width: 625px;
+}
+
+.input-filter {
+    width: 100%;
+    border: 3px solid black;
+}
+
+
+.container-clients-list {
+
+
+}

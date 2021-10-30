@@ -13,6 +13,8 @@ import { ItemRecipeAddComponent } from './recipe/item-recipe-add/item-recipe-add
 import { FilterPipe } from '../pipe/filter.pipe';
 import { ItemProductComponent } from './recipe/item-product/item-product.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AssignClientItemComponent } from './assign-client-item/assign-client-item.component';
+import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
 
 @NgModule({
     imports: [
@@ -27,10 +29,10 @@ import { MatDialogModule } from '@angular/material/dialog';
         AlertsComponent,
         ItemRecipeComponent,
         ItemRecipeAddComponent, 
-        FilterPipe, ItemProductComponent,
+        FilterPipe, ItemProductComponent, AssignClientItemComponent,
     ],
     providers:[GlobalService],
     entryComponents: [],
-    exports: [RegisterComponent, ProductComponent, AlertsComponent, ItemRecipeAddComponent, ItemRecipeComponent, FilterPipe],
+    exports: [RegisterComponent, ProductComponent, AlertsComponent, ItemRecipeAddComponent, ItemRecipeComponent, FilterPipe,  AssignClientItemComponent],
 })
 export class ComponentsModule { }

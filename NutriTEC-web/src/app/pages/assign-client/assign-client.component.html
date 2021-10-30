@@ -1,0 +1,76 @@
+
+<div>
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+
+        <app-alerts></app-alerts>
+
+
+        <div class = "frame">
+
+     
+            <h1 class="text-white">ASIGNACION DE PACIENTES</h1>
+
+
+            <div class="container-clients">
+
+                <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterClient">
+
+                
+                <div class="container-client-list">
+
+                    
+                    <app-assign-client-item *ngFor="let client of clients | filterClients:filterClient" [client]="client" ></app-assign-client-item>
+    
+    
+    
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+            <div>
+
+
+            </div>
+
+
+            
+
+
+
+      
+        
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </section>
+
+</div>

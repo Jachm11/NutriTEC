@@ -15,6 +15,8 @@ import { SignupClientComponent } from './signup-client/signup-client.component';
 import { ProductsApprovalComponent } from './products-approval/products-approval.component';
 import { GlobalService } from '../services/global.service';
 import { ManagerRecipeComponent } from './manager-recipe/manager-recipe.component';
+import { AssignClientComponent } from './assign-client/assign-client.component';
+import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
 
 
 @NgModule({
@@ -34,10 +36,13 @@ import { ManagerRecipeComponent } from './manager-recipe/manager-recipe.componen
         SignupClientComponent,
         SignupNutritionistComponent,
         ProductsApprovalComponent,
-        ManagerRecipeComponent
+        ManagerRecipeComponent,
+        AssignClientComponent,
+        FilterClientsPipe,
         
        
     ],
+    exports:[FilterClientsPipe],
     providers:[GlobalService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

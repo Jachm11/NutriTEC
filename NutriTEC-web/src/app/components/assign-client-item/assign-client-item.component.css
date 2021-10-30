@@ -1,0 +1,14 @@
+.container-client {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 3px solid #92374D;
+    margin-top: 15px;
+    width: 500px;
+
+}
+
+
+label {
+    margin-left: 10px;
+}

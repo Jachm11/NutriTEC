@@ -14,6 +14,7 @@ import { ProductsApprovalComponent } from './pages/products-approval/products-ap
 import { RegisterProductsComponent } from './pages/register-products/register-products.component';
 import { ManagerRecipeComponent } from './pages/manager-recipe/manager-recipe.component';
 import { SectionsComponent } from './sections/sections.component';
+import { AssignClientComponent } from './pages/assign-client/assign-client.component';
 
 
 const routes: Routes =[
@@ -28,6 +29,7 @@ const routes: Routes =[
     { path: 'register-product', component:RegisterProductsComponent},
     { path: 'manager-recipe', component:ManagerRecipeComponent},
     { path: 'sections', component:SectionsComponent},
+    { path: 'assign-client', component:AssignClientComponent},
     { path: '', redirectTo: 'login-client', pathMatch: 'full' }
 ];
 
