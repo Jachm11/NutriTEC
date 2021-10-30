@@ -22,13 +22,99 @@ export class AssignClientComponent implements OnInit {
       pais:"Costa Rica"
     },
     {
-      nombre:"Santiago"
+      nombre:"santiago",
+      primer_apellido:"mora",
+      segundo_apellido:"rodriguez",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"juan",
+      primer_apellido:"salinas",
+      segundo_apellido:"villegas",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"pedro",
+      primer_apellido:"araya",
+      segundo_apellido:"molina",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"alejando",
+      primer_apellido:"chavarria",
+      segundo_apellido:"madriz",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"adrian",
+      primer_apellido:"araya",
+      segundo_apellido:"ramirez",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"shakime",
+      primer_apellido:"richards",
+      segundo_apellido:"sparks",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"fabian",
+      primer_apellido:"barrantes",
+      segundo_apellido:"perez",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
+    },
+    {
+      nombre:"brian",
+      primer_apellido:"mora",
+      segundo_apellido:"godinez",
+      fecha_nacimiento:"20/21/2000",
+      edad:22,
+      meta_consumo_diario:200,
+      altura:120,
+      pais:"Costa Rica"
     }
   ];
 
   constructor() { }
 
   ngOnInit(): void {
+
+
+  }
+
+  assign_client(client:any){
+
+    console.log(client);
+    //Se realiza el post
+
 
 
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-assign-client-item',
@@ -8,10 +8,21 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AssignClientItemComponent implements OnInit {
 
   @Input() client:any;
+  @Output() assign_client: EventEmitter<any> = new EventEmitter();
+
 
   constructor() { }
 
   ngOnInit(): void {
+
+    console.log(this.client);
+  }
+
+
+  assignClient() {
+    this.assign_client.emit(this.client);
+
+
   }
 
 }

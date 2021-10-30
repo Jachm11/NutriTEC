@@ -15,6 +15,15 @@ export class FilterClientsPipe implements PipeTransform {
         resultClients.push(client);
 
       }
+      else if (client.primer_apellido.indexOf(arg) > -1 && resultClients === []){
+
+        resultClients.push(client);
+      }
+
+      else if (client.segundo_apellido.indexOf(arg) > -1 && resultClients === []){
+
+        resultClients.push(client); 
+      }
 
 
     }

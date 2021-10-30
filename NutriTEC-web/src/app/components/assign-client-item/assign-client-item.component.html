@@ -1,14 +1,40 @@
 <div class="container-client">
 
 
-    <label> Nombre: {{client.nombre}}</label>
-    <label> Primer apellido: {{client.primer_apellido}}</label>
-    <label> Segundo apellido: {{client.segundo_apellido}}</label>
-    <label> Fecha nacimiento: {{client.fecha_namiento}}</label>
-    <label> Edad: {{client.edad}}</label>
-    <label> Altura: {{client.altura}}</label>
-    <label> Meta de consumo diario: {{client.meta_consumo_diario}}</label>
-    <label> Pais: {{client.pais}}</label>
+    <div style="display: flex;">
+
+        <label class="label-title">Nombre: </label> <input class="input-name" disabled [value]="client.nombre +  '    ' + client.primer_apellido + '   ' + client.segundo_apellido" >
+        <label class="label-title">País: </label> <input class="input-country" disabled [value]="client.pais" >
+    </div>
+
+
+    <div style="display: flex;">
+
+        <label class="label-title">Fecha de nacimiento: </label> <input class="input-birth-date" disabled [value]="client.fecha_nacimiento" >
+        <label style="margin-left: 50px;" class="label-title">Edad: </label> <input class="input-age" disabled [value]="client.edad" >
+    </div>
+
+
+    <div style="display: flex;">
+
+        <label class="label-title">Altura: </label> <input class="input-height" disabled [value]="client.altura + ' cm'" >
+        <label style="margin-left: 107px;" class="label-title">Meta consumo diario: </label> <input class="input-daily" disabled [value]="client.meta_consumo_diario + ' kcal'" >
+    </div>
+
+    <div style="width: 100%; height: 100%;">
+
+        <div class="container-button-add">
+   
+            <button class="btn btn-success" (click)="assignClient()"> Agregar</button>
+         
+        </div>
+
+    </div>
+
+
+
+
+
 
 
 
