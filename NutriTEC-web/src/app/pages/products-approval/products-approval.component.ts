@@ -76,7 +76,21 @@ export class ProductsApprovalComponent implements OnInit {
 
     //Se filtra los items
 
+  }
 
+
+  accept_product(product:any){
+
+    console.log(product);
+    //Se realiza la consulta al API
+
+
+  }
+
+  reject_product(product:any){
+
+    console.log(product);
+    //Se realiza la consulta al API
 
   }
 

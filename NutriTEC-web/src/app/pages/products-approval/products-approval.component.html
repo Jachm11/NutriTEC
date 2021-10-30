@@ -43,7 +43,7 @@
       
 
             <app-product
-              *ngFor="let product of products" [product]="product" [url]="url"></app-product>
+              *ngFor="let product of products" [product]="product" [url]="url" (accept_product)="accept_product($event)" (reject_product)="reject_product($event)"></app-product>
     
           </div>
 

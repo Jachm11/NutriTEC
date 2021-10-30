@@ -64,6 +64,11 @@
 
 }
 
+.product-button {
+  border: 3px solid #92374D;
+  border-radius: 20px;
+}
+
 
 .dropdown {
   display: flex;
@@ -77,7 +82,8 @@
   background-color: #FAFAFA;
   flex-direction: column;
   width: 550px;
-  border: 2px solid black
+  border: 3px solid #92374D;
+  border-radius: 20px;
   
 
 }

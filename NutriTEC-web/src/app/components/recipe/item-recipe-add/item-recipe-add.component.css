@@ -14,14 +14,21 @@ input {
     font-size: 17px;
 }
 
+.input-name-recipe {
+    border-radius: 20px;
+    text-indent: 7px;
+}
+
 .input-filter {
     border: 3px solid black;
+    border-radius: 20px;
+    text-indent: 7px;
 }
 
 
 .search-container {
     height: 50px;
-    border: 3px solid black;
+    border-radius: 20px;
 }
 
 
@@ -33,6 +40,8 @@ input {
     align-items: center;
     border-style: solid;
     border-color: black;
+    margin-top: 5px;
+    border-radius: 20px;
     color: aliceblue;
 
     

@@ -11,6 +11,8 @@ export class ProductComponent implements OnInit {
   @Input() product;
   @Input() url;
   @Output() addProductRecipe: EventEmitter<any> = new EventEmitter();
+  @Output() accept_product: EventEmitter<any> = new EventEmitter();
+  @Output() reject_product: EventEmitter<any> = new EventEmitter();
 
   showMe:boolean = false;
 
@@ -29,7 +31,7 @@ export class ProductComponent implements OnInit {
   acceptProduct(){
 
     this.global.transactionSuccess("Producto aprobado exitosamente");
-
+    this.accept_product.emit(this.product);
 
   }
 
@@ -37,7 +39,7 @@ export class ProductComponent implements OnInit {
   rejectProduct(){
 
     this.global.transactionSuccess("Producto rechazado exitosamente");
-
+    this.reject_product.emit(this.product);
 
   }
 

@@ -39,6 +39,11 @@ export class GlobalService {
     this.danger_alert.next(false);
     this.alert_message = message;
 
+    setTimeout(()=> {
+      this.success_alert.next(false);
+      this.danger_alert.next(false);
+    },2000);
+
 
 
   }
@@ -47,6 +52,12 @@ export class GlobalService {
     this.success_alert.next(false);
     this.danger_alert.next(true);
     this.alert_message = message;
+
+    setTimeout(()=> {
+      this.success_alert.next(false);
+      this.danger_alert.next(false);
+    },2000);
+
 
   }
 

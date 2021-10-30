@@ -15,10 +15,11 @@
     margin: 10px;
     margin-bottom: 20px;
     padding: 10px 20px;
-    margin-top: 0px;
+    margin-top: 5px;
     border-left: 5px solid #041b35;
     border-style: solid;
     border-color: #92374D;
+    border-radius: 20px;
     color: aliceblue;
     width: 625px;
     
@@ -28,6 +29,7 @@
 .container-filter {
     display: flex;
     border-color: #92374D;
+    border-radius: 20px;
     border-style: solid;
     height: 50px;
     width: 625px;

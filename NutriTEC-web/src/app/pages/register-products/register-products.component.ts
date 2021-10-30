@@ -93,6 +93,7 @@ export class RegisterProductsComponent implements OnInit {
     }
 
     this.global.transactionSuccess("Producto agregado exitosamente");
+    //Se realiza la consulta al API
     this.setDefaultValues();
 
   }

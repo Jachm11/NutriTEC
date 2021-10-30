@@ -13,7 +13,6 @@ import { GlobalService } from 'src/app/services/global.service';;
 })
 export class ItemRecipeAddComponent implements OnInit {
 
-
   url:string;
   name_recipe:string;
   filterProducts = '';
@@ -147,8 +146,6 @@ export class ItemRecipeAddComponent implements OnInit {
   
   }
 
-
-
   addProductRecipe(product:any){
 
     this.products_selected.push({product: product, porcion: null});
@@ -156,7 +153,6 @@ export class ItemRecipeAddComponent implements OnInit {
     this.products = this.products.filter(ps => ps.name !== product.name);
 
   }
-
 
   update_porcion(event:any){
 
@@ -212,7 +208,6 @@ export class ItemRecipeAddComponent implements OnInit {
     }
 
     else if (this.global.isAdding){
-      
       //Se agrega una nueva receta
     }
 
