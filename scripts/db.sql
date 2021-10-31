@@ -5,7 +5,7 @@ WHERE  TABLE_TYPE = 'BASE TABLE'
 Exec Sp_executesql @sql
 
 
-CREATE TABLE Clientes (
+CREATE TABLE Cliente (
     id					int NOT NULL,
 	id_nutricionista	int NOT NULL,
 	nombre				varchar(20) NOT NULL,
@@ -44,7 +44,8 @@ CREATE TABLE Nutricionista (
 	tipo_cobro				varchar(20) NOT NULL,
 
 	UNIQUE(email),
-	PRIMARY KEY(id,cedula)
+	UNIQUE(cedula),
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE Medidas (
@@ -79,7 +80,8 @@ CREATE TABLE Producto (
 	vitamina		float NOT NULL,
 	carbohidratos	float NOT NULL
 
-	PRIMARY KEY(id, barcode)
+	UNIQUE(barcode),
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE Receta(
@@ -146,3 +148,12 @@ CREATE TABLE Consumo_diario(
 
 	PRIMARY KEY(id_cliente,id_producto)
 );
+
+
+/*
+ *	 *	 *	 *	 FOREIGN KEYS	*	*	*	*
+ */
+-- Employees
+ALTER TABLE "Cliente"
+ADD CONSTRAINT CLIENTE_NUTRICIONISTA_FK FOREIGN KEY(id_nutricionista)
+REFERENCES "Nutricionista"(id);
