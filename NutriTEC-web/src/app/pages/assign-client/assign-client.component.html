@@ -28,6 +28,7 @@
 
                     <input type=text class="input-filter" placeholder="Buscar clientes..." [(ngModel)]="filterClient">
 
+
                 </div>
 
    
@@ -36,7 +37,6 @@
 
                     
                     <app-assign-client-item *ngFor="let client of clients | filterClients:filterClient" [client]="client" (assign_client)="assign_client($event)" ></app-assign-client-item>
-    
     
     
                 </div>

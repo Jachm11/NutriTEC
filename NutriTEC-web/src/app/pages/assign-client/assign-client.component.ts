@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-assign-client',
@@ -103,7 +104,7 @@ export class AssignClientComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private global:GlobalService) { }
 
   ngOnInit(): void {
 
@@ -112,6 +113,7 @@ export class AssignClientComponent implements OnInit {
 
   assign_client(client:any){
 
+    this.global.transactionSuccess("Cliente agregado exitosamente");
     console.log(client);
     //Se realiza el post
 

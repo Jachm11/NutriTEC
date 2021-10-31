@@ -15,7 +15,7 @@ import { RegisterProductsComponent } from './pages/register-products/register-pr
 import { ManagerRecipeComponent } from './pages/manager-recipe/manager-recipe.component';
 import { SectionsComponent } from './sections/sections.component';
 import { AssignClientComponent } from './pages/assign-client/assign-client.component';
-
+import { ManagerPlanComponent } from './pages/manager-plan/manager-plan.component';
 
 const routes: Routes =[
     { path: 'home',             component: HomeComponent },
@@ -30,6 +30,7 @@ const routes: Routes =[
     { path: 'manager-recipe', component:ManagerRecipeComponent},
     { path: 'sections', component:SectionsComponent},
     { path: 'assign-client', component:AssignClientComponent},
+    { path: 'manager-plan', component:ManagerPlanComponent},
     { path: '', redirectTo: 'login-client', pathMatch: 'full' }
 ];
 

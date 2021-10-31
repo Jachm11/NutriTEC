@@ -15,13 +15,16 @@ import { ItemProductComponent } from './recipe/item-product/item-product.compone
 import { MatDialogModule } from '@angular/material/dialog';
 import { AssignClientItemComponent } from './assign-client-item/assign-client-item.component';
 import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
+import { PlanItemComponent } from './plan/plan-item/plan-item.component';
+import { ShowPlanInfoComponent } from './plan/show-plan-info/show-plan-info.component';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         NgbModule,
-        MatDialogModule
+        MatDialogModule,
+
     ],
     declarations: [
         RegisterComponent,
@@ -29,10 +32,19 @@ import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
         AlertsComponent,
         ItemRecipeComponent,
         ItemRecipeAddComponent, 
-        FilterPipe, ItemProductComponent, AssignClientItemComponent,
+        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,
     ],
     providers:[GlobalService],
     entryComponents: [],
-    exports: [RegisterComponent, ProductComponent, AlertsComponent, ItemRecipeAddComponent, ItemRecipeComponent, FilterPipe,  AssignClientItemComponent],
+    exports: [
+        RegisterComponent, 
+        ProductComponent, 
+        AlertsComponent, 
+        ItemRecipeAddComponent, 
+        ItemRecipeComponent, 
+        FilterPipe, 
+        AssignClientItemComponent,
+        PlanItemComponent,
+        ],
 })
 export class ComponentsModule { }

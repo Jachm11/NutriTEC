@@ -11,10 +11,10 @@ export class ProductsApprovalComponent implements OnInit {
   url:string;
   filter_option:string = "Aprobado";
 
-  products = [
+  productos = [
 
     {
-      name:"Manzana",
+      nombre:"Manzana",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -29,7 +29,7 @@ export class ProductsApprovalComponent implements OnInit {
     },
 
     {
-      name:"Manzana",
+      nombre:"Manzana",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -44,7 +44,7 @@ export class ProductsApprovalComponent implements OnInit {
     },
 
     {
-      name:"Manzana",
+      nombre:"Manzana",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",

@@ -2,5 +2,10 @@
 h2 {
 
     margin-top: 15px;
+    vertical-align: middle;
 
+}
+
+div{
+    vertical-align: middle !important;
 }

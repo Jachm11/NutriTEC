@@ -23,7 +23,7 @@ export class ItemRecipeAddComponent implements OnInit {
   products = [
 
     {
-      name:"manzana con uva",
+      nombre:"manzana con uva",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -38,7 +38,7 @@ export class ItemRecipeAddComponent implements OnInit {
     },
 
     {
-      name:"uvas",
+      nombre:"uvas",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -53,7 +53,7 @@ export class ItemRecipeAddComponent implements OnInit {
     },
 
     {
-      name:"carne",
+      nombre:"carne",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -68,7 +68,7 @@ export class ItemRecipeAddComponent implements OnInit {
     },
 
     {
-      name:"pollo",
+      nombre:"pollo",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -83,7 +83,7 @@ export class ItemRecipeAddComponent implements OnInit {
     },
 
     {
-      name:"arroz",
+      nombre:"arroz",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -98,7 +98,7 @@ export class ItemRecipeAddComponent implements OnInit {
     },
 
     {
-      name:"frijoles",
+      nombre:"frijoles",
       descripcion:"Fruta con gran cantidad de nutrientes",
       porcion:"1 pieza",
       barcode:"121232323232",
@@ -133,12 +133,22 @@ export class ItemRecipeAddComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.global.isEditing());
     if(this.global.isEditing()){
+      this.name_recipe = this.global.current_recipe.nombre;
+      this.products_selected = this.global.current_recipe.productos;
 
+      this.products = this.products.filter(pr => {
 
-      this.name_recipe = this.global.current_recipe.name;
-      this.products_selected = this.global.current_recipe.products;
+        for(let ps of this.products_selected){
+
+          if(pr.nombre === ps.producto.nombre){
+            return false;
+          }
+        }
+
+        return true;
+      });
+
       this.updateNutritionalInfo();
 
     }
@@ -146,11 +156,9 @@ export class ItemRecipeAddComponent implements OnInit {
   
   }
 
-  addProductRecipe(product:any){
-
-    this.products_selected.push({product: product, porcion: null});
-
-    this.products = this.products.filter(ps => ps.name !== product.name);
+  addProductRecipe(producto:any){
+    this.products_selected.push({producto: producto, porcion: null});
+    this.products = this.products.filter(ps => ps.nombre !== producto.nombre);
 
   }
 
@@ -158,23 +166,20 @@ export class ItemRecipeAddComponent implements OnInit {
 
     this.products_selected.forEach(ps => {
 
-      if(ps.product.name === event.product.name){
+      if(ps.producto.nombre === event.producto.nombre){
         ps.porcion = event.porcion;
-        
-
       }
 
     });
-
     this.updateNutritionalInfo();
 
-    
+
   }
 
-  delete_product(product:any){
+  delete_product(producto:any){
 
-    this.products_selected =  this.products_selected.filter(ps => ps.product.name !== product.name);
-    this.products.push(product);
+    this.products_selected =  this.products_selected.filter(ps => ps.producto.nombre !== producto.nombre);
+    this.products.push(producto);
     this.updateNutritionalInfo();
 
 
@@ -187,14 +192,14 @@ export class ItemRecipeAddComponent implements OnInit {
 
     this.products_selected.forEach(ps => {
 
-      this.total_proteinas += ps.product.proteina * ps.porcion;
-      this.total_vitaminas += ps.product.vitamina * ps.porcion;
-      this.total_calcio += ps.product.calcio * ps.porcion;
-      this.total_hierro += ps.product.hierro * ps.porcion;
-      this.total_energia += ps.product.energia * ps.porcion;
-      this.total_grasa += ps.product.grasa * ps.porcion;
-      this.total_sodio += ps.product.sodio * ps.porcion;
-      this.total_carbohidratos += ps.product.carbohidratos * ps.porcion;
+      this.total_proteinas += ps.producto.proteina * ps.porcion;
+      this.total_vitaminas += ps.producto.vitamina * ps.porcion;
+      this.total_calcio += ps.producto.calcio * ps.porcion;
+      this.total_hierro += ps.producto.hierro * ps.porcion;
+      this.total_energia += ps.producto.energia * ps.porcion;
+      this.total_grasa += ps.producto.grasa * ps.porcion;
+      this.total_sodio += ps.producto.sodio * ps.porcion;
+      this.total_carbohidratos += ps.producto.carbohidratos * ps.porcion;
     })
 
   }
@@ -202,16 +207,16 @@ export class ItemRecipeAddComponent implements OnInit {
 
   apply(){
 
-    if(this.global.isEditing){
+    if(this.global.isEditing()){
+      this.global.transactionSuccess("Receta editada exitosamente");
       //Aplica los cambios realizados 
 
     }
 
-    else if (this.global.isAdding){
+    else if (this.global.isAdding()){
+      this.global.transactionSuccess("Receta agregada exitosamente");
       //Se agrega una nueva receta
     }
-
-
     this.global.cancel();
     this.setDefaultValues();
     this.matDialog.closeAll();

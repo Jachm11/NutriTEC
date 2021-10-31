@@ -1,11 +1,11 @@
         
-<div class="alert alert-success" *ngIf="this.global.isSuccessAlert | async" (click)="this.global.hideAlert()" role="alert">
+<div class="alert alert-success" *ngIf="this.global.is_success_alert() | async" (click)="this.global.hideAlert()" role="alert">
             
         <h2 style="color:white">{{this.global.alert_message}}</h2>
 
 </div>
 
-<div class="alert alert-danger" *ngIf="this.global.isDangerAlert | async" (click)="this.global.hideAlert()" role="alert">
+<div class="alert alert-danger" *ngIf="this.global.is_danger_alert() | async" (click)="this.global.hideAlert()" role="alert">
             
         <h2 style="color:white">{{this.global.alert_message}}</h2>
 

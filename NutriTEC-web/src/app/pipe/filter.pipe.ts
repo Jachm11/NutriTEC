@@ -11,7 +11,7 @@ export class FilterPipe implements PipeTransform {
 
     for(const product of value){
 
-      if(product.name.indexOf(arg) > -1 ){
+      if(product.nombre.indexOf(arg) > -1 ){
 
         resultProducts.push(product);
 

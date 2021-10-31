@@ -17,9 +17,6 @@ export class GlobalService {
   alert_message:string = "";
   private success_alert: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private danger_alert: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isSuccessAlert: Observable<boolean> = this.success_alert.asObservable();
-  public isDangerAlert: Observable<boolean> = this.danger_alert.asObservable();
-
 
   private editing: boolean = false;
   private adding: boolean = false;
@@ -59,6 +56,15 @@ export class GlobalService {
     },2000);
 
 
+  }
+
+
+  is_success_alert(){
+    return this.success_alert.asObservable();
+  }
+
+  is_danger_alert(){
+    return this.danger_alert.asObservable();
   }
 
 

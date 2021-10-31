@@ -1,0 +1,51 @@
+
+.container-show-plan-info {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.container-products {    
+    display: flex;
+    overflow-y: scroll;
+    overflow-x: none;
+    height: 300px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    margin-top: 5px;
+    border-left: 5px solid #041b35;
+    border-style: solid;
+    border-color: black;
+    border-radius: 20px;
+    color: aliceblue;
+    width: 600px;
+    
+  }
+
+
+.container-filter {
+    display: flex;
+    border-radius: 20px;
+    height: 50px;
+    width: 625px;
+    margin: 0px;
+    background: transparent;
+
+}
+
+.input-filter {
+    border: 3px solid black;
+    border-radius: 20px;
+    text-indent: 7px;
+    width: 100%;
+}
+
+.title {
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+
+}

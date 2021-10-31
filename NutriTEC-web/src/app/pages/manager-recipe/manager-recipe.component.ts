@@ -15,12 +15,12 @@ export class ManagerRecipeComponent implements OnInit {
   recipes = [
 
     {
-      name: "receta1",
-      products: [
+      nombre: "receta1",
+      productos: [
 
         {
-          product: {
-            name:"manzana con uva",
+          producto: {
+            nombre:"manzana con uva",
             descripcion:"Fruta con gran cantidad de nutrientes",
             porcion:"1 pieza",
             barcode:"121232323232",
@@ -41,12 +41,12 @@ export class ManagerRecipeComponent implements OnInit {
       ]
     },
     {
-      name: "receta2",
-      products: [
+      nombre: "receta2",
+      productos: [
 
         {
-          product: {
-            name:"manzana con uva",
+          producto: {
+            nombre:"manzana con uva",
             descripcion:"Fruta con gran cantidad de nutrientes",
             porcion:"1 pieza",
             barcode:"121232323232",
@@ -67,12 +67,12 @@ export class ManagerRecipeComponent implements OnInit {
       ]
     },
     {
-      name: "receta3",
-      products: [
+      nombre: "receta3",
+      productos: [
 
         {
-          product: {
-            name:"manzana con uva",
+          producto: {
+            nombre:"manzana con uva",
             descripcion:"Fruta con gran cantidad de nutrientes",
             porcion:"1 pieza",
             barcode:"121232323232",
@@ -109,7 +109,7 @@ export class ManagerRecipeComponent implements OnInit {
 
   delete_recipe(recipe:any){
 
-    this.recipes = this.recipes.filter(r => r.name !== recipe.name);
+    this.recipes = this.recipes.filter(r => r.nombre !== recipe.nombre);
 
   }
 

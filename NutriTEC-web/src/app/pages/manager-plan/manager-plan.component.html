@@ -1,4 +1,3 @@
-
 <div>
     <section class="section section-shaped section-lg">
         <div class="shape shape-style-1 bg-gradient-default">
@@ -16,20 +15,17 @@
 
         <div class = "frame">
 
-            <h1 class="text-white">GESTION DE RECETAS</h1>
+            <h1 class="text-white">GESTION DE PLANES</h1>
 
-            <div class="container-manager-recipe">
-      
-            <div>
-                <button class="btn btn-success" (click)="addRecipe()"> Agregar receta</button>
 
+            <div class="container-plan">
+
+                <app-plan-item *ngFor="let plan of plans" [plan]="plan"></app-plan-item>
+
+
+                
             </div>
 
-            <div class="container-recipe">
-                <app-item-recipe *ngFor="let recipe of recipes" [recipe]="recipe" (delete_recipe)="delete_recipe($event)"></app-item-recipe>
-            </div>
-
-            </div>
        
         </div>
 
