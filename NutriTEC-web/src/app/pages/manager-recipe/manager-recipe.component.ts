@@ -108,13 +108,14 @@ export class ManagerRecipeComponent implements OnInit {
   }
 
   delete_recipe(recipe:any){
-
+    //Se realiza la consulta al API
     this.recipes = this.recipes.filter(r => r.nombre !== recipe.nombre);
 
   }
 
 
   addRecipe(){
+    
     this.global.startAdding();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-products-approval',
@@ -62,7 +63,7 @@ export class ProductsApprovalComponent implements OnInit {
 
   ]
 
-  constructor(private router:Router) { 
+  constructor(private router:Router, private global:GlobalService) { 
 
     this.url = this.router.url;
   }
@@ -81,6 +82,7 @@ export class ProductsApprovalComponent implements OnInit {
 
   accept_product(product:any){
 
+    this.global.transactionSuccess("Producto aprobado exitosamente");
     console.log(product);
     //Se realiza la consulta al API
 
@@ -88,7 +90,7 @@ export class ProductsApprovalComponent implements OnInit {
   }
 
   reject_product(product:any){
-
+    this.global.transactionSuccess("Producto rechazado exitosamente");
     console.log(product);
     //Se realiza la consulta al API
 

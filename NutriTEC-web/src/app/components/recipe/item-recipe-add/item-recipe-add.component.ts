@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { retry } from 'rxjs-compat/operator/retry';
 import { GlobalService } from 'src/app/services/global.service';;
 
 
@@ -136,24 +137,16 @@ export class ItemRecipeAddComponent implements OnInit {
     if(this.global.isEditing()){
       this.name_recipe = this.global.current_recipe.nombre;
       this.products_selected = this.global.current_recipe.productos;
-
       this.products = this.products.filter(pr => {
-
         for(let ps of this.products_selected){
-
           if(pr.nombre === ps.producto.nombre){
             return false;
           }
         }
-
         return true;
       });
-
       this.updateNutritionalInfo();
-
     }
-
-  
   }
 
   addProductRecipe(producto:any){
@@ -175,9 +168,7 @@ export class ItemRecipeAddComponent implements OnInit {
 
 
   }
-
   delete_product(producto:any){
-
     this.products_selected =  this.products_selected.filter(ps => ps.producto.nombre !== producto.nombre);
     this.products.push(producto);
     this.updateNutritionalInfo();
@@ -207,21 +198,39 @@ export class ItemRecipeAddComponent implements OnInit {
 
   apply(){
 
-    if(this.global.isEditing()){
-      this.global.transactionSuccess("Receta editada exitosamente");
-      //Aplica los cambios realizados 
-
+    if(!this.name_recipe){
+      this.global.transactionFailed("Ingrese un nombre a la receta");
+      return;
     }
 
-    else if (this.global.isAdding()){
-      this.global.transactionSuccess("Receta agregada exitosamente");
-      //Se agrega una nueva receta
+    if(this.products_selected.length < 2){
+      this.global.transactionFailed("La receta debe tener al menos dos productos");
+      return;
     }
-    this.global.cancel();
-    this.setDefaultValues();
-    this.matDialog.closeAll();
 
-    
+    else {
+
+
+
+      if(this.global.isEditing()){
+
+
+        this.global.transactionSuccess("Receta editada exitosamente");
+        //Aplica los cambios realizados 
+
+      }
+
+      else if (this.global.isAdding()){
+        this.global.transactionSuccess("Receta agregada exitosamente");
+        //Se agrega una nueva receta
+      }
+
+
+      this.global.cancel();
+      this.setDefaultValues();
+      this.matDialog.closeAll();
+
+    }    
   }
 
   cancel(){
