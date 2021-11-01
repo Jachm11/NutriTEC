@@ -130,6 +130,7 @@ export class AddEditComponent implements OnInit {
 
   //PLANES
   name_plan:string;
+  nutritionist:string;
   total_calorias:number  = 0;
   current_time_food:string = 'breakfast';
   previous_time_food:string = 'breakfast';
@@ -157,38 +158,58 @@ export class AddEditComponent implements OnInit {
         this.updateNutritionalInfo();
       }
     }
+
+    if(this.url == '/manager-plan'){
+
+      if(this.global.isEditing()){
+
+        this.name_plan = this.global.current_plan.nombre;
+        this.nutritionist = this.global.current_plan.nutritionista;
+        this.total_calorias = this.global.current_plan.calorias;
+
+      }
+
+    }
   }
 
 
   update_time_food(new_time_food:any){
 
-
-    console.log("--------------------");
-    console.log(this.previous_time_food);
-    console.log(this.current_time_food);
-    console.log(this.selected_products);
-    console.log("-------------------")
-
-
-
     if(this.previous_time_food != this.current_time_food){
       if(this.previous_time_food == 'breakfast'){
-        console.log("entraaa 1 ");
         this.breakfast = this.selected_products;
       }
   
       if(this.previous_time_food == 'morning_snack'){
         this.morning_snack = this.selected_products;
       }
-  
+
+      if(this.previous_time_food == 'launch'){
+        this.launch = this.selected_products;
+      }
+      
+      if(this.previous_time_food == 'afternoon_snack'){
+        this.afternoon_snack = this.selected_products;
+      }
+      if(this.previous_time_food == 'dinner'){
+        this.dinner = this.selected_products;
+      }
   
   
       if(this.current_time_food == 'breakfast'){
         this.selected_products = this.breakfast;
       }
       if(this.current_time_food == 'morning_snack'){
-        console.log("entraaa 2");
         this.selected_products= this.morning_snack;
+      }
+      if(this.current_time_food == 'launch'){
+        this.selected_products= this.launch;
+      }
+      if(this.current_time_food == 'afternoon_snack'){
+        this.selected_products= this.afternoon_snack;
+      }
+      if(this.current_time_food == 'dinner'){
+        this.selected_products= this.dinner;
       }
   
       this.update_product_list();
