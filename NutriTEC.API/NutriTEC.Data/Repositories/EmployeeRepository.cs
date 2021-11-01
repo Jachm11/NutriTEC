@@ -11,7 +11,11 @@ namespace NutriTEC.Data.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         // Attributo de configuracion de conexion.
-        private SQLConfiguration _connectionString;
+        private readonly SQLConfiguration _connectionString;
+
+
+        // Utilizar driver de Nuget para conectarse a la DB.
+        protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
 
         // Constructor
         public EmployeeRepository(SQLConfiguration connectionString)
@@ -19,11 +23,7 @@ namespace NutriTEC.Data.Repositories
             _connectionString = connectionString;
         }
 
-        // Utilizar driver de Nuget para conectarse a la DB.
-        protected SqlConnection dbConnection()
-        {
-            return new SqlConnection(_connectionString.ConnectionString);
-        }
+
 
 
         //public IEnumerable<Employee> GetAllEmployees()
@@ -39,17 +39,26 @@ namespace NutriTEC.Data.Repositories
 
         public Object GetEmployee(int id)
         {
-            var conn = dbConnection();
+            var conn = DbConnection;
 
             Employee e = new();
             var qs = @"  SELECT id, username, password, birthdate
                           FROM Employees
                           WHERE id = @id  ";
 
-            SqlCommand command = new SqlCommand(qs, conn);
+            SqlCommand command = new(qs, conn);
             command.Parameters.AddWithValue("@id", id);
 
             conn.Open();
+
+            // Verificar si se encuentra vacio.
+            if (IsEmpty(command))
+            {
+                conn.Close();
+                return null;
+            }
+
+            // Leer todas las filas y columnas.
             using (SqlDataReader oReader = command.ExecuteReader())
             {
                 while (oReader.Read())
@@ -61,10 +70,15 @@ namespace NutriTEC.Data.Repositories
                 }
             }
             conn.Close();
-
+            
             var output = new { e.Id, e.Username, e.Password, Birthdate = e.FormattedBirth_date };
             return output;
+        }
 
+        private static bool IsEmpty(SqlCommand cmd)
+        {
+            Object result = cmd.ExecuteScalar();
+            return (result == null);
         }
 
         //public bool InsertEmployee(Employee emp)

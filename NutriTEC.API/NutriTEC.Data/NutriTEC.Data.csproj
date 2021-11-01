@@ -5,16 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\Cliente\**" />
+    <EmbeddedResource Remove="Repositories\Cliente\**" />
+    <None Remove="Repositories\Cliente\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NutriTEC.Model\NutriTEC.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\Cliente\" />
   </ItemGroup>
 
 </Project>

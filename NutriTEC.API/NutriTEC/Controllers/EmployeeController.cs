@@ -28,7 +28,12 @@ namespace NutriTEC.Controllers
         [HttpGet("{id}"), ActionName("Get")]
         public IActionResult GetEmployeeDetails(int id)
         {
-            return Ok(_employeeRepository.GetEmployee(id));
+            Object result = _employeeRepository.GetEmployee(id);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("No hay ningún empleado asociado a este ID.");
+            // Si lo encuentra.
+            return Ok(result);
         }
 
         //[HttpPost, ActionName("Post")]

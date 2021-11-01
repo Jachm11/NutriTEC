@@ -12,31 +12,41 @@ namespace NutriTEC.Data.Repositories
     public class ClienteRepository: IClienteRepository
     {
 
-        private SQLConfiguration _connectionString;
+        // Attributo de configuracion de conexion.
+        private readonly SQLConfiguration _connectionString;
+
+        // Utilizar driver de Nuget para conectarse a la DB.
+        protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
+
 
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
         }
 
-        protected SqlConnection dbConnection()
-        {
-            return new SqlConnection(_connectionString.ConnectionString);
-        }
 
         public Object GetCliente(int id)
         {
-            var conn = dbConnection();
+            var conn = DbConnection;
 
             Cliente e = new();
             var qs = @"  SELECT id, nombre, primer_apellido, segundo_apellido
-                          FROM Cliente
+                          FROM Clientes
                           WHERE id = @id  ";
 
-            SqlCommand command = new SqlCommand(qs, conn);
+            SqlCommand command = new(qs, conn);
             command.Parameters.AddWithValue("@id", id);
 
             conn.Open();
+
+            // Verificar si se encuentra vacio.
+            if (IsEmpty(command))
+            {
+                conn.Close();
+                return null;
+            }
+
+            // Leer todas las filas y columnas.
             using (SqlDataReader oReader = command.ExecuteReader())
             {
                 while (oReader.Read())
@@ -52,6 +62,11 @@ namespace NutriTEC.Data.Repositories
             var output = new { e.Id, e.Nombre, e.Primer_apellido, e.Segundo_apellido };
             return output;
 
+        }
+        private static bool IsEmpty(SqlCommand cmd)
+        {
+            Object result = cmd.ExecuteScalar();
+            return (result == null);
         }
 
 

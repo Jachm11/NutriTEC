@@ -21,7 +21,12 @@ namespace NutriTEC.Controllers
         [HttpGet("{id}"), ActionName("Get")]
         public IActionResult GetClienteDetails(int id)
         {
-            return Ok(_clienteRepository.GetCliente(id));
+            Object result = _clienteRepository.GetCliente(id);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("No hay ningún cliente asociado a este ID");
+            // Si lo encuentra.
+            return Ok(result);
         }
 
 
