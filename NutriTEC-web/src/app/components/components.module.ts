@@ -17,6 +17,7 @@ import { AssignClientItemComponent } from './assign-client-item/assign-client-it
 import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
 import { PlanItemComponent } from './plan/plan-item/plan-item.component';
 import { ShowPlanInfoComponent } from './plan/show-plan-info/show-plan-info.component';
+import { AddEditPlanComponent } from './add-edit-plan/add-edit-plan.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,7 @@ import { ShowPlanInfoComponent } from './plan/show-plan-info/show-plan-info.comp
         AlertsComponent,
         ItemRecipeComponent,
         ItemRecipeAddComponent, 
-        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,
+        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent, AddEditPlanComponent,
     ],
     providers:[GlobalService],
     entryComponents: [],

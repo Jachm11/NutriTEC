@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AddEditPlanComponent } from '../add-edit-plan/add-edit-plan.component';
 import { ShowPlanInfoComponent } from '../show-plan-info/show-plan-info.component';
 
 @Component({
@@ -16,10 +17,20 @@ export class PlanItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  openEditDialog(){
+
+    const dialogRef = this.dialog.open(AddEditPlanComponent);
+
+
+  }
+
+
+
   showBreakfastInfo(){
 
     const dialogRef = this.dialog.open(ShowPlanInfoComponent, {
-      data : { products : this.plan.desayuno.products, time_food : "Desayuno"}
+      data : { products : this.plan.desayuno.productos, time_food : "Desayuno"}
     });
 
 
@@ -36,26 +47,26 @@ export class PlanItemComponent implements OnInit {
 
   showMorningSnackInfo(){
     this.dialog.open(ShowPlanInfoComponent), {
-      data : { products : this.plan.merienda_manana.products, time_food : "Merienda mañana"}
+      data : { products : this.plan.merienda_manana.productos, time_food : "Merienda mañana"}
     }
   }
 
   showLaunchInfo(){
     this.dialog.open(ShowPlanInfoComponent, {
-      data : { products : this.plan.almuerzo.products, time_food : "Almuerzo"}
+      data : { products : this.plan.almuerzo.productos, time_food : "Almuerzo"}
 
     })
   }
 
   showAfternoonSnackInfo(){
     this.dialog.open(ShowPlanInfoComponent, {
-      data: { products : this.plan.merienda_tarde.products, time_food : "Merienda tarde"}
+      data: { products : this.plan.merienda_tarde.productos, time_food : "Merienda tarde"}
     })
   }
 
   showDinnerInfo(){
     const dialogRef = this.dialog.open(ShowPlanInfoComponent, {
-      data : { products : this.plan.cena.products, time_food : "Cena"}
+      data : { products : this.plan.cena.productos, time_food : "Cena"}
     })
 
 
