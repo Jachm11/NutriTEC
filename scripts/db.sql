@@ -1,20 +1,15 @@
-DECLARE @sql NVARCHAR(max)=''
-SELECT @sql += ' Drop table ' + QUOTENAME(TABLE_SCHEMA) + '.'+ QUOTENAME(TABLE_NAME) + '; '
-FROM   INFORMATION_SCHEMA.TABLES
-WHERE  TABLE_TYPE = 'BASE TABLE'
-Exec Sp_executesql @sql
-
+USE [nutridb]
 
 CREATE TABLE Cliente (
     id					int NOT NULL,
-	id_nutricionista	int NOT NULL,
+	id_nutricionista	int,
 	nombre				varchar(20) NOT NULL,
 	primer_apellido		varchar(20) NOT NULL,
 	segundo_apellido	varchar(20) NOT NULL,
     email				varchar(20) NOT NULL,
 	clave				varchar(20) NOT NULL,
 	fecha_nacimiento	Date NOT NULL,
-	meta_consumo_diario int NOT NULL,
+	meta_consumo_diario float NOT NULL,
 	altura				float NOT NULL,
 	pais				varchar(20) NOT NULL, 
 	estatus				varchar(20) NOT NULL,
@@ -110,7 +105,7 @@ CREATE TABLE Plans(
 	estatus			varchar(20) NOT NULL,
 	nombre			varchar(20) NOT NULL,
 
-	PRIMARY KEY(id,id_nutricionista)
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE Productos_plan(
@@ -128,7 +123,7 @@ CREATE TABLE Plan_cliente(
 	id_cliente		int NOT NULL,
 	id_plan_cliente	int NOT NULL,
 
-	PRIMARY KEY(id_plan,id_cliente,id_plan_cliente)
+	PRIMARY KEY(id_plan_cliente)
 );
 
 CREATE TABLE Fecha_plan_cliente(
@@ -157,3 +152,80 @@ CREATE TABLE Consumo_diario(
 ALTER TABLE "Cliente"
 ADD CONSTRAINT CLIENTE_NUTRICIONISTA_FK FOREIGN KEY(id_nutricionista)
 REFERENCES "Nutricionista"(id);
+
+-- Medidas
+ALTER TABLE "Medidas"
+ADD CONSTRAINT MEDIDAS_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+-- Consumo diario
+ALTER TABLE "Consumo_diario"
+ADD CONSTRAINT CONSUMO_DIARIO_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+ALTER TABLE "Consumo_diario"
+ADD CONSTRAINT CONSUMO_DIARIO_PRODUCTO_FK FOREIGN KEY(id_producto)
+REFERENCES "Producto"(id);
+
+-- Receta
+ALTER TABLE "Receta"
+ADD CONSTRAINT RECETA_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+-- Producto receta
+ALTER TABLE "Producto_receta"
+ADD CONSTRAINT PRODUCTO_RECETA_PRODUCTO_FK FOREIGN KEY(id_producto)
+REFERENCES "Producto"(id);
+
+ALTER TABLE "Producto_receta"
+ADD CONSTRAINT PRODUCTO_RECETA_RECETA_FK FOREIGN KEY(id_receta)
+REFERENCES "Receta"(id);
+
+-- Productos plan
+ALTER TABLE "Productos_plan"
+ADD CONSTRAINT PRODUCTOS_PLAN_PRODUCTO_FK FOREIGN KEY(id_producto)
+REFERENCES "Producto"(id);
+
+ALTER TABLE "Productos_plan"
+ADD CONSTRAINT PRODUCTOS_PLAN_PLANS_FK FOREIGN KEY(id_plan)
+REFERENCES "Plans"(id);
+
+-- Plans
+ALTER TABLE "Plans"
+ADD CONSTRAINT PLANS_NUTRICIONISTA_FK FOREIGN KEY(id_nutricionista)
+REFERENCES "Nutricionista"(id);
+
+-- Plan cliente
+ALTER TABLE "Plan_cliente"
+ADD CONSTRAINT PLAN_CLIENTE_PLAN_FK FOREIGN KEY(id_plan)
+REFERENCES "Plans"(id);
+
+ALTER TABLE "Plan_cliente"
+ADD CONSTRAINT PLAN_CLIENTE_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+-- Fecha plan cliente
+ALTER TABLE "Fecha_plan_cliente"
+ADD CONSTRAINT FECHA_PLAN_CLIENTE_PLAN_CLIENTE_FK FOREIGN KEY(id_plan_cliente)
+REFERENCES "Plan_cliente"(id_plan_cliente);
+
+
+CREATE TABLE Employees (
+    id int NOT NULL PRIMARY KEY,
+    username varchar(12) NOT NULL,
+	password varchar(8) NOT NULL,
+	birthdate Date NOT NULL
+);
+	
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('1', 'Shak', '123', '10/21/2000');
+
+INSERT INTO Employees (id, username, password, birthdate) 
+		VALUES ('2', 'Adrian', '123', '06/21/1999');
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('3', 'Jose', '123', '09/15/2001');
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('4', 'Sebas', '123', '12/31/2000');
