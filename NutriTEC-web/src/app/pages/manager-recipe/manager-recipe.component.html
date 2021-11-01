@@ -21,12 +21,12 @@
             <div class="container-manager-recipe">
       
             <div>
-                <button class="btn btn-success" (click)="addRecipe()"> Agregar receta</button>
+                <button class="btn btn-success" (click)="open_add_dialog()"> Agregar receta</button>
 
             </div>
 
             <div class="container-recipe">
-                <app-item-recipe *ngFor="let recipe of recipes" [recipe]="recipe" (delete_recipe)="delete_recipe($event)"></app-item-recipe>
+                <app-item-recipe *ngFor="let recipe of recipes" [recipe]="recipe" (delete_recipe)="delete_recipe($event)" (edit_recipe)="open_edit_dialog()"></app-item-recipe>
             </div>
 
             </div>

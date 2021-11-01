@@ -10,6 +10,8 @@
 .container-info-plan {
     display: grid; 
     grid-template-columns: 1fr 200px; 
+    margin-top: 10px;
+    margin-left: 10px;
     align-items: center;
 }
 
@@ -20,12 +22,17 @@
     align-items: center;
 }
 
+.container-button-edit button {
+    margin-top: 5px;
+}
+
 
 .container-times-food {
     display: flex; 
     flex-direction: column; 
     align-items: center;
     margin-left: 50px;
+    margin-bottom: 10px;
 }
 
 .container-time-food {

@@ -13,18 +13,27 @@
 
         <app-alerts></app-alerts>
 
+
+ 
         <div class = "frame">
 
             <h1 class="text-white">GESTION DE PLANES</h1>
 
 
-            <div class="container-plan">
+            <div class="container-manager-plan">
 
-                <app-plan-item *ngFor="let plan of plans" [plan]="plan"></app-plan-item>
+                <div>
+                    <button class="btn btn-success" (click)="open_add_dialog()"> Agregar plan</button>
+                </div>
 
 
-                
-            </div>
+                <div class="container-plan">
+
+                    <app-plan-item *ngFor="let plan of plans" [plan]="plan" [url]=url (delete_plan)="delete_plan($event)" (edit_plan)="open_edit_dialog()"></app-plan-item>
+  
+                </div>
+
+        </div>
 
        
         </div>

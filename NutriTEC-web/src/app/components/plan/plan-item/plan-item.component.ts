@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalService } from 'src/app/services/global.service';
 import { AddEditPlanComponent } from '../add-edit-plan/add-edit-plan.component';
 import { ShowPlanInfoComponent } from '../show-plan-info/show-plan-info.component';
 
@@ -11,37 +12,31 @@ import { ShowPlanInfoComponent } from '../show-plan-info/show-plan-info.componen
 export class PlanItemComponent implements OnInit {
 
   @Input() plan:any;
+  @Output() edit_plan: EventEmitter<any> = new EventEmitter();
+  @Output() delete_plan: EventEmitter<any> = new EventEmitter();
   
-  constructor(private dialog:MatDialog) { }
+  constructor(private dialog:MatDialog, private global:GlobalService) { }
 
   ngOnInit(): void {
   }
 
 
-  openEditDialog(){
-
-    const dialogRef = this.dialog.open(AddEditPlanComponent);
-
-
+  delete(){
+    this.delete_plan.emit(this.plan);
   }
 
 
+  edit(){
+    this.global.current_plan = this.plan;
+    this.edit_plan.emit(this.plan);
+
+  }
 
   showBreakfastInfo(){
 
     const dialogRef = this.dialog.open(ShowPlanInfoComponent, {
       data : { products : this.plan.desayuno.productos, time_food : "Desayuno"}
     });
-
-
-    const subscribeDialog = dialogRef.componentInstance.emitter.subscribe((data) => {
-      console.log(data);
-    })
-
-
-    dialogRef.afterClosed().subscribe(result =>{
-      subscribeDialog.unsubscribe();
-    })
 
   }
 

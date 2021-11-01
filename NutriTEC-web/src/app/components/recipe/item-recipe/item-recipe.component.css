@@ -1,7 +1,6 @@
 .item-recipe {
-    display: grid;
-    grid-template-columns: 1fr 80px;
-    grid-column-gap: 30px;
+    display: flex;
+    flex-direction: column;
     background: #0b013800;
     margin: 10px;
     margin-bottom: 20px;
@@ -9,7 +8,7 @@
     border: 6px solid #92374D; 
     border-radius: 20px;
     color: aliceblue;
-    width: 720px;
+    width: 700px;
   }
 
 label {
@@ -22,8 +21,22 @@ label {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    height: 350px;
+    border: 2px solid #508AA8;
+    border-radius: 20px;
+    height: 300px;
+    margin-top: -15px;
 
+}
+
+.title-products {
+    margin-top: 10px;
+    color:white;
+
+}
+
+.container-recipe-general-info {
+    display: grid;
+    grid-template-columns: 1fr 300px;
 }
 
 label {
@@ -33,4 +46,9 @@ label {
 
 app-product {
     margin-bottom: 5px;
+}
+
+.container-buttons {
+    display: flex;
+    flex-direction: column;
 }

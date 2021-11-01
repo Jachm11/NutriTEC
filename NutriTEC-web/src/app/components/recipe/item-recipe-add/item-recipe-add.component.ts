@@ -15,6 +15,7 @@ import { GlobalService } from 'src/app/services/global.service';;
 export class ItemRecipeAddComponent implements OnInit {
 
   url:string;
+  @Output() apply : EventEmitter<any> = new EventEmitter();
   name_recipe:string;
   filterProducts = '';
 
@@ -196,7 +197,7 @@ export class ItemRecipeAddComponent implements OnInit {
   }
 
 
-  apply(){
+  apply_changes(){
 
     if(!this.name_recipe){
       this.global.transactionFailed("Ingrese un nombre a la receta");
@@ -208,35 +209,17 @@ export class ItemRecipeAddComponent implements OnInit {
       return;
     }
 
-    else {
-
-
-
-      if(this.global.isEditing()){
-
-
-        this.global.transactionSuccess("Receta editada exitosamente");
-        //Aplica los cambios realizados 
-
-      }
-
-      else if (this.global.isAdding()){
-        this.global.transactionSuccess("Receta agregada exitosamente");
-        //Se agrega una nueva receta
-      }
-
-
-      this.global.cancel();
-      this.setDefaultValues();
-      this.matDialog.closeAll();
-
-    }    
+    this.apply.emit({nombre: this.name_recipe, nutricionista: 'Sebastian', calorias : 1232, productos : this.products_selected});
+    this.setDefaultValues();
+    this.matDialog.closeAll();
+   
   }
+
+
 
   cancel(){
     this.global.cancel();
     this.setDefaultValues();
-    console.log(this.products_selected);
     this.matDialog.closeAll();
   }
 

@@ -130,8 +130,8 @@
                     <button *ngIf="url == '/products-approval'" class="aprove-button btn btn-1 btn-success" (click)="acceptProduct()"> Aprobar </button>
                     <button *ngIf="url == '/products-approval'" class="reject-button btn btn-1 btn-danger" (click)="rejectProduct()"> Rechazar </button>
 
-                    <button *ngIf="url == '/manager-recipe'" class="aprove-button btn btn-1 btn-success" (click)="addProductToRecipe()"> Agregar </button>
-
+                    <button *ngIf="url == '/manager-recipe' || url == '/manager-plan'" class="aprove-button btn btn-1 btn-success" (click)="addProduct()"> Agregar </button>
+                
                 </div>
 
             </div>

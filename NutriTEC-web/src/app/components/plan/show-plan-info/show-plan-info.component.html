@@ -8,20 +8,14 @@
     </div>
 
 
-    <div class="container-filter">
-        <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">
-
-    </div>
       <div class="container-products">
         <app-product
-          *ngFor="let product of data.products | filter:filterProducts" [product]="product" [url]="url" (accept_product)="accept_product($event)" (reject_product)="reject_product($event)"></app-product>
+          *ngFor="let product of data.products" [product]="product" [url]="url" (accept_product)="accept_product($event)" (reject_product)="reject_product($event)"></app-product>
 
       </div>
 
       <div style="display:flex; flex-direction: column; align-items: center;">
           <button class="btn" (click)=close()>Cancel</button>
       </div>
-
-
 
 </div>

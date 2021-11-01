@@ -18,3 +18,9 @@
 
 
 }
+
+.container-manager-plan {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-column-gap: 125px;
+}

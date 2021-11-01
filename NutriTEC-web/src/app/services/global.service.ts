@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AnyTxtRecord } from 'dns';
 
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { isThisTypeNode } from 'typescript';
@@ -22,6 +23,7 @@ export class GlobalService {
   private adding: boolean = false;
 
   current_recipe:any;
+  current_plan:any;
 
 
   hideAlert(){

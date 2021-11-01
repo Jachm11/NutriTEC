@@ -1,5 +1,76 @@
 
 .container-add-edit-plan {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 50px;
+    align-items: center;
+
 
     
 }
+
+.input-name-plan {
+    text-indent: 7px;
+    width: 100%;
+    height: 40px;
+}
+
+.input-name-plan {
+    border-radius: 20px;
+    text-indent: 7px;
+}
+
+.select-time-food {
+    border-radius: 20px;
+    height: 30px;
+    text-align: center;
+
+}
+
+
+.products-list {    
+    display: flex;
+    overflow-y: scroll;
+    height: 350px;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-color: black;
+    margin-top: 5px;
+    border-radius: 20px;
+    color: aliceblue;
+
+    
+  }
+
+  .container-input-productList {
+    display: flex;
+    flex-direction: column;
+    width: 625px;
+
+}
+
+.input-filter {
+    border-radius: 20px;
+}
+
+
+.container-productSelected {
+    width: 350px;
+    height: 300px;
+    overflow-y: scroll;
+    border: 3px solid black;
+    background-color: #FAFAFA;
+
+
+}
+
+.container-column-2 {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
+::ng-deep mat-dialog-container {
+    border-radius: 20px !important;
+  }

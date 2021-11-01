@@ -1,0 +1,42 @@
+.container-recipe-info {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+
+.data {
+    display: grid;
+    grid-template-columns: 250px 250px;
+    grid-column-gap: 0px;
+    margin-top: 10px;
+  
+  }
+
+span {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+li {
+    margin-top: 10px;
+}
+
+.header-info-nutritional-recipe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-button-close {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::ng-deep mat-dialog-container {
+    border-radius: 20px !important;
+  }

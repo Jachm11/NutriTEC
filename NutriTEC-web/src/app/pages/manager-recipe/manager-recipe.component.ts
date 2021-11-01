@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
+import { AddEditPlanComponent } from 'src/app/components/plan/add-edit-plan/add-edit-plan.component';
 import { ItemRecipeAddComponent } from 'src/app/components/recipe/item-recipe-add/item-recipe-add.component';
 import { GlobalService } from 'src/app/services/global.service';
 
@@ -95,34 +97,73 @@ export class ManagerRecipeComponent implements OnInit {
 
   ]
 
-  constructor(private global:GlobalService,private matDialog:MatDialog) { }
+  constructor(private global:GlobalService,private dialog:MatDialog) { }
 
   ngOnInit(): void {
   }
 
 
-  openDialog(){
+  open_add_dialog(){
 
-    this.matDialog.open(ItemRecipeAddComponent);
+    this.global.startAdding();
+
+    const dialogRef = this.dialog.open(AddEditComponent);
+    const subscribeDialog = dialogRef.componentInstance.apply.subscribe((recipe) => {
+      this.add_recipe(recipe);
+    })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      subscribeDialog.unsubscribe();
+    })
+  }
+
+  open_edit_dialog(){
+
+    this.global.startEditing();
+
+    const dialogRef = this.dialog.open(AddEditComponent);
+    const subscribeDialog = dialogRef.componentInstance.apply.subscribe((recipe) => {
+      this.edit_recipe(recipe);
+    })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      subscribeDialog.unsubscribe();
+    })
 
   }
+
+
 
   delete_recipe(recipe:any){
     //Se realiza la consulta al API
+    console.log("Se debe eliminar la receta");
     this.recipes = this.recipes.filter(r => r.nombre !== recipe.nombre);
+    this.global.transactionSuccess("Se eliminó la receta exitosamente");
+
+  }
+
+  add_recipe(recipe:any){
+    //Se realiza la consulta al api
+    this.recipes.push(recipe);
+    console.log("data " + recipe);
+    console.log("Se agrega exitosamente la receta");
+    this.global.transactionSuccess(`Se agrego la receta exitosamente`);
 
   }
 
 
-  addRecipe(){
-    
-    this.global.startAdding();
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.matDialog.open(ItemRecipeAddComponent, dialogConfig);
+  edit_recipe(recipe:any){
+    //Se realiza la consulta al api
+    this.recipes = this.recipes.filter(r => r.nombre !== recipe.nombre);
+    this.recipes.push(recipe);
+    this.global.transactionFailed(`Se editó la receta exitosamente`);
+
+
+
 
   }
+
+
 
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog'; 
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-show-plan-info',
@@ -8,10 +9,10 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class ShowPlanInfoComponent implements OnInit {
 
-  filterProducts = [];
+  filterProducts = '';
   emitter = new EventEmitter();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data :any, private dialog:MatDialog) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data :any, private dialog:MatDialog, private global:GlobalService) { 
 
   }
 
@@ -21,10 +22,9 @@ export class ShowPlanInfoComponent implements OnInit {
 
   }
 
-
   close(){
-    this.emitter.emit("hola");
     this.dialog.closeAll();
+  
 
   }
 
