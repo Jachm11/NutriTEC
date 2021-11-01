@@ -24,7 +24,7 @@ CREATE TABLE Nutricionista (
     id						int NOT NULL,
 	email					varchar(20) NOT NULL,
 	clave					varchar(20) NOT NULL,
-	cedula					int NOT NULL,
+	cedula					varchar(20) NOT NULL,
 	nombre					varchar(20) NOT NULL,
 	primer_apellido			varchar(20) NOT NULL,
 	segundo_apellido		varchar(20) NOT NULL,

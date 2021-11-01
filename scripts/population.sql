@@ -25,7 +25,7 @@ INSERT INTO [dbo].[Nutricionista]
            (1
            ,'pedro@gmail.com'
            ,'123'
-           ,123456789
+           ,'123456789'
            ,'Pedro'
            ,'Perico'
            ,'Perez'
