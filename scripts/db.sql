@@ -14,7 +14,7 @@ CREATE TABLE Cliente (
     email				varchar(20) NOT NULL,
 	clave				varchar(20) NOT NULL,
 	fecha_nacimiento	Date NOT NULL,
-	meta_consumo_diario int NOT NULL,
+	meta_consumo_diario float NOT NULL,
 	altura				float NOT NULL,
 	pais				varchar(20) NOT NULL, 
 	estatus				varchar(20) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE Plans(
 	estatus			varchar(20) NOT NULL,
 	nombre			varchar(20) NOT NULL,
 
-	PRIMARY KEY(id,id_nutricionista)
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE Productos_plan(
@@ -128,7 +128,7 @@ CREATE TABLE Plan_cliente(
 	id_cliente		int NOT NULL,
 	id_plan_cliente	int NOT NULL,
 
-	PRIMARY KEY(id_plan,id_cliente,id_plan_cliente)
+	PRIMARY KEY(id_plan_cliente)
 );
 
 CREATE TABLE Fecha_plan_cliente(
@@ -157,3 +157,61 @@ CREATE TABLE Consumo_diario(
 ALTER TABLE "Cliente"
 ADD CONSTRAINT CLIENTE_NUTRICIONISTA_FK FOREIGN KEY(id_nutricionista)
 REFERENCES "Nutricionista"(id);
+
+-- Medidas
+ALTER TABLE "Medidas"
+ADD CONSTRAINT MEDIDAS_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+-- Consumo diario
+ALTER TABLE "Consumo_diario"
+ADD CONSTRAINT CONSUMO_DIARIO_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+ALTER TABLE "Consumo_diario"
+ADD CONSTRAINT CONSUMO_DIARIO_PRODUCTO_FK FOREIGN KEY(id_producto)
+REFERENCES "Producto"(id);
+
+-- Receta
+ALTER TABLE "Receta"
+ADD CONSTRAINT RECETA_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+-- Producto receta
+ALTER TABLE "Producto_receta"
+ADD CONSTRAINT PRODUCTO_RECETA_PRODUCTO_FK FOREIGN KEY(id_producto)
+REFERENCES "Producto"(id);
+
+ALTER TABLE "Producto_receta"
+ADD CONSTRAINT PRODUCTO_RECETA_RECETA_FK FOREIGN KEY(id_receta)
+REFERENCES "Receta"(id);
+
+-- Productos plan
+ALTER TABLE "Productos_plan"
+ADD CONSTRAINT PRODUCTOS_PLAN_PRODUCTO_FK FOREIGN KEY(id_producto)
+REFERENCES "Producto"(id);
+
+ALTER TABLE "Productos_plan"
+ADD CONSTRAINT PRODUCTOS_PLAN_PLANS_FK FOREIGN KEY(id_plan)
+REFERENCES "Plans"(id);
+
+-- Plans
+ALTER TABLE "Plans"
+ADD CONSTRAINT PLANS_NUTRICIONISTA_FK FOREIGN KEY(id_nutricionista)
+REFERENCES "Nutricionista"(id);
+
+-- Plan cliente
+ALTER TABLE "Plan_cliente"
+ADD CONSTRAINT PLAN_CLIENTE_PLAN_FK FOREIGN KEY(id_plan)
+REFERENCES "Plans"(id);
+
+ALTER TABLE "Plan_cliente"
+ADD CONSTRAINT PLAN_CLIENTE_CLIENTE_FK FOREIGN KEY(id_cliente)
+REFERENCES "Cliente"(id);
+
+-- Fecha plan cliente
+ALTER TABLE "Fecha_plan_cliente"
+ADD CONSTRAINT FECHA_PLAN_CLIENTE_PLAN_CLIENTE_FK FOREIGN KEY(id_plan_cliente)
+REFERENCES "Plan_cliente"(id_plan_cliente);
+
+
