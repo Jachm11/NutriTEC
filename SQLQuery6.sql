@@ -1,9 +1,3 @@
-DECLARE @sql NVARCHAR(max)=''
-SELECT @sql += ' Drop table ' + QUOTENAME(TABLE_SCHEMA) + '.'+ QUOTENAME(TABLE_NAME) + '; '
-FROM   INFORMATION_SCHEMA.TABLES
-WHERE  TABLE_TYPE = 'BASE TABLE'
-Exec Sp_executesql @sql
-
 
 CREATE TABLE Employees (
     id int NOT NULL PRIMARY KEY,
@@ -11,6 +5,28 @@ CREATE TABLE Employees (
 	password varchar(8) NOT NULL,
 	birthdate Date NOT NULL
 );
+
+
+CREATE TABLE Clientes (
+    id int NOT NULL PRIMARY KEY,
+	nombre varchar(20) NOT NULL,
+	primer_apellido varchar(20) NOT NULL,
+	segundo_apellido varchar(20) NOT NULL,
+    email varchar(20) NOT NULL,
+	clave varchar(20) NOT NULL,
+	fecha_nacimiento Date NOT NULL,
+	meta_consumo_diario int NOT NULL,
+	altura float NOT NULL,
+	pais varchar(20) NOT NULL, 
+	estatus varchar(20) NOT NULL,
+	idConversacion int
+);
+
+-- INSERT DE CLIENTES
+
+
+
+
 
 INSERT INTO Employees (id, username, password, birthdate)
 		VALUES ('1', 'Shak', '123', '10/21/2000');
