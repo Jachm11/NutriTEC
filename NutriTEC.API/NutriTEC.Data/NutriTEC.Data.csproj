@@ -13,4 +13,8 @@
     <ProjectReference Include="..\NutriTEC.Model\NutriTEC.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\Cliente\" />
+  </ItemGroup>
+
 </Project>

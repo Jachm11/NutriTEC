@@ -1,3 +1,6 @@
+USE [nutridb]
+
+
 DECLARE @sql NVARCHAR(max)=''
 SELECT @sql += ' Drop table ' + QUOTENAME(TABLE_SCHEMA) + '.'+ QUOTENAME(TABLE_NAME) + '; '
 FROM   INFORMATION_SCHEMA.TABLES

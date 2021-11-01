@@ -1,6 +1,8 @@
+USE [nutridb]
+
 CREATE TABLE Cliente (
     id					int NOT NULL,
-	id_nutricionista	int NOT NULL,
+	id_nutricionista	int,
 	nombre				varchar(20) NOT NULL,
 	primer_apellido		varchar(20) NOT NULL,
 	segundo_apellido	varchar(20) NOT NULL,
@@ -208,3 +210,22 @@ ADD CONSTRAINT FECHA_PLAN_CLIENTE_PLAN_CLIENTE_FK FOREIGN KEY(id_plan_cliente)
 REFERENCES "Plan_cliente"(id_plan_cliente);
 
 
+CREATE TABLE Employees (
+    id int NOT NULL PRIMARY KEY,
+    username varchar(12) NOT NULL,
+	password varchar(8) NOT NULL,
+	birthdate Date NOT NULL
+);
+	
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('1', 'Shak', '123', '10/21/2000');
+
+INSERT INTO Employees (id, username, password, birthdate) 
+		VALUES ('2', 'Adrian', '123', '06/21/1999');
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('3', 'Jose', '123', '09/15/2001');
+
+INSERT INTO Employees (id, username, password, birthdate)
+		VALUES ('4', 'Sebas', '123', '12/31/2000');
