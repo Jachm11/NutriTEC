@@ -2,6 +2,7 @@
 using NutriTEC.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,19 +24,43 @@ namespace NutriTEC.Data.Repositories
             _connectionString = connectionString;
         }
 
+        // **************** ADD NEW CLIENTE *********************
+        public bool InsertEmployee(Employee smodel)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new SqlCommand("AddNewEmployee", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@id", smodel.Id);
+            cmd.Parameters.AddWithValue("@username", smodel.Username);
+            cmd.Parameters.AddWithValue("@password", smodel.Password);
+            cmd.Parameters.AddWithValue("@birthdate", smodel.Birthdate);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i >= 1)
+                return true;
+            else
+                return false;
+        }
 
 
 
-        //public IEnumerable<Employee> GetAllEmployees()
-        //{
-        //    var db = dbConnection();
+        /*        public IEnumerable<Employee> GetAllEmployees()
+                {
+                    var db = DbConnection;
 
-        //    var sql = @"  SELECT id, username, password, birthdate
-        //                  FROM public.""Employee"" ";
+                    var sql = @"  SELECT id, username, password, birthdate
+                                  FROM Employees ";
 
-        //    return db.QueryAsync<Employee>(sql, new { });
 
-        //}
+
+                    return db.QueryAsync<Employee>(sql, new { });
+
+                }*/
 
         public Object GetEmployee(int id)
         {

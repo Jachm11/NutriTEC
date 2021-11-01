@@ -31,7 +31,7 @@ namespace NutriTEC.Data.Repositories
 
             Cliente e = new();
             var qs = @"  SELECT id, nombre, primer_apellido, segundo_apellido
-                          FROM Clientes
+                          FROM Cliente
                           WHERE id = @id  ";
 
             SqlCommand command = new(qs, conn);
