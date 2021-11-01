@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NutriTEC.Model
 {
-    class Medidas
+    public class Medidas
     {
         [Key]
         public int Id { get; set; }

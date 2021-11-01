@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NutriTEC.Model
 {
-    class Nutricionista
+    public class Nutricionista
     {
         [Key]
         public int Id { get; set; }
