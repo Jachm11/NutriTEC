@@ -15,7 +15,7 @@ namespace NutriTEC.Data.Repositories
 
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName;
+        private readonly string _spName = "MasterClient";
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -23,7 +23,7 @@ namespace NutriTEC.Data.Repositories
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
-            _spName = "MasterClient";
+            
         }
 
         // GetAllClients: retorna la lista de clientes de la base de datos.
@@ -70,11 +70,11 @@ namespace NutriTEC.Data.Repositories
             List<Object> clientsList = new();
             List<Object> selected = AddSelectedClientsToList(dt, clientsList);
             if (selected.Count == 0) return null;
-            return selected;
+            return selected.FirstOrDefault();
         }
 
         // **************** LOGIN *********************
-        public bool LogIn(int username, int password)
+        public Object LogIn(string email, string clave)
         {
             var conn = DbConnection;
 
@@ -82,14 +82,20 @@ namespace NutriTEC.Data.Repositories
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@StatementType", "LogIn");
 
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@password", password);
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@clave", clave);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
 
             conn.Open();
-            int i = cmd.ExecuteNonQuery();
+            sd.Fill(dt);
             conn.Close();
 
-            return (i >= 1);
+            List<Object> clientsList = new();
+            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
+            if (selected.Count == 0) return null;
+            return selected.FirstOrDefault();
         }
 
         //private bool uniqueUsename(string username)

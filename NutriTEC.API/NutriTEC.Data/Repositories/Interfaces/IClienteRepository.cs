@@ -17,7 +17,7 @@ namespace NutriTEC.Data.Repositories
 
         bool UpdateClient(Cliente client);
 
-        bool LogIn(int username, int password);
+        object LogIn(string email, string clave);
 
         bool AssignNutricionistToClient(int id, int id_nutricionist);
 
