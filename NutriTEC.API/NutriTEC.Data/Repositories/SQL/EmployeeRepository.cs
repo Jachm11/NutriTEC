@@ -91,12 +91,12 @@ namespace NutriTEC.Data.Repositories
                     e.Id = Int32.Parse(oReader["id"].ToString());
                     e.Username = oReader["username"].ToString();
                     e.Password = oReader["password"].ToString();
-                    e.Birthdate = e.Cast_str_to_date(oReader["birthdate"].ToString());
+
                 }
             }
             conn.Close();
             
-            var output = new { e.Id, e.Username, e.Password, Birthdate = e.FormattedBirth_date };
+            var output = new { e.Id, e.Username, e.Password};
             return output;
         }
 

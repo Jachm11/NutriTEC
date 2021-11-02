@@ -25,7 +25,7 @@ namespace NutriTEC.Data.Repositories
             _connectionString = connectionString;
         }
 
-        // ********** VIEW CLIENTS DETAILS ********************
+        // ********** GET ALL CLIENTS ********************
         public List<Object> GetAllClients()
         {
             var con = DbConnection;
@@ -56,14 +56,13 @@ namespace NutriTEC.Data.Repositories
                         Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
                         Altura = float.Parse(Convert.ToString(dr["altura"])),
                         Pais = Convert.ToString(dr["pais"]),
-                        Id_conversacion = Convert.ToInt32(dr["id"])
+                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"])
                     });
             }
             return clientlist;
         }
 
-
-        public Object GetCliente(int id)
+        public Object GetClient(int id)
         {
             var conn = DbConnection;
 
@@ -101,6 +100,36 @@ namespace NutriTEC.Data.Repositories
             return output;
 
         }
+
+        // **************** INSERT NEW CLIENT *********************
+        public bool InsertClient(Cliente client)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new SqlCommand("AddNewClient", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            
+            cmd.Parameters.AddWithValue("@nombre", client.Nombre);
+            cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
+            cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
+            cmd.Parameters.AddWithValue("@email", client.Email);
+            cmd.Parameters.AddWithValue("@clave", client.Clave);
+            cmd.Parameters.AddWithValue("@fecha_nacimiento", client.Fecha_nacimiento);
+            cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
+            cmd.Parameters.AddWithValue("@altura", client.Altura);
+            cmd.Parameters.AddWithValue("@pais", client.Pais);
+            cmd.Parameters.AddWithValue("@estatus", client.Estatus);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i >= 1)
+                return true;
+            else
+                return false;
+        }
+
         private static bool IsEmpty(SqlCommand cmd)
         {
             Object result = cmd.ExecuteScalar();
