@@ -11,7 +11,7 @@ namespace NutriTEC.Data.Repositories
     {
         //IEnumerable<Employee> GetAllEmployees();
         Object GetEmployee(int id);
-        //bool InsertEmployee(Employee emp);
+        bool InsertEmployee(Employee emp);
         //bool UpdateEmployee(Employee emp);
         //bool DeleteEmployee(int id);
     }

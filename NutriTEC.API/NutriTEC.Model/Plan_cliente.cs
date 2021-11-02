@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace NutriTEC.Model
 {
-
-    public class Employee
+    public class Plan_cliente
     {
+        public int id_plan { get; set; }
+	    public int id_cliente { get; set; }
         [Key]
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public DateTime Birthdate { get; set; }
+        public int id_plan_cliente { get; set; }
     }
-
 }

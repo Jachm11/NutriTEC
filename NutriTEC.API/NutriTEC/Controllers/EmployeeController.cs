@@ -36,18 +36,18 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
-        //[HttpPost, ActionName("Post")]
-        //public IActionResult CreateEmployee([FromBody] Employee emp)
-        //{
-        //    if (emp == null)
-        //        return BadRequest();
+        [HttpPost, ActionName("Post")]
+        public IActionResult CreateEmployee([FromBody] Employee emp)
+        {
+            if (emp == null)
+                return BadRequest();
 
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var created = _employeeRepository.InsertEmployee(emp);
-        //    return Created("created", created);
-        //}
+            var created = _employeeRepository.InsertEmployee(emp);
+            return Created("created", created);
+        }
 
         //[HttpPut, ActionName("Put")]
         //public IActionResult UpdateEmployee([FromBody] Employee emp)

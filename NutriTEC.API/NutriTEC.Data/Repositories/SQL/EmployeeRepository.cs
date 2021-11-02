@@ -2,6 +2,7 @@
 using NutriTEC.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,19 +24,43 @@ namespace NutriTEC.Data.Repositories
             _connectionString = connectionString;
         }
 
+        // **************** ADD NEW CLIENTE *********************
+        public bool InsertEmployee(Employee smodel)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new SqlCommand("AddNewEmployee", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@id", smodel.Id);
+            cmd.Parameters.AddWithValue("@username", smodel.Username);
+            cmd.Parameters.AddWithValue("@password", smodel.Password);
+            cmd.Parameters.AddWithValue("@birthdate", smodel.Birthdate);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i >= 1)
+                return true;
+            else
+                return false;
+        }
 
 
 
-        //public IEnumerable<Employee> GetAllEmployees()
-        //{
-        //    var db = dbConnection();
+        /*        public IEnumerable<Employee> GetAllEmployees()
+                {
+                    var db = DbConnection;
 
-        //    var sql = @"  SELECT id, username, password, birthdate
-        //                  FROM public.""Employee"" ";
+                    var sql = @"  SELECT id, username, password, birthdate
+                                  FROM Employees ";
 
-        //    return db.QueryAsync<Employee>(sql, new { });
 
-        //}
+
+                    return db.QueryAsync<Employee>(sql, new { });
+
+                }*/
 
         public Object GetEmployee(int id)
         {
@@ -66,12 +91,12 @@ namespace NutriTEC.Data.Repositories
                     e.Id = Int32.Parse(oReader["id"].ToString());
                     e.Username = oReader["username"].ToString();
                     e.Password = oReader["password"].ToString();
-                    e.Birthdate = e.Cast_str_to_date(oReader["birthdate"].ToString());
+
                 }
             }
             conn.Close();
             
-            var output = new { e.Id, e.Username, e.Password, Birthdate = e.FormattedBirth_date };
+            var output = new { e.Id, e.Username, e.Password};
             return output;
         }
 

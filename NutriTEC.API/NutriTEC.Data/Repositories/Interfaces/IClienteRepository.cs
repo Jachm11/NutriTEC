@@ -9,8 +9,10 @@ namespace NutriTEC.Data.Repositories
 {
     public interface IClienteRepository
     {
+        List<Object> GetAllClients();
+        Object GetClient(int id);
 
-        Object GetCliente(int id);
+        bool InsertClient(Cliente client);
 
     }
 }

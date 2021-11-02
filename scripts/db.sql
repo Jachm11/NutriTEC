@@ -1,7 +1,7 @@
 USE [nutridb]
 
 CREATE TABLE Cliente (
-    id					int NOT NULL,
+    id					int IDENTITY(1,1),
 	id_nutricionista	int,
 	nombre				varchar(20) NOT NULL,
 	primer_apellido		varchar(20) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Cliente (
 	altura				float NOT NULL,
 	pais				varchar(20) NOT NULL, 
 	estatus				varchar(20) NOT NULL,
-	idConversacion		int,
+	id_conversacion		int,
 
 	UNIQUE(email),
 	PRIMARY KEY(id)
@@ -21,10 +21,10 @@ CREATE TABLE Cliente (
 );
 
 CREATE TABLE Nutricionista (
-    id						int NOT NULL,
+    id						int IDENTITY(1,1),
 	email					varchar(20) NOT NULL,
 	clave					varchar(20) NOT NULL,
-	cedula					int NOT NULL,
+	cedula					varchar(20) NOT NULL,
 	nombre					varchar(20) NOT NULL,
 	primer_apellido			varchar(20) NOT NULL,
 	segundo_apellido		varchar(20) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE Nutricionista (
 
 CREATE TABLE Medidas (
 
-	id					int NOT NULL,
+	id					int IDENTITY(1,1),
 	id_cliente			int NOT NULL,
 	porcentaje_musculo	float NOT NULL,
 	porcentaje_grasa	float NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE Medidas (
 
 CREATE TABLE Producto (
 
-	id				int NOT NULL,
+	id				int IDENTITY(1,1),
 	barcode			varchar(50) NOT NULL,
 	estatus			varchar(20) NOT NULL,
 	sodio			float NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE Producto (
 
 CREATE TABLE Receta(
 	
-	id				int NOT NULL,
+	id				int IDENTITY(1,1),
 	id_cliente		int NOT NULL,
 	estatus			varchar(20) NOT NULL,
 	nombre			varchar(20) NOT NULL,
@@ -89,23 +89,32 @@ CREATE TABLE Receta(
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE Plans(
+	
+	id					int IDENTITY(1,1),
+	id_nutricionista	int NOT NULL,
+	estatus				varchar(20) NOT NULL,
+	nombre				varchar(20) NOT NULL,
+
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Plan_cliente(
+	
+	id_plan_cliente	int IDENTITY(1,1),
+	id_plan			int NOT NULL,
+	id_cliente		int NOT NULL,
+
+	PRIMARY KEY(id_plan_cliente)
+);
+
 CREATE TABLE Producto_receta(
 
 	id_producto		int NOT NULL,
 	id_receta		int NOT NULL,
+	porciones		float NOT NULL,
 
 	PRIMARY KEY(id_producto,id_receta)
-);
-
-
-CREATE TABLE Plans(
-	
-	id					int NOT NULL,
-	id_nutricionista	int NOT NULL,
-	estatus			varchar(20) NOT NULL,
-	nombre			varchar(20) NOT NULL,
-
-	PRIMARY KEY(id)
 );
 
 CREATE TABLE Productos_plan(
@@ -113,17 +122,9 @@ CREATE TABLE Productos_plan(
 	id_producto		int NOT NULL,
 	id_plan			int NOT NULL,
 	tiempo_comida	varchar(20) NOT NULL,
+	porciones		float NOT NULL,
 
 	PRIMARY KEY(id_producto,id_plan)
-);
-
-CREATE TABLE Plan_cliente(
-
-	id_plan			int NOT NULL,
-	id_cliente		int NOT NULL,
-	id_plan_cliente	int NOT NULL,
-
-	PRIMARY KEY(id_plan_cliente)
 );
 
 CREATE TABLE Fecha_plan_cliente(
@@ -211,21 +212,21 @@ REFERENCES "Plan_cliente"(id_plan_cliente);
 
 
 CREATE TABLE Employees (
-    id int NOT NULL PRIMARY KEY,
+    id int IDENTITY(1,1) PRIMARY KEY,
     username varchar(12) NOT NULL,
 	password varchar(8) NOT NULL,
 	birthdate Date NOT NULL
 );
 	
 
-INSERT INTO Employees (id, username, password, birthdate)
-		VALUES ('1', 'Shak', '123', '10/21/2000');
+INSERT INTO Employees (username, password, birthdate)
+		VALUES ('Shak', '123', '10/21/2000');
 
-INSERT INTO Employees (id, username, password, birthdate) 
-		VALUES ('2', 'Adrian', '123', '06/21/1999');
+INSERT INTO Employees (username, password, birthdate) 
+		VALUES ('Adrian', '123', '06/21/1999');
 
-INSERT INTO Employees (id, username, password, birthdate)
-		VALUES ('3', 'Jose', '123', '09/15/2001');
+INSERT INTO Employees (username, password, birthdate)
+		VALUES ('Jose', '123', '09/15/2001');
 
-INSERT INTO Employees (id, username, password, birthdate)
-		VALUES ('4', 'Sebas', '123', '12/31/2000');
+INSERT INTO Employees (username, password, birthdate)
+		VALUES ('Sebas', '123', '12/31/2000');

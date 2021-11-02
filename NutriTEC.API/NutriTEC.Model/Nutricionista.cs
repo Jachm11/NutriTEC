@@ -7,23 +7,24 @@ using System.Threading.Tasks;
 
 namespace NutriTEC.Model
 {
-    public class Cliente
+    public class Nutricionista
     {
         [Key]
         public int Id { get; set; }
-        public int Id_nutricionista { get; set; }
+        public string Email { get; set; }
+        public string Clave { get; set; }
+        public string Cedula { get; set; }
         public string Nombre { get; set; }
         public string Primer_apellido { get; set; }
         public string Segundo_apellido { get; set; }
-        public string Email { get; set; }
-        public string Clave { get; set; }
-        public DateTime Fecha_nacimiento { get; set; }
-        public float Meta_consumo_diario { get; set; }
+        public int Codigo_nutricionista { get; set; }
         public float Altura { get; set; }
-        public string Pais { get; set; }
         public string Estatus { get; set; }
-        public int Id_conversacion { get; set; }
-
-
+        public DateTime Fecha_nacimiento { get; set; }
+        public float Peso { get; set; }
+        public string Direccion { get; set; }
+        public string Foto { get; set; }
+        public string Tarjeta { get; set; }
+        public string Tipo_cobro { get; set; }
     }
 }

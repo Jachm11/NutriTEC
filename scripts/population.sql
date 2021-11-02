@@ -5,8 +5,7 @@ GO
 -- NUTRICIONISTAS
 
 INSERT INTO [dbo].[Nutricionista]
-           ([id]
-           ,[email]
+           ([email]
            ,[clave]
            ,[cedula]
            ,[nombre]
@@ -22,10 +21,9 @@ INSERT INTO [dbo].[Nutricionista]
            ,[tarjeta]
            ,[tipo_cobro])
      VALUES
-           (1
-           ,'pedro@gmail.com'
+           ('pedro@gmail.com'
            ,'123'
-           ,123456789
+           ,'123456789'
            ,'Pedro'
            ,'Perico'
            ,'Perez'
@@ -42,8 +40,7 @@ INSERT INTO [dbo].[Nutricionista]
 -- CLIENTES
 
 INSERT INTO [dbo].[Cliente]
-           ([id]
-		   ,[id_nutricionista]
+           ([id_nutricionista]
            ,[nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
@@ -54,10 +51,9 @@ INSERT INTO [dbo].[Cliente]
            ,[altura]
            ,[pais]
            ,[estatus]
-           ,[idConversacion])
+           ,[id_conversacion])
      VALUES
            (1
-		   , 1
            ,'Adrian'
            ,'Araya'
            ,'Ramirez'
