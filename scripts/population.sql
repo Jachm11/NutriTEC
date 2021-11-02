@@ -51,7 +51,7 @@ INSERT INTO [dbo].[Cliente]
            ,[altura]
            ,[pais]
            ,[estatus]
-           ,[idConversacion])
+           ,[id_conversacion])
      VALUES
            (1
            ,'Adrian'

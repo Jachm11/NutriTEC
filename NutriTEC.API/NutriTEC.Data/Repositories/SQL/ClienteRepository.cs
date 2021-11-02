@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 
 namespace NutriTEC.Data.Repositories
@@ -22,6 +23,43 @@ namespace NutriTEC.Data.Repositories
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        // ********** VIEW CLIENTS DETAILS ********************
+        public List<Object> GetAllClients()
+        {
+            var con = DbConnection;
+            List<Object> clientlist = new List<Object>();
+
+            SqlCommand cmd = new SqlCommand("GetAllClients", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                clientlist.Add(
+                    new 
+                    {
+                        Id = Convert.ToInt32(dr["id"]),
+                        Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
+                        Nombre = Convert.ToString(dr["nombre"]),
+                        Primer_apellido = Convert.ToString(dr["primer_apellido"]),
+                        Segundo_apellido = Convert.ToString(dr["segundo_apellido"]),
+                        Email = Convert.ToString(dr["email"]),
+                        Clave = Convert.ToString(dr["clave"]),
+                        Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha_nacimiento"])),
+                        Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
+                        Altura = float.Parse(Convert.ToString(dr["altura"])),
+                        Pais = Convert.ToString(dr["pais"]),
+                        Id_conversacion = Convert.ToInt32(dr["id"])
+                    });
+            }
+            return clientlist;
         }
 
 

@@ -9,7 +9,7 @@ namespace NutriTEC.Data.Repositories
 {
     public interface IClienteRepository
     {
-
+        List<Object> GetAllClients();
         Object GetCliente(int id);
 
     }

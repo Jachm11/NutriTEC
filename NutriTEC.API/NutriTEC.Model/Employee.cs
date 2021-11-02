@@ -15,22 +15,6 @@ namespace NutriTEC.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public DateTime Birthdate { get; set; }
-        public DateTime Cast_str_to_date(string str)
-        {
-
-            DateTime convertedDate = DateTime.Parse(str);
-            DateTime t = convertedDate.Date;
-            return t;
-        }
-
-        public string FormattedBirth_date
-        {
-            get
-            {
-                return string.Format("{0:dd/MM/yyyy}", Birthdate);
-            }
-        }
-
     }
 
 }

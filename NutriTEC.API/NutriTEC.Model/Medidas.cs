@@ -18,21 +18,6 @@ namespace NutriTEC.Model
         public float Peso { get; set; }
         public float Cintura { get; set; }
         public DateTime Fecha { get; set; }
-        public DateTime Cast_str_to_date(string str)
-        {
-
-            DateTime convertedDate = DateTime.Parse(str);
-            DateTime t = convertedDate.Date;
-            return t;
-        }
-
-        public string FormattedBirth_date
-        {
-            get
-            {
-                return string.Format("{0:dd/MM/yyyy}", Fecha);
-            }
-        }
         public float Cuello { get; set; }
         public string Estatus { get; set; }
 

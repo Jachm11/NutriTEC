@@ -13,7 +13,7 @@ CREATE TABLE Cliente (
 	altura				float NOT NULL,
 	pais				varchar(20) NOT NULL, 
 	estatus				varchar(20) NOT NULL,
-	idConversacion		int,
+	id_conversacion		int,
 
 	UNIQUE(email),
 	PRIMARY KEY(id)
