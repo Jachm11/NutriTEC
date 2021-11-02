@@ -40,6 +40,20 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+
+        // GET: /Cliente/login?email=a&clave=b
+        // Retorna al cliente que coincide con el id.
+        [HttpGet("login"), ActionName("Get")]
+        public IActionResult LogIn(string email, string clave)
+        {
+            Object result = _clientRepository.LogIn(email, clave);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("Usuario o clave incorrectas.");
+            // Si lo encuentra.
+            return Ok(result);
+        }
+
         // POST: /Cliente
         // Agrega un nuevo cliente a la base de datos.
         [HttpPost, ActionName("Insert")]
@@ -55,7 +69,7 @@ namespace NutriTEC.Controllers
             return Created("created", result);
         }
 
-        // Update: /Cliente
+        // PUT: /Cliente
         // Actualiza un nuevo cliente de la base de datos.
         [HttpPut, ActionName("Update")]
         public IActionResult UpdateClient([FromBody] Cliente client)

@@ -12,6 +12,10 @@ namespace NutriTEC.Model
         [Key]
         public int Id { get; set; }
         public int Id_nutricionista { get; set; }
+
+        public int Id_conversacion { get; set; }
+
+
         public string Nombre { get; set; }
         public string Primer_apellido { get; set; }
         public string Segundo_apellido { get; set; }
@@ -22,7 +26,6 @@ namespace NutriTEC.Model
         public float Altura { get; set; }
         public string Pais { get; set; }
         public string Estatus { get; set; }
-        public int Id_conversacion { get; set; }
 
 
     }

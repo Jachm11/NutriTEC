@@ -19,8 +19,6 @@ Create procedure [dbo].[MasterClient]
        @pais varchar (20) = NULL,
        @estatus varchar (20) = NULL,
        @id_conversacion int = NULL,
-	   @username varchar(20) = NULL,
-	   @password varchar(20) = NULL,
        @StatementType NVARCHAR(20) = ''
    )
    AS
@@ -43,7 +41,7 @@ Create procedure [dbo].[MasterClient]
               [estatus],
               ISNULL([id_conversacion],-1) as [id_conversacion]
         FROM Cliente
-        ORDER BY [nombre] DESC
+        ORDER BY [nombre] ASC
         END
     
     IF @StatementType = 'SelectOne'
@@ -83,7 +81,7 @@ Create procedure [dbo].[MasterClient]
             [estatus],
             ISNULL([id_conversacion],-1) as [id_conversacion]
     FROM Cliente
-    WHERE [email] = @username and [clave] = @password
+    WHERE [email] = @email AND [clave] = @clave
     END
 
     IF @StatementType = 'Insert'
