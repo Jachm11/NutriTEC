@@ -15,6 +15,8 @@ namespace NutriTEC.Model
 
         public int Id_conversacion { get; set; }
 
+        public string Estatus { get; set; }
+
 
         public string Nombre { get; set; }
         public string Primer_apellido { get; set; }
@@ -25,7 +27,7 @@ namespace NutriTEC.Model
         public float Meta_consumo_diario { get; set; }
         public float Altura { get; set; }
         public string Pais { get; set; }
-        public string Estatus { get; set; }
+
 
 
     }
