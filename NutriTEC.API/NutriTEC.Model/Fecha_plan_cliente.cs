@@ -10,7 +10,7 @@ namespace NutriTEC.Model
     public class Fecha_plan_cliente
     {
         [Key]
-        public int id_plan_cliente { get; set; }
-	    public DateTime fecha { get; set; }
+        public int Id_plan_cliente { get; set; }
+	    public DateTime Fecha { get; set; }
     }
 }

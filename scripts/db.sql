@@ -112,6 +112,7 @@ CREATE TABLE Producto_receta(
 
 	id_producto		int NOT NULL,
 	id_receta		int NOT NULL,
+	porciones		float NOT NULL,
 
 	PRIMARY KEY(id_producto,id_receta)
 );
@@ -121,6 +122,7 @@ CREATE TABLE Productos_plan(
 	id_producto		int NOT NULL,
 	id_plan			int NOT NULL,
 	tiempo_comida	varchar(20) NOT NULL,
+	porciones		float NOT NULL,
 
 	PRIMARY KEY(id_producto,id_plan)
 );

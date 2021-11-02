@@ -10,10 +10,10 @@ namespace NutriTEC.Model
     class Consumo_diario
     {
         [Key]
-        public int id_cliente { get; set; }
+        public int Id_cliente { get; set; }
         [Key]
-        public int id_producto { get; set; }
-        public int tiempo_comida { get; set; }
-        public DateTime fecha { get; set; }
+        public int Id_producto { get; set; }
+        public int Tiempo_comida { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

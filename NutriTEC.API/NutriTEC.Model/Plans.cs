@@ -10,9 +10,9 @@ namespace NutriTEC.Model
     public class Plans
     {
         [Key]
-        public int id { get; set; }
-        public int id_nutricionista { get; set; }
-        public string estatus { get; set; }
-        public string nombre { get; set; }
+        public int Id { get; set; }
+        public int Id_nutricionista { get; set; }
+        public string Estatus { get; set; }
+        public string Nombre { get; set; }
     }
 }
