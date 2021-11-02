@@ -4,7 +4,7 @@ BEGIN
 
 
 	SELECT [id]
-      ,ISNULL([id_nutricionista],0) as [id_nutricionista]
+      ,ISNULL([id_nutricionista],-1) as [id_nutricionista]
       ,[nombre]
       ,[primer_apellido]
       ,[segundo_apellido]
@@ -15,7 +15,7 @@ BEGIN
       ,[altura]
       ,[pais]
       ,[estatus]
-	  ,ISNULL([id_conversacion],0) as [id_conversacion]
+	  ,ISNULL([id_conversacion],-1) as [id_conversacion]
 		 FROM Cliente
 
 END
