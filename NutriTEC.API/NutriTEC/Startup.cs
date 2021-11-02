@@ -35,7 +35,6 @@ namespace NutriTEC
             services.AddSingleton(SQLConnectionConfig);
 
             // Inyectar dependencia en employees.
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
 
             services.AddControllers();

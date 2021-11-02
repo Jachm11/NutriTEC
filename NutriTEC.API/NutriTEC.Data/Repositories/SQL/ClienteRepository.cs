@@ -15,6 +15,7 @@ namespace NutriTEC.Data.Repositories
 
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
+        private readonly string _spName;
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -22,6 +23,7 @@ namespace NutriTEC.Data.Repositories
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
+            _spName = "MasterClient";
         }
 
         // GetAllClients: retorna la lista de clientes de la base de datos.
@@ -29,87 +31,109 @@ namespace NutriTEC.Data.Repositories
         // Salida: lista de clientes
         public List<Object> GetAllClients()
         {
-            var con = DbConnection;
-            List<Object> clientlist = new List<Object>();
+            var conn = DbConnection;
 
-            SqlCommand cmd = new SqlCommand("GetAllClients", con);
+            SqlCommand cmd = new(_spName, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter sd = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            cmd.Parameters.AddWithValue("@StatementType", "SelectAll");
 
-            con.Open();
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
             sd.Fill(dt);
-            con.Close();
+            conn.Close();
 
+            List<Object> clientsList = new();
+            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
+            return selected;
+        }
+
+        // **************** GET CLIENT BY ID *********************
+
+        public Object GetClient(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@StatementType", "SelectOne");
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> clientsList = new();
+            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
+            if (selected.Count == 0) return null;
+            return selected;
+        }
+
+        // **************** LOGIN *********************
+        public bool LogIn(int username, int password)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "LogIn");
+
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@password", password);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            return (i >= 1);
+        }
+
+        //private bool uniqueUsename(string username)
+        //{
+
+        //}
+
+        private static List<object> AddSelectedClientsToList(DataTable dt, List<Object> clientsList)
+        {
+            // Leer todas las filas y columnas.
             foreach (DataRow dr in dt.Rows)
             {
-                clientlist.Add(
-                    new 
+                clientsList.Add(
+                    new
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
+                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"]),
                         Nombre = Convert.ToString(dr["nombre"]),
                         Primer_apellido = Convert.ToString(dr["primer_apellido"]),
                         Segundo_apellido = Convert.ToString(dr["segundo_apellido"]),
                         Email = Convert.ToString(dr["email"]),
                         Clave = Convert.ToString(dr["clave"]),
                         Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha_nacimiento"])),
+                        Edad = Convert.ToInt32(dr["edad"]),
                         Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
                         Altura = float.Parse(Convert.ToString(dr["altura"])),
-                        Pais = Convert.ToString(dr["pais"]),
-                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"])
+                        Pais = Convert.ToString(dr["pais"])
                     });
             }
-            return clientlist;
+            return clientsList;
         }
 
-        public Object GetClient(int id)
-        {
-            var con = DbConnection;
 
-            Object client = new object();
-
-            SqlCommand cmd = new SqlCommand("GetClient", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id", id);
-
-            con.Open();
-
-            using (SqlDataReader sdr = cmd.ExecuteReader())
-            {
-                while (sdr.Read())
-                {
-                    client = new
-                    {
-                        Id = Convert.ToInt32(sdr["id"]),
-                        Id_nutricionista = Convert.ToInt32(sdr["id_nutricionista"]),
-                        Nombre = Convert.ToString(sdr["nombre"]),
-                        Primer_apellido = Convert.ToString(sdr["primer_apellido"]),
-                        Segundo_apellido = Convert.ToString(sdr["segundo_apellido"]),
-                        Email = Convert.ToString(sdr["email"]),
-                        Clave = Convert.ToString(sdr["clave"]),
-                        Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(sdr["fecha_nacimiento"])),
-                        Meta_consumo_diario = float.Parse(Convert.ToString(sdr["meta_consumo_diario"])),
-                        Altura = float.Parse(Convert.ToString(sdr["altura"])),
-                        Pais = Convert.ToString(sdr["pais"]),
-                        Id_conversacion = Convert.ToInt32(sdr["id_conversacion"])
-                    };
-                }
-            }
-            con.Close();
-
-            return client;
-
-        }
 
         // **************** INSERT NEW CLIENT *********************
         public bool InsertClient(Cliente client)
         {
             var conn = DbConnection;
 
-            SqlCommand cmd = new SqlCommand("AddNewClient", conn);
+            SqlCommand cmd = new(_spName, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            
+            cmd.Parameters.AddWithValue("@StatementType", "Insert");
+
             cmd.Parameters.AddWithValue("@nombre", client.Nombre);
             cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
             cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
@@ -125,18 +149,77 @@ namespace NutriTEC.Data.Repositories
             int i = cmd.ExecuteNonQuery();
             conn.Close();
 
-            if (i >= 1)
-                return true;
-            else
-                return false;
+            return (i >= 1);
+
         }
 
-        private static bool IsEmpty(SqlCommand cmd)
+
+        // **************** UPDATE CLIENT *********************
+        public bool UpdateClient(Cliente client)
         {
-            Object result = cmd.ExecuteScalar();
-            return (result == null);
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "Update");
+
+            cmd.Parameters.AddWithValue("@id", client.Id);
+            cmd.Parameters.AddWithValue("@Id_nutricionista", client.Id_nutricionista);
+            cmd.Parameters.AddWithValue("@nombre", client.Nombre);
+            cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
+            cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
+            cmd.Parameters.AddWithValue("@email", client.Email);
+            cmd.Parameters.AddWithValue("@clave", client.Clave);
+            cmd.Parameters.AddWithValue("@fecha_nacimiento", client.Fecha_nacimiento);
+            cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
+            cmd.Parameters.AddWithValue("@altura", client.Altura);
+            cmd.Parameters.AddWithValue("@pais", client.Pais);
+            cmd.Parameters.AddWithValue("@estatus", client.Estatus);
+            cmd.Parameters.AddWithValue("@Id_conversacion", client.Id_conversacion);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            return (i >= 1);
         }
 
+        // **************** ASSIGN NUTRICIONIST TO CLIENT *********************
+        public bool AssignNutricionistToClient(int id, int id_nutricionist)
+        {
+            var conn = DbConnection;
 
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "AssignN");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@Id_nutricionista", id_nutricionist);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+           
+            return (i >= 1);
+        }
+
+        // **************** ASSIGN CONVERSATION TO CLIENT *********************
+        public bool AssignConversationToClient(int id, int id_forum)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "AssignC");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@Id_conversacion", id_forum);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            return (i >= 1);
+        }
     }
 }
