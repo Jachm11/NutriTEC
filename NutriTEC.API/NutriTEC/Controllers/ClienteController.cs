@@ -18,7 +18,8 @@ namespace NutriTEC.Controllers
             _clientRepository = clientRepository;
         }
 
-        // GET: Cliente
+        // GET: /Cliente
+        // Retorna todos los clientes.
         [HttpGet, ActionName("GetAll")]
         public IActionResult getAllClients()
         {
@@ -26,7 +27,8 @@ namespace NutriTEC.Controllers
             return Ok(_clientRepository.GetAllClients());
         }
 
-
+        // GET: /Cliente/1
+        // Retorna al cliente que coincide con el id.
         [HttpGet("{id}"), ActionName("Get")]
         public IActionResult GetClientDetails(int id)
         {
@@ -38,6 +40,8 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+        // POST: /Cliente
+        // Agrega un nuevo cliente a la base de datos.
         [HttpPost, ActionName("Post")]
         public IActionResult CreateClient([FromBody] Cliente client)
         {

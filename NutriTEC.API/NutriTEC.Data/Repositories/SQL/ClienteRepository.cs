@@ -19,13 +19,14 @@ namespace NutriTEC.Data.Repositories
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
 
-
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
         }
 
-        // ********** GET ALL CLIENTS ********************
+        // GetAllClients: retorna la lista de clientes de la base de datos.
+        // Parametros de entrada: sin parametros
+        // Salida: lista de clientes
         public List<Object> GetAllClients()
         {
             var con = DbConnection;
@@ -64,40 +65,40 @@ namespace NutriTEC.Data.Repositories
 
         public Object GetClient(int id)
         {
-            var conn = DbConnection;
+            var con = DbConnection;
 
-            Cliente e = new();
-            var qs = @"  SELECT id, nombre, primer_apellido, segundo_apellido
-                          FROM Cliente
-                          WHERE id = @id  ";
+            Object client = new object();
 
-            SqlCommand command = new(qs, conn);
-            command.Parameters.AddWithValue("@id", id);
+            SqlCommand cmd = new SqlCommand("GetClient", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
 
-            conn.Open();
+            con.Open();
 
-            // Verificar si se encuentra vacio.
-            if (IsEmpty(command))
+            using (SqlDataReader sdr = cmd.ExecuteReader())
             {
-                conn.Close();
-                return null;
-            }
-
-            // Leer todas las filas y columnas.
-            using (SqlDataReader oReader = command.ExecuteReader())
-            {
-                while (oReader.Read())
+                while (sdr.Read())
                 {
-                    e.Id = Int32.Parse(oReader["id"].ToString());
-                    e.Nombre = oReader["nombre"].ToString();
-                    e.Primer_apellido = oReader["primer_apellido"].ToString();
-                    e.Segundo_apellido = oReader["segundo_apellido"].ToString();
+                    client = new
+                    {
+                        Id = Convert.ToInt32(sdr["id"]),
+                        Id_nutricionista = Convert.ToInt32(sdr["id_nutricionista"]),
+                        Nombre = Convert.ToString(sdr["nombre"]),
+                        Primer_apellido = Convert.ToString(sdr["primer_apellido"]),
+                        Segundo_apellido = Convert.ToString(sdr["segundo_apellido"]),
+                        Email = Convert.ToString(sdr["email"]),
+                        Clave = Convert.ToString(sdr["clave"]),
+                        Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(sdr["fecha_nacimiento"])),
+                        Meta_consumo_diario = float.Parse(Convert.ToString(sdr["meta_consumo_diario"])),
+                        Altura = float.Parse(Convert.ToString(sdr["altura"])),
+                        Pais = Convert.ToString(sdr["pais"]),
+                        Id_conversacion = Convert.ToInt32(sdr["id_conversacion"])
+                    };
                 }
             }
-            conn.Close();
+            con.Close();
 
-            var output = new { e.Id, e.Nombre, e.Primer_apellido, e.Segundo_apellido };
-            return output;
+            return client;
 
         }
 
