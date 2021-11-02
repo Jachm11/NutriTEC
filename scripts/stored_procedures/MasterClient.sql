@@ -1,3 +1,5 @@
+USE nutridb;
+
 IF OBJECT_ID ( 'MasterClient', 'P' ) IS NOT NULL
     DROP PROCEDURE [MasterClient];  
 GO
@@ -17,6 +19,8 @@ Create procedure [dbo].[MasterClient]
        @pais varchar (20) = NULL,
        @estatus varchar (20) = NULL,
        @id_conversacion int = NULL,
+	   @username varchar(20) = NULL,
+	   @password varchar(20) = NULL,
        @StatementType NVARCHAR(20) = ''
    )
    AS
@@ -79,7 +83,7 @@ Create procedure [dbo].[MasterClient]
             [estatus],
             ISNULL([id_conversacion],-1) as [id_conversacion]
     FROM Cliente
-    WHERE [username] = @username and [password] = @password
+    WHERE [email] = @username and [clave] = @password
     END
 
     IF @StatementType = 'Insert'
