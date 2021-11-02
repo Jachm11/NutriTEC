@@ -9,11 +9,10 @@
        @meta_consumo_diario float,
        @altura float,
        @pais varchar (20),
-       @estatus varchar (20),
-       @id_conversacion int
+       @estatus varchar (20)
     )  
     as  
     begin  
-       Insert into Cliente values(@nombre,@primer_apellido,@segundo_apellido,@email,
-       @clave,@fecha_nacimiento,@meta_consumo_diario,@altura,@pais,@estatus,@id_conversacion)  
+       Insert into Cliente values(NULL,@nombre,@primer_apellido,@segundo_apellido,@email,
+       @clave,@fecha_nacimiento,@meta_consumo_diario,@altura,@pais,@estatus,NULL)  
     End
