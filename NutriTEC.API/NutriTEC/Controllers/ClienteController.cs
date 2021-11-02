@@ -65,8 +65,9 @@ namespace NutriTEC.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = _clientRepository.InsertClient(client);
-            return Created("created", result);
+            string result = _clientRepository.InsertClient(client);
+            if (result == "") return Ok("Se ha agregado correctamente.");
+            return BadRequest(result);
         }
 
         // PUT: /Cliente

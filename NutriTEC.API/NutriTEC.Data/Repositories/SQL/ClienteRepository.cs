@@ -16,6 +16,7 @@ namespace NutriTEC.Data.Repositories
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = "MasterClient";
+        private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -123,7 +124,8 @@ namespace NutriTEC.Data.Repositories
                         Edad = Convert.ToInt32(dr["edad"]),
                         Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
                         Altura = float.Parse(Convert.ToString(dr["altura"])),
-                        Pais = Convert.ToString(dr["pais"])
+                        Pais = Convert.ToString(dr["pais"]),
+                        Estatus = Convert.ToString(dr["estatus"])
                     });
             }
             return clientsList;
@@ -132,8 +134,10 @@ namespace NutriTEC.Data.Repositories
 
 
         // **************** INSERT NEW CLIENT *********************
-        public bool InsertClient(Cliente client)
+        public string InsertClient(Cliente client)
         {
+            if (!CheckEmailAvailability(client.Email)) return "El email ingresado ya se encuentra en uso.";
+
             var conn = DbConnection;
 
             SqlCommand cmd = new(_spName, conn);
@@ -149,14 +153,28 @@ namespace NutriTEC.Data.Repositories
             cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
             cmd.Parameters.AddWithValue("@altura", client.Altura);
             cmd.Parameters.AddWithValue("@pais", client.Pais);
-            cmd.Parameters.AddWithValue("@estatus", client.Estatus);
 
             conn.Open();
             int i = cmd.ExecuteNonQuery();
             conn.Close();
 
-            return (i >= 1);
+            if (i < 1) return "No se ha logrado agregar al nuevo cliente. Por favor intente más tarde.";
+            return "";
+        }
 
+        // Funcion que verifica si se encuentra disponible el email a la hora de crear un usuario.
+        private bool CheckEmailAvailability(string email)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_uniqueEmail, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email);
+
+            conn.Open();
+            bool result = (bool)cmd.ExecuteScalar();
+            conn.Close();
+            return result;
         }
 
 

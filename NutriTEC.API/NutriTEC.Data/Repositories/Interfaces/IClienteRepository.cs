@@ -13,7 +13,7 @@ namespace NutriTEC.Data.Repositories
 
         Object GetClient(int id);
 
-        bool InsertClient(Cliente client);
+        string InsertClient(Cliente client);
 
         bool UpdateClient(Cliente client);
 

@@ -1,3 +1,5 @@
+use nutridb;
+
 IF OBJECT_ID ( 'MasterClient', 'P' ) IS NOT NULL
     DROP PROCEDURE [MasterClient];  
 GO
@@ -15,7 +17,7 @@ Create procedure [dbo].[MasterClient]
        @meta_consumo_diario float = NULL,
        @altura float = NULL,
        @pais varchar (20) = NULL,
-       @estatus varchar (20) = NULL,
+       @estatus varchar (20) = 'ACTIVO',
        @id_conversacion int = NULL,
        @StatementType NVARCHAR(20) = ''
    )
@@ -83,6 +85,7 @@ Create procedure [dbo].[MasterClient]
     END
 
     IF @StatementType = 'Insert'
+
         BEGIN
         INSERT INTO Cliente (
             [nombre],
