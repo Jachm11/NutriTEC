@@ -1,5 +1,3 @@
-USE nutridb;
-
 IF OBJECT_ID ( 'MasterClient', 'P' ) IS NOT NULL
     DROP PROCEDURE [MasterClient];  
 GO
