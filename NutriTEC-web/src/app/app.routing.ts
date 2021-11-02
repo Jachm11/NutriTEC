@@ -16,6 +16,7 @@ import { ManagerRecipeComponent } from './pages/manager-recipe/manager-recipe.co
 import { SectionsComponent } from './sections/sections.component';
 import { AssignClientComponent } from './pages/assign-client/assign-client.component';
 import { ManagerPlanComponent } from './pages/manager-plan/manager-plan.component';
+import { MeasurementRegisterComponent } from './pages/measurement-register/measurement-register.component';
 
 const routes: Routes =[
     { path: 'home',             component: HomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes =[
     { path: 'sections', component:SectionsComponent},
     { path: 'assign-client', component:AssignClientComponent},
     { path: 'manager-plan', component:ManagerPlanComponent},
+    { path: 'measurement-register', component:MeasurementRegisterComponent},
     { path: '', redirectTo: 'login-client', pathMatch: 'full' }
 ];
 

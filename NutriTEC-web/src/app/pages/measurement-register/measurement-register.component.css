@@ -1,0 +1,62 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+
+}
+
+
+
+.register-product-container {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.form-container {
+    position: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1%;
+    margin-left: 2%;
+    width: 500px;
+    height: 700px;
+    align-items: center;
+    
+}
+
+
+input {
+    width: 100%;
+    height: 40px;
+    margin: -13px;
+    padding: 3px 7px;
+    font-size: 17px;
+    margin-top: 5%;
+    border: 3px solid #92374D;
+    border-radius: 20px;
+    text-indent: 5px;
+}
+
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 4px;
+}
+
+.button-submit, .btn, .btn-block  {
+    background-color: #92374D !important;
+    color:white !important;
+}
+
+.form-group{
+    margin-top: 0%;
+    margin-bottom: 1%;
+}
+
+.sp{
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+

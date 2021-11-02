@@ -18,6 +18,7 @@ import { ManagerRecipeComponent } from './manager-recipe/manager-recipe.componen
 import { AssignClientComponent } from './assign-client/assign-client.component';
 import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
 import { ManagerPlanComponent } from './manager-plan/manager-plan.component';
+import { MeasurementRegisterComponent } from './measurement-register/measurement-register.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ManagerPlanComponent } from './manager-plan/manager-plan.component';
         AssignClientComponent,
         FilterClientsPipe,
         ManagerPlanComponent,
+        MeasurementRegisterComponent,
         
        
     ],
