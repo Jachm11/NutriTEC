@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ItemRecipeAddComponent } from '../item-recipe-add/item-recipe-add.component';
 import { GlobalService } from 'src/app/services/global.service';
 import { ShowRecipeInfoComponent } from '../show-recipe-info/show-recipe-info.component';
 @Component({

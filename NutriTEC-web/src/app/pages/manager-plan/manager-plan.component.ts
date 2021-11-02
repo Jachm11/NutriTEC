@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
-import { AddEditPlanComponent } from 'src/app/components/plan/add-edit-plan/add-edit-plan.component';
 import { ShowPlanInfoComponent } from 'src/app/components/plan/show-plan-info/show-plan-info.component';
 import { GlobalService } from 'src/app/services/global.service';
 
