@@ -66,4 +66,30 @@ INSERT INTO [dbo].[Cliente]
            ,'ACTIVO'
            ,0)
 
+INSERT INTO [dbo].[Cliente]
+           ([id_nutricionista]
+           ,[nombre]
+           ,[primer_apellido]
+           ,[segundo_apellido]
+           ,[email]
+           ,[clave]
+           ,[fecha_nacimiento]
+           ,[meta_consumo_diario]
+           ,[altura]
+           ,[pais]
+           ,[estatus]
+           ,[id_conversacion])
+     VALUES
+           (NULL
+           ,'Shakime'
+           ,'Richards'
+           ,'Sparks'
+           ,'jey@gmail.com'
+           ,'1234'
+           ,'10/21/2000'
+           ,2300.0
+           ,177.0
+           ,'Costa Rica'
+           ,'ACTIVO'
+           ,NULL)
 GO
