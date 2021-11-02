@@ -26,7 +26,9 @@ namespace NutriTEC.Data.Repositories
             _spName = "MasterClient";
         }
 
-        // ********** GET ALL CLIENTS ********************
+        // GetAllClients: retorna la lista de clientes de la base de datos.
+        // Parametros de entrada: sin parametros
+        // Salida: lista de clientes
         public List<Object> GetAllClients()
         {
             var conn = DbConnection;

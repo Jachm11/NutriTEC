@@ -18,7 +18,8 @@ namespace NutriTEC.Controllers
             _clientRepository = clientRepository;
         }
 
-        // GET: Cliente
+        // GET: /Cliente
+        // Retorna todos los clientes.
         [HttpGet, ActionName("GetAll")]
         public IActionResult GetAllClients()
         {
