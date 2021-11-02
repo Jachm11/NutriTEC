@@ -1,4 +1,6 @@
 /* Drop all non-system stored procs */
+USE nutridb;
+
 DECLARE @name VARCHAR(128)
 DECLARE @SQL VARCHAR(254)
 
