@@ -1,6 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 
 
@@ -15,13 +16,14 @@ export class RegisterComponent implements OnInit {
     registerAs:string;
     registerAsClient:boolean;
     registerAsNutritionist:boolean;
+    new_client:any;
 
 
     nombre:string;
     primer_apellido:string;
     segundo_apellido:string;
     cedula:string;
-    fecha_de_nacimiento:string;
+    fecha_nacimiento:string;
     altura:number;
     pais:string;
     peso:number;
@@ -42,7 +44,7 @@ export class RegisterComponent implements OnInit {
     email:string;
     password:string;
 
-    constructor(private global : GlobalService) {}
+    constructor(private global : GlobalService, private api:ApiService) {}
 
 
     ngOnInit() {
@@ -65,8 +67,6 @@ export class RegisterComponent implements OnInit {
 
     createAccount()
     {
-
-      console.log("entraaa")
 
       if(this.url == "/register-client"){
 
@@ -102,7 +102,7 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
-      if(!this.fecha_de_nacimiento){
+      if(!this.fecha_nacimiento){
         this.global.transactionFailed("ingrese su fecha de nacimiento");
         return;
       }
@@ -117,10 +117,6 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
-      if(!this.direccion){
-        this.global.transactionFailed("Ingrese su direccion");
-        return;
-      }
       if(!this.medida_cadera){
         this.global.transactionFailed("Ingrese su medida de cadera");
         return;
@@ -161,6 +157,26 @@ export class RegisterComponent implements OnInit {
 
       else {
 
+
+        this.new_client = {
+          nombre: this.nombre,
+          primer_apellido:this.primer_apellido,
+          segundo_apellido:this.segundo_apellido,
+          fecha_nacimiento:this.fecha_nacimiento,
+          email:this.email,
+          clave:this.password,
+          meta_consumo_diario:this.consumo_maximo_calorias,
+          altura:this.altura,
+          pais:this.pais,
+      
+        };
+
+        this.api.post_clients(this.new_client).subscribe(()=>{
+          this.global.transactionSuccess("Se agregó el cliente exitosamente");
+
+        })
+
+
         //Se realiza la consulta al API
 
       }
@@ -184,7 +200,7 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
-      if(!this.fecha_de_nacimiento){
+      if(!this.fecha_nacimiento){
         this.global.transactionFailed("ingrese su fecha de nacimiento");
         return;
       }
@@ -232,7 +248,8 @@ export class RegisterComponent implements OnInit {
 
       else {
 
-        //Se realiza la consulta al API
+
+
 
       }
 

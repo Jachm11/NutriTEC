@@ -18,6 +18,7 @@ import { ManagerRecipeComponent } from './manager-recipe/manager-recipe.componen
 import { AssignClientComponent } from './assign-client/assign-client.component';
 import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
 import { ManagerPlanComponent } from './manager-plan/manager-plan.component';
+import { ApiService } from '../services/api.service';
 
 
 @NgModule({
@@ -45,7 +46,6 @@ import { ManagerPlanComponent } from './manager-plan/manager-plan.component';
        
     ],
     exports:[FilterClientsPipe],
-    providers:[GlobalService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }
