@@ -53,4 +53,45 @@ export class NavbarComponent implements OnInit {
             return false;
         }
     }
+    isClient() {
+        var titlee = this.location.prepareExternalUrl(this.location.path());
+        if( titlee === '#/home' ) {
+            return true;
+        }
+        if( titlee === '#/daily-register' ) {
+            return true;
+        }
+        if( titlee === '#/register-product' ) {  // && global.isCLient = true?
+            return true;
+        }
+        if( titlee === '#/manager-recipe' ) {
+            return true;
+        }
+        if( titlee === '#/measurement-register' ) {
+            return true;
+        }
+        if( titlee === '#/personal-record' ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    isAdmin(){
+
+    }
+
+    isNutritionist(){
+
+    }
+
+    isLogged(){
+        if (this.isClient() || this.isAdmin() || this.isNutritionist()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
