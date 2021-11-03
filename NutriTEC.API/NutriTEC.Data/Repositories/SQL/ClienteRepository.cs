@@ -15,100 +15,180 @@ namespace NutriTEC.Data.Repositories
 
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
+        private readonly string _spName = "MasterClient";
+        private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
 
-
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
+            
         }
 
-        // ********** GET ALL CLIENTS ********************
+        // GetAllClients: retorna la lista de clientes de la base de datos.
+        // Parametros de entrada: sin parametros
+        // Salida: lista de clientes
         public List<Object> GetAllClients()
         {
-            var con = DbConnection;
-            List<Object> clientlist = new List<Object>();
+            var conn = DbConnection;
 
-            SqlCommand cmd = new SqlCommand("GetAllClients", con);
+            SqlCommand cmd = new(_spName, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter sd = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            cmd.Parameters.AddWithValue("@StatementType", "SelectAll");
 
-            con.Open();
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
             sd.Fill(dt);
-            con.Close();
+            conn.Close();
 
+            List<Object> clientsList = new();
+            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
+            return selected;
+        }
+
+        // **************** GET CLIENT BY ID *********************
+
+        public Object GetClient(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@StatementType", "SelectOne");
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> clientsList = new();
+            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
+            if (selected.Count == 0) return null;
+            return selected.FirstOrDefault();
+        }
+
+        // **************** LOGIN *********************
+        public Object LogIn(string email, string clave)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "LogIn");
+
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@clave", clave);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> clientsList = new();
+            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
+            if (selected.Count == 0) return null;
+            return selected.FirstOrDefault();
+        }
+
+        //private bool uniqueUsename(string username)
+        //{
+
+        //}
+
+        private static List<object> AddSelectedClientsToList(DataTable dt, List<Object> clientsList)
+        {
+            // Leer todas las filas y columnas.
             foreach (DataRow dr in dt.Rows)
             {
-                clientlist.Add(
-                    new 
+                clientsList.Add(
+                    new
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
+                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"]),
                         Nombre = Convert.ToString(dr["nombre"]),
                         Primer_apellido = Convert.ToString(dr["primer_apellido"]),
                         Segundo_apellido = Convert.ToString(dr["segundo_apellido"]),
                         Email = Convert.ToString(dr["email"]),
                         Clave = Convert.ToString(dr["clave"]),
                         Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha_nacimiento"])),
+                        Edad = Convert.ToInt32(dr["edad"]),
                         Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
                         Altura = float.Parse(Convert.ToString(dr["altura"])),
                         Pais = Convert.ToString(dr["pais"]),
-                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"])
+                        Estatus = Convert.ToString(dr["estatus"])
                     });
             }
-            return clientlist;
+            return clientsList;
         }
 
-        public Object GetClient(int id)
-        {
-            var conn = DbConnection;
 
-            Cliente e = new();
-            var qs = @"  SELECT id, nombre, primer_apellido, segundo_apellido
-                          FROM Cliente
-                          WHERE id = @id  ";
-
-            SqlCommand command = new(qs, conn);
-            command.Parameters.AddWithValue("@id", id);
-
-            conn.Open();
-
-            // Verificar si se encuentra vacio.
-            if (IsEmpty(command))
-            {
-                conn.Close();
-                return null;
-            }
-
-            // Leer todas las filas y columnas.
-            using (SqlDataReader oReader = command.ExecuteReader())
-            {
-                while (oReader.Read())
-                {
-                    e.Id = Int32.Parse(oReader["id"].ToString());
-                    e.Nombre = oReader["nombre"].ToString();
-                    e.Primer_apellido = oReader["primer_apellido"].ToString();
-                    e.Segundo_apellido = oReader["segundo_apellido"].ToString();
-                }
-            }
-            conn.Close();
-
-            var output = new { e.Id, e.Nombre, e.Primer_apellido, e.Segundo_apellido };
-            return output;
-
-        }
 
         // **************** INSERT NEW CLIENT *********************
-        public bool InsertClient(Cliente client)
+        public string InsertClient(Cliente client)
+        {
+            if (!CheckEmailAvailability(client.Email)) return "El email ingresado ya se encuentra en uso.";
+
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "Insert");
+
+            cmd.Parameters.AddWithValue("@nombre", client.Nombre);
+            cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
+            cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
+            cmd.Parameters.AddWithValue("@email", client.Email);
+            cmd.Parameters.AddWithValue("@clave", client.Clave);
+            cmd.Parameters.AddWithValue("@fecha_nacimiento", client.Fecha_nacimiento);
+            cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
+            cmd.Parameters.AddWithValue("@altura", client.Altura);
+            cmd.Parameters.AddWithValue("@pais", client.Pais);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado agregar al nuevo cliente. Por favor intente más tarde.";
+            return "";
+        }
+
+        // Funcion que verifica si se encuentra disponible el email a la hora de crear un usuario.
+        private bool CheckEmailAvailability(string email)
         {
             var conn = DbConnection;
 
-            SqlCommand cmd = new SqlCommand("AddNewClient", conn);
+            SqlCommand cmd = new(_uniqueEmail, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            
+            cmd.Parameters.AddWithValue("@email", email);
+
+            conn.Open();
+            bool result = (bool)cmd.ExecuteScalar();
+            conn.Close();
+            return result;
+        }
+
+
+        // **************** UPDATE CLIENT *********************
+        public bool UpdateClient(Cliente client)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "Update");
+
+            cmd.Parameters.AddWithValue("@id", client.Id);
+            cmd.Parameters.AddWithValue("@Id_nutricionista", client.Id_nutricionista);
             cmd.Parameters.AddWithValue("@nombre", client.Nombre);
             cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
             cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
@@ -119,23 +199,51 @@ namespace NutriTEC.Data.Repositories
             cmd.Parameters.AddWithValue("@altura", client.Altura);
             cmd.Parameters.AddWithValue("@pais", client.Pais);
             cmd.Parameters.AddWithValue("@estatus", client.Estatus);
+            cmd.Parameters.AddWithValue("@Id_conversacion", client.Id_conversacion);
 
             conn.Open();
             int i = cmd.ExecuteNonQuery();
             conn.Close();
 
-            if (i >= 1)
-                return true;
-            else
-                return false;
+            return (i >= 1);
         }
 
-        private static bool IsEmpty(SqlCommand cmd)
+        // **************** ASSIGN NUTRICIONIST TO CLIENT *********************
+        public bool AssignNutricionistToClient(int id, int id_nutricionist)
         {
-            Object result = cmd.ExecuteScalar();
-            return (result == null);
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "AssignN");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@Id_nutricionista", id_nutricionist);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+           
+            return (i >= 1);
         }
 
+        // **************** ASSIGN CONVERSATION TO CLIENT *********************
+        public bool AssignConversationToClient(int id, int id_forum)
+        {
+            var conn = DbConnection;
 
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "AssignC");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@Id_conversacion", id_forum);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            return (i >= 1);
+        }
     }
 }
