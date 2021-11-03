@@ -28,15 +28,13 @@ namespace NutriTEC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddCors();
-
             // Connection to SQL database. por medio de la instancia de clase SQLConfiguration.
             var SQLConnectionConfig = new SQLConfiguration(Configuration.GetConnectionString("NutriDB"));
 
             // Agregar como un servicio singleton, solo es necesaria esta conexion en una unica ocasion.
             services.AddSingleton(SQLConnectionConfig);
 
+            services.AddCors();
 
             // Inyectar dependencia en employees.
             services.AddScoped<IClienteRepository, ClienteRepository>();
