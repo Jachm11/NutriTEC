@@ -5,8 +5,8 @@ export interface Client {
     email:string;
     clave:string;
     fecha_nacimiento:string;
-    meta_consumo_diario:string;
-    altura:string;
+    meta_consumo_diario:number;
+    altura:number;
     pais:string;
     estatus:string;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalService } from 'src/app/services/global.service';
+import { GlobalService } from 'src/app/services/global.service';  
 import { ShowPlanInfoComponent } from '../show-plan-info/show-plan-info.component';
 
 @Component({

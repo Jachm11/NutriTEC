@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-login-client',
@@ -10,9 +13,11 @@ export class LoginClientComponent implements OnInit {
   email:string;
   password:string;
 
+  new_client:any;
 
 
-  constructor() { }
+
+  constructor(private global:GlobalService, private apiService:ApiService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -21,9 +26,18 @@ export class LoginClientComponent implements OnInit {
 
   login(){
 
-    //Realiza el login 
+    this.apiService.login(this.email, this.password).subscribe((current_client)=>{
+        this.global.transactionSuccess("Ingresó correctamente");
+        this.global.current_client = current_client;
+        console.log(this.global.current_client);
+        this.router.navigateByUrl("/manager-recipe");//Aqui va el perfil
 
+
+    }, (error)=> {
     
+        this.global.transactionFailed("Datos inválidos, ingrese nuevamente su usuario");
+    });
+  
   }
 
 }

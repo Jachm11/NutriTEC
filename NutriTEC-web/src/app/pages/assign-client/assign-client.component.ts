@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
@@ -11,102 +12,15 @@ export class AssignClientComponent implements OnInit {
 
   filterClient = '';
 
-  clients = [
-    {
-      nombre:"sebas",
-      primer_apellido:"mora",
-      segundo_apellido:"godinez",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"santiago",
-      primer_apellido:"mora",
-      segundo_apellido:"rodriguez",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"juan",
-      primer_apellido:"salinas",
-      segundo_apellido:"villegas",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"pedro",
-      primer_apellido:"araya",
-      segundo_apellido:"molina",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"alejando",
-      primer_apellido:"chavarria",
-      segundo_apellido:"madriz",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"adrian",
-      primer_apellido:"araya",
-      segundo_apellido:"ramirez",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"shakime",
-      primer_apellido:"richards",
-      segundo_apellido:"sparks",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"fabian",
-      primer_apellido:"barrantes",
-      segundo_apellido:"perez",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    },
-    {
-      nombre:"brian",
-      primer_apellido:"mora",
-      segundo_apellido:"godinez",
-      fecha_nacimiento:"20/21/2000",
-      edad:22,
-      meta_consumo_diario:200,
-      altura:120,
-      pais:"Costa Rica"
-    }
-  ];
+  clients = [];
 
-  constructor(private global:GlobalService) { }
+  constructor(private global:GlobalService, private apiService:ApiService) { }
 
-  ngOnInit(): void {
+  ngOnInit() : void {
+
+    this.apiService.get_clients().subscribe((clients)=>  this.clients = clients);
+
+
 
 
   }

@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
     registerAsClient:boolean;
     registerAsNutritionist:boolean;
     new_client:any;
+    new_nutritionist:any;
 
 
     nombre:string;
@@ -158,6 +159,7 @@ export class RegisterComponent implements OnInit {
       else {
 
 
+    
         this.new_client = {
           nombre: this.nombre,
           primer_apellido:this.primer_apellido,
@@ -168,17 +170,16 @@ export class RegisterComponent implements OnInit {
           meta_consumo_diario:this.consumo_maximo_calorias,
           altura:this.altura,
           pais:this.pais,
+          estatus:"no tomado",
       
         };
 
-        this.api.post_clients(this.new_client).subscribe(()=>{
+        
+        this.api.post_client(this.new_client).subscribe(()=>{
           this.global.transactionSuccess("Se agregó el cliente exitosamente");
 
-        })
-
-
-        //Se realiza la consulta al API
-
+        });
+ 
       }
 
     }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Client } from 'src/interfaces/client';
 import { isThisTypeNode } from 'typescript';
 
 
@@ -23,6 +24,7 @@ export class GlobalService {
 
   current_recipe:any;
   current_plan:any;
+  current_client:Client;
 
 
   hideAlert(){
