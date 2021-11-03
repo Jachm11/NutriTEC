@@ -20,9 +20,8 @@ export class ManagerPlanComponent implements OnInit {
       nombre:"dieta keto",
       nutricionista:"Sebastian Mora Godinez",
       calorias:12122,
-      desayuno: {
 
-       productos: [
+      desayuno:  [
           {
             nombre:"manzana",
             descripcion:"Fruta con gran cantidad de nutrientes",
@@ -72,8 +71,6 @@ export class ManagerPlanComponent implements OnInit {
       
       
         ]
-
-      }
 
     }
   ]

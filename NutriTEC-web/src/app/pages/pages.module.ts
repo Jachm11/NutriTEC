@@ -20,7 +20,7 @@ import { FilterClientsPipe } from '../pipe/filter-clients.pipe';
 import { ManagerPlanComponent } from './manager-plan/manager-plan.component';
 import { MeasurementRegisterComponent } from './measurement-register/measurement-register.component';
 import { HomeNutritionistComponent } from './home-nutritionist/home-nutritionist.component';
-
+import { ApiService } from '../services/api.service';
 
 @NgModule({
     imports: [
@@ -49,7 +49,6 @@ import { HomeNutritionistComponent } from './home-nutritionist/home-nutritionist
        
     ],
     exports:[FilterClientsPipe],
-    providers:[GlobalService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule { }

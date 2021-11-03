@@ -18,6 +18,7 @@ import { PlanItemComponent } from './plan/plan-item/plan-item.component';
 import { ShowPlanInfoComponent } from './plan/show-plan-info/show-plan-info.component';
 import { ShowRecipeInfoComponent } from './recipe/show-recipe-info/show-recipe-info.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
+import { ApiService } from '../services/api.service';
 
 @NgModule({
     imports: [
@@ -34,7 +35,6 @@ import { AddEditComponent } from './add-edit/add-edit.component';
         ItemRecipeComponent,
         FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,ShowRecipeInfoComponent, AddEditComponent,
     ],
-    providers:[GlobalService],
     entryComponents: [],
     exports: [
         RegisterComponent, 
