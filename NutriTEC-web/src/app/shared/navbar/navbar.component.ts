@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
     public isCollapsed = true;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
+    private client: boolean;
 
     constructor(public location: Location, private router: Router) {
     }
@@ -56,21 +57,26 @@ export class NavbarComponent implements OnInit {
     isClient() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
         if( titlee === '#/home' ) {
+            this.client = true;
             return true;
         }
         if( titlee === '#/daily-register' ) {
+            this.client = true;
             return true;
         }
-        if( titlee === '#/register-product' ) {  // && global.isCLient = true?
+        if( titlee === '#/register-product' && this.client ) {
             return true;
         }
         if( titlee === '#/manager-recipe' ) {
+            this.client = true;
             return true;
         }
         if( titlee === '#/measurement-register' ) {
+            this.client = true;
             return true;
         }
         if( titlee === '#/personal-record' ) {
+            this.client = true;
             return true;
         }
         else {
@@ -80,9 +86,50 @@ export class NavbarComponent implements OnInit {
 
     isAdmin(){
 
+        var titlee = this.location.prepareExternalUrl(this.location.path());
+        if( titlee === '#/products-approval' ) {
+            this.client = false;
+            return true;
+        }
+        if( titlee === '#/billing' ) {
+            this.client = false;
+            return true;
+        }
+
     }
 
     isNutritionist(){
+
+        var titlee = this.location.prepareExternalUrl(this.location.path());
+        if( titlee === '#/home-nutritionist' ) {
+            this.client = false;
+            return true;
+        }
+        if( titlee === '#/assign-client' ) {
+            this.client = false;
+            return true;
+        }
+        if( titlee === '#/patient-overview' ) {
+            this.client = false;  
+            return true;
+        }
+
+        if( titlee === '#/manager-plan' ) {
+            this.client = false;
+            return true;
+        }
+        if( titlee === '#/assign-plan' ) {
+            this.client = false;
+            return true;
+        }
+
+        if( titlee === '#/register-product' && this.client == false ) {
+            return true;
+        }
+        
+        else {
+            return false;
+        }
 
     }
 

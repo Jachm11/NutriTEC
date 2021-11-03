@@ -21,6 +21,11 @@ import { ManagerPlanComponent } from './manager-plan/manager-plan.component';
 import { MeasurementRegisterComponent } from './measurement-register/measurement-register.component';
 import { HomeNutritionistComponent } from './home-nutritionist/home-nutritionist.component';
 import { ApiService } from '../services/api.service';
+import { PersonalRecordComponent } from './personal-record/personal-record.component';
+import { DailyRegisterComponent } from './daily-register/daily-register.component';
+import { PatientOverviewComponent } from './patient-overview/patient-overview.component';
+import { AssingPlanComponent } from './assing-plan/assing-plan.component';
+import { BillingComponent } from './billing/billing.component';
 
 @NgModule({
     imports: [
@@ -45,6 +50,11 @@ import { ApiService } from '../services/api.service';
         ManagerPlanComponent,
         MeasurementRegisterComponent,
         HomeNutritionistComponent,
+        PersonalRecordComponent,
+        DailyRegisterComponent,
+        PatientOverviewComponent,
+        AssingPlanComponent,
+        BillingComponent,
         
        
     ],

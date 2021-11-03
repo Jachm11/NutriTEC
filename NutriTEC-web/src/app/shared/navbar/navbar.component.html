@@ -1,6 +1,15 @@
 <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
   <div class="container">
-    <a class="navbar-brand mr-lg-5" [routerLink]="['/home']">
+    <a *ngIf="isClient()" class="navbar-brand mr-lg-5" [routerLink]="['/home']">
+      <img src="./assets/img/brand/nutrilogoV.png">
+    </a>
+    <a *ngIf="isNutritionist()" class="navbar-brand mr-lg-5" [routerLink]="['/home-nutritionist']">
+      <img src="./assets/img/brand/nutrilogoV.png">
+    </a>
+    <a *ngIf="isAdmin()" class="navbar-brand mr-lg-5" [routerLink]="['/products-approval']">
+      <img src="./assets/img/brand/nutrilogoV.png">
+    </a>
+    <a *ngIf="!isLogged()" class="navbar-brand mr-lg-5">
       <img src="./assets/img/brand/nutrilogoV.png">
     </a>
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
@@ -12,7 +21,7 @@
         <div class="row">
           <div class="col-6 collapse-brand">
             <a [routerLink]="['/home']">
-              <img src="./assets/img/brand/blue.png">
+              <img src="./assets/img/brand/nutrilogoV.png">
             </a>
           </div>
           <div class="col-6 collapse-close">
@@ -25,6 +34,7 @@
         </div>
       </div>
 
+      <!-- Dropdowns de cliente -->
 
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center" *ngIf="isClient()">
         <li class="nav-item dropdown">
@@ -105,6 +115,7 @@
       </ul>
 
 
+      <!-- Dropdowns de nutricionista -->
 
 
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center" *ngIf="isNutritionist()">
@@ -115,18 +126,18 @@
                 </a>
                 <div class="dropdown-menu-xl dropdown-menu" >
                   <div class="dropdown-menu-inner">
-                    <a routerLinkActive="active" [routerLink]="['daily-register']" class="media d-flex align-items-center">
+                    <a routerLinkActive="active" [routerLink]="['assign-client']" class="media d-flex align-items-center">
                       <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                        <i class="ni ni-circle-08"></i>
+                        <i class="ni ni-badge"></i>
                       </div>
                       <div class="media-body ml-3">
                         <h6 class="heading text-primary mb-md-1">Búsqueda y asociación de pacientes</h6>
                         <p class="description d-none d-md-inline-block mb-0">Busque a su paciente para poder asignarle planes nutricionales personalidados.</p>
                       </div>
                     </a>
-                    <a routerLinkActive="active" [routerLink]="['daily-register']" class="media d-flex align-items-center">
+                    <a routerLinkActive="active" [routerLink]="['patient-overview']" class="media d-flex align-items-center">
                       <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                        <i class="ni ni-circle-08"></i>
+                        <i class="ni ni-chart-bar-32"></i>
                       </div>
                       <div class="media-body ml-3">
                         <h6 class="heading text-primary mb-md-1">Seguimiento de pacientes</h6>
@@ -143,16 +154,16 @@
                 </a>
                 <div class="dropdown-menu-xl dropdown-menu" >
                   <div class="dropdown-menu-inner">
-                    <a routerLinkActive="active" [routerLink]="['register-product']" class="media d-flex align-items-center">
+                    <a routerLinkActive="active" [routerLink]="['manager-plan']" class="media d-flex align-items-center">
                       <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                        <i class="ni ni-notification-70"></i>
+                        <i class="ni ni-ruler-pencil"></i>
                       </div>
                       <div class="media-body ml-3">
                         <h6 class="heading text-primary mb-md-1">Gestión de planes</h6>
                         <p class="description d-none d-md-inline-block mb-0">Cree planes nutricionales para sus clientes con productos NutriTec</p>
                       </div>
                     </a>
-                    <a routerLinkActive="active" [routerLink]="['manager-recipe']" class="media d-flex align-items-center">
+                    <a routerLinkActive="active" [routerLink]="['assign-plan']" class="media d-flex align-items-center">
                       <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
                         <i class="ni ni-collection"></i>
                       </div>
@@ -167,13 +178,26 @@
                       </div>
                       <div class="media-body ml-3">
                         <h6 class="heading text-primary mb-md-1">Proponer producto</h6>
-                        <p class="description d-none d-md-inline-block mb-0">Proponé un producto para ser agregado globalmente por los administradores NutriTec.</p>
+                        <p class="description d-none d-md-inline-block mb-0">Proponga un producto para ser agregado globalmente por los administradores NutriTec.</p>
                       </div>
                     </a>
                   </div>
                 </div>
               </li>
             </ul>
+
+
+            
+      <!-- Nav de admin -->
+
+
+      <li class="nav-item" *ngIf="isAdmin()">
+        <a style="color:#ffffff;" href="#/products-approval" class="nav-link">Aprovación de productos</a>
+      </li>
+
+      <li class="nav-item" *ngIf="isAdmin()">
+        <a style="color:#ffffff;" href="#/billing" class="nav-link">Gestión de cobro</a>
+      </li>
 
 
       <ul class="navbar-nav align-items-lg-center ml-lg-auto">
@@ -195,9 +219,16 @@
             <span class="nav-link-inner--text d-lg-none">Twitter</span>
           </a>
         </li>
-        <li class="nav-item" *ngIf="isLogged()">
-          <a style="color:#ffffff;" href="/login-client" class="nav-link">Cerrar sesión</a>
+        <li class="nav-item" *ngIf="isClient()">
+          <a style="color:#ffffff;" href="#/login-client" class="nav-link">Cerrar sesión</a>
         </li>
+        <li class="nav-item" *ngIf="isNutritionist()">
+          <a style="color:#ffffff;" href="#/login-client" class="nav-link">Cerrar sesión</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a style="color:#ffffff;" href="#/login-client" class="nav-link">Cerrar sesión</a>
+        </li>
+
       </ul>
 
       
