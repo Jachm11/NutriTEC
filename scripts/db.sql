@@ -207,24 +207,3 @@ REFERENCES "Cliente"(id);
 ALTER TABLE "Fecha_plan_cliente"
 ADD CONSTRAINT FECHA_PLAN_CLIENTE_PLAN_CLIENTE_FK FOREIGN KEY(id_plan_cliente)
 REFERENCES "Plan_cliente"(id_plan_cliente);
-
-
-CREATE TABLE Employees (
-    id int IDENTITY(1,1) PRIMARY KEY,
-    username varchar(12) NOT NULL,
-	password varchar(8) NOT NULL,
-	birthdate Date NOT NULL
-);
-	
-
-INSERT INTO Employees (username, password, birthdate)
-		VALUES ('Shak', '123', '10/21/2000');
-
-INSERT INTO Employees (username, password, birthdate) 
-		VALUES ('Adrian', '123', '06/21/1999');
-
-INSERT INTO Employees (username, password, birthdate)
-		VALUES ('Jose', '123', '09/15/2001');
-
-INSERT INTO Employees (username, password, birthdate)
-		VALUES ('Sebas', '123', '12/31/2000');
