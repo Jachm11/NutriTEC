@@ -6,17 +6,29 @@
 
 }
 
-.col{
+.data{
     background: white;
-    margin: 20px;
+    margin: 25px;
     color: black;
-    width: 80px;
+    width: 120px;
+    height: 30px;
+    font-size: large;
       
+}
+
+.subtittle{
+    margin-top: 75px;
 }
 
 .container{
 
     width: 1000px;
-    height: 900px;
+    height: 500px;
+    align-items: center;
+}
+
+.btn{
+    margin-top: 20px;
+    width: 10px;
 }
 
