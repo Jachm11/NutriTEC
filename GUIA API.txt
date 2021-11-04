@@ -93,14 +93,14 @@ Response body: "Se ha agregado correctamente."
 					ASIGNAR NUTRICIONISTA A CLIENTE:
 RequestType: PUT
 Request URL: https://nutritec.azurewebsites.net/Cliente/nutricionist/assign?id=2&id_nutricionist=1
-Response body: true
+Response body: "Se ha asignado correctamente el nutricionista al cliente."
 
 Nota: OJO, primero es el id del cliente y luego el id_nutricionista
 ------------------------------------------------------------------------------------------------
 					ASGINAR FORUM A CLIENTE:
 RequestType: PUT
 Request URL: https://nutritec.azurewebsites.net/Cliente/forum/assign?id=2&id_forum=2
-Response body: true
+Response body: "Se ha asignado correctamente el forum al cliente."
 
 Nota: OJO, primero es el id del cliente y luego el id_forum
 
