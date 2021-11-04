@@ -81,7 +81,25 @@ namespace NutriTEC.Data
 
         public object LogIn(string email, string clave)
         {
-            throw new NotImplementedException();
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "LogIn");
+
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@clave", clave);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            object nutricionist = GetOneNutricionist(dt);
+
+            return nutricionist;
         }
 
         // Funcion que verifica si se encuentra disponible el email a la hora de crear un usuario.

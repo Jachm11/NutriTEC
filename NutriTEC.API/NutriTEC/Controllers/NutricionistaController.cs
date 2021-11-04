@@ -31,8 +31,8 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
-        // POST: /Cliente
-        // Agrega un nuevo cliente a la base de datos.
+        // POST: /Nutricionista
+        // Agrega un nuevo nutricionista a la base de datos.
         [HttpPost, ActionName("Insert")]
         public IActionResult CreateNutricionist([FromBody] Nutricionista nutricionist)
         {
@@ -47,6 +47,20 @@ namespace NutriTEC.Controllers
             return BadRequest(result);
         }
 
-      
+        // GET: /Nutricionista/login?email=a&clave=b
+        // Retorna al nutricionista que coincide con los datos de log in.
+        [HttpGet("login"), ActionName("Get")]
+        public IActionResult LogIn(string email, string clave)
+        {
+            Object result = _nutricionistRepository.LogIn(email, clave);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("Usuario o clave incorrectas.");
+            // Si lo encuentra.
+            return Ok(result);
+        }
+
+
+
     }
 }

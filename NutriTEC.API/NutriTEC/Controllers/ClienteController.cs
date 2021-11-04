@@ -42,7 +42,7 @@ namespace NutriTEC.Controllers
 
 
         // GET: /Cliente/login?email=a&clave=b
-        // Retorna al cliente que coincide con el id.
+        // Retorna al cliente que coincide con los datos de log in.
         [HttpGet("login"), ActionName("Get")]
         public IActionResult LogIn(string email, string clave)
         {
