@@ -1,0 +1,175 @@
+VER ESPECIFICACION DE PROYECTO
+
+
+################################################################################################
+					VISTA ADMINISTRADOR
+################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################################################################
+					VISTA NUTRICIONISTA
+################################################################################################
+
+------------------------------------------------------------------------------------------------
+					LOG IN NUTRICIONISTA:
+RequestType: GET
+Request URL: https://nutritec.azurewebsites.net/nutricionista/login?email=pedro%40gmail.com&clave=123
+Response body: (informacion del nutricionsta)
+{
+  "id": 1,
+  "codigo_nutricionista": 123,
+  "estatus": "ACTIVO",
+  "nombre": "Pedro",
+  "primer_apellido": "Perico",
+  "segundo_apellido": "Perez",
+  "email": "pedro@gmail.com",
+  "clave": "123",
+  "cedula": "123456789",
+  "fecha_nacimiento": "11/01/1999",
+  "edad": 22,
+  "direccion": "Heredia",
+  "foto": "12314124",
+  "tarjeta": "12312313",
+  "tipo_cobro": "Contado"
+}
+
+Nota: parece que %40 en el query string se refiere al arroba "@"
+------------------------------------------------------------------------------------------------
+					GET NUTRICIONISTA BY ID:
+RequestType: GET
+Request URL: https://nutritec.azurewebsites.net/nutricionista/1
+Response body: (informacion del nutricionsta)
+{
+  "id": 1,
+  "codigo_nutricionista": 123,
+  "estatus": "ACTIVO",
+  "nombre": "Pedro",
+  "primer_apellido": "Perico",
+  "segundo_apellido": "Perez",
+  "email": "pedro@gmail.com",
+  "clave": "123",
+  "cedula": "123456789",
+  "fecha_nacimiento": "11/01/1999",
+  "edad": 22,
+  "direccion": "Heredia",
+  "foto": "12314124",
+  "tarjeta": "12312313",
+  "tipo_cobro": "Contado"
+}
+------------------------------------------------------------------------------------------------
+					REGISTRO NUTRICIONISTA:
+RequestType: POST
+Request URL: https://nutritec.azurewebsites.net/nutricionista/1
+Request body: (informacion del nutricionsta)
+{
+  "codigo_nutricionista": 214,
+  "nombre": "string",
+  "primer_apellido": "string",
+  "segundo_apellido": "string",
+  "email": "12asd",
+  "clave": "string",
+  "cedula": "111",
+  "fecha_nacimiento": "2021-11-04T20:00:54.530Z",
+  "direccion": "string",
+  "foto": "string",
+  "tarjeta": "string",
+  "tipo_cobro": "string"
+}	
+Response body: "Se ha agregado correctamente."
+------------------------------------------------------------------------------------------------
+					ASIGNAR NUTRICIONISTA A CLIENTE:
+RequestType: PUT
+Request URL: https://nutritec.azurewebsites.net/Cliente/nutricionist/assign?id=2&id_nutricionist=1
+Response body: true
+
+Nota: OJO, primero es el id del cliente y luego el id_nutricionista
+------------------------------------------------------------------------------------------------
+					ASGINAR FORUM A CLIENTE:
+RequestType: PUT
+Request URL: https://nutritec.azurewebsites.net/Cliente/forum/assign?id=2&id_forum=2
+Response body: true
+
+Nota: OJO, primero es el id del cliente y luego el id_forum
+
+################################################################################################
+					VISTA CLIENTE
+################################################################################################
+
+------------------------------------------------------------------------------------------------
+					GET ALL CLIENTES:
+RequestType: GET
+Request URL: https://nutritec.azurewebsites.net/cliente
+Response body: (lista de nutricionistas)
+------------------------------------------------------------------------------------------------
+					REGISTRO CLIENTE:
+RequestType: POST
+Request URL: https://nutritec.azurewebsites.net/cliente
+Request body: (informacion del cliente)
+{
+  "nombre": "string",
+  "primer_apellido": "string",
+  "segundo_apellido": "string",
+  "email": "stri2ng",
+  "clave": "string",
+  "fecha_nacimiento": "2021-11-04T20:06:06.037Z",
+  "meta_consumo_diario": 0,
+  "altura": 0,
+  "pais": "string"
+}
+Response body: "Se ha agregado correctamente."
+------------------------------------------------------------------------------------------------
+					GET CLIENTE BY ID:
+RequestType: GET
+Request URL: https://nutritec.azurewebsites.net/cliente/1
+Response body: (informacion del cliente)
+{
+  "id": 1,
+  "id_nutricionista": 1,
+  "id_conversacion": 0,
+  "nombre": "Adrian",
+  "primer_apellido": "Araya",
+  "segundo_apellido": "Ramirez",
+  "email": "adrian@gmail.com",
+  "clave": "1234",
+  "fecha_nacimiento": "31/12/2000",
+  "edad": 20,
+  "meta_consumo_diario": 100,
+  "altura": 170,
+  "pais": "Costa Rica",
+  "estatus": "ACTIVO"
+}
+------------------------------------------------------------------------------------------------
+					LOG IN CLIENTE:
+RequestType: GET
+Request URL: https://nutritec.azurewebsites.net/cliente/login?email=adrian%40gmail.com&clave=1234
+Response body: (informacion del cliente)
+{
+  "id": 1,
+  "id_nutricionista": 1,
+  "id_conversacion": 0,
+  "nombre": "Adrian",
+  "primer_apellido": "Araya",
+  "segundo_apellido": "Ramirez",
+  "email": "adrian@gmail.com",
+  "clave": "1234",
+  "fecha_nacimiento": "31/12/2000",
+  "edad": 20,
+  "meta_consumo_diario": 100,
+  "altura": 170,
+  "pais": "Costa Rica",
+  "estatus": "ACTIVO"
+}
+------------------------------------------------------------------------------------------------
