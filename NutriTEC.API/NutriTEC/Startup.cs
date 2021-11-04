@@ -38,6 +38,7 @@ namespace NutriTEC
             // Inyectar dependencia en employees.
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INutricionistaRepository, NutricionistaRepository>();
+            services.AddScoped<IProductoRepository, ProductoRepository>();
 
             services.AddControllers();
 

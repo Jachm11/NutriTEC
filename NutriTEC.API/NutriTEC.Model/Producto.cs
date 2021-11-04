@@ -13,11 +13,11 @@ namespace NutriTEC.Model
         public int Id { get; set; }
         public string Barcode { get; set; }
         public string Estatus { get; set; }
+        public string Descripcion { get; set; }
+        public float Tamano_porcion { get; set; }
         public float Sodio { get; set; }
         public float Grasa { get; set; }
         public float Energia { get; set; }
-        public float Tamano_porcion { get; set; }
-        public string Descripcion { get; set; }
         public float Hierro { get; set; }
         public float Calcio { get; set; }
         public float Proteina { get; set; }
