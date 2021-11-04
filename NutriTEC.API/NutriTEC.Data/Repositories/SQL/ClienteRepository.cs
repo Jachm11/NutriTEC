@@ -68,10 +68,9 @@ namespace NutriTEC.Data.Repositories
             sd.Fill(dt);
             conn.Close();
 
-            List<Object> clientsList = new();
-            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
-            if (selected.Count == 0) return null;
-            return selected.FirstOrDefault();
+            object client = GetOneClient(dt);
+
+            return client;
         }
 
         // **************** LOGIN *********************
@@ -93,16 +92,46 @@ namespace NutriTEC.Data.Repositories
             sd.Fill(dt);
             conn.Close();
 
-            List<Object> clientsList = new();
-            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
-            if (selected.Count == 0) return null;
-            return selected.FirstOrDefault();
+            object client = GetOneClient(dt);
+
+            return client;
         }
 
         //private bool uniqueUsename(string username)
         //{
 
         //}
+
+        private static object GetOneClient(DataTable dt)
+        {
+            object client;
+            if (dt.Rows.Count == 1){
+
+                client = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id_nutricionista = Convert.ToInt32(dt.Rows[0]["id_nutricionista"]),
+                    Id_conversacion = Convert.ToInt32(dt.Rows[0]["id_conversacion"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
+                    Primer_apellido = Convert.ToString(dt.Rows[0]["primer_apellido"]),
+                    Segundo_apellido = Convert.ToString(dt.Rows[0]["segundo_apellido"]),
+                    Email = Convert.ToString(dt.Rows[0]["email"]),
+                    Clave = Convert.ToString(dt.Rows[0]["clave"]),
+                    Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dt.Rows[0]["fecha_nacimiento"])),
+                    Edad = Convert.ToInt32(dt.Rows[0]["edad"]),
+                    Meta_consumo_diario = float.Parse(Convert.ToString(dt.Rows[0]["meta_consumo_diario"])),
+                    Altura = float.Parse(Convert.ToString(dt.Rows[0]["altura"])),
+                    Pais = Convert.ToString(dt.Rows[0]["pais"]),
+                    Estatus = Convert.ToString(dt.Rows[0]["estatus"])
+                };
+
+            }
+            else
+            {
+                client = null;
+            }
+            return client;
+        }
 
         private static List<object> AddSelectedClientsToList(DataTable dt, List<Object> clientsList)
         {
