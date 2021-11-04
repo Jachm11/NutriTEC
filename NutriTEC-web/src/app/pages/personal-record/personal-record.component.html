@@ -1,1 +1,45 @@
-<p>personal-record works!</p>
+<div>
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+
+        <app-alerts></app-alerts>
+
+
+        <div class = "frame">
+
+     
+            <h1 class="text-white">Historial de medidas</h1>
+
+            <h2 class="text-primary">Medidas actuales</h2>
+
+            <div class="row">
+                <div class="col"><span>Peso:{{peso}}kg</span></div>
+                <div class="col"><span>% de músculo: {{musculo}}%</span></div>
+                <div class="col"><span>% de grasa: {{grasa}}%</span></div>
+                <div class="w-100"></div>
+                <div class="col"><span>Medida de cintura:{{cintura}}cm</span></div>
+                <div class="col"><span>Medida de cadera:{{cadera}}cm</span></div>
+                <div class="col"><span>Medida de cuello:{{cuello}}cm</span></div>
+            </div>
+
+
+            <h2 class="text-primary">Historial completo</h2>
+
+        </div>
+
+        <div class = "container" width="200" height = "200">
+            <canvas id="canvas">{{chart}}</canvas>
+        </div>
+
+    </section>
+</div>

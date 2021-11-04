@@ -48,6 +48,11 @@ export class MeasurementRegisterComponent implements OnInit {
       return;
     }
 
+    if(!this.cuello){
+      this.global.transactionFailed("Ingrese su medida de cuello");
+      return;
+    }
+
     this.global.transactionSuccess("Medidas registradas exitosamente");
     //Se realiza la consulta al API
     this.setDefaultValues();
