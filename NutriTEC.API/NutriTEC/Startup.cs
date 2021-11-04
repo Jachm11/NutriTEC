@@ -8,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NutriTEC.Data;
-using NutriTEC.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +37,7 @@ namespace NutriTEC
 
             // Inyectar dependencia en employees.
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<INutricionistaRepository, NutricionistaRepository>();
 
             services.AddControllers();
 

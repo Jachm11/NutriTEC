@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NutriTEC.Data.Repositories;
+using NutriTEC.Data;
 using NutriTEC.Model;
 using System;
 using System.Collections.Generic;

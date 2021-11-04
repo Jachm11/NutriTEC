@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using NutriTEC.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NutriTEC.Data.Repositories.Interfaces;
-using NutriTEC.Model;
 using System.Data;
-using Microsoft.Data.SqlClient;
+using NutriTEC.Data;
 
-namespace NutriTEC.Data.Repositories.SQL
+namespace NutriTEC.Data
 {
-    class NutricionistaRepository : INutricionistaRepository
+    public class NutricionistaRepository : INutricionistaRepository
     {
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
@@ -20,6 +20,11 @@ namespace NutriTEC.Data.Repositories.SQL
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
 
+        public NutricionistaRepository(SQLConfiguration connectionString)
+        {
+            _connectionString = connectionString;
+
+        }
 
         public object GetNutricionist(int id)
         {
@@ -37,11 +42,9 @@ namespace NutriTEC.Data.Repositories.SQL
             sd.Fill(dt);
             conn.Close();
 
-            List<Object> clientsList = new();
-            //List<Object> selected = AddSelectedClientsToList(dt, clientsList);
-            //if (selected.Count == 0) return null;
-            //return selected.FirstOrDefault();
-            return null;
+            object nutricionist = GetOneNutricionist(dt);
+
+            return nutricionist;
         }
 
         public string InsertNutricionist(Nutricionista nutricionist)
@@ -95,6 +98,46 @@ namespace NutriTEC.Data.Repositories.SQL
             conn.Close();
             return result;
         }
+
+
+
+        // #########################################################################################
+        // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
+        // #########################################################################################
+
+        // GetOneNutricionist: retorna el nutricionista obtenido de ejecutar un select by id
+        // de la base de datos
+        // Parametros de entrada: DataTable: dt
+        // Salida: object: nutricionista
+        private static object GetOneNutricionist(DataTable dt)
+        {
+            object nutricionist = null;
+            if (dt.Rows.Count == 1)
+            {
+
+                nutricionist = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Codigo_nutricionista = Convert.ToInt32(dt.Rows[0]["codigo_nutricionista"]),
+                    Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
+                    Primer_apellido = Convert.ToString(dt.Rows[0]["primer_apellido"]),
+                    Segundo_apellido = Convert.ToString(dt.Rows[0]["segundo_apellido"]),
+                    Email = Convert.ToString(dt.Rows[0]["email"]),
+                    Clave = Convert.ToString(dt.Rows[0]["clave"]),
+                    Cedula = Convert.ToString(dt.Rows[0]["cedula"]),
+                    Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dt.Rows[0]["fecha_nacimiento"])),
+                    Edad = Convert.ToInt32(dt.Rows[0]["edad"]),
+                    Direccion = Convert.ToString(dt.Rows[0]["direccion"]),
+                    Foto = Convert.ToString(dt.Rows[0]["foto"]),
+                    Tarjeta = Convert.ToString(dt.Rows[0]["tarjeta"]),
+                    Tipo_cobro = Convert.ToString(dt.Rows[0]["tipo_cobro"])
+                };
+
+            }
+            return nutricionist;
+        }
+
 
     }
 }

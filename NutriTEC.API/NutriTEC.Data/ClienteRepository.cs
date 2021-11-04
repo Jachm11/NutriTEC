@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Data;
 
 
-namespace NutriTEC.Data.Repositories
+namespace NutriTEC.Data
 {
     public class ClienteRepository : IClienteRepository
     {
@@ -245,7 +245,7 @@ namespace NutriTEC.Data.Repositories
         // Salida: object: cliente
         private static object GetOneClient(DataTable dt)
         {
-            object client;
+            object client = null;
             if (dt.Rows.Count == 1)
             {
 
@@ -267,10 +267,6 @@ namespace NutriTEC.Data.Repositories
                     Estatus = Convert.ToString(dt.Rows[0]["estatus"])
                 };
 
-            }
-            else
-            {
-                client = null;
             }
             return client;
         }
