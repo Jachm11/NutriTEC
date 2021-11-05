@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutriTEC", "NutriTEC.csproj", "{ECB458EA-49E1-4847-AA58-1F797CAFC3F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NutriTEC", "NutriTEC.csproj", "{ECB458EA-49E1-4847-AA58-1F797CAFC3F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutriTEC.Model", "..\NutriTEC.Model\NutriTEC.Model.csproj", "{B8B25A58-7BD6-419C-AFEB-EBDF0AE5D0C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NutriTEC.Model", "..\NutriTEC.Model\NutriTEC.Model.csproj", "{B8B25A58-7BD6-419C-AFEB-EBDF0AE5D0C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutriTEC.Data", "..\NutriTEC.Data\NutriTEC.Data.csproj", "{25A5ECAA-48C8-400E-BB52-FDA891F829D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NutriTEC.Data", "..\NutriTEC.Data\NutriTEC.Data.csproj", "{25A5ECAA-48C8-400E-BB52-FDA891F829D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

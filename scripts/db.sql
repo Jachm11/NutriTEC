@@ -22,17 +22,15 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Nutricionista (
     id						int IDENTITY(1,1),
-	email					varchar(20) NOT NULL,
-	clave					varchar(20) NOT NULL,
-	cedula					varchar(20) NOT NULL,
+	codigo_nutricionista	int NOT NULL,
+	estatus					varchar(20) NOT NULL,
 	nombre					varchar(20) NOT NULL,
 	primer_apellido			varchar(20) NOT NULL,
 	segundo_apellido		varchar(20) NOT NULL,
-    codigo_nutricionista	int NOT NULL,
-	altura					float NOT NULL,
-	estatus					varchar(20) NOT NULL,
+	email					varchar(20) NOT NULL,
+	clave					varchar(20) NOT NULL,
+	cedula					varchar(20) NOT NULL,
 	fecha_nacimiento		Date NOT NULL,
-	peso					float NOT NULL,
 	direccion				varchar(50) NOT NULL,
 	foto					varchar(50) NOT NULL,
 	tarjeta					varchar(50) NOT NULL,
@@ -64,11 +62,11 @@ CREATE TABLE Producto (
 	id				int IDENTITY(1,1),
 	barcode			varchar(50) NOT NULL,
 	estatus			varchar(20) NOT NULL,
+	descripcion		varchar(20) NOT NULL,
+	tamano_porcion	float NOT NULL,
 	sodio			float NOT NULL,
 	grasa			float NOT NULL,
 	energia			float NOT NULL,
-	tamano_porcion	float NOT NULL,
-	descripcion		varchar NOT NULL,
 	hierro			float NOT NULL,
 	calcio			float NOT NULL,
 	proteina		float NOT NULL,
@@ -209,24 +207,3 @@ REFERENCES "Cliente"(id);
 ALTER TABLE "Fecha_plan_cliente"
 ADD CONSTRAINT FECHA_PLAN_CLIENTE_PLAN_CLIENTE_FK FOREIGN KEY(id_plan_cliente)
 REFERENCES "Plan_cliente"(id_plan_cliente);
-
-
-CREATE TABLE Employees (
-    id int IDENTITY(1,1) PRIMARY KEY,
-    username varchar(12) NOT NULL,
-	password varchar(8) NOT NULL,
-	birthdate Date NOT NULL
-);
-	
-
-INSERT INTO Employees (username, password, birthdate)
-		VALUES ('Shak', '123', '10/21/2000');
-
-INSERT INTO Employees (username, password, birthdate) 
-		VALUES ('Adrian', '123', '06/21/1999');
-
-INSERT INTO Employees (username, password, birthdate)
-		VALUES ('Jose', '123', '09/15/2001');
-
-INSERT INTO Employees (username, password, birthdate)
-		VALUES ('Sebas', '123', '12/31/2000');

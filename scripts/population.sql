@@ -12,10 +12,8 @@ INSERT INTO [dbo].[Nutricionista]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[codigo_nutricionista]
-           ,[altura]
            ,[estatus]
            ,[fecha_nacimiento]
-           ,[peso]
            ,[direccion]
            ,[foto]
            ,[tarjeta]
@@ -28,10 +26,8 @@ INSERT INTO [dbo].[Nutricionista]
            ,'Perico'
            ,'Perez'
            ,123
-           ,'170'
            ,'ACTIVO'
            ,'1/11/1999'
-           ,100.0
            ,'Heredia'
            ,'12314124'
            ,'12312313'

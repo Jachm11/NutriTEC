@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NutriTEC.Data.Repositories;
+using NutriTEC.Data;
 using NutriTEC.Model;
 using System;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace NutriTEC.Controllers
 
 
         // GET: /Cliente/login?email=a&clave=b
-        // Retorna al cliente que coincide con el id.
+        // Retorna al cliente que coincide con los datos de log in.
         [HttpGet("login"), ActionName("Get")]
         public IActionResult LogIn(string email, string clave)
         {
@@ -60,7 +60,7 @@ namespace NutriTEC.Controllers
         public IActionResult CreateClient([FromBody] Cliente client)
         {
             if (client == null)
-                return BadRequest();
+                return BadRequest("Error, la estructura del cliente no es correcta.");
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -90,7 +90,10 @@ namespace NutriTEC.Controllers
         public IActionResult AssignNuticionist(int id, int id_nutricionist)
         {
             var result = _clientRepository.AssignNutricionistToClient(id, id_nutricionist);
-            return Ok(result);
+
+            if (result)
+                return Ok("Se ha asignado correctamente el nutricionista al cliente.");
+            return BadRequest("Error, no se ha podido asignar el nutricionista al cliente.");
         }
 
         // PUT /Cliente/forum/assign?id=a&forum=b
@@ -98,7 +101,10 @@ namespace NutriTEC.Controllers
         public IActionResult AssignConversation(int id, int id_forum)
         {
             var result = _clientRepository.AssignConversationToClient(id, id_forum);
-            return Ok(result);
+
+            if (result)
+                return Ok("Se ha asignado correctamente el forum al cliente.");
+            return BadRequest("Error, no se ha podido asignar el forum al cliente.");
         }
     }
 }

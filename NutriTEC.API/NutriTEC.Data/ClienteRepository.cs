@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Data;
 
 
-namespace NutriTEC.Data.Repositories
+namespace NutriTEC.Data
 {
-    public class ClienteRepository: IClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
 
         // Attributo de configuracion de conexion.
@@ -24,12 +24,18 @@ namespace NutriTEC.Data.Repositories
         public ClienteRepository(SQLConfiguration connectionString)
         {
             _connectionString = connectionString;
-            
+
         }
 
+        // #########################################################################################
+        // ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS ACCESS
+        // #########################################################################################
+
+
+        // ********************************** GET ALL CLIENTS **************************************
         // GetAllClients: retorna la lista de clientes de la base de datos.
         // Parametros de entrada: sin parametros
-        // Salida: lista de clientes
+        // Salida: List<Object>: lista de clientes
         public List<Object> GetAllClients()
         {
             var conn = DbConnection;
@@ -45,13 +51,14 @@ namespace NutriTEC.Data.Repositories
             sd.Fill(dt);
             conn.Close();
 
-            List<Object> clientsList = new();
-            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
-            return selected;
+            List<Object> clientsList = AddSelectedClientsToList(dt);
+            return clientsList;
         }
 
-        // **************** GET CLIENT BY ID *********************
-
+        // ********************************** GET CLIENT BY ID**************************************
+        // GetClient: retorna el cliente que coincide con el id de la base de datos.
+        // Parametros de entrada: int: id
+        // Salida: Object: cliente
         public Object GetClient(int id)
         {
             var conn = DbConnection;
@@ -68,13 +75,15 @@ namespace NutriTEC.Data.Repositories
             sd.Fill(dt);
             conn.Close();
 
-            List<Object> clientsList = new();
-            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
-            if (selected.Count == 0) return null;
-            return selected.FirstOrDefault();
+            object client = GetOneClient(dt);
+
+            return client;
         }
 
-        // **************** LOGIN *********************
+        // ****************************************** LOG IN ***************************************
+        // LogIn: verifica si existe un cliente con el email y clave pasados por parametro
+        // Parametros de entrada: string: email, clave
+        // Salida: Object: cliente
         public Object LogIn(string email, string clave)
         {
             var conn = DbConnection;
@@ -93,47 +102,15 @@ namespace NutriTEC.Data.Repositories
             sd.Fill(dt);
             conn.Close();
 
-            List<Object> clientsList = new();
-            List<Object> selected = AddSelectedClientsToList(dt, clientsList);
-            if (selected.Count == 0) return null;
-            return selected.FirstOrDefault();
+            object client = GetOneClient(dt);
+
+            return client;
         }
 
-        //private bool uniqueUsename(string username)
-        //{
-
-        //}
-
-        private static List<object> AddSelectedClientsToList(DataTable dt, List<Object> clientsList)
-        {
-            // Leer todas las filas y columnas.
-            foreach (DataRow dr in dt.Rows)
-            {
-                clientsList.Add(
-                    new
-                    {
-                        Id = Convert.ToInt32(dr["id"]),
-                        Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
-                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"]),
-                        Nombre = Convert.ToString(dr["nombre"]),
-                        Primer_apellido = Convert.ToString(dr["primer_apellido"]),
-                        Segundo_apellido = Convert.ToString(dr["segundo_apellido"]),
-                        Email = Convert.ToString(dr["email"]),
-                        Clave = Convert.ToString(dr["clave"]),
-                        Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha_nacimiento"])),
-                        Edad = Convert.ToInt32(dr["edad"]),
-                        Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
-                        Altura = float.Parse(Convert.ToString(dr["altura"])),
-                        Pais = Convert.ToString(dr["pais"]),
-                        Estatus = Convert.ToString(dr["estatus"])
-                    });
-            }
-            return clientsList;
-        }
-
-
-
-        // **************** INSERT NEW CLIENT *********************
+        // ************************************ INSERT CLIENT **************************************
+        // InsertClient: inserta un nuevo cliente a la base de datos
+        // Parametros de entrada: Cliente: client
+        // Salida: string: mensaje de aviso del resultado
         public string InsertClient(Cliente client)
         {
             if (!CheckEmailAvailability(client.Email)) return "El email ingresado ya se encuentra en uso.";
@@ -162,7 +139,10 @@ namespace NutriTEC.Data.Repositories
             return "";
         }
 
-        // Funcion que verifica si se encuentra disponible el email a la hora de crear un usuario.
+        // ************************************ CHECK EMAIL ****************************************
+        // CheckEmailAvailability: verifica si se encuentra disponible el email.
+        // Parametros de entrada: string: email
+        // Salida: bool
         private bool CheckEmailAvailability(string email)
         {
             var conn = DbConnection;
@@ -177,8 +157,10 @@ namespace NutriTEC.Data.Repositories
             return result;
         }
 
-
-        // **************** UPDATE CLIENT *********************
+        // ************************************ UPDATE CLIENT **************************************
+        // UpdateClient: actualiza un cliente de la base de datos.
+        // Parametros de entrada: Cliente: client
+        // Salida: bool
         public bool UpdateClient(Cliente client)
         {
             var conn = DbConnection;
@@ -208,7 +190,10 @@ namespace NutriTEC.Data.Repositories
             return (i >= 1);
         }
 
-        // **************** ASSIGN NUTRICIONIST TO CLIENT *********************
+        // ********************* ASSIGN NUTRICIONIST TO CLIENT *************************************
+        // AssignNutricionistToClient: asigna un nutricionista a un cliente
+        // Parametros de entrada: int: id, id_nutricionist
+        // Salida: bool
         public bool AssignNutricionistToClient(int id, int id_nutricionist)
         {
             var conn = DbConnection;
@@ -223,11 +208,14 @@ namespace NutriTEC.Data.Repositories
             conn.Open();
             int i = cmd.ExecuteNonQuery();
             conn.Close();
-           
+
             return (i >= 1);
         }
 
-        // **************** ASSIGN CONVERSATION TO CLIENT *********************
+        // ********************* ASSIGN CONVERSATION TO CLIENT *************************************
+        // AssignConversationToClient: asigna un nutricionista a un cliente
+        // Parametros de entrada: int: id, id_forum
+        // Salida: bool
         public bool AssignConversationToClient(int id, int id_forum)
         {
             var conn = DbConnection;
@@ -245,5 +233,76 @@ namespace NutriTEC.Data.Repositories
 
             return (i >= 1);
         }
+
+
+
+        // #########################################################################################
+        // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
+        // #########################################################################################
+
+        // GetOneClient: retorna el cliente obtenido de ejecutar un select by id de la base de datos
+        // Parametros de entrada: DataTable: dt
+        // Salida: object: cliente
+        private static object GetOneClient(DataTable dt)
+        {
+            object client = null;
+            if (dt.Rows.Count == 1)
+            {
+
+                client = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id_nutricionista = Convert.ToInt32(dt.Rows[0]["id_nutricionista"]),
+                    Id_conversacion = Convert.ToInt32(dt.Rows[0]["id_conversacion"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
+                    Primer_apellido = Convert.ToString(dt.Rows[0]["primer_apellido"]),
+                    Segundo_apellido = Convert.ToString(dt.Rows[0]["segundo_apellido"]),
+                    Email = Convert.ToString(dt.Rows[0]["email"]),
+                    Clave = Convert.ToString(dt.Rows[0]["clave"]),
+                    Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dt.Rows[0]["fecha_nacimiento"])),
+                    Edad = Convert.ToInt32(dt.Rows[0]["edad"]),
+                    Meta_consumo_diario = float.Parse(Convert.ToString(dt.Rows[0]["meta_consumo_diario"])),
+                    Altura = float.Parse(Convert.ToString(dt.Rows[0]["altura"])),
+                    Pais = Convert.ToString(dt.Rows[0]["pais"]),
+                    Estatus = Convert.ToString(dt.Rows[0]["estatus"])
+                };
+
+            }
+            return client;
+        }
+
+        // AddSelectedClientsToList: retorna la lista de clientes obtenidos al ejecutar un select de la base de datos
+        // Parametros de entrada: DataTable: dt, List<Object> clientsList
+        // Salida: object: cliente
+        private static List<object> AddSelectedClientsToList(DataTable dt)
+        {
+            List<Object> clientsList = new();
+
+            // Leer todas las filas y columnas.
+            foreach (DataRow dr in dt.Rows)
+            {
+                clientsList.Add(
+                    new
+                    {
+                        Id = Convert.ToInt32(dr["id"]),
+                        Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
+                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"]),
+                        Nombre = Convert.ToString(dr["nombre"]),
+                        Primer_apellido = Convert.ToString(dr["primer_apellido"]),
+                        Segundo_apellido = Convert.ToString(dr["segundo_apellido"]),
+                        Email = Convert.ToString(dr["email"]),
+                        Clave = Convert.ToString(dr["clave"]),
+                        Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha_nacimiento"])),
+                        Edad = Convert.ToInt32(dr["edad"]),
+                        Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
+                        Altura = float.Parse(Convert.ToString(dr["altura"])),
+                        Pais = Convert.ToString(dr["pais"]),
+                        Estatus = Convert.ToString(dr["estatus"])
+                    });
+            }
+            return clientsList;
+        }
+
+
     }
 }
