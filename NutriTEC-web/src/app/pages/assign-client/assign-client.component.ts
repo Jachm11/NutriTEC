@@ -1,6 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Client } from 'src/interfaces/client';
 
 @Component({
   selector: 'app-assign-client',
@@ -12,25 +15,34 @@ export class AssignClientComponent implements OnInit {
 
   filterClient = '';
 
-  clients = [];
 
-  constructor(private global:GlobalService, private apiService:ApiService) { }
+  clients = [];
+  clients_emitter = new BehaviorSubject<any[]>(this.clients);
+  show = true;
+
+  constructor(private global:GlobalService, private apiService:ApiService, private ngZone : NgZone) { }
 
   ngOnInit() : void {
+    this.upload_clients();
+  }
 
-    this.apiService.get_clients().subscribe((clients)=>  this.clients = clients);
 
+  upload_clients(){
+    this.apiService.get_clients().subscribe((clients) =>{
 
+      this.clients = clients;
+      this.clients_emitter.next(this.clients);
 
+    });
 
   }
 
+
   assign_client(client:any){
-
-    this.global.transactionSuccess("Cliente agregado exitosamente");
-    console.log(client);
-    //Se realiza el post
-
+    this.apiService.assign_client(client.id, this.global.current_nutrionist.id).subscribe(()=>
+    {
+      this.global.transactionSuccess("Cliente asignado exitosamente");
+    });
 
 
   }

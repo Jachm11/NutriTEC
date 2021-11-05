@@ -143,7 +143,8 @@ export class AddEditComponent implements OnInit {
 
   constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog) {
     
-    this.url = router.url;
+    this.url = this.router.url;
+  
    }
 
   ngOnInit(): void {
@@ -173,7 +174,7 @@ export class AddEditComponent implements OnInit {
   }
 
 
-  update_time_food(new_time_food:any){
+  update_time_food(){
 
     if(this.previous_time_food != this.current_time_food){
       if(this.previous_time_food == 'breakfast'){

@@ -34,7 +34,6 @@ export class ApiService {
    get_clients():Observable<Client[]> {
      return this.http.get<Client[]>(this.apiURL + "cliente");
     
-
    }
 
 

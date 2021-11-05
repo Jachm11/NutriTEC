@@ -44,6 +44,7 @@ import { ApiService } from '../services/api.service';
         FilterPipe, 
         AssignClientItemComponent,
         PlanItemComponent,
+        AddEditComponent
         ],
 })
 export class ComponentsModule { }

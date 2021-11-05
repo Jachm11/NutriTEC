@@ -30,10 +30,10 @@
                 >
             </div>
 
-            <br *ngIf="url=== '/manager-plan'">
-            <div *ngIf="url === '/manager-plan'" style="display: flex; flex-direction: column;">
+            <br *ngIf="url=== '/manager-plan' || url == '/assign-plan'">
+            <div *ngIf="url === '/manager-plan' || url === '/assign-plan'" style="display: flex; flex-direction: column;">
                 <label>Tiempo de comida</label>
-                <select class="select-time-food" [(ngModel)]="current_time_food" [ngModelOptions]="{standalone: true}" (change)="update_time_food($event.target.value)">
+                <select class="select-time-food" [(ngModel)]="current_time_food" [ngModelOptions]="{standalone: true}" (change)="update_time_food()">
                     <option [ngValue]="'breakfast'" [selected]="true" >Desayuno</option>
                     <option [ngValue]="'morning_snack'">Merienda mañana</option>
                     <option [ngValue]="'launch'">Almuerzo</option>
@@ -158,7 +158,7 @@
    <div style="display: flex; justify-content: space-around; align-items: center;">
 
         <button (click)="apply_changes()" class="btn btn-success"> Aplicar</button>
-        <button (click)="cancel()" class="btn btn-secondary"> Cancel</button>
+        <button *ngIf="url !== '/assign-plan'" (click)="cancel()" class="btn btn-secondary"> Cancel</button>
     </div>
 
 

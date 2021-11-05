@@ -25,6 +25,9 @@ export class GlobalService {
   current_recipe:any;
   current_plan:any;
   current_client:Client;
+  current_nutrionist:any;
+
+  clients:any;
 
 
   hideAlert(){
