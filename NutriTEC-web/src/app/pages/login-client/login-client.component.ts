@@ -26,11 +26,11 @@ export class LoginClientComponent implements OnInit {
 
   login(){
 
-    this.apiService.login(this.email, this.password).subscribe((current_client)=>{
+    this.apiService.loginClient(this.email, this.password).subscribe((current_client)=>{
         this.global.transactionSuccess("Ingresó correctamente");
         this.global.current_client = current_client;
         console.log(this.global.current_client);
-        this.router.navigateByUrl("/manager-recipe");//Aqui va el perfil
+        this.router.navigateByUrl("/home-nutritionist");//Aqui va el perfil
 
 
     }, (error)=> {

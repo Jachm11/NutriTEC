@@ -1,7 +1,7 @@
 .item-recipe-add-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 50px;
+    grid-column-gap: 25px;
     align-items: center;
 
 }
@@ -60,7 +60,7 @@ input {
 .container-input-productList {
     display: flex;
     flex-direction: column;
-    width: 625px;
+    width: 575px;
 
 
 }

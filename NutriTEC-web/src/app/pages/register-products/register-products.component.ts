@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TouchSequence } from 'selenium-webdriver';
 import { isThisTypeNode } from 'typescript';
 import { GlobalService } from 'src/app/services/global.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-register-products',
@@ -28,8 +29,10 @@ export class RegisterProductsComponent implements OnInit {
 
   url = "/branches";
 
+  product:any;
 
-  constructor(private global : GlobalService) { }
+
+  constructor(private global : GlobalService, private apiService:ApiService) { }
   ngOnInit(): void {
   }
 
@@ -92,9 +95,42 @@ export class RegisterProductsComponent implements OnInit {
       return;
     }
 
-    this.global.transactionSuccess("Producto agregado exitosamente");
-    //Se realiza la consulta al API
-    this.setDefaultValues();
+
+    this.product = {
+      barcode: String(this.codigo_barras),
+      descripcion:this.descripcion,
+      tamano_porcion:this.porcion,
+      sodio:this.sodio,
+      grasa:this.grasa,
+      energia:this.energia,
+      hierro:this.hierro,
+      calcio:this.calcio,
+      proteina:this.proteina,
+      vitamina:this.vitaminas,
+      carbohidratos:this.carbohidratos
+    }
+
+
+
+    console.log(this.product);
+    this.apiService.post_product(this.product).subscribe(()=> {
+    }, (err)=>{
+
+
+      if(err.statusText == 'OK'){
+        this.global.transactionSuccess("Producto agregado exitosamente");
+        this.setDefaultValues();
+      }
+      else {
+        this.global.transactionFailed(err.error);
+
+      }
+
+
+
+    })
+
+
 
   }
 

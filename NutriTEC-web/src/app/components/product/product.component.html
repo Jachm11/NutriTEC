@@ -10,15 +10,12 @@
 
                     <div>
 
-                        <label>  <strong> Producto: </strong> {{product.nombre}} </label>  
+                        <label>  <strong> Producto: </strong> {{product.descripcion}} </label>  
 
 
                     </div>
 
-                    <div>
-                        <label style="margin-left: 10px;">  <strong> Código de barras: </strong> {{product.barcode}}  </label>
-
-                    </div>
+        
                 
                     <div>
                         
@@ -36,11 +33,6 @@
 
                 <div class="info-general">
 
-                    <div>
-                        
-                        <span class="badge badge-pill badge-info">Descripción: </span> <strong class="text-muted mb-0"> {{product.descripcion}}</strong>
-
-                    </div>
 
                     <div>
 
@@ -48,6 +40,15 @@
                         
 
                     </div>
+
+                    
+                    <div>
+
+                        <span class="badge badge-pill badge-info">Código de barras: </span> <strong class="text-muted mb-0"> {{product.barcode}} </strong>
+                        
+
+                    </div>
+
 
 
             
@@ -127,8 +128,8 @@
 
                 <div class="option-button">
                 
-                    <button *ngIf="url == '/products-approval'" class="aprove-button btn btn-1 btn-success" (click)="acceptProduct()"> Aprobar </button>
-                    <button *ngIf="url == '/products-approval'" class="reject-button btn btn-1 btn-danger" (click)="rejectProduct()"> Rechazar </button>
+                    <button *ngIf="url == '/products-approval' && product.estatus == 'ESPERA' " class="aprove-button btn btn-1 btn-success" (click)="acceptProduct()"> Aprobar </button>
+                    <button *ngIf="url == '/products-approval' && product.estatus == 'ESPERA'" class="reject-button btn btn-1 btn-danger" (click)="rejectProduct()"> Rechazar </button>
 
                     <button *ngIf="url == '/manager-recipe' || url == '/manager-plan' || url === '/assign-plan'" class="aprove-button btn btn-1 btn-success" (click)="addProduct()"> Agregar </button>
                 

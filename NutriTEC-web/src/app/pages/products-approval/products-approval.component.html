@@ -26,11 +26,12 @@
           <div class="container-filter">
 
             <div class="filter">
-            <label class="filter-label" (change)="filter()">Filtrar por:</label>
-            <select class="filter-option" [(ngModel)]="filter_option">
-              <option [defaultSelected] value="Aprobado">Aprobado</option>
-              <option value="Rechazdo">Rechazado</option>
-              <option value="En espera">En espera</option>
+            <label class="filter-label">Filtrar por:</label>
+            <select class="filter-option" [(ngModel)]="filter_option" [ngModelOptions]="{standalone: true}" (change)="filter()">
+              <option [ngValue]="'TODOS'" [selected]="true">Todos</option>
+              <option [ngValue]="'APROBADO'">Aprobado</option>
+              <option [ngValue]="'RECHAZADO'">Rechazado</option>
+              <option [ngValue]="'ESPERA'">Espera</option>
             </select>
             </div>
 
@@ -40,7 +41,7 @@
        
           <div class="container-product-approval">
             <app-product
-              *ngFor="let product of productos" [product]="product" [url]="url" (accept_product)="accept_product($event)" (reject_product)="reject_product($event)"></app-product>
+              *ngFor="let product of current_products | async" [product]="product" [url]="url" (accept_product)="accept_product($event)" (reject_product)="reject_product($event)"></app-product>
 
           </div>
 

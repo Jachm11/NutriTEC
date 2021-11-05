@@ -25,14 +25,12 @@
         
         
         <h2 class="title-products"> Productos de la receta:</h2>
-        <div class="container-item-recipe-products">
-        
-                <table class="table table-dark table-striped">
-                        
-                    </table>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="container-item-recipe-products">
         
                 <app-product *ngFor="let pr of recipe.productos" [product]="pr.producto"></app-product>
         
+        </div>
         </div>
 
 

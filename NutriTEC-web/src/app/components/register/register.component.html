@@ -10,6 +10,15 @@
                   <h3>Registro de {{registerAs}}</h3>
                 </div>
                 <form role="form">
+
+                  <div *ngIf="registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus===true}">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Código nutricionista" type="text" [(ngModel)]="codigo_nutricionista" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
+                    </div>
+                  </div>
               
                   <div *ngIf="registerAsClient || registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus===true}">
                     <div class="input-group input-group-alternative mb-3">
@@ -46,7 +55,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-badge"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Cedula" type="number" [(ngModel)]="cedula" [ngModelOptions]="{standalone: true}" (focus)="focus=true"  (blur)="focus=false">
+                      <input class="form-control" placeholder="Cedula" type="text" [(ngModel)]="cedula" [ngModelOptions]="{standalone: true}" (focus)="focus=true"  (blur)="focus=false">
                     </div>
                   </div>
   
@@ -63,7 +72,7 @@
                   </div>
   
   
-                  <div *ngIf="registerAsClient || registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus===true}">
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus===true}">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
@@ -330,7 +339,7 @@
                   </div>
 
 
-                  <div *ngIf="registerAsClient || registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus2===true}">
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus2===true}">
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
@@ -340,16 +349,8 @@
                   </div>
 
   
-                  <div *ngIf="registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus2===true}">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="IMC" type="number" [(ngModel)]="imc" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
-                    </div>
-                  </div>
-  
-  
+          
+
                   <div *ngIf="registerAsNutritionist" class="form-group" [ngClass]="{'focused':focus2===true}">
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
@@ -375,7 +376,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Tarjeta" type="number" [(ngModel)]="tarjeta" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Tarjeta" type="string" [(ngModel)]="tarjeta" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   

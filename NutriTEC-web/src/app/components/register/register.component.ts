@@ -35,10 +35,11 @@ export class RegisterComponent implements OnInit {
     porcentaje_musculo:number;
     porcentaje_grasa:number;
     consumo_maximo_calorias:number;
+    codigo_nutricionista:string;
 
     direccion:string;
     foto:string;
-    tarjeta:number;
+    tarjeta:string;
     tipo_cobro:string;
 
 
@@ -174,9 +175,23 @@ export class RegisterComponent implements OnInit {
       
         };
 
+
         
-        this.api.post_client(this.new_client).subscribe(()=>{
-          this.global.transactionSuccess("Se agregó el cliente exitosamente");
+        this.api.post_client(this.new_client).subscribe(()=>{}, 
+        
+        (err) => {
+
+          if (err.statusText == 'OK'){
+
+            this.global.transactionSuccess("Se agregó el cliente exitosamente");
+            this.setDevaultValues();
+
+          }
+          else {
+
+            this.global.transactionFailed(err.error);
+
+          }
 
         });
  
@@ -206,25 +221,15 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
-      if(!this.altura){
-        this.global.transactionFailed("Ingrese su altura");
-        return;
-      }
-
-      if(!this.peso){
-        this.global.transactionFailed("Ingrese su peso");
-        return;
-      }
-
       if(!this.direccion){
         this.global.transactionFailed("Ingrese su direccion");
         return;
       }
       
-      if(!this.foto){
-        this.global.transactionFailed("Suba su foto de perfil");
-        return;
-      }
+      //if(!this.foto){
+      //  this.global.transactionFailed("Suba su foto de perfil");
+      //  return;
+      //}
 
       if(!this.tarjeta){
         this.global.transactionFailed("Ingrese su numero de tarjeta");
@@ -250,9 +255,73 @@ export class RegisterComponent implements OnInit {
       else {
 
 
+        this.new_nutritionist = {
+          codigo_nutricionista:this.codigo_nutricionista,
+          nombre:this.nombre,
+          primer_apellido:this.primer_apellido,
+          segundo_apellido:this.segundo_apellido,
+          email:this.email,
+          clave:this.password,
+          cedula:this.cedula,
+          fecha_nacimiento:this.fecha_nacimiento,
+          direccion:this.direccion,
+          foto:"foto",
+          tarjeta:this.tarjeta,
+          tipo_cobro:this.tipo_cobro,
+        }
 
+        this.api.post_client(this.new_nutritionist).subscribe(()=>{}, 
+        
+        (err) => {
 
+          if (err.statusText == 'OK'){
+
+            this.global.transactionSuccess("Se agregó el nutricionista exitosamente");
+            this.setDevaultValues();
+
+          }
+          else {
+            this.global.transactionFailed(err.error);
+          }
+
+        });
+ 
       }
+
+
+
+    }
+
+
+
+    setDevaultValues(){
+
+      this.nombre = null;
+      this.primer_apellido = null;
+      this.segundo_apellido = null;
+      this.cedula = null;
+      this.fecha_nacimiento = null;
+      this.altura = null;
+      this.pais = null;
+      this.peso = null;
+      this.imc = null;
+      this.medida_cadera = null;
+      this.medida_cuello = null;
+      this.medida_cintura = null;
+      this.porcentaje_musculo = null;
+      this.porcentaje_grasa =  null;
+      this.consumo_maximo_calorias = null;
+      this.codigo_nutricionista = null;
+  
+      this.direccion = null;
+      this.foto = null;
+      this.tarjeta = null;
+      this.tipo_cobro = null;
+  
+  
+      this.email = null;
+      this.password = null;
+  
 
 
 

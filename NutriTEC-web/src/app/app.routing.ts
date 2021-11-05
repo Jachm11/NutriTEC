@@ -41,7 +41,8 @@ const routes: Routes =[
     { path: 'personal-record',        component:PersonalRecordComponent},
     { path: 'patient-overview',       component:PatientOverviewComponent},
     { path: 'assign-plan',            component:AssingPlanComponent},
-    { path: 'billing',                component:BillingComponent}
+    { path: 'billing',                component:BillingComponent},
+    { path: 'home-nutritionist',      component:HomeComponent}
 ];
 
 @NgModule({

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {provideRoutes, Router} from '@angular/router';
+import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { Product } from 'src/interfaces/product';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-products-approval',
@@ -10,90 +14,100 @@ import { GlobalService } from 'src/app/services/global.service';
 export class ProductsApprovalComponent implements OnInit {
 
   url:string;
-  filter_option:string = "Aprobado";
+  filter_option:string = 'TODO';
 
-  productos = [
-
-    {
-      nombre:"Manzana",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"Manzana",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"Manzana",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    }
+  products = [];
+  current_products = new BehaviorSubject<Product[]>(this.products);
 
 
-
-  ]
-
-  constructor(private router:Router, private global:GlobalService) { 
+  constructor(private router:Router, private global:GlobalService, private apiService:ApiService) { 
 
     this.url = this.router.url;
   }
 
   ngOnInit(): void {
+
+
+    this.get_products();
+
+  }
+
+
+
+  get_products(){
+    this.apiService.get_products().subscribe((products) => {
+
+      this.products = products;
+      this.current_products.next(products);
+
+    });
   }
 
 
 
   filter(){
 
-    //Se filtra los items
 
+    console.log(this.filter_option);
+    if (this.filter_option == 'APROBADO'){
+
+      this.current_products.next(this.products.filter(pr => pr.estatus == 'APROBADO'));
+    }
+
+    if(this.filter_option == 'RECHAZADO'){
+
+      this.current_products.next(this.products.filter(pr => pr.estatus == 'RECHAZADO'));
+    }
+
+    if(this.filter_option == 'ESPERA'){
+
+      this.current_products.next(this.products.filter(pr => pr.estatus == 'ESPERA'));
+
+    }
+
+    if(this.filter_option == 'TODOS'){
+
+      this.current_products.next(this.products)
+    }
   }
 
 
   accept_product(product:any){
 
-    this.global.transactionSuccess("Producto aprobado exitosamente");
-    console.log(product);
-    //Se realiza la consulta al API
+    this.apiService.update_product_status(product.id, "APROBADO").subscribe(() => {
+    }, (err) => {
 
+      if(err.statusText == 'OK'){
+        this.global.transactionSuccess("Producto aprobado exitosamente");
+        this.get_products();
+        this.filter();
+      }
+
+
+    });
+
+ 
 
   }
 
   reject_product(product:any){
-    this.global.transactionSuccess("Producto rechazado exitosamente");
-    console.log(product);
-    //Se realiza la consulta al API
 
+
+    this.apiService.update_product_status(product.id, "RECHAZADO").subscribe(() => {
+    }, (err) => {
+
+      if(err.statusText == 'OK'){
+        this.global.transactionSuccess("Producto rechazado exitosamente");
+        this.get_products();
+        this.filter();
+      }
+
+
+    });
   }
+
+
+
+
 
 }
