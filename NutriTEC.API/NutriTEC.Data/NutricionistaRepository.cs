@@ -16,7 +16,7 @@ namespace NutriTEC.Data
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = "MasterNutricionist";
         private readonly string _spRegister = "Register";
-        private readonly string _spLogin = "Login";
+        private readonly string _spLogin = "LogIn";
         private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
@@ -135,10 +135,10 @@ namespace NutriTEC.Data
             object nutricionist = null;
             if (dt.Rows.Count == 1)
             {
-
                 nutricionist = new
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id_usuario = Convert.ToInt32(dt.Rows[0]["id_usuario"]),
                     Codigo_nutricionista = Convert.ToInt32(dt.Rows[0]["codigo_nutricionista"]),
                     Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
                     Primer_nombre = Convert.ToString(dt.Rows[0]["primer_nombre"]),

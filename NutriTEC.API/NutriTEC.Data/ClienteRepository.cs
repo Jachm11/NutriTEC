@@ -17,7 +17,7 @@ namespace NutriTEC.Data
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = "MasterClient";
         private readonly string _spRegister = "Register";
-        private readonly string _spLogin = "Login";
+        private readonly string _spLogin = "LogIn";
         private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
