@@ -30,7 +30,7 @@ export class LoginClientComponent implements OnInit {
         this.global.transactionSuccess("Ingresó correctamente");
         this.global.current_client = current_client;
         console.log(this.global.current_client);
-        this.router.navigateByUrl("/home-nutritionist");//Aqui va el perfil
+        this.router.navigateByUrl("/home");//Aqui va el perfil
 
 
     }, (error)=> {

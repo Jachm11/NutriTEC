@@ -28,7 +28,7 @@ export class LoginNutritionistComponent implements OnInit {
       this.global.transactionSuccess("Ingresó correctamente");
       this.global.current_nutrionist = current_nutrionist;
       console.log(this.global.current_nutrionist);
-      this.router.navigateByUrl("/assign-client");//Aqui va el perfil
+      this.router.navigateByUrl("/home-nutritionist");//Aqui va el perfil
 
 
   }, (error)=> {
