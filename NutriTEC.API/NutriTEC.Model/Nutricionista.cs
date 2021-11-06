@@ -11,14 +11,10 @@ namespace NutriTEC.Model
     {
         [Key]
         public int Id { get; set; }
+        public int Id_usuario { get; set; }
+        public string Cedula { get; set; }
         public int Codigo_nutricionista { get; set; }
         public string Estatus { get; set; }
-        public string Nombre { get; set; }
-        public string Primer_apellido { get; set; }
-        public string Segundo_apellido { get; set; }
-        public string Email { get; set; }
-        public string Clave { get; set; }
-        public string Cedula { get; set; }
         public DateTime Fecha_nacimiento { get; set; }
         public string Direccion { get; set; }
         public string Foto { get; set; }

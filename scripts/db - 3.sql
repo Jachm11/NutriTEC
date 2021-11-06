@@ -2,7 +2,7 @@ USE [nutridb]
 
 CREATE TABLE Usuario (
     id					int IDENTITY(1,1),
-	rol					varchar(15) NOT NULL,
+	rol					varchar(20) NOT NULL,
 	primer_nombre		varchar(20) NOT NULL,
 	segundo_nombre		varchar(20) NOT NULL,
 	primer_apellido		varchar(20) NOT NULL,
@@ -27,11 +27,12 @@ CREATE TABLE Cliente (
     id					int IDENTITY(1,1),
 	id_usuario			int,
 	id_nutricionista	int,
+	id_conversacion		int,
+	estatus				varchar(20) NOT NULL,
 	fecha_nacimiento	Date NOT NULL,
 	meta_consumo_diario float NOT NULL,
 	pais				varchar(20) NOT NULL, 
-	estatus				varchar(20) NOT NULL,
-	id_conversacion		int,
+	
 
 	PRIMARY KEY(id)
 
@@ -39,7 +40,7 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Nutricionista (
     id						int IDENTITY(1,1),
-	id_usuario			int,
+	id_usuario				int,
 	cedula					varchar(20) NOT NULL,
 	codigo_nutricionista	int NOT NULL,
 	estatus					varchar(20) NOT NULL,
@@ -58,15 +59,15 @@ CREATE TABLE Medidas (
 
 	id					int IDENTITY(1,1),
 	id_cliente			int NOT NULL,
+	fecha				Date NOT NULL,
+	estatus				varchar(20) NOT NULL,
 	porcentaje_musculo	float NOT NULL,
 	porcentaje_grasa	float NOT NULL,
 	cadera				float NOT NULL,
 	peso				float NOT NULL,
 	altura				float NOT NULL,
 	cintura				float NOT NULL,
-	fecha				Date NOT NULL,
 	cuello				float NOT NULL,
-	estatus				varchar(20) NOT NULL
 
 	PRIMARY KEY(id)
 );
