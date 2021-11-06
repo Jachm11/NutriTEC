@@ -12,14 +12,15 @@ namespace NutriTEC.Model
         [Key]
         public int Id { get; set; }
         public int Id_cliente { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Estatus { get; set; }
         public float Porcentaje_musculo { get; set; }
         public float Porcentaje_grasa { get; set; }
         public float Cadera { get; set; }
         public float Peso { get; set; }
+        public float Altura { get; set; }
         public float Cintura { get; set; }
-        public DateTime Fecha { get; set; }
         public float Cuello { get; set; }
-        public string Estatus { get; set; }
 
     }
 }

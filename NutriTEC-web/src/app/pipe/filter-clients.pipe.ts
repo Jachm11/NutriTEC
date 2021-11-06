@@ -10,7 +10,7 @@ export class FilterClientsPipe implements PipeTransform {
 
     for(const client of value){
 
-      if(client.nombre.indexOf(arg) > -1 ){
+      if(client.primer_nombre.indexOf(arg) > -1 ){
 
         resultClients.push(client);
 

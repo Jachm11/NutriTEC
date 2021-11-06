@@ -13,9 +13,9 @@ namespace NutriTEC.Data
 
         Object GetClient(int id);
 
-        string InsertClient(Cliente client);
+        string InsertClient(ClienteModel client);
 
-        bool UpdateClient(Cliente client);
+        //bool UpdateClient(ClienteModel client);
 
         object LogIn(string email, string clave);
 

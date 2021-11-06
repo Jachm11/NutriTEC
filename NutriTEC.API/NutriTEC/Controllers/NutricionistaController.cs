@@ -34,7 +34,7 @@ namespace NutriTEC.Controllers
         // POST: /Nutricionista
         // Agrega un nuevo nutricionista a la base de datos.
         [HttpPost, ActionName("Insert")]
-        public IActionResult CreateNutricionist([FromBody] Nutricionista nutricionist)
+        public IActionResult CreateNutricionist([FromBody] NutricionistaModel nutricionist)
         {
             if (nutricionist == null)
                 return BadRequest();
