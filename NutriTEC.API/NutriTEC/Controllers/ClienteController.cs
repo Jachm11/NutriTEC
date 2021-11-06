@@ -57,7 +57,7 @@ namespace NutriTEC.Controllers
         // POST: /Cliente
         // Agrega un nuevo cliente a la base de datos.
         [HttpPost, ActionName("Insert")]
-        public IActionResult CreateClient([FromBody] Cliente client)
+        public IActionResult CreateClient([FromBody] ClienteModel client)
         {
             if (client == null)
                 return BadRequest("Error, la estructura del cliente no es correcta.");
@@ -72,7 +72,7 @@ namespace NutriTEC.Controllers
 
         // PUT: /Cliente
         // Actualiza un nuevo cliente de la base de datos.
-        [HttpPut, ActionName("Update")]
+/*        [HttpPut, ActionName("Update")]
         public IActionResult UpdateClient([FromBody] Cliente client)
         {
             if (client == null)
@@ -83,7 +83,7 @@ namespace NutriTEC.Controllers
 
             var result = _clientRepository.UpdateClient(client);
             return Ok(result);
-        }
+        }*/
 
         // PUT /Cliente/nutricionist/assign?id=a&forum=b
         [HttpPut("nutricionist/assign"), ActionName("Assign Nutricionist")]

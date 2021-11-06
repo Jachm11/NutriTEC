@@ -13,7 +13,7 @@ namespace NutriTEC.Data
 
         Object GetNutricionist(int id);
 
-        string InsertNutricionist(Nutricionista nutricionist);
+        string InsertNutricionist(NutricionistaModel nutricionist);
 
         //bool UpdateNutricionist(Nutricionista nutricionist);
 

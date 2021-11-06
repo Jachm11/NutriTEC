@@ -14,15 +14,9 @@ Create procedure [dbo].UniqueEmail
     DECLARE @temp varchar(20)
     SET @temp = ( 
         Select email
-        FROM(
-            SELECT email
-            FROM Cliente 
-            WHERE email = @email
-            UNION ALL
-            SELECT email
-            FROM Nutricionista 
-            WHERE email = @email
-		) q1
+        FROM Usuario
+        WHERE email = @email
+
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter
