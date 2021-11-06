@@ -5,7 +5,7 @@ CREATE TABLE Usuario (
 	id_administrador	int,
 	id_nutricionista	int,
 	id_cliente			int,
-	rol					varchar(10) NOT NULL,
+	rol					varchar(15) NOT NULL,
 	nombre				varchar(20) NOT NULL,
 	primer_apellido		varchar(20) NOT NULL,
 	segundo_apellido	varchar(20) NOT NULL,
