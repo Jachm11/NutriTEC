@@ -15,6 +15,7 @@ namespace NutriTEC.Data
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = "MasterNutricionist";
+        private readonly string _spRegister = "Register";
         private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
@@ -47,18 +48,19 @@ namespace NutriTEC.Data
             return nutricionist;
         }
 
-        public string InsertNutricionist(Nutricionista nutricionist)
+        public string InsertNutricionist(NutricionistaModel nutricionist)
         {
             if (!CheckEmailAvailability(nutricionist.Email)) return "El email ingresado ya se encuentra en uso.";
 
             var conn = DbConnection;
 
-            SqlCommand cmd = new(_spName, conn);
+            SqlCommand cmd = new(_spRegister, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@StatementType", "Insert");
+            cmd.Parameters.AddWithValue("@rol", "NUTRICIONIST");
             
             cmd.Parameters.AddWithValue("@codigo_nutricionista", nutricionist.Codigo_nutricionista);
-            cmd.Parameters.AddWithValue("@nombre", nutricionist.Nombre);
+            cmd.Parameters.AddWithValue("@primer_nombre", nutricionist.Primer_nombre);
+            cmd.Parameters.AddWithValue("@segundo_nombre", nutricionist.Segundo_nombre);
             cmd.Parameters.AddWithValue("@primer_apellido", nutricionist.Primer_apellido);
             cmd.Parameters.AddWithValue("@segundo_apellido", nutricionist.Segundo_apellido);
             cmd.Parameters.AddWithValue("@email", nutricionist.Email);

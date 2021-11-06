@@ -16,6 +16,7 @@ namespace NutriTEC.Data
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = "MasterClient";
+        private readonly string _spRegister = "Register";
         private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
@@ -111,24 +112,25 @@ namespace NutriTEC.Data
         // InsertClient: inserta un nuevo cliente a la base de datos
         // Parametros de entrada: Cliente: client
         // Salida: string: mensaje de aviso del resultado
-        public string InsertClient(Cliente client)
+        public string InsertClient(ClienteModel client)
         {
+            
             if (!CheckEmailAvailability(client.Email)) return "El email ingresado ya se encuentra en uso.";
 
             var conn = DbConnection;
 
-            SqlCommand cmd = new(_spName, conn);
+            SqlCommand cmd = new(_spRegister, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@StatementType", "Insert");
+            cmd.Parameters.AddWithValue("@rol", "CLIENT");
 
-            cmd.Parameters.AddWithValue("@nombre", client.Nombre);
+            cmd.Parameters.AddWithValue("@primer_nombre", client.Primer_nombre);
+            cmd.Parameters.AddWithValue("@segundo_nombre", client.Segundo_nombre);
             cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
             cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
             cmd.Parameters.AddWithValue("@email", client.Email);
             cmd.Parameters.AddWithValue("@clave", client.Clave);
             cmd.Parameters.AddWithValue("@fecha_nacimiento", client.Fecha_nacimiento);
             cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
-            cmd.Parameters.AddWithValue("@altura", client.Altura);
             cmd.Parameters.AddWithValue("@pais", client.Pais);
 
             conn.Open();
@@ -161,7 +163,7 @@ namespace NutriTEC.Data
         // UpdateClient: actualiza un cliente de la base de datos.
         // Parametros de entrada: Cliente: client
         // Salida: bool
-        public bool UpdateClient(Cliente client)
+/*        public bool UpdateClient(ClienteModel client)
         {
             var conn = DbConnection;
 
@@ -188,7 +190,7 @@ namespace NutriTEC.Data
             conn.Close();
 
             return (i >= 1);
-        }
+        }*/
 
         // ********************* ASSIGN NUTRICIONIST TO CLIENT *************************************
         // AssignNutricionistToClient: asigna un nutricionista a un cliente
