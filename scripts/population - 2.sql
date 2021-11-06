@@ -9,7 +9,8 @@ INSERT INTO [dbo].[Usuario]
            ,[id_nutricionista]
            ,[id_cliente]
            ,[rol]
-           ,[nombre]
+           ,[primer_nombre]
+		   ,[segundo_nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[email]
@@ -19,6 +20,7 @@ INSERT INTO [dbo].[Usuario]
            ,NULL
            ,NULL
            ,'ADMIN'
+		   ,'Carlos'
            ,'Adrian'
            ,'Araya'
            ,'Ramirez'
@@ -31,7 +33,8 @@ INSERT INTO [dbo].[Usuario]
            ,[id_nutricionista]
            ,[id_cliente]
            ,[rol]
-           ,[nombre]
+           ,[primer_nombre]
+		   ,[segundo_nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[email]
@@ -41,6 +44,7 @@ INSERT INTO [dbo].[Usuario]
            ,NULL
            ,NULL
            ,'ADMIN'
+		   ,'Michael'
            ,'Shakime'
            ,'Richards'
            ,'Sparks'
@@ -53,7 +57,8 @@ INSERT INTO [dbo].[Usuario]
            ,[id_nutricionista]
            ,[id_cliente]
            ,[rol]
-           ,[nombre]
+           ,[primer_nombre]
+		   ,[segundo_nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[email]
@@ -64,6 +69,7 @@ INSERT INTO [dbo].[Usuario]
            ,1
            ,'CLIENT'
            ,'Sebastian'
+		   ,''
            ,'Mora'
            ,'Godinez'
            ,'sebas@gmail.com'
@@ -75,7 +81,8 @@ INSERT INTO [dbo].[Usuario]
            ,[id_nutricionista]
            ,[id_cliente]
            ,[rol]
-           ,[nombre]
+           ,[primer_nombre]
+		   ,[segundo_nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[email]
@@ -85,7 +92,8 @@ INSERT INTO [dbo].[Usuario]
            ,NULL
            ,2
            ,'CLIENT'
-           ,'Jose Alejandro'
+		   ,'Jose'
+           ,'Alejandro'
            ,'Chavarria'
            ,'Sparks'
            ,'jose@gmail.com'
@@ -97,7 +105,8 @@ INSERT INTO [dbo].[Usuario]
            ,[id_nutricionista]
            ,[id_cliente]
            ,[rol]
-           ,[nombre]
+           ,[primer_nombre]
+		   ,[segundo_nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[email]
@@ -107,6 +116,7 @@ INSERT INTO [dbo].[Usuario]
            ,1
            ,NULL
            ,'NUTRICIONIST'
+		   ,'Juan'
            ,'Pedro'
            ,'Perico'
            ,'Gonzales'
@@ -119,7 +129,8 @@ INSERT INTO [dbo].[Usuario]
            ,[id_nutricionista]
            ,[id_cliente]
            ,[rol]
-           ,[nombre]
+           ,[primer_nombre]
+		   ,[segundo_nombre]
            ,[primer_apellido]
            ,[segundo_apellido]
            ,[email]
@@ -129,6 +140,7 @@ INSERT INTO [dbo].[Usuario]
            ,2
            ,NULL
            ,'NUTRICIONIST'
+		   ,'Maria'
            ,'Ana'
            ,'Perico'
            ,'Gonzales'
