@@ -17,6 +17,7 @@ namespace NutriTEC.Data
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = "MasterClient";
         private readonly string _spRegister = "Register";
+        private readonly string _spLogin = "Login";
         private readonly string _uniqueEmail = "UniqueEmail";
 
         // Utilizar driver de Nuget para conectarse a la DB.
@@ -89,10 +90,10 @@ namespace NutriTEC.Data
         {
             var conn = DbConnection;
 
-            SqlCommand cmd = new(_spName, conn);
+            SqlCommand cmd = new(_spLogin, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@StatementType", "LogIn");
 
+            cmd.Parameters.AddWithValue("@rol", "CLIENT");
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@clave", clave);
 
@@ -253,10 +254,12 @@ namespace NutriTEC.Data
 
                 client = new
                 {
+
                     Id = Convert.ToInt32(dt.Rows[0]["id"]),
                     Id_nutricionista = Convert.ToInt32(dt.Rows[0]["id_nutricionista"]),
                     Id_conversacion = Convert.ToInt32(dt.Rows[0]["id_conversacion"]),
-                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
+                    Primer_nombre = Convert.ToString(dt.Rows[0]["primer_nombre"]),
+                    Segundo_nombre = Convert.ToString(dt.Rows[0]["segundo_nombre"]),
                     Primer_apellido = Convert.ToString(dt.Rows[0]["primer_apellido"]),
                     Segundo_apellido = Convert.ToString(dt.Rows[0]["segundo_apellido"]),
                     Email = Convert.ToString(dt.Rows[0]["email"]),
@@ -264,7 +267,6 @@ namespace NutriTEC.Data
                     Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dt.Rows[0]["fecha_nacimiento"])),
                     Edad = Convert.ToInt32(dt.Rows[0]["edad"]),
                     Meta_consumo_diario = float.Parse(Convert.ToString(dt.Rows[0]["meta_consumo_diario"])),
-                    Altura = float.Parse(Convert.ToString(dt.Rows[0]["altura"])),
                     Pais = Convert.ToString(dt.Rows[0]["pais"]),
                     Estatus = Convert.ToString(dt.Rows[0]["estatus"])
                 };
@@ -289,7 +291,8 @@ namespace NutriTEC.Data
                         Id = Convert.ToInt32(dr["id"]),
                         Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
                         Id_conversacion = Convert.ToInt32(dr["id_conversacion"]),
-                        Nombre = Convert.ToString(dr["nombre"]),
+                        Primer_nombre = Convert.ToString(dr["primer_nombre"]),
+                        Segundo_nombre = Convert.ToString(dr["segundo_nombre"]),
                         Primer_apellido = Convert.ToString(dr["primer_apellido"]),
                         Segundo_apellido = Convert.ToString(dr["segundo_apellido"]),
                         Email = Convert.ToString(dr["email"]),
@@ -297,7 +300,6 @@ namespace NutriTEC.Data
                         Fecha_nacimiento = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha_nacimiento"])),
                         Edad = Convert.ToInt32(dr["edad"]),
                         Meta_consumo_diario = float.Parse(Convert.ToString(dr["meta_consumo_diario"])),
-                        Altura = float.Parse(Convert.ToString(dr["altura"])),
                         Pais = Convert.ToString(dr["pais"]),
                         Estatus = Convert.ToString(dr["estatus"])
                     });
