@@ -1,10 +1,4 @@
-use nutridb;
-
-IF OBJECT_ID ( 'UniqueRecipeName', 'P' ) IS NOT NULL
-    DROP PROCEDURE UniqueRecipeName;
-GO
-
-Create procedure [dbo].UniqueRecipeName
+CREATE procedure [dbo].UniqueRecipeName
     (  
 		@nombre varchar(max)
     )
@@ -22,14 +16,14 @@ Create procedure [dbo].UniqueRecipeName
 
     IF @temp IS NULL
         BEGIN
-        SELECT CAST(1 AS bit) -- available
+        SELECT 1 -- available
         END
 
     IF @temp IS NOT NULL
         BEGIN
-        SELECT CAST(0 AS bit) -- unavailable
+        SELECT 0 -- unavailable
         END
 
 	END
+go
 
-GO

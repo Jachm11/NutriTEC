@@ -27,9 +27,7 @@ namespace NutriTEC.Data.Repositories.Interfaces
 
         public List<Object> GetMedidas(int id);
 
-        List<Object> GetAllRecipes();
 
-        Object GetRecipe(int id);
 
     }
 }

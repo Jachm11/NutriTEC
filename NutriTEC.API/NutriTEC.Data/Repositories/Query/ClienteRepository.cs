@@ -414,53 +414,6 @@ namespace NutriTEC.Data.Repositories.Query
 
 
 
-        // ********************************** GET ALL CLIENTS **************************************
-        // GetAllClients: retorna la lista de clientes de la base de datos.
-        // Parametros de entrada: sin parametros
-        // Salida: List<Object>: lista de clientes
-        public List<Object> GetAllRecipes()
-        {
-            var conn = DbConnection;
-
-            SqlCommand cmd = new(_spName, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@StatementType", "SelectAll");
-
-            SqlDataAdapter sd = new(cmd);
-            DataTable dt = new();
-
-            conn.Open();
-            sd.Fill(dt);
-            conn.Close();
-
-            List<Object> clientsList = AddSelectedClientsToList(dt);
-            return clientsList;
-        }
-
-        // ********************************** GET CLIENT BY ID**************************************
-        // GetClient: retorna el cliente que coincide con el id de la base de datos.
-        // Parametros de entrada: int: id
-        // Salida: Object: cliente
-        public Object GetRecipe(int id)
-        {
-            var conn = DbConnection;
-
-            SqlCommand cmd = new(_spName, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@StatementType", "SelectOne");
-
-            SqlDataAdapter sd = new(cmd);
-            DataTable dt = new();
-
-            conn.Open();
-            sd.Fill(dt);
-            conn.Close();
-
-            object client = GetOneClient(dt);
-
-            return client;
-        }
 
     }
 }

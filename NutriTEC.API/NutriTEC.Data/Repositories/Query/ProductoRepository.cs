@@ -15,8 +15,8 @@ namespace NutriTEC.Data.Repositories.Query
     {
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName = "MasterProduct";
-        private readonly string _uniqueBarcode = "UniqueBarcode"; // IMPLEMENTAR ESTO
+        private readonly string _spName = Utils._spProduct;
+        private readonly string _uniqueBarcode = Utils._uniqueBarcode; // IMPLEMENTAR ESTO
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);

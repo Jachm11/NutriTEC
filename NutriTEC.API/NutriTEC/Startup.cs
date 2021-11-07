@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
 using NutriTEC.Data;
 using NutriTEC.Data.Repositories.Interfaces;
 using NutriTEC.Data.Repositories.Query;
@@ -43,6 +42,7 @@ namespace NutriTEC
             services.AddScoped<INutricionistaRepository, NutricionistaRepository>();
             services.AddScoped<IProductoRepository, ProductoRepository>();
             services.AddScoped<IPlansRepository, PlansRepository>();
+            services.AddScoped<IRecetaRepository, RecetaRepository>();
 
             services.AddControllers();
 
