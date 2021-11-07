@@ -37,7 +37,7 @@ BEGIN
 --                             carbohidratos
 
                             (SELECT estadisticas
-                             FROM VistaPrettyProductos VP
+                             FROM VistaListaProducto VP
                              WHERE VP.id = P.id) [stats]
 
             FROM Receta R
@@ -66,7 +66,7 @@ BEGIN
 --                             carbohidratos
 
                             (SELECT estadisticas
-                             FROM VistaPrettyProductos VP
+                             FROM VistaListaProducto VP
                              WHERE VP.id = P.id) [stats]
 
             FROM Receta R

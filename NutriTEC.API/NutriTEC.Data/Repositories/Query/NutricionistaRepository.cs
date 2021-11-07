@@ -6,18 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using NutriTEC.Data;
+using NutriTEC.Data.Repositories.Interfaces;
 
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Query
 {
     public class NutricionistaRepository : INutricionistaRepository
     {
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName = "MasterNutricionist";
-        private readonly string _spRegister = "Register";
-        private readonly string _spLogin = "LogIn";
-        private readonly string _uniqueEmail = "UniqueEmail";
+
+        private readonly string _spName = Utils._spNutricionist;
+        private readonly string _spRegister = Utils._spRegister;
+        private readonly string _spLogin = Utils._spLogin;
+        private readonly string _uniqueEmail = Utils._uniqueEmail;
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);

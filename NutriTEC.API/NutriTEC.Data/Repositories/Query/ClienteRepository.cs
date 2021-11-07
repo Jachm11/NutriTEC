@@ -6,20 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using NutriTEC.Data.Repositories.Interfaces;
 
-
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Query
 {
     public class ClienteRepository : IClienteRepository
     {
 
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName = "MasterClient";
-        private readonly string _spRegister = "Register";
-        private readonly string _spLogin = "LogIn";
-        private readonly string _uniqueEmail = "UniqueEmail";
-        private readonly string _uniqueFechaMedida = "UniqueFechaMedida";
+
+        private readonly string _spName = Utils._spClient;
+        private readonly string _spRegister = Utils._spRegister;
+        private readonly string _spLogin = Utils._spLogin;
+        private readonly string _uniqueEmail = Utils._uniqueEmail;
+        private readonly string _uniqueFechaMedida = Utils._uniqueFechaMedida;
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -411,6 +412,55 @@ namespace NutriTEC.Data
             return medidasList;
         }
 
+
+
+        // ********************************** GET ALL CLIENTS **************************************
+        // GetAllClients: retorna la lista de clientes de la base de datos.
+        // Parametros de entrada: sin parametros
+        // Salida: List<Object>: lista de clientes
+        public List<Object> GetAllRecipes()
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "SelectAll");
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> clientsList = AddSelectedClientsToList(dt);
+            return clientsList;
+        }
+
+        // ********************************** GET CLIENT BY ID**************************************
+        // GetClient: retorna el cliente que coincide con el id de la base de datos.
+        // Parametros de entrada: int: id
+        // Salida: Object: cliente
+        public Object GetRecipe(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@StatementType", "SelectOne");
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            object client = GetOneClient(dt);
+
+            return client;
+        }
 
     }
 }
