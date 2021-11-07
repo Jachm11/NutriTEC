@@ -8,6 +8,14 @@ Create procedure dbo.[MasterClient](
     @id int = NULL,
     @id_nutricionista int = NULL,
     @id_conversacion int = NULL,
+    @fecha Date = NULL,
+    @porcentaje_musculo float = NULL,
+    @porcentaje_grasa float = NULL,
+    @cadera float = NULL,
+    @peso float = NULL,
+    @altura float = NULL,
+    @cintura float = NULL,
+    @cuello float = NULL,
     @StatementType NVARCHAR(20) = ''
 )
 AS
@@ -71,7 +79,33 @@ BEGIN
             WHERE id = @id
         END
 
+    IF @StatementType = 'RegistrarMedidas'
+        BEGIN
 
+            insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura,
+                                 cuello)
+            values (@id, @fecha, @porcentaje_musculo, @porcentaje_grasa, @cadera, @peso, @altura, @cintura, @cuello);
+
+            SELECT CAST(1 AS bit)
+
+        END
+
+    IF @StatementType = 'GetMedidas'
+        BEGIN
+
+
+            select fecha,
+                   porcentaje_musculo,
+                   porcentaje_grasa,
+                   cadera,
+                   peso,
+                   altura,
+                   cintura,
+                   cuello
+            from Medidas
+            where id_cliente = @id
+
+        END
 END
 
 GO

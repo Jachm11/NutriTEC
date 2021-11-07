@@ -23,6 +23,9 @@ namespace NutriTEC.Data
 
         bool AssignConversationToClient(int id, int id_forum);
 
+        public string RegistrarMedidas(Medidas medida);
+
+        public List<Object> GetMedidas(int id);
 
     }
 }
