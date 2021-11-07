@@ -1,4 +1,4 @@
-use nutridb;
+USE [nutridb]
 
 IF OBJECT_ID('Register', 'P') IS NOT NULL
     DROP PROCEDURE [Register];
@@ -16,7 +16,7 @@ Create procedure [dbo].[Register](
     @pais varchar(20) = NULL,
     @estatus varchar(20) = 'ACTIVO',
     @codigo_nutricionista int = NULL,
-    @cedula varchar(20) = NULL,
+    @cedula varchar(32) = NULL,
     @direccion varchar(50) = NULL,
     @foto varchar(50) = NULL,
     @tarjeta varchar(20) = NULL,
@@ -26,11 +26,13 @@ Create procedure [dbo].[Register](
 AS
 BEGIN
 
+    -- INSERCION DEL USUARIO.
     insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
     values (@rol, @primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @email, @clave);
 
     declare @id_u int
     set @id_u = (select id from Usuario where email = @email)
+
 
     IF @rol = 'ADMIN'
         BEGIN

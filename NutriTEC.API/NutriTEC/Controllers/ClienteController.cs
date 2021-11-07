@@ -106,5 +106,34 @@ namespace NutriTEC.Controllers
                 return Ok("Se ha asignado correctamente el forum al cliente.");
             return BadRequest("Error, no se ha podido asignar el forum al cliente.");
         }
+
+
+        // POST: /Cliente/registrarMedida
+        // Agrega una nueva medida a la lista de medidas
+        [HttpPost("registrarMedida"), ActionName("Insert")]
+        public IActionResult InsertMedida([FromBody] Medidas medida)
+        {
+            if (medida == null)
+                return BadRequest("Error, la estructura de la medida no es correcta.");
+
+            string result = _clientRepository.RegistrarMedidas(medida);
+            return Ok(result);
+        }
+
+        // GET: /Cliente/medidas
+        // Retorna todos los clientes.
+        [HttpGet("medidas"), ActionName("GetAll")]
+        public IActionResult GetAllMedidas(int id)
+        {
+            ModelState.Clear();
+
+            List<Object> medidas = _clientRepository.GetMedidas(id);
+
+            if (medidas != null)
+                return Ok(medidas);
+            return NotFound("No se ha encontrado un cliente con el id solicitado");
+
+        }
+
     }
 }
