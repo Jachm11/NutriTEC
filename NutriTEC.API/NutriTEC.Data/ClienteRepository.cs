@@ -116,7 +116,6 @@ namespace NutriTEC.Data
         // Salida: string: mensaje de aviso del resultado
         public string InsertClient(ClienteModel client)
         {
-            
             if (!CheckEmailAvailability(client.Email)) return "El email ingresado ya se encuentra en uso.";
 
             var conn = DbConnection;
