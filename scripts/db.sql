@@ -96,7 +96,7 @@ CREATE TABLE Receta(
 	id				int IDENTITY(1,1),
 	id_cliente		int NOT NULL,
 	estatus			varchar(20) NOT NULL,
-	nombre			varchar(20) NOT NULL,
+	nombre			varchar(max) NOT NULL,
 
 	PRIMARY KEY(id)
 );
