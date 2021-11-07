@@ -1,7 +1,7 @@
 USE [nutridb]
 GO
 
--- Usuario
+-- Usuario 
 
 -- Admin: id_usuario = 1
 INSERT INTO [dbo].[Usuario]
@@ -19,7 +19,7 @@ INSERT INTO [dbo].[Usuario]
            ,'Araya'
            ,'Ramirez'
            ,'adrian@gmail.com'
-           ,(SELECT dbo.Hash_MD5('1')))
+           ,(SELECT dbo.Hash_MD5('111')))
 
 -- Admin: id_usuario = 2
 INSERT INTO [dbo].[Usuario]
@@ -37,7 +37,7 @@ INSERT INTO [dbo].[Usuario]
            ,'Richards'
            ,'Sparks'
            ,'shak@gmail.com'
-           , (SELECT dbo.Hash_MD5('2')))
+           , (SELECT dbo.Hash_MD5('222')))
 
 -- Cliente: id_usuario = 3
 INSERT INTO [dbo].[Usuario]
@@ -55,7 +55,7 @@ INSERT INTO [dbo].[Usuario]
            ,'Mora'
            ,'Godinez'
            ,'sebas@gmail.com'
-           ,(SELECT dbo.Hash_MD5('3')))
+           ,(SELECT dbo.Hash_MD5('333')))
 
 
 -- Cliente: id_usuario = 4
@@ -74,7 +74,7 @@ INSERT INTO [dbo].[Usuario]
            ,'Chavarria'
            ,'Sparks'
            ,'jose@gmail.com'
-           ,(SELECT dbo.Hash_MD5('4')))
+           ,(SELECT dbo.Hash_MD5('444')))
 
 
 -- Nutricionista: id_usuario = 5
@@ -93,7 +93,7 @@ INSERT INTO [dbo].[Usuario]
            ,'Perico'
            ,'Gonzales'
            ,'pedro@gmail.com'
-           ,(SELECT dbo.Hash_MD5('5')))
+           ,(SELECT dbo.Hash_MD5('555')))
 
 
 -- Nutricionista: id_usuario = 6
@@ -112,7 +112,7 @@ INSERT INTO [dbo].[Usuario]
            ,'Perico'
            ,'Gonzales'
            ,'ana@gmail.com'
-           ,(SELECT dbo.Hash_MD5('6')))
+           ,(SELECT dbo.Hash_MD5('000')))
 
 
 -- ADMINISTRADOR

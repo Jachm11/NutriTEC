@@ -1,16 +1,19 @@
-use nutridb;
+USE [nutridb]
 
 IF OBJECT_ID('LogIn', 'P') IS NOT NULL
-    DROP PROCEDURE LogIn;
+    DROP PROCEDURE [LogIn];
 GO
 
-Create procedure dbo.LogIn(
+Create procedure dbo.[LogIn](
     @rol varchar(20) = '',
     @email varchar(20) = NULL,
     @clave varchar(20) = NULL
 )
 AS
 BEGIN
+    -- MD5
+    DECLARE @md5 VARCHAR(20)
+    SET @md5 = (SELECT dbo.Hash_MD5(@clave))
 
     IF @rol = 'CLIENT'
         BEGIN
@@ -33,7 +36,7 @@ BEGIN
             FROM Usuario
                      JOIN Cliente ON Usuario.id = Cliente.id_usuario
             WHERE email = @email
-              AND clave = @clave
+              AND clave = @md5
         END
 
 
@@ -59,7 +62,7 @@ BEGIN
             FROM Usuario
                      JOIN Nutricionista ON Usuario.id = Nutricionista.id_usuario
             WHERE email = @email
-              AND clave = @clave
+              AND clave = @md5
         END
 
     IF @rol = 'ADMIN'
@@ -76,7 +79,7 @@ BEGIN
             FROM Usuario
                      JOIN Administrador ON Usuario.id = Administrador.id_usuario
             WHERE email = @email
-              AND clave = @clave
+              AND clave = @md5
         END
 
 END
