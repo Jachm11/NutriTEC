@@ -39,6 +39,7 @@ namespace NutriTEC
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INutricionistaRepository, NutricionistaRepository>();
             services.AddScoped<IProductoRepository, ProductoRepository>();
+            services.AddScoped<IPlansRepository, PlansRepository>();
 
             services.AddControllers();
 

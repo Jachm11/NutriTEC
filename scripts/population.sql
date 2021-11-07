@@ -55,6 +55,19 @@ insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fec
                      pais)
 values (4, 1, NULL, 'ACTIVO', '10/21/1999', 150, 'Costa Rica')
 
+------------------------------------------- MEDIDAS -------------------------------------------------------
+insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
+values (1, '11/6/2021', 30, 20, 10, 50, 170, 60, 20);
+
+insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
+values (1, '11/7/2021', 31, 23, 11, 53, 170, 61, 20);
+
+insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
+values (1, '11/8/2021', 31, 22, 11, 51, 170, 62, 20);
+
+insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
+values (1, '11/9/2021', 33, 23, 12, 52, 171, 63, 21);
+
 ------------------------------------------- PRODUCTOS ----------------------------------------------------
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
@@ -97,16 +110,103 @@ insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, gras
                       proteina, vitamina, carbohidratos)
 values ('8008996359', 'ESPERA', 'Jugo de naranja', 2, 3, 22, 41, 23, 44.0, 2.1, 1.2, 4.9);
 
-------------------------------------------- MEDIDAS -------------------------------------------------------
-insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
-values (1, '11/6/2021', 30, 20, 10, 50, 170, 60, 20);
+------------------------------------------- RECETA -------------------------------------------------------
+insert into Receta (id_cliente, estatus, nombre)
+values (1, 'ACTIVO', 'Arroz con huevo frito');
 
-insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
-values (1, '11/7/2021', 31, 23, 11, 53, 170, 61, 20);
+insert into Producto_receta (id_producto, id_receta, porciones)
+values (5, 1, 2);
 
-insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
-values (1, '11/8/2021', 31, 22, 11, 51, 170, 62, 20);
+insert into Producto_receta (id_producto, id_receta, porciones)
+values (3, 1, 1.5);
 
-insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura, cuello)
-values (1, '11/9/2021', 33, 23, 12, 52, 171, 63, 21);
+
+insert into Receta (id_cliente, estatus, nombre)
+values (1, 'ACTIVO', 'Arroz a la Jardinera con Pescado');
+
+insert into Producto_receta (id_producto, id_receta, porciones)
+values (8, 2, 1.0);
+
+insert into Producto_receta (id_producto, id_receta, porciones)
+values (3, 2, 2.0);
+
+insert into Receta (id_cliente, estatus, nombre)
+values (2, 'ACTIVO', 'Gallo Pinto');
+
+insert into Producto_receta (id_producto, id_receta, porciones)
+values (4, 3, 1.0);
+
+insert into Producto_receta (id_producto, id_receta, porciones)
+values (3, 3, 2.0);
+------------------------------------------- PLANES ------------------------------------------
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (1, 'ACTIVO', 'La milagrosa');
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (1, 'ACTIVO', 'Ayuno');
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (1, 'ACTIVO', 'Fitness');
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (2, 'ACTIVO', '10 kilos en 1 semana');
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (2, 'ACTIVO', 'Vegano');
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (2, 'ACTIVO', 'Sin sal');
+
+---------------------------------------- PRODUCTOS PLAN -------------------------------------
+
+-- PLAN LA MILAGROSA
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (1,1,'Desayuno',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (2,1,'Desayuno',2);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (6,1,'Merienda manana',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (3,1,'Almuerzo',3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (7,1,'Almuerzo',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (6,1,'Merienda tarde',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (9,1,'Cena',2);
+
+-- PLAN LA FITNESS
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (6,3,'Desayuno',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (1,3,'Merienda manana',2);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (3,3,'Almuerzo',3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4,3,'Almuerzo',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (5,3,'Almuerzo',4);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (1,3,'Merienda tarde',1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (9,3,'Cena',3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (7,3,'Cena',2);
+
 

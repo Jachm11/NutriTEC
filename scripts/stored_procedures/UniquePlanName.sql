@@ -1,28 +1,24 @@
 use nutridb;
 
-IF OBJECT_ID ( 'UniqueBarcode', 'P' ) IS NOT NULL
-    DROP PROCEDURE UniqueBarcode;
+IF OBJECT_ID ( 'UniquePlanName', 'P' ) IS NOT NULL
+    DROP PROCEDURE UniquePlanName;
 GO
 
-Create procedure [dbo].UniqueBarcode  
+Create procedure [dbo].UniquePlanName
     (  
-		@barcode varchar(50)
+		@nombre varchar(max)
     )
    AS
    BEGIN
 
-    DECLARE @temp varchar(20)
+    DECLARE @temp varchar(max)
     SET @temp = ( 
-        Select barcode
-        FROM(
-            SELECT barcode
-            FROM Producto 
-            WHERE barcode = @barcode
-		) q1
+        Select nombre
+        FROM Plans
+        WHERE nombre = @nombre
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter
-
 
     IF @temp IS NULL
         BEGIN
