@@ -131,17 +131,18 @@ CREATE TABLE Producto_receta(
 
 CREATE TABLE Productos_plan(
 
+    id              int IDENTITY(1,1),
 	id_producto		int NOT NULL,
 	id_plan			int NOT NULL,
 	tiempo_comida	varchar(20) NOT NULL,
 	porciones		float NOT NULL,
 
-	PRIMARY KEY(id_producto,id_plan)
+	PRIMARY KEY(id,id_producto,id_plan)
 );
 
 CREATE TABLE Fecha_plan_cliente(
 
-	id_plan_cliente		int NOT NULL,
+	id_plan_cliente		int IDENTITY(1,1),
 	fecha				Date NOT NULL,
 
 	PRIMARY KEY(id_plan_cliente)
