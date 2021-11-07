@@ -26,14 +26,9 @@ Create procedure [dbo].[Register](
 AS
 BEGIN
 
-
-    -- MD5
-    DECLARE @md5 VARCHAR(20)
-    SET @md5 = (SELECT dbo.Hash_MD5(@clave))
-
     -- INSERCION DEL USUARIO.
     insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-    values (@rol, @primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @email, @md5);
+    values (@rol, @primer_nombre, @segundo_nombre, @primer_apellido, @segundo_apellido, @email, @clave);
 
     declare @id_u int
     set @id_u = (select id from Usuario where email = @email)

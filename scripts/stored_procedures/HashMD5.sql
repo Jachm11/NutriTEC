@@ -7,11 +7,11 @@ GO
 CREATE FUNCTION dbo.[Hash_MD5](
     @data varchar(max)
 )
-    RETURNS CHAR(20)
+    RETURNS VARCHAR(max)
 AS
 BEGIN
-    DECLARE @hash CHAR(20)
-    SELECT @hash = CONVERT(VARCHAR(20), HashBytes('MD5', @data), 2)
+    DECLARE @hash VARCHAR(max)
+    SELECT @hash = CONVERT(VARCHAR(max), HashBytes('MD5', @data), 2)
     RETURN @hash
 END
 
