@@ -123,10 +123,36 @@ EN TRABAJO
 EN TRABAJO
 ------------------------------------------------------------------------------------------------
 					SEGUIMIENTO DE PACIENTE:
-EN TRABAJO
 
+PARA OBTENER EL REGISTRO DE UN DIA EN ESPECIFICO
 
+RequestType: GET
+Request URL: https://nutritec.azurewebsites.net/Cliente/medidas?id=1
+Response body: LISTA DE MEDIDAS 
+[
+  {
+    "fecha": "06/11/2021",
+    "porcentaje_musculo": 30,
+    "porcentaje_grasa": 20,
+    "cadera": 10,
+    "peso": 50,
+    "altura": 170,
+    "cintura": 60,
+    "cuello": 20
+  },
+  {
+    "fecha": "07/11/2021",
+    "porcentaje_musculo": 31,
+    "porcentaje_grasa": 23,
+    "cadera": 11,
+    "peso": 53,
+    "altura": 170,
+    "cintura": 61,
+    "cuello": 20
+  }
+]
 
+EN TRABAJO EL RESTO DE PARTES DEL SEGUIMIENTO (FALTA LO DEL FORO)
 
 
 ################################################################################################
@@ -172,7 +198,21 @@ Request body: (informacion del cliente)
 Response body: "Se ha agregado correctamente."
 ------------------------------------------------------------------------------------------------
 					REGISTRO DE MEDIDAS:
-EN TRABAJO
+RequestType: POST
+Request URL: https://nutritec.azurewebsites.net/Cliente/registrarMedida
+Request body: (informacion de la medida)
+{
+  "id_cliente": 1,
+  "fecha": "2021-11-17T03:17:07.165Z",
+  "porcentaje_musculo": 0,
+  "porcentaje_grasa": 0,
+  "cadera": 0,
+  "peso": 0,
+  "altura": 0,
+  "cintura": 0,
+  "cuello": 0
+}
+Response body: "Se ha agregado correctamente."
 ------------------------------------------------------------------------------------------------
 					REGISTRO DIARIO DE CONSUMO:
 EN TRABAJO					

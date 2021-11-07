@@ -7,12 +7,12 @@ GO
 Create procedure dbo.[LogIn](
     @rol varchar(20) = '',
     @email varchar(20) = NULL,
-    @clave varchar(20) = NULL
+    @clave varchar(max) = NULL
 )
 AS
 BEGIN
     -- MD5
-    DECLARE @md5 VARCHAR(20)
+    DECLARE @md5 VARCHAR(max)
     SET @md5 = (SELECT dbo.Hash_MD5(@clave))
 
     IF @rol = 'CLIENT'
