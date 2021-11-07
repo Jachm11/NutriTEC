@@ -170,6 +170,7 @@ namespace NutriTEC.Data
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["id"]),
                     Barcode = Convert.ToString(dt.Rows[0]["barcode"]),
+                    Descripcion = Convert.ToString(dt.Rows[0]["descripcion"]),
                     Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
                     Tamano_porcion = float.Parse(Convert.ToString(dt.Rows[0]["tamano_porcion"])),
                     Sodio = float.Parse(Convert.ToString(dt.Rows[0]["sodio"])),
@@ -201,6 +202,7 @@ namespace NutriTEC.Data
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Barcode = Convert.ToString(dr["barcode"]),
+                        Descripcion = Convert.ToString(dr["descripcion"]),
                         Estatus = Convert.ToString(dr["estatus"]),
                         Tamano_porcion = float.Parse(Convert.ToString(dt.Rows[0]["tamano_porcion"])),
                         Sodio = float.Parse(Convert.ToString(dr["sodio"])),

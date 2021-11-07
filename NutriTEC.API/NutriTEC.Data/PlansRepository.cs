@@ -163,6 +163,27 @@ namespace NutriTEC.Data
             return "El producto del plan se ha eliminado correctamente.";
         }
 
+        public string UpdateProductPlan(int id, int id_producto, string tiempo_comida, int porciones)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "UpdateProductPlan");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id_producto", id_producto);
+            cmd.Parameters.AddWithValue("@tiempo_comida", tiempo_comida);
+            cmd.Parameters.AddWithValue("@porciones", porciones);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado actualizar el producto al plan. Por favor intente más tarde.";
+            return "El producto del plan se ha actualizado correctamente.";
+        }
 
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS

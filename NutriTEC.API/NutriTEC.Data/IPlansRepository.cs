@@ -22,5 +22,7 @@ namespace NutriTEC.Data
 
         string DeletePlanProduct(int id, int id_producto, string tiempo_comida);
 
+        string UpdateProductPlan(int id, int id_producto, string tiempo_comida, int porciones);
+
     }
 }
