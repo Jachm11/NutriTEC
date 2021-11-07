@@ -75,7 +75,7 @@ CREATE TABLE Medidas (
 CREATE TABLE Producto (
 
 	id				int IDENTITY(1,1),
-	barcode			varchar(50) NOT NULL,
+	barcode			varchar(10) NOT NULL,
 	estatus			varchar(20) NOT NULL,
 	descripcion		varchar(20) NOT NULL,
 	tamano_porcion	float NOT NULL,
