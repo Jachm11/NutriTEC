@@ -5,27 +5,28 @@ USE [nutridb]
 
 -- Admin: id_usuario = 1   clave = helado199
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-values ('ADMIN', 'Carlos', 'Adrian', 'Araya', 'Ramirez', 'adrian@gmail.com', '5498B1DA25F0F520FEBB623D88C74736')
+values ('ADMIN', 'Carlos', 'Adrian', 'Araya', 'Ramirez', 'adrian@gmail.com', 'helado199')
 
 -- Admin: id_usuario = 2   clave = yasuo2000
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-values ('ADMIN', 'Michael', 'Shakime', 'Richards', 'Sparks', 'shak@gmail.com', '43CF0E4D7A2A25A454E7E44613061904')
+values ('ADMIN', 'Michael', 'Shakime', 'Richards', 'Sparks', 'shak@gmail.com', 'yasuo2000')
 
 -- Cliente: id_usuario = 3   clave = sebas123
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-values ('CLIENT', 'Sebastian', '', 'Mora', 'Godinez', 'sebas@gmail.com', '4D6993543CD9203435AA92560D5AABA1')
+values ('CLIENT', 'Sebastian', '', 'Mora', 'Godinez', 'sebas@gmail.com', 'sebas123')
 
 -- Cliente: id_usuario = 4   clave = jose123
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-values ('CLIENT', 'Jose', 'Alejandro', 'Chavarria', 'Sparks', 'jose@gmail.com', '90E528618534D005B1A7E7B7A367813F')
+values ('CLIENT', 'Jose', 'Alejandro', 'Chavarria', 'Sparks', 'jose@gmail.com', 'jose123')
 
 -- Nutricionista: id_usuario = 5  clave = perico123
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-values ('NUTRICIONIST', 'Juan', 'Pedro', 'Perico', 'Gonzales', 'pedro@gmail.com', 'FD001EA34060B68520EB05BE55C7B7F5')
+values ('NUTRICIONIST', 'Juan', 'Pedro', 'Perico', 'Gonzales', 'pedro@gmail.com', 'perico123')
 
 -- Nutricionista: id_usuario = 6    clave = ana123
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
-values ('NUTRICIONIST', 'Maria', 'Ana', 'Perico', 'Gonzales', 'ana@gmail.com', '5390489DA3971CBBCD22C159D54D24DA')
+values ('NUTRICIONIST', 'Maria', 'Ana', 'Perico', 'Gonzales', 'ana@gmail.com', 'ana123')
+
 
 ------------------------------------------ ADMINISTRADORES ----------------------------------------------
 
