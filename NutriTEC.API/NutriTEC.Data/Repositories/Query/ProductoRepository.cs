@@ -7,8 +7,9 @@ using NutriTEC.Data;
 using NutriTEC.Model;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using NutriTEC.Data.Repositories.Interfaces;
 
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Query
 {
     public class ProductoRepository : IProductoRepository
     {
@@ -202,7 +203,6 @@ namespace NutriTEC.Data
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Barcode = Convert.ToString(dr["barcode"]),
-                        Descripcion = Convert.ToString(dr["descripcion"]),
                         Estatus = Convert.ToString(dr["estatus"]),
                         Tamano_porcion = float.Parse(Convert.ToString(dt.Rows[0]["tamano_porcion"])),
                         Sodio = float.Parse(Convert.ToString(dr["sodio"])),

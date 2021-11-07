@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NutriTEC.Model;
 
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Interfaces
 {
     public interface IProductoRepository
     {
