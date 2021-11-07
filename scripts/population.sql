@@ -115,10 +115,10 @@ insert into Receta (id_cliente, estatus, nombre)
 values (1, 'ACTIVO', 'Arroz con huevo frito');
 
 insert into Producto_receta (id_producto, id_receta, porciones)
-values (5, 4, 2);
+values (5, 1, 2);
 
 insert into Producto_receta (id_producto, id_receta, porciones)
-values (3, 4, 1.5);
+values (3, 1, 1.5);
 
 
 insert into Receta (id_cliente, estatus, nombre)
