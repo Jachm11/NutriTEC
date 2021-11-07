@@ -8,7 +8,7 @@ CREATE TABLE Usuario (
 	primer_apellido		varchar(20) NOT NULL,
 	segundo_apellido	varchar(20) NOT NULL,
     email				varchar(20) NOT NULL,
-	clave				varchar(20) NOT NULL
+	clave				varchar(max) NOT NULL
 
 	UNIQUE(email),
 	PRIMARY KEY(id)
@@ -60,7 +60,6 @@ CREATE TABLE Medidas (
 	id					int IDENTITY(1,1),
 	id_cliente			int NOT NULL,
 	fecha				Date NOT NULL,
-	estatus				varchar(20) NOT NULL,
 	porcentaje_musculo	float NOT NULL,
 	porcentaje_grasa	float NOT NULL,
 	cadera				float NOT NULL,
