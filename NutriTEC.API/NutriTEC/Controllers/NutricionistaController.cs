@@ -43,7 +43,7 @@ namespace NutriTEC.Controllers
                 return BadRequest(ModelState);
 
             string result = _nutricionistRepository.InsertNutricionist(nutricionist);
-            if (result == "") return Ok("Se ha agregado correctamente.");
+            if (result == "") return Ok();
             return BadRequest(result);
         }
 

@@ -52,7 +52,7 @@ namespace NutriTEC.Controllers
                 return BadRequest(ModelState);
 
             string result = _productRepository.InsertProduct(product);
-            if (result == "") return Ok("Se ha agregado correctamente.");
+            if (result == "") return Ok();
             return BadRequest(result);
         }
 
@@ -67,7 +67,7 @@ namespace NutriTEC.Controllers
             var result = _productRepository.UpdateProductEstatus(id, estatus);
 
             if (result)
-                return Ok("El producto se ha actualizado correctamente.");
+                return Ok();
             
             else
                 return BadRequest("Error, no se ha podido actualizar el producto.");

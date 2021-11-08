@@ -21,13 +21,12 @@
             <div *ngIf="url === '/manager-plan' || url === '/assign-plan' || url == '/daily-register'"
                 style="display: flex; flex-direction: column;">
                 <label>Tiempo de comida</label>
-                <select class="select-time-food" [(ngModel)]="current_time_food" [ngModelOptions]="{standalone: true}"
-                    (change)="update_time_food()">
-                    <option [ngValue]="'breakfast'" [selected]="true">Desayuno</option>
-                    <option [ngValue]="'morning_snack'">Merienda mañana</option>
-                    <option [ngValue]="'launch'">Almuerzo</option>
-                    <option [ngValue]="'afternoon_snack'">Merienda tarde</option>
-                    <option [ngValue]="'dinner'">Cena</option>
+                <select class="select-time-food" [(ngModel)]="current_time_food" [ngModelOptions]="{standalone: true}" (change)="update_time_food()">
+                    <option [ngValue]="'Desayuno'" [selected]="true" >Desayuno</option>
+                    <option [ngValue]="'Merienda manana'">Merienda mañana</option>
+                    <option [ngValue]="'Almuerzo'">Almuerzo</option>
+                    <option [ngValue]="'Merienda tarde'">Merienda tarde</option>
+                    <option [ngValue]="'Cena'">Cena</option>
                 </select>
 
             </div>
@@ -43,8 +42,7 @@
         <div class="container-input-productList">
             <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">
             <div class="products-list">
-                <app-product *ngFor="let product of current_products | filter:filterProducts" [product]="product"
-                    [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
+                <app-product *ngFor="let product of current_products" [product]="product" [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
             </div>
 
         </div>

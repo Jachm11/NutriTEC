@@ -17,6 +17,10 @@ Create procedure [dbo].UniquePlanName
         Select nombre
         FROM Plans
         WHERE nombre = @nombre and id_nutricionista = @id_nutricionista
+        EXCEPT
+        SELECT nombre
+        FROM Plans
+        WHERE estatus = 'INACTIVO'
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter

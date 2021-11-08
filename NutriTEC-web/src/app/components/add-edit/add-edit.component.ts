@@ -2,6 +2,8 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
@@ -18,101 +20,8 @@ export class AddEditComponent implements OnInit {
   selected_products = [];
 
 
-  products = [
-
-    {
-      nombre:"manzana con uva",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"uvas",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"carne",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"pollo",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"arroz",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"frijoles",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    }
-
-  ]
-
-  current_products = this.products;
+  products = [];
+  current_products = []; //new BehaviorSubject<any[]>(this.products);
 
 
   //RECETAS
@@ -132,8 +41,8 @@ export class AddEditComponent implements OnInit {
   name_plan:string;
   nutritionist:string;
   total_calorias:number  = 0;
-  current_time_food:string = 'breakfast';
-  previous_time_food:string = 'breakfast';
+  current_time_food:string = 'Desayuno';
+  previous_time_food:string = 'Desayuno';
 
   breakfast = [];
   morning_snack = [];
@@ -141,7 +50,7 @@ export class AddEditComponent implements OnInit {
   afternoon_snack = [];
   dinner = [];
 
-  constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog) {
+  constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog, private apiService:ApiService) {
     
     this.url = this.router.url;
   
@@ -149,7 +58,15 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.url);
+
+    this.apiService.get_products().subscribe((products) => {
+
+      this.products = products;
+      this.current_products = products;
+
+    })
+
+
     if(this.url == '/manager-recipe'){
 
       if(this.global.isEditing()){
@@ -168,6 +85,17 @@ export class AddEditComponent implements OnInit {
         this.nutritionist = this.global.current_plan.nutritionista;
         this.total_calorias = this.global.current_plan.calorias;
 
+        this.apiService.get_product_by_plan(this.global.current_plan.id).subscribe((products) => {
+
+          this.breakfast = products.filter(pr => pr.tiempo_comida == 'Desayuno');
+          this.morning_snack = products.filter(pr => pr.tiempo_comida == 'Merienda manana');
+          this.launch = products.filter(pr => pr.tiempo_comida == 'Almuerzo');
+          this.afternoon_snack  = products.filter(pr => pr.tiempo_comida == 'Merienda tarde');
+          this.dinner = products.filter(pr => pr.tiempo_comida == 'Cena');
+
+          this.selected_products = this.breakfast;
+        })
+
       }
 
     }
@@ -177,39 +105,36 @@ export class AddEditComponent implements OnInit {
   update_time_food(){
 
     if(this.previous_time_food != this.current_time_food){
-      if(this.previous_time_food == 'breakfast'){
+      if(this.previous_time_food == 'Desayuno'){
         this.breakfast = this.selected_products;
       }
-  
-      if(this.previous_time_food == 'morning_snack'){
+      if(this.previous_time_food == 'Merienda manana'){
         this.morning_snack = this.selected_products;
       }
-
-      if(this.previous_time_food == 'launch'){
+      if(this.previous_time_food == 'Almuerzo'){
         this.launch = this.selected_products;
-      }
-      
-      if(this.previous_time_food == 'afternoon_snack'){
+      }  
+      if(this.previous_time_food == 'Merienda tarde'){
         this.afternoon_snack = this.selected_products;
       }
-      if(this.previous_time_food == 'dinner'){
+      if(this.previous_time_food == 'Cena'){
         this.dinner = this.selected_products;
       }
   
   
-      if(this.current_time_food == 'breakfast'){
+      if(this.current_time_food == 'Desayuno'){
         this.selected_products = this.breakfast;
       }
-      if(this.current_time_food == 'morning_snack'){
+      if(this.current_time_food == 'Merienda manana'){
         this.selected_products= this.morning_snack;
       }
-      if(this.current_time_food == 'launch'){
+      if(this.current_time_food == 'Almuerzo'){
         this.selected_products= this.launch;
       }
-      if(this.current_time_food == 'afternoon_snack'){
+      if(this.current_time_food == 'Merienda tarde'){
         this.selected_products= this.afternoon_snack;
       }
-      if(this.current_time_food == 'dinner'){
+      if(this.current_time_food == 'Cena'){
         this.selected_products= this.dinner;
       }
   
@@ -223,15 +148,29 @@ export class AddEditComponent implements OnInit {
 
   add_product_to_selected_products(producto:any){
 
-    console.log(producto);
-    this.selected_products.push({producto: producto, porcion: null});
-    this.current_products = this.current_products.filter(ps => ps.nombre !== producto.nombre);
+
+    if(this.url == '/manager-plan'){
+
+      if(this.global.isEditing()){
+        let body = {id_producto: producto.id, id_plan:this.global.current_plan.id, tiempo_comida:this.current_time_food, porciones: 0};
+        this.apiService.add_product_to_plan(body).subscribe();
+
+      }
+
+    }
+
+    producto.porciones = 0;
+    this.selected_products.push(producto);
+    this.current_products = this.current_products.filter(ps => ps.descripcion !== producto.descripcion);
     
   }
+
+
+
   update_porcion(event:any){
     this.selected_products.forEach(ps => {
-      if(ps.producto.nombre === event.producto.nombre){
-        ps.porcion = event.porcion;
+      if(ps.nombre === event.nombre){
+        ps.porciones = event.porciones;
       }
 
     });
@@ -241,15 +180,41 @@ export class AddEditComponent implements OnInit {
     }
 
     if(this.url == '/manager-plan'){
+
+      if(this.global.isEditing()){
+        
+        let body = {id_plan: this.global.current_plan.id, id_producto:event.id_producto, tiempo_comida:this.current_time_food, porciones: event.porciones};
+        this.apiService.update_product_porcion(body).subscribe();
+       
+      }
+
       this.update_total_kcal();
+
 
     }
 
 
   }
 
+
+
+
   delete_product(producto:any){
-    this.selected_products =  this.selected_products.filter(ps => ps.producto.nombre !== producto.nombre);
+
+
+    if(this.url == '/manager-plan'){
+
+      if(this.global.isEditing()){
+        let body = {id_plan: this.global.current_plan.id, id_producto:producto.id_producto, tiempo_comida:this.current_time_food};
+        this.apiService.delete_product_from_plan(body).subscribe();
+      }
+
+
+
+    }
+
+    
+    this.selected_products =  this.selected_products.filter(ps => ps.descripcion !== producto.descripcion);
     this.current_products.push(producto);
     this.updateNutritionalInfo();
 
@@ -260,7 +225,7 @@ export class AddEditComponent implements OnInit {
   update_total_kcal(){
     this.setDefaultInfoNutritionalValues();
     this.selected_products.forEach(ps =>{
-      this.total_calorias += ps.producto.energia + ps.porcion;
+      this.total_calorias += ps.energia + ps.porciones;
     })
 
   }
@@ -269,28 +234,32 @@ export class AddEditComponent implements OnInit {
   updateNutritionalInfo(){
     this.setDefaultInfoNutritionalValues();
     this.selected_products.forEach(ps => {
-      this.total_proteinas += ps.producto.proteina * ps.porcion;
-      this.total_vitaminas += ps.producto.vitamina * ps.porcion;
-      this.total_calcio += ps.producto.calcio * ps.porcion;
-      this.total_hierro += ps.producto.hierro * ps.porcion;
-      this.total_energia += ps.producto.energia * ps.porcion;
-      this.total_grasa += ps.producto.grasa * ps.porcion;
-      this.total_sodio += ps.producto.sodio * ps.porcion;
-      this.total_carbohidratos += ps.producto.carbohidratos * ps.porcion;
+      this.total_proteinas += ps.producto.proteina * ps.porciones;
+      this.total_vitaminas += ps.producto.vitamina * ps.porciones;
+      this.total_calcio += ps.producto.calcio * ps.porciones;
+      this.total_hierro += ps.producto.hierro * ps.porciones;
+      this.total_energia += ps.producto.energia * ps.porciones;
+      this.total_grasa += ps.producto.grasa * ps.porciones;
+      this.total_sodio += ps.producto.sodio * ps.porciones;
+      this.total_carbohidratos += ps.producto.carbohidratos * ps.porciones;
     })
 
   }
 
   update_product_list(){
+    
     this.current_products = this.products.filter(pr => {
       for(let ps of this.selected_products){
-        if(pr.nombre === ps.producto.nombre){
-          console.log
+
+        if(pr.descripcion == ps.descripcion){
           return false;
         }
       }
       return true;
     });
+
+
+  
 
   }
 
@@ -309,25 +278,48 @@ export class AddEditComponent implements OnInit {
         return;
       }
   
-      this.apply.emit({nombre: this.name_recipe, nutricionista: 'Sebastian', calorias : 1232, productos : this.selected_products});
+      this.apply.emit({nombre: this.name_recipe, id_client: this.global.current_client.id, calorias : 1232, productos : this.selected_products});
       this.setDefaultValues();
   
     }
 
     if(this.url === "/manager-plan"){
 
+      if(this.current_time_food == "Desayuno"){ this.breakfast = this.selected_products};
+      if(this.current_time_food == "Merienda manana"){ this.morning_snack = this.selected_products};
+      if(this.current_time_food == "Almuerzo"){ this.launch = this.selected_products};
+      if(this.current_time_food == "Merienda tarde"){ this.afternoon_snack = this.selected_products};
+      if(this.current_time_food == "Cena"){ this.dinner = this.selected_products};
+
+
       if(!this.name_plan){
         this.global.transactionFailed("Ingrese un nombre al plan");
         return;
       }
+      if(this.breakfast.length == 0){
+        this.global.transactionFailed("Debe ingresar productos para el desayuno");
+        return; 
+      }
+      if(this.morning_snack.length == 0){
+        this.global.transactionFailed("Debe ingresar productos para la merienda de la manaña");
+        return;
+      }
+      if(this.launch.length == 0){
+        this.global.transactionFailed("Debe ingresar productos para el almuerzo");
+        return;
+      }
+      if(this.afternoon_snack.length == 0){
+        this.global.transactionFailed("Debe ingresar productos para la merienda de la tardeee");
+        return;
+      }
+      if(this.dinner.length == 0){
+        this.global.transactionFailed("Debe ingresar productos para la merienda de la cena");
+        return;
+      }
 
-      this.apply.emit("Aqui se ingresa el plan");
+      this.apply.emit({name: this.name_plan, breakfast: this.breakfast, morning_snack: this.morning_snack, launch : this.launch, afternoon_snack: this.morning_snack, dinner: this.dinner});
 
     }
-
-
-
-
     this.matDialog.closeAll();
 
 

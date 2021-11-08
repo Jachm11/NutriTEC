@@ -46,7 +46,7 @@ namespace NutriTEC.Controllers
         public IActionResult InsertPlan(int id_nutricionista, string nombre)
         {
             object result = _plansRepository.InsertPlan(id_nutricionista, nombre);
-            return Ok(result);
+            return Ok();
         }
 
         // POST: /plan/agregarproducto
@@ -55,7 +55,7 @@ namespace NutriTEC.Controllers
         public IActionResult InsertPlan([FromBody] Productos_plan productos_plan)
         {
             string result = _plansRepository.InsertProductPlan(productos_plan);
-            return Ok(result);
+            return Ok();
         }
 
         // DELETE: /plan/1
@@ -64,7 +64,7 @@ namespace NutriTEC.Controllers
         public IActionResult DeletePlan(int id_plan)
         {
             string result = _plansRepository.DeletePlan(id_plan);
-            return Ok(result);
+            return Ok();
         }
 
         // DELETE: /plan/DeletePlanProduct
@@ -73,7 +73,7 @@ namespace NutriTEC.Controllers
         public IActionResult DeletePlanProducto(int id_plan, int id_producto, string tiempo_comida)
         {
             string result = _plansRepository.DeletePlanProduct(id_plan, id_producto, tiempo_comida);
-            return Ok(result);
+            return Ok();
         }
 
         // PUT: /plan/UpdatePlanProduct
@@ -82,7 +82,7 @@ namespace NutriTEC.Controllers
         public IActionResult UpdatePlanProducto(int id_plan, int id_producto, string tiempo_comida, int porciones)
         {
             string result = _plansRepository.UpdateProductPlan(id_plan, id_producto, tiempo_comida, porciones);
-            return Ok(result);
+            return Ok();
         }
 
     }

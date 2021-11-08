@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.nutritec_movil_app.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_mainView"
+            app:destination="@id/mainView" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainView"
+        android:name="com.example.nutritec_movil_app.MainView"
+        android:label="fragment_main_view"
+        tools:layout="@layout/fragment_main_view" >
+        <action
+            android:id="@+id/action_mainView_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_mainView_to_registerMeasures"
+            app:destination="@id/registerMeasures" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerMeasures"
+        android:name="com.example.nutritec_movil_app.RegisterMeasures"
+        android:label="fragment_register_measures"
+        tools:layout="@layout/fragment_register_measures" >
+        <action
+            android:id="@+id/action_registerMeasures_to_mainView"
+            app:destination="@id/mainView" />
+    </fragment>
+</navigation>
