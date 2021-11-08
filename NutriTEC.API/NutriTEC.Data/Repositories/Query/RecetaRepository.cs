@@ -14,7 +14,7 @@ namespace NutriTEC.Data.Repositories.Query
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
         private readonly string _spName = Utils._spRecipe;
-        private readonly string _uniqueRecipeName = Utils._uniqueRecipeName; // IMPLEMENTAR ESTO
+        private readonly string _spRecipeName = Utils._uniqueRecipeName; // IMPLEMENTAR ESTO
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -82,11 +82,10 @@ namespace NutriTEC.Data.Repositories.Query
         // InsertProduct: inserta un nuevo producto a la base de datos
         // Parametros de entrada: Producto: product
         // Salida: string: mensaje de aviso del resultado
-        public string InsertRecipe(string id_cliente, string nombre)
+        public string InsertRecipe(int id_cliente, string nombre)
         {
-            //if (!CheckBarcodeAvailability(product.Barcode)) return "El barcode ingresado ya se encuentra en uso.";
+            if (!CheckRecipeNameAvailability(id_cliente, nombre)) return "Ya existe una receta con este nombre.";
 
-            
             var conn = DbConnection;
 
             SqlCommand cmd = new(_spName, conn);
@@ -97,12 +96,11 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@nombre", nombre);
 
             conn.Open();
-            int i = (int) cmd.ExecuteScalar();
+            int i = cmd.ExecuteNonQuery();
             conn.Close();
 
-            if (i == 0) return "Ya existe una receta con este nombre.";
-            else if (i < 1) return "No se ha logrado agregar la nueva receta. Por favor intente más tarde.";
-            else return "";
+            if (i < 1) return "No se ha logrado agregar la nueva receta. Por favor intente más tarde.";
+            return "";
         }
         
 
@@ -112,6 +110,8 @@ namespace NutriTEC.Data.Repositories.Query
         // Salida: bool
         public string UpdateRecipeName(int id_cliente, int id_receta, string nombre)
         {
+            if (!CheckRecipeNameAvailability(id_cliente, nombre)) return "Ya existe una receta con este nombre.";
+
             var conn = DbConnection;
 
             SqlCommand cmd = new(_spName, conn);
@@ -123,12 +123,11 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@nombre", nombre);
 
             conn.Open();
-            int i = (int)cmd.ExecuteScalar();
+            int i = cmd.ExecuteNonQuery();
             conn.Close();
 
-            if (i == 0) return "Ya existe una receta con este nombre.";
-            else if (i < 1) return "No se ha logrado actualizar. Por favor intente más tarde.";
-            else return "";
+            if (i < 1) return "No se ha logrado actualizar. Por favor intente más tarde.";
+            return "";
         }
 
 
@@ -210,7 +209,25 @@ namespace NutriTEC.Data.Repositories.Query
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
         // #########################################################################################
 
+        // ************************************ CHECK NAME ****************************************
+        // CheckRecipeNameAvailability: verifica si se encuentra disponible el nombre para la receta.
+        // Parametros de entrada: string: nombre, int id cliente
+        // Salida: bool
+        private bool CheckRecipeNameAvailability(int id_cliente, string nombre)
+        {
+            var conn = DbConnection;
 
+            SqlCommand cmd = new(_spRecipeName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+
+            conn.Open();
+            bool result = (bool)cmd.ExecuteScalar();
+            conn.Close();
+            return result;
+        }
 
         // AddSelectedRecipesToList: retorna la lista de recetas obtenidos al ejecutar un select de la base de datos
         // Parametros de entrada: DataTable: dt

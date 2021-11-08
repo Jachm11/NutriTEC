@@ -27,12 +27,12 @@ CREATE procedure [dbo].UniqueRecipeName
 
     IF @temp IS NULL
         BEGIN
-        SELECT 1 -- available
+        SELECT CAST(1 AS bit) -- available
         END
 
     IF @temp IS NOT NULL
         BEGIN
-        SELECT 0 -- unavailable
+        SELECT CAST(0 AS bit) -- unavailable
         END
 
 	END

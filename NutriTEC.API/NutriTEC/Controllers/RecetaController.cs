@@ -52,7 +52,7 @@ namespace NutriTEC.Controllers
         // POST: /Receta
         // Agrega un nuevo producto a la base de datos.
         [HttpPost(), ActionName("Insert")]
-        public IActionResult CreateReceta(string id_cliente, string nombre)
+        public IActionResult CreateReceta(int id_cliente, string nombre)
         {
             if (nombre == null)
                 return BadRequest("Error, el nombre contiene valores nulos");
