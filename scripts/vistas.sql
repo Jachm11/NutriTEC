@@ -55,7 +55,7 @@ CREATE VIEW VistaNutricionistas
 AS
 SELECT N.id,
        N.tipo_cobro                                                                                  as tipo_de_pago,
-       U.email                                                                                       as corre_electronico,
+       U.email                                                                                       as correo_electronico,
        U.primer_nombre + ' ' + U.segundo_nombre + ' ' + U.primer_apellido + ' ' + U.segundo_apellido as nombre_completo,
        N.tarjeta                                                                                     as numero_de_tarjeta,
        (SELECT Count(*)

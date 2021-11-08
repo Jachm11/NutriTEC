@@ -17,6 +17,10 @@ CREATE procedure [dbo].UniqueRecipeName
         Select nombre
         FROM Receta
         WHERE nombre = @nombre and id_cliente = @id_cliente
+        EXCEPT
+        SELECT nombre
+        FROM Receta
+        WHERE estatus = 'INACTIVO'
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter

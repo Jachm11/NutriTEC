@@ -61,7 +61,7 @@ namespace NutriTEC.Controllers
                 return BadRequest(ModelState);
 
             string result = _recetaRepository.InsertRecipe(id_cliente, nombre);
-            if (result == "") return Ok("Se ha agregado correctamente.");
+            if (result == "") return Ok();
             return BadRequest(result);
         }
 
@@ -76,7 +76,7 @@ namespace NutriTEC.Controllers
                 return BadRequest(ModelState);
 
             string result = _recetaRepository.UpdateRecipeName(id_cliente, id_receta, nombre);
-            if (result == "") return Ok("Se ha agregado correctamente.");
+            if (result == "") return Ok();
             return BadRequest(result);
         }
 
@@ -88,7 +88,7 @@ namespace NutriTEC.Controllers
         public IActionResult DeleteRecipe(int id_receta)
         {
             string result = _recetaRepository.DeleteRecipe(id_receta);
-            return Ok(result);
+            return Ok();
         }
 
 
@@ -98,7 +98,7 @@ namespace NutriTEC.Controllers
         public IActionResult AddProduct(int id_receta, int id_producto, float porciones)
         {
             string result = _recetaRepository.AddProduct(id_receta, id_producto, porciones);
-            return Ok(result);
+            return Ok();
         }
 
 
@@ -108,7 +108,7 @@ namespace NutriTEC.Controllers
         public IActionResult RemoveProduct(int id_receta, int id_producto)
         {
             string result = _recetaRepository.RemoveProduct(id_receta, id_producto);
-            return Ok(result);
+            return Ok();
         }
 
 

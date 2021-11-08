@@ -66,7 +66,7 @@ namespace NutriTEC.Controllers
                 return BadRequest(ModelState);
 
             string result = _clientRepository.InsertClient(client);
-            if (result == "") return Ok("Se ha agregado correctamente.");
+            if (result == "") return Ok();
             return BadRequest(result);
         }
 
@@ -78,7 +78,7 @@ namespace NutriTEC.Controllers
             var result = _clientRepository.AssignNutricionistToClient(id, id_nutricionist);
 
             if (result)
-                return Ok("Se ha asignado correctamente el nutricionista al cliente.");
+                return Ok();
             return BadRequest("Error, no se ha podido asignar el nutricionista al cliente.");
         }
 
@@ -90,7 +90,7 @@ namespace NutriTEC.Controllers
             var result = _clientRepository.AssignConversationToClient(id, id_forum);
 
             if (result)
-                return Ok("Se ha asignado correctamente el forum al cliente.");
+                return Ok();
             return BadRequest("Error, no se ha podido asignar el forum al cliente.");
         }
 
@@ -104,7 +104,7 @@ namespace NutriTEC.Controllers
                 return BadRequest("Error, la estructura de la medida no es correcta.");
 
             string result = _clientRepository.RegistrarMedidas(medida);
-            return Ok(result);
+            return Ok();
         }
 
         // GET: /Cliente/medidas
@@ -146,7 +146,7 @@ namespace NutriTEC.Controllers
 
             string result = _clientRepository.RegistrarConsumoDiario(consumo_Diario);
 
-            return Ok(result);
+            return Ok();
         }
 
     }
