@@ -2,6 +2,8 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
@@ -18,101 +20,8 @@ export class AddEditComponent implements OnInit {
   selected_products = [];
 
 
-  products = [
-
-    {
-      nombre:"manzana con uva",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"uvas",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"carne",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"pollo",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"arroz",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    },
-
-    {
-      nombre:"frijoles",
-      descripcion:"Fruta con gran cantidad de nutrientes",
-      porcion:"1 pieza",
-      barcode:"121232323232",
-      proteina: 300,
-      vitamina: 300,
-      calcio:200,
-      hierro:130,
-      energia:200,
-      grasa:220,
-      sodio:100,
-      carbohidratos:200
-    }
-
-  ]
-
-  current_products = this.products;
+  products = [];
+  current_products = []; //new BehaviorSubject<any[]>(this.products);
 
 
   //RECETAS
@@ -141,7 +50,7 @@ export class AddEditComponent implements OnInit {
   afternoon_snack = [];
   dinner = [];
 
-  constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog) {
+  constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog, private apiService:ApiService) {
     
     this.url = this.router.url;
   
@@ -149,7 +58,15 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.url);
+
+    this.apiService.get_products().subscribe((products) => {
+
+      this.products = products;
+      this.current_products = products;
+
+    })
+
+
     if(this.url == '/manager-recipe'){
 
       if(this.global.isEditing()){
@@ -180,15 +97,12 @@ export class AddEditComponent implements OnInit {
       if(this.previous_time_food == 'breakfast'){
         this.breakfast = this.selected_products;
       }
-  
       if(this.previous_time_food == 'morning_snack'){
         this.morning_snack = this.selected_products;
       }
-
       if(this.previous_time_food == 'launch'){
         this.launch = this.selected_products;
-      }
-      
+      }  
       if(this.previous_time_food == 'afternoon_snack'){
         this.afternoon_snack = this.selected_products;
       }
@@ -223,11 +137,13 @@ export class AddEditComponent implements OnInit {
 
   add_product_to_selected_products(producto:any){
 
-    console.log(producto);
-    this.selected_products.push({producto: producto, porcion: null});
-    this.current_products = this.current_products.filter(ps => ps.nombre !== producto.nombre);
+    this.selected_products.push({producto: producto, porcion: 0});
+    this.current_products = this.current_products.filter(ps => ps.descripcion !== producto.descripcion);
     
   }
+
+
+
   update_porcion(event:any){
     this.selected_products.forEach(ps => {
       if(ps.producto.nombre === event.producto.nombre){
@@ -248,7 +164,11 @@ export class AddEditComponent implements OnInit {
 
   }
 
+
+
+
   delete_product(producto:any){
+
     this.selected_products =  this.selected_products.filter(ps => ps.producto.nombre !== producto.nombre);
     this.current_products.push(producto);
     this.updateNutritionalInfo();
@@ -282,6 +202,7 @@ export class AddEditComponent implements OnInit {
   }
 
   update_product_list(){
+
     this.current_products = this.products.filter(pr => {
       for(let ps of this.selected_products){
         if(pr.nombre === ps.producto.nombre){
@@ -291,6 +212,7 @@ export class AddEditComponent implements OnInit {
       }
       return true;
     });
+
 
   }
 
@@ -321,7 +243,17 @@ export class AddEditComponent implements OnInit {
         return;
       }
 
-      this.apply.emit("Aqui se ingresa el plan");
+      if(this.current_time_food == "breakfast"){ this.breakfast = this.selected_products};
+      if(this.current_time_food == "morning_snack"){ this.morning_snack = this.selected_products};
+      if(this.current_time_food == "launch"){ this.launch = this.selected_products};
+      if(this.current_time_food == "afternoon_snack"){ this.afternoon_snack = this.selected_products};
+      if(this.current_time_food == "dinner"){ this.dinner = this.selected_products};
+
+
+
+      console.log("--------------------------");
+      console.log(this.breakfast);
+      this.apply.emit({name: this.name_plan, breakfast: this.breakfast, morning_snack: this.morning_snack, launch : this.launch, afternoon_snack: this.morning_snack, dinner: this.dinner});
 
     }
 

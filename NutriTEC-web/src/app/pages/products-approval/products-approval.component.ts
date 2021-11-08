@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ProductsApprovalComponent implements OnInit {
 
   url:string;
-  filter_option:string = 'TODO';
+  filter_option:string = 'TODOS';
 
   products = [];
   current_products = new BehaviorSubject<Product[]>(this.products);
@@ -39,6 +39,7 @@ export class ProductsApprovalComponent implements OnInit {
 
       this.products = products;
       this.current_products.next(products);
+      this.filter();
 
     });
   }
@@ -47,25 +48,23 @@ export class ProductsApprovalComponent implements OnInit {
 
   filter(){
 
-
-    console.log(this.filter_option);
     if (this.filter_option == 'APROBADO'){
 
       this.current_products.next(this.products.filter(pr => pr.estatus == 'APROBADO'));
     }
 
-    if(this.filter_option == 'RECHAZADO'){
+    else if(this.filter_option == 'RECHAZADO'){
 
       this.current_products.next(this.products.filter(pr => pr.estatus == 'RECHAZADO'));
     }
 
-    if(this.filter_option == 'ESPERA'){
-
+    else if(this.filter_option == 'ESPERA'){
+      
       this.current_products.next(this.products.filter(pr => pr.estatus == 'ESPERA'));
 
     }
 
-    if(this.filter_option == 'TODOS'){
+    else if(this.filter_option == 'TODOS'){
 
       this.current_products.next(this.products)
     }
@@ -80,7 +79,7 @@ export class ProductsApprovalComponent implements OnInit {
       if(err.statusText == 'OK'){
         this.global.transactionSuccess("Producto aprobado exitosamente");
         this.get_products();
-        this.filter();
+
       }
 
 
@@ -99,7 +98,6 @@ export class ProductsApprovalComponent implements OnInit {
       if(err.statusText == 'OK'){
         this.global.transactionSuccess("Producto rechazado exitosamente");
         this.get_products();
-        this.filter();
       }
 
 

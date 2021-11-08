@@ -30,7 +30,11 @@ export class LoginClientComponent implements OnInit {
         this.global.transactionSuccess("Ingresó correctamente");
         this.global.current_client = current_client;
         console.log(this.global.current_client);
+<<<<<<< HEAD
+        this.router.navigateByUrl("/measurement-register");
+=======
         this.router.navigateByUrl("/home");//Aqui va el perfil
+>>>>>>> fde2b6fda557f2769b2559863c03c27198346a82
 
 
     }, (error)=> {

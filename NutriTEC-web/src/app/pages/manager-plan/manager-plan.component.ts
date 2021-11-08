@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
 import { ShowPlanInfoComponent } from 'src/app/components/plan/show-plan-info/show-plan-info.component';
 import { GlobalService } from 'src/app/services/global.service';
+import { Plan } from 'src/interfaces/plan';
+import { BehaviorSubject } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-manager-plan',
@@ -14,74 +19,35 @@ export class ManagerPlanComponent implements OnInit {
 
   url:string;
 
+  plans = new BehaviorSubject<Plan[]>([]);
 
-  plans = [
-    {
-      nombre:"dieta keto",
-      nutricionista:"Sebastian Mora Godinez",
-      calorias:12122,
-
-      desayuno:  [
-          {
-            nombre:"manzana",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          },
-
-      
-          {
-            nombre:"manzana",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          },
-      
-          {
-            nombre:"manzana",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          }
-      
-      
-      
-        ]
-
-    }
-  ]
-
-  constructor(private global:GlobalService, private dialog:MatDialog, private router:Router) {
+  constructor(private global:GlobalService, private dialog:MatDialog, private router:Router, private apiService:ApiService) {
 
     this.url = this.router.url;
 
    }
 
   ngOnInit(): void {
+
+    this.get_plans();
+
+ 
+
+
+  }
+
+
+
+  get_plans(){
+
+    this.apiService.get_plans_by_id(this.global.current_nutrionist.id).subscribe((plans) => {
+
+      this.plans.next(plans);
+
+
+
+    })
+
   }
 
 
@@ -104,41 +70,72 @@ export class ManagerPlanComponent implements OnInit {
   open_edit_dialog(){
 
     this.global.startEditing(); 
+    this.dialog.open(AddEditComponent);
 
-    const dialogRef = this.dialog.open(AddEditComponent);
-    const subscribeDialog = dialogRef.componentInstance.apply.subscribe((plan) => {
-      this.edit_plan(plan);
-    })
-
-    dialogRef.afterClosed().subscribe(result =>{
-      subscribeDialog.unsubscribe();
-    })
-
+    
   }
 
 
 
   add_plan(plan:any){
 
-    this.plans.push(plan);
-    this.global.transactionSuccess("Se agregó el plan exitosamente");
-    this.global.cancel();
 
+    this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutrionist.id}).subscribe((new_plan) => {
+
+      console.log(new_plan);
+      console.log(plan.breakfast);
+      console.log(plan.morning_snack);
+      console.log(plan.launch);
+      console.log(plan.afternoon_snack);
+      console.log(plan.dinner);
+
+
+
+      plan.breakfast.forEach(pr => {
+        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Desayuno", porciones:pr.porcion}).subscribe();
+      });
+
+      plan.morning_snack.forEach(pr => {
+        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Merienda manana", porciones:pr.porcion}).subscribe();
+   
+      });
+
+      plan.launch.forEach(pr => {
+        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Almuerzo", porciones:pr.porcion}).subscribe();
+      });
+
+      plan.afternoon_snack.forEach(pr => {
+        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Merienda tarde", porciones:pr.porcion}).subscribe();
+      });
+      plan.dinner.forEach(pr => {
+        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Cena", porciones:pr.porcion}).subscribe();
+      });
+
+
+
+
+
+    });
+ 
   }
 
-  edit_plan(plan:any){
-
-    this.plans = this.plans.filter(p => p.nombre !== plan.nombre);
-    this.plans.push(plan);
-    this.global.transactionSuccess("Se editó el plan exitosamente");
-    this.global.cancel();
-
-  }
 
   delete_plan(plan:any){
 
-    this.plans = this.plans.filter(p => p.nombre !== plan.nombre);
-    console.log("Se debe eliminar el plan");
+    this.apiService.delete_plan(plan.id).subscribe(() => {
+    }, (err) =>{
+
+
+      if(err.statusText == "OK"){
+
+        this.global.transactionSuccess("Se ha eliminado exitosamente");
+        this.get_plans();
+        
+
+      }
+
+    })
+
   }
 
  

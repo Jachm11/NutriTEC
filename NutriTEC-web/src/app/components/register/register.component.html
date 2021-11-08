@@ -81,15 +81,7 @@
                     </div>
                   </div>
   
-  
-                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus===true}">
-                    <div class="input-group input-group-alternative mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Altura" type="number" [(ngModel)]="altura" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
-                    </div>
-                  </div>
+
   
                   <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus===true}">
                     <div class="input-group input-group-alternative mb-3">
@@ -345,6 +337,16 @@
                     </select>
                       
                 
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="registerAsClient" class="form-group" [ngClass]="{'focused':focus===true}">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                      </div>
+                      <input class="form-control" placeholder="Altura" type="number" [(ngModel)]="altura" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
 

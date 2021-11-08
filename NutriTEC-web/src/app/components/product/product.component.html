@@ -6,7 +6,7 @@
             <button (click)="toggleShowMe()" [ngStyle]="showMe ? {'background-color':'#92374D'} : {'background': 'white'}" class="product-button btn btn-outline-danger btn-round"> 
                 
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px;" >
+                <div style="display: flex; flex-direction:column; align-items: center;">
 
                     <div>
 
@@ -36,7 +36,7 @@
 
                     <div>
 
-                        <span class="badge badge-pill badge-info">Tamaño de porción: </span> <strong class="text-muted mb-0"> {{product.porcion}} </strong>
+                        <span class="badge badge-pill badge-info">Tamaño de porción: </span> <strong class="text-muted mb-0"> {{product.tamano_porcion}} </strong>
                         
 
                     </div>
