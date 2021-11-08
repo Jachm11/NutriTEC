@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NutriTEC.Data;
+using NutriTEC.Data.Repositories.Interfaces;
 using NutriTEC.Model;
 using System;
 using System.Collections.Generic;
@@ -41,16 +41,16 @@ namespace NutriTEC.Controllers
         }
 
         // POST: /plan/
-        // Agrega un nuevo plan a la lista de planes
+        // Agrega un nuevo plan a la lista de planes.
         [HttpPost, ActionName("Insert")]
         public IActionResult InsertPlan(int id_nutricionista, string nombre)
         {
-            string result = _plansRepository.InsertPlan(id_nutricionista,nombre);
+            object result = _plansRepository.InsertPlan(id_nutricionista, nombre);
             return Ok(result);
         }
 
         // POST: /plan/agregarproducto
-        // Agrega un nuevo plan a la lista de planes
+        // Agrega un nuevo producto a un plan.
         [HttpPost("agregarproducto"), ActionName("Insert")]
         public IActionResult InsertPlan([FromBody] Productos_plan productos_plan)
         {
@@ -59,7 +59,7 @@ namespace NutriTEC.Controllers
         }
 
         // DELETE: /plan/1
-        // Agrega un nuevo plan a la lista de planes
+        // Borra un plan.
         [HttpDelete, ActionName("Delete")]
         public IActionResult DeletePlan(int id_plan)
         {
@@ -68,11 +68,20 @@ namespace NutriTEC.Controllers
         }
 
         // DELETE: /plan/DeletePlanProduct
-        // Agrega un nuevo plan a la lista de planes
+        // Elimina un producto de un plan.
         [HttpDelete("DeletePlanProduct"), ActionName("Delete")]
         public IActionResult DeletePlanProducto(int id_plan, int id_producto, string tiempo_comida)
         {
             string result = _plansRepository.DeletePlanProduct(id_plan, id_producto, tiempo_comida);
+            return Ok(result);
+        }
+
+        // PUT: /plan/UpdatePlanProduct
+        // Actualiza un producto de un plan. 
+        [HttpPut("UpdatePlanProduct"), ActionName("Delete")]
+        public IActionResult UpdatePlanProducto(int id_plan, int id_producto, string tiempo_comida, int porciones)
+        {
+            string result = _plansRepository.UpdateProductPlan(id_plan, id_producto, tiempo_comida, porciones);
             return Ok(result);
         }
 

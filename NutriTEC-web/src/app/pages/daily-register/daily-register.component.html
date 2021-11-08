@@ -1,1 +1,31 @@
-<p>daily-register works!</p>
+<div>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 bg-gradient-default">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <app-alerts></app-alerts>
+
+    <div *ngIf="ready == true ">
+      <div class="container">
+        <div class="tim-title text-primary">
+          <h1>Fichas nutricionales</h1>
+        </div>
+      </div>
+      <div class="tim-title text-white">
+        <h4>Nutricionista asociado: {{nutricionista}} </h4>
+      </div>
+      <app-ficha-row-holder *ngFor="let num of [].constructor(rows) ; index as i" [row]="i" [all_fichas]="fichas">
+      </app-ficha-row-holder>
+    </div>
+  </section>
+
+
+</div>

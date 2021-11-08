@@ -48,6 +48,8 @@ BEGIN
     WHERE id = @id;
 
 END
+
+
 ---------------------------------------- RECIPE RELATIONS TRIGGER -----------------------------------------
 
 IF OBJECT_ID('Products_Recipe', 'P') IS NOT NULL
@@ -118,6 +120,8 @@ Create procedure [dbo].UniqueFechaMedida
 	END
 
 GO
+
+
 
 --------------------------------------------- UNIQUE BARCODE ---------------------------------------------
 
@@ -265,14 +269,16 @@ Create procedure [dbo].UniqueProductDescription
 	END
 
 GO
----------------------------------------- UNIQUE RECIPE NAME ---------------------------------------
+--------------------------------------------- UNIQUE BARCODE ---------------------------------------------
 
-IF OBJECT_ID ( 'UniqueRecipeName', 'P' ) IS NOT NULL
-    DROP PROCEDURE UniqueRecipeName;
+
+IF OBJECT_ID('UniqueRecipeName', 'P') IS NOT NULL
+    DROP PROCEDURE [UniqueRecipeName];
 GO
 
-Create procedure [dbo].UniqueRecipeName
+CREATE procedure [dbo].UniqueRecipeName
     (
+        @id_cliente int,
 		@nombre varchar(max)
     )
    AS
@@ -282,24 +288,23 @@ Create procedure [dbo].UniqueRecipeName
     SET @temp = (
         Select nombre
         FROM Receta
-        WHERE nombre = @nombre
+        WHERE nombre = @nombre and id_cliente = @id_cliente
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter
 
     IF @temp IS NULL
         BEGIN
-        SELECT CAST(1 AS bit) -- available
+        SELECT 1 -- available
         END
 
     IF @temp IS NOT NULL
         BEGIN
-        SELECT CAST(0 AS bit) -- unavailable
+        SELECT 0 -- unavailable
         END
 
 	END
-
-GO
+go
 ---------------------------------------- LOG IN ----------------------------------------------------
 
 IF OBJECT_ID('LogIn', 'P') IS NOT NULL
@@ -450,6 +455,7 @@ END
 GO
 
 ----------------------------------------- MASTER CLIENT -------------------------------------------------------
+USE [nutridb]
 
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
@@ -459,6 +465,8 @@ Create procedure dbo.[MasterClient](
     @id int = NULL,
     @id_nutricionista int = NULL,
     @id_conversacion int = NULL,
+    @id_producto int = NULL,
+    @tiempo_comida varchar(20) = '',
     @fecha Date = NULL,
     @porcentaje_musculo float = NULL,
     @porcentaje_grasa float = NULL,
@@ -544,7 +552,6 @@ BEGIN
     IF @StatementType = 'GetMedidas'
         BEGIN
 
-
             select fecha,
                    porcentaje_musculo,
                    porcentaje_grasa,
@@ -557,9 +564,20 @@ BEGIN
             where id_cliente = @id
 
         END
+
+    IF @StatementType = 'RegistroConsumoDiario'
+    BEGIN
+        insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
+        values (@id, @id_producto, @tiempo_comida, @fecha)
+    END
+
+
+
+
 END
 
 GO
+
 
 ---------------------------------------------------- MASTER NUTRICIONIST -------------------------------------
 
@@ -604,6 +622,7 @@ Create procedure [dbo].[MasterNutricionist]
 
 GO
 ------------------------------------------------ MASTER PRODUCT ---------------------------------------------------
+use nutridb;
 
 IF OBJECT_ID ( 'MasterProduct', 'P' ) IS NOT NULL
     DROP PROCEDURE [MasterProduct];
@@ -712,8 +731,8 @@ Create procedure [dbo].[MasterProduct]
 	END
 
 GO
-
 ------------------------------------------- MASTER PLANS -----------------------------------------
+use nutridb;
 
 IF OBJECT_ID('MasterPlans', 'P') IS NOT NULL
     DROP PROCEDURE [MasterPlans];
@@ -751,6 +770,9 @@ BEGIN
         BEGIN
             insert into Plans (id_nutricionista, estatus, nombre)
             values (@id_nutricionista, @estatus, @nombre)
+
+            select * from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
+
         END
 
     IF @StatementType = 'InsertProductsPlan'
@@ -767,14 +789,29 @@ BEGIN
         END
 
     IF @StatementType = 'DeletePlanProduct'
-    BEGIN
-        delete from Productos_plan where id_producto=@id_producto and id_plan=@id and tiempo_comida=@tiempo_comida
-    END
+        BEGIN
+            delete
+            from Productos_plan
+            where id_producto = @id_producto
+              and id_plan = @id
+              and tiempo_comida = @tiempo_comida
+        END
+
+
+    IF @StatementType = 'UpdateProductPlan'
+        BEGIN
+            update Productos_plan
+            set porciones = @porciones
+            where id_plan = @id
+              and id_producto = @id_producto
+              and tiempo_comida = @tiempo_comida
+        END
 
 
 END
 
 GO
+
 
 -------------------------------------------- MASTER RECIPE --------------------------------------
 
@@ -782,7 +819,7 @@ IF OBJECT_ID('MasterRecipe', 'P') IS NOT NULL
     DROP PROCEDURE [MasterRecipe];
 GO
 
-Create procedure dbo.[MasterRecipe](
+CREATE procedure dbo.[MasterRecipe](
     @id int = NULL,
     @id_cliente int = NULL,
     @id_producto int = NULL,
@@ -792,80 +829,58 @@ Create procedure dbo.[MasterRecipe](
     @StatementType NVARCHAR(20) = ''
 )
 AS
+DECLARE @unique VARCHAR(max)
 BEGIN
 
-    IF @StatementType = 'SelectAll'
+    IF @StatementType = 'SelectClientRecipes'
         BEGIN
-
-            SELECT DISTINCT R.id        as       id_receta,
-                            R.estatus   as       estado_receta,
-                            R.nombre    as       nombre_receta,
-                            P.id        as       id_producto,
-                            barcode,
-                            descripcion as       nombre_producto,
-                            porciones   as       porcion_agregada,
-                            tamano_porcion,
---                             sodio,
---                             grasa,
---                             energia,
---                             hierro,
---                             calcio,
---                             proteina,
---                             vitamina,
---                             carbohidratos
-
-                            (SELECT estadisticas
-                             FROM VistaPrettyProductos VP
-                             WHERE VP.id = P.id) [stats]
-
-            FROM Receta R
-                     JOIN Producto_receta PR ON R.id = PR.id_receta
-                     JOIN Producto P ON PR.id_producto = P.id
-            ORDER BY R.nombre
+            SELECT id, estatus, nombre
+            FROM Receta
+            WHERE id_cliente = @id_cliente
+            ORDER BY nombre
         END
 
-    IF @StatementType = 'SelectOne'
+    IF @StatementType = 'SelectRecipeProducts'
         BEGIN
-            SELECT DISTINCT R.id        as       id_receta,
-                            R.estatus   as       estado_receta,
-                            R.nombre    as       nombre_receta,
-                            P.id        as       id_producto,
-                            barcode,
-                            descripcion as       nombre_producto,
-                            porciones   as       porcion_agregada,
-                            tamano_porcion,
---                             sodio,
---                             grasa,
---                             energia,
---                             hierro,
---                             calcio,
---                             proteina,
---                             vitamina,
---                             carbohidratos
-
-                            (SELECT estadisticas
-                             FROM VistaPrettyProductos VP
-                             WHERE VP.id = P.id) [stats]
-
-            FROM Receta R
-                     JOIN Producto_receta PR ON R.id = PR.id_receta
-                     JOIN Producto P ON PR.id_producto = P.id
-            WHERE @id = R.id
-            ORDER BY R.nombre
+            SELECT id_producto,
+                   barcode,
+                   nombre_producto,
+                   porcion_agregada,
+                   medida_porcion,
+                   sodio,
+                   grasa,
+                   energia,
+                   hierro,
+                   calcio,
+                   proteina,
+                   vitamina,
+                   carbohidratos
+            FROM VistaRecetaProductos V
+            WHERE V.id_receta = @id
+            ORDER BY nombre_producto
         END
 
     IF @StatementType = 'Insert'
         BEGIN
-            INSERT INTO Receta (id_cliente, estatus, nombre)
-            VALUES (@id_cliente, @estatus, @nombre);
+            exec @unique = UniqueRecipeName @id_cliente, @nombre
+            IF @unique = 1
+                SELECT 0
+            ElSE
+                INSERT INTO Receta (id_cliente, estatus, nombre)
+                VALUES (@id_cliente, @estatus, @nombre);
         END
 
 
     IF @StatementType = 'Update'
         BEGIN
-            UPDATE Receta
-            SET nombre = @nombre
-            WHERE id = @id
+            exec @unique = UniqueRecipeName @id_cliente, @nombre
+            IF @unique = 1
+                SELECT 0
+
+            ElSE
+                UPDATE Receta
+                SET nombre = @nombre
+                WHERE id = @id
         END
 
     IF @StatementType = 'Delete'
@@ -873,7 +888,7 @@ BEGIN
             UPDATE Receta
             SET estatus = 'INACTIVO'
             WHERE id = @id
-            -- IMPLEMENTAR TRIGGER QUE ELIMINE REFERENCIAS QUE TENGAN A RECETA ID.
+            -- TRIGGER ELIMINA REFERENCIAS QUE TENGAN A RECETA ID.
         END
 
     IF @StatementType = 'AddProduct'
@@ -884,11 +899,11 @@ BEGIN
 
     IF @StatementType = 'RemoveProduct'
         BEGIN
-            DELETE FROM Producto_receta
-            WHERE id_receta = @id AND id_producto = @id_producto
+            DELETE
+            FROM Producto_receta
+            WHERE id_receta = @id
+              AND id_producto = @id_producto
         END
 
 END
-
-GO
-
+go

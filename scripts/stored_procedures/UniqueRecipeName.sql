@@ -1,35 +1,36 @@
-use nutridb;
+USE [nutridb]
 
-IF OBJECT_ID ( 'UniqueRecipeName', 'P' ) IS NOT NULL
-    DROP PROCEDURE UniqueRecipeName;
+IF OBJECT_ID('UniqueRecipeName', 'P') IS NOT NULL
+    DROP PROCEDURE [UniqueRecipeName];
 GO
 
-Create procedure [dbo].UniqueRecipeName
-    (  
+CREATE procedure [dbo].UniqueRecipeName
+    (
+        @id_cliente int,
 		@nombre varchar(max)
     )
    AS
    BEGIN
 
     DECLARE @temp varchar(max)
-    SET @temp = ( 
+    SET @temp = (
         Select nombre
         FROM Receta
-        WHERE nombre = @nombre
+        WHERE nombre = @nombre and id_cliente = @id_cliente
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter
 
     IF @temp IS NULL
         BEGIN
-        SELECT CAST(1 AS bit) -- available
+        SELECT 1 -- available
         END
 
     IF @temp IS NOT NULL
         BEGIN
-        SELECT CAST(0 AS bit) -- unavailable
+        SELECT 0 -- unavailable
         END
 
 	END
+go
 
-GO

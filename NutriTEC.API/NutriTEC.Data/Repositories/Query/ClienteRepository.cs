@@ -6,20 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using NutriTEC.Data.Repositories.Interfaces;
 
-
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Query
 {
     public class ClienteRepository : IClienteRepository
     {
 
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName = "MasterClient";
-        private readonly string _spRegister = "Register";
-        private readonly string _spLogin = "LogIn";
-        private readonly string _uniqueEmail = "UniqueEmail";
-        private readonly string _uniqueFechaMedida = "UniqueFechaMedida";
+
+        private readonly string _spName = Utils._spClient;
+        private readonly string _spRegister = Utils._spRegister;
+        private readonly string _spLogin = Utils._spLogin;
+        private readonly string _uniqueEmail = Utils._uniqueEmail;
+        private readonly string _uniqueFechaMedida = Utils._uniqueFechaMedida;
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -84,7 +85,7 @@ namespace NutriTEC.Data
         }
 
         // ****************************************** LOG IN ***************************************
-        // LogIn: verifica si existe un cliente con el email y clave pasados por parametro
+        // LogIn: verifica si existe un cliente con el email y clave pasados por parametro.
         // Parametros de entrada: string: email, clave
         // Salida: Object: cliente
         public Object LogIn(string email, string clave)
@@ -111,7 +112,7 @@ namespace NutriTEC.Data
         }
 
         // ************************************ INSERT CLIENT **************************************
-        // InsertClient: inserta un nuevo cliente a la base de datos
+        // InsertClient: inserta un nuevo cliente a la base de datos.
         // Parametros de entrada: Cliente: client
         // Salida: string: mensaje de aviso del resultado
         public string InsertClient(ClienteModel client)
@@ -160,41 +161,8 @@ namespace NutriTEC.Data
             return result;
         }
 
-        // ************************************ UPDATE CLIENT **************************************
-        // UpdateClient: actualiza un cliente de la base de datos.
-        // Parametros de entrada: Cliente: client
-        // Salida: bool
-/*        public bool UpdateClient(ClienteModel client)
-        {
-            var conn = DbConnection;
-
-            SqlCommand cmd = new(_spName, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@StatementType", "Update");
-
-            cmd.Parameters.AddWithValue("@id", client.Id);
-            cmd.Parameters.AddWithValue("@Id_nutricionista", client.Id_nutricionista);
-            cmd.Parameters.AddWithValue("@nombre", client.Nombre);
-            cmd.Parameters.AddWithValue("@primer_apellido", client.Primer_apellido);
-            cmd.Parameters.AddWithValue("@segundo_apellido", client.Segundo_apellido);
-            cmd.Parameters.AddWithValue("@email", client.Email);
-            cmd.Parameters.AddWithValue("@clave", client.Clave);
-            cmd.Parameters.AddWithValue("@fecha_nacimiento", client.Fecha_nacimiento);
-            cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
-            cmd.Parameters.AddWithValue("@altura", client.Altura);
-            cmd.Parameters.AddWithValue("@pais", client.Pais);
-            cmd.Parameters.AddWithValue("@estatus", client.Estatus);
-            cmd.Parameters.AddWithValue("@Id_conversacion", client.Id_conversacion);
-
-            conn.Open();
-            int i = cmd.ExecuteNonQuery();
-            conn.Close();
-
-            return (i >= 1);
-        }*/
-
         // ********************* ASSIGN NUTRICIONIST TO CLIENT *************************************
-        // AssignNutricionistToClient: asigna un nutricionista a un cliente
+        // AssignNutricionistToClient: asigna un nutricionista a un cliente.
         // Parametros de entrada: int: id, id_nutricionist
         // Salida: bool
         public bool AssignNutricionistToClient(int id, int id_nutricionist)
@@ -216,7 +184,7 @@ namespace NutriTEC.Data
         }
 
         // ********************* ASSIGN CONVERSATION TO CLIENT *************************************
-        // AssignConversationToClient: asigna un nutricionista a un cliente
+        // AssignConversationToClient: asigna un nutricionista a un cliente.
         // Parametros de entrada: int: id, id_forum
         // Salida: bool
         public bool AssignConversationToClient(int id, int id_forum)
@@ -238,7 +206,7 @@ namespace NutriTEC.Data
         }
 
         // ********************* REGISTRAR MEDIDAS *************************************
-        // RegistrarMedidas: agrega una medida a la lista de medidas del cliente
+        // RegistrarMedidas: agrega una medida a la lista de medidas del cliente.
         // Parametros de entrada: int: id, id_forum
         // Salida: bool
         public string RegistrarMedidas(Medidas medida)
@@ -294,7 +262,7 @@ namespace NutriTEC.Data
         // ********************************** GET MEDIDAS **************************************
         // GetMedidas: retorna las medidas del cliente.
         // Parametros de entrada: int: id
-        // Salida: Object: cliente
+        // Salida: List<Object>: lista de medidas
         public List<Object> GetMedidas(int id)
         {
             var conn = DbConnection;
@@ -304,7 +272,7 @@ namespace NutriTEC.Data
 
             cmd.Parameters.AddWithValue("@StatementType", "GetMedidas");
             cmd.Parameters.AddWithValue("@id", id);
-            
+
             SqlDataAdapter sd = new(cmd);
             DataTable dt = new();
 
@@ -317,11 +285,66 @@ namespace NutriTEC.Data
             return medidas;
         }
 
+        // ********************************** REGISTRAR CONSUMO DIARIO *************************
+        // RegistrarConsumoDiario: agrega un nuevo producto al consumo diario.
+        // Parametros de entrada: RegistrarConsumoDiario: consumo_diario
+        // Salida: string: resultado de operacion.
+        public string RegistrarConsumoDiario(Consumo_diario consumo_diario)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "RegistroConsumoDiario");
+
+            cmd.Parameters.AddWithValue("@id", consumo_diario.Id_cliente);
+            cmd.Parameters.AddWithValue("@id_producto", consumo_diario.Id_producto);
+            cmd.Parameters.AddWithValue("@tiempo_comida", consumo_diario.Tiempo_comida);
+            cmd.Parameters.AddWithValue("@fecha", consumo_diario.Fecha);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i == 1)
+                return "Se ha registrado correctamente";
+            return "Ha ocurrido un error";
+        }
+
+        // ********************************** GET REPORTE AVANCE ***************************
+        // GetReporteAvance: obtiene el reporte de avance en un intervalo de tiempo.
+        // Parametros de entrada: int:id, DateTime: fechaInicio, DateTime fechaFin
+        // Salida: List<Object>: lista de medidas
+        public List<Object> GetReporteAvance(int id, DateTime fechaInicio, DateTime fechaFin)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "ReporteAvance");
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+            cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> medidas = AddSelectedMedidasToList(dt);
+
+            return medidas;
+        }
+
+
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
         // #########################################################################################
 
-        // GetOneClient: retorna el cliente obtenido de ejecutar un select by id de la base de datos
+        // GetOneClient: retorna el cliente obtenido de ejecutar un select by id de la base de datos.
         // Parametros de entrada: DataTable: dt
         // Salida: object: cliente
         private static object GetOneClient(DataTable dt)
@@ -355,7 +378,7 @@ namespace NutriTEC.Data
 
         // AddSelectedClientsToList: retorna la lista de clientes obtenidos al ejecutar un select de la base de datos
         // Parametros de entrada: DataTable: dt
-        // Salida: object: cliente
+        // Salida: List<Object>: lista de clientes
         private static List<object> AddSelectedClientsToList(DataTable dt)
         {
             List<Object> clientsList = new();
@@ -387,7 +410,7 @@ namespace NutriTEC.Data
 
         // AddSelectedMedidasToList: retorna la lista de medidas obtenidos al ejecutar un select de la base de datos
         // Parametros de entrada: DataTable: dt
-        // Salida: object: cliente
+        // Salida: List<Object>: lista de medidas.
         private static List<object> AddSelectedMedidasToList(DataTable dt)
         {
             List<Object> medidasList = new();
@@ -410,7 +433,5 @@ namespace NutriTEC.Data
             }
             return medidasList;
         }
-
-
     }
 }

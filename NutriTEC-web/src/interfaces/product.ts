@@ -10,6 +10,12 @@ export class Product {
     proteina:number;
     vitamina:number;
     carbohidratos:number;
+}
 
+export class Product_Consumption{
+
+    producto: string;
+    tiempo_comida: string;
+    porcion: number;
 
 }

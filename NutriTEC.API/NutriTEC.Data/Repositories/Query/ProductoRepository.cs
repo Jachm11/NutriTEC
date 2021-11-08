@@ -7,15 +7,16 @@ using NutriTEC.Data;
 using NutriTEC.Model;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using NutriTEC.Data.Repositories.Interfaces;
 
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Query
 {
     public class ProductoRepository : IProductoRepository
     {
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName = "MasterProduct";
-        private readonly string _uniqueBarcode = "UniqueBarcode"; // IMPLEMENTAR ESTO
+        private readonly string _spName = Utils._spProduct;
+        private readonly string _uniqueBarcode = Utils._uniqueBarcode; // IMPLEMENTAR ESTO
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -170,6 +171,7 @@ namespace NutriTEC.Data
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["id"]),
                     Barcode = Convert.ToString(dt.Rows[0]["barcode"]),
+                    Descripcion = Convert.ToString(dt.Rows[0]["descripcion"]),
                     Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
                     Tamano_porcion = float.Parse(Convert.ToString(dt.Rows[0]["tamano_porcion"])),
                     Sodio = float.Parse(Convert.ToString(dt.Rows[0]["sodio"])),
@@ -201,6 +203,7 @@ namespace NutriTEC.Data
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Barcode = Convert.ToString(dr["barcode"]),
+                        Descripcion = Convert.ToString(dr["descripcion"]),
                         Estatus = Convert.ToString(dr["estatus"]),
                         Tamano_porcion = float.Parse(Convert.ToString(dt.Rows[0]["tamano_porcion"])),
                         Sodio = float.Parse(Convert.ToString(dr["sodio"])),

@@ -1,0 +1,40 @@
+
+DATA PARA GRAFICOS
+
+Pueden venir todos en un array [fechas, pesos_data, cintura_data, cadera_data, cuello_data , grasa_data, musculo_data]
+
+O pueden ser varios querys. Da lo mismo
+
+La posicion de la fecha debe coincidir con los datos
+	
+ Basandose en el ejemplo de abajo, para el 18-11-2011, el peso era 54, cintura 20 , cadera 30 , cuello .... 
+
+ 
+ fechas: string[];
+
+ 	e.g: ["18-11-2011", "2-12-2011", "25-12-2011", "16-1-2012" ] 
+
+ pesos_data: int[];
+
+ 	e.g: [ 54 , 55 , 60 , 54] 
+
+ cintura_data: int[];
+
+ 	e.g: [ 20 , 21 , 23 , 19 ] 
+
+ cadera_data: int[];
+
+ 	e.g: [30, 31 , 35 , 32] 
+
+ cuello_data: int[];
+
+ 	e.g: [12, 13 , 15 , 13] 
+
+ grasa_data: int[];
+
+ 	e.g: [3, 4 , 5 , 2] 
+
+ musculo_data: int[];
+
+ 	e.g: [16, 15 , 15 , 16] 
+

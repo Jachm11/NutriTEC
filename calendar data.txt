@@ -1,0 +1,176 @@
+
+ESTRUCTURA FINAL DE UN DESPLIEGUE DE PLAN Y CONSUMO DIARIO
+
+Esta es la estructura final que tengo que armar para poder desplegar lo que necesitamos para la vista de registro diario 
+y la vista de seguimiento de paciente.
+
+Creo que es imposible hacerlo en un solo query, pero necesito que me ayuden a pensar como manejamos esto xq es un verdadero caos
+
+
+
+Lo que al final necesito es una lista simple lista de Ficha[] , donde cada Ficha tiene: 
+
+Cada objeto ficha representa un dia en especifico.
+
+
+Ficha{
+
+    fecha: string                             // Un dia especifico de consumo o del plan o ambos
+    nombre_plan: string                       // Nombre del plan asignado para ese dia
+    productos_plan: Product_Consumption[]     // Lista de productos del plan para ese dia en especifico
+    total_plan: Total_nutricional             // Total de datos nutricionales para ese dia (calorias , azucar...)
+    productos_consumo : Product_Consumption[] // Lista productos consumidos ese dia
+    total_consumo: Total_nutricional          // Total nutricional de los productos consumido ese dia
+
+}
+
+Desglozando cada cosa se ve asi:
+
+Ficha{
+    fecha: string
+    nombre_plan: string
+    productos_plan: Product_Consumption[]
+	producto: Product;
+    		descripcion:string;
+    	tiempo_comida: string;
+    	porcion: number;
+    total_plan: Total_nutricional
+	total_sodio:number;
+    	total_grasa:number;
+    	total_energia:number;
+    	total_hierro:number;
+    	total_calcio:number;
+    	total_proteina:number;
+    	total_vitamina:number;
+    	total_carbohidratos:number;
+    productos_consumo : Product_Consumption[]
+	producto: Product;
+    		descripcion:string;
+    	tiempo_comida: string;
+    	porcion: number;
+    total_consumo: Total_nutricional 
+	total_sodio:number;
+    	total_grasa:number;
+    	total_energia:number;
+    	total_hierro:number;
+    	total_calcio:number;
+    	total_proteina:number;
+    	total_vitamina:number;
+    	total_carbohidratos:number;
+}
+
+No todas las fichas deben tener todo, por ejemplo pueden haber dias en los que no haya plan pero el usuario aun registre sus comidas, o al reves. 
+
+Digamos que esto mas o menos es como un get all de planes por paciente + get all de comidas por paciente, en un natural join por fecha (obvio no se puede hacer asi 
+en SQL pero es para que entiendan la idea)
+
+Digamos un ejemplo de Ficha[] para 2 dias seria: 
+
+[
+	[
+		fecha: "11/7/21",
+    		nombre_plan: "Plan para Jose viernes",
+    		productos_plan: [	
+					{
+    					  descripcion:"pasta",
+					  tiempo comida: "Almuerzo",
+					  porcion: 2
+					},
+					{
+    					  descripcion:"carne"
+    					  tiempo comida: "Cena",
+					  porcion: 1
+					}
+
+				]
+		total_plan: {
+				total_sodio:213,
+    				total_grasa:23,
+    				total_energia:455,
+    				total_hierro:23,
+    				total_calcio:76,
+    				total_proteina:323,
+    				total_vitamina:23,
+    				total_carbohidratos:4500
+			    }
+		productos_consumo: [	
+					{
+    					  descripcion:"pesto",
+					  tiempo comida: "Almuerzo",
+					  porcion: 2
+					},
+					{
+    					  descripcion:"Lomito"
+    					  tiempo comida: "Cena",
+					  porcion: 2
+					}
+
+				]
+		total_consumo: {
+				  total_sodio:413,
+    				  total_grasa:63,
+    				  total_energia:755,
+    				  total_hierro:43,
+    				  total_calcio:36,
+    				  total_proteina:423,
+    				  total_vitamina:243,
+    				  total_carbohidratos:5000,
+			       }
+			
+	],
+	[
+		fecha: "12/7/21"
+    		nombre_plan: "Plan para Jose sabados"
+    		productos_plan: [	
+					{
+    					descripcion:"arroz",
+					tiempo comida: "Almuerzo",
+					porcion: 2
+					},
+					{
+    					descripcion:"pescado"
+    					tiempo comida: "Cena",
+					porcion: 1
+					}
+
+				]
+		total_plan: {
+				total_sodio:213,
+    				total_grasa:43,
+    				total_energia:755,
+    				total_hierro:13,
+    				total_calcio:16,
+    				total_proteina:323,
+    				total_vitamina:83,
+    				total_carbohidratos:5340,
+			    }
+		productos_consumo: [	
+					{
+    					  descripcion:"cantones",
+					  tiempo comida: "Almuerzo",
+					  porcion: 1
+					},
+					{
+    					  descripcion:"Galletas",
+					  tiempo comida: "Merienda",
+					  porcion: 2
+					},
+					{
+    					  descripcion:"Salmon"
+    					  tiempo comida: "Cena",
+					  porcion: 2
+					}
+
+				]
+		total_consumo:{
+				total_sodio:613,
+    				total_grasa:43,
+    				total_energia:555,
+    				total_hierro:13,
+    				total_calcio:26,
+    				total_proteina:313,
+    				total_vitamina:233,
+    				total_carbohidratos:6000,
+			      }
+	]
+]

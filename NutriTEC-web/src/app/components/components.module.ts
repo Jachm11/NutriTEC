@@ -19,6 +19,8 @@ import { ShowPlanInfoComponent } from './plan/show-plan-info/show-plan-info.comp
 import { ShowRecipeInfoComponent } from './recipe/show-recipe-info/show-recipe-info.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import { ApiService } from '../services/api.service';
+import { FichaRowHolderComponent } from './ficha-row-holder/ficha-row-holder.component';
+import { FichaComponent } from './ficha/ficha.component';
 
 @NgModule({
     imports: [
@@ -33,7 +35,7 @@ import { ApiService } from '../services/api.service';
         ProductComponent,
         AlertsComponent,
         ItemRecipeComponent,
-        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,ShowRecipeInfoComponent, AddEditComponent,
+        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,ShowRecipeInfoComponent, AddEditComponent, FichaRowHolderComponent, FichaComponent,
     ],
     entryComponents: [],
     exports: [

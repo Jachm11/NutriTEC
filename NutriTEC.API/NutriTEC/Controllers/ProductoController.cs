@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NutriTEC.Data;
+using NutriTEC.Data.Repositories.Interfaces;
 using NutriTEC.Model;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace NutriTEC.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductoController: Controller
+    public class ProductoController : Controller
     {
         private readonly IProductoRepository _productRepository;
         public ProductoController(IProductoRepository productRepository)
@@ -67,14 +67,10 @@ namespace NutriTEC.Controllers
             var result = _productRepository.UpdateProductEstatus(id, estatus);
 
             if (result)
-            {
                 return Ok("El producto se ha actualizado correctamente.");
-            }
+            
             else
-            {
                 return BadRequest("Error, no se ha podido actualizar el producto.");
-            }
-
         }
 
     }

@@ -40,11 +40,13 @@
         </div>
 
         <div class = "container">
-            <canvas id="canvas">{{chart}}</canvas>
+            <canvas [ngStyle]="{'display': show_pesos ? '' : 'none'}" id="pesos_canvas">{{pesos_chart}}</canvas>
+            <canvas [ngStyle]="{'display': show_medidas ? '' : 'none'}" id="medidas_canvas">{{medidas_chart}}</canvas>
+            <canvas [ngStyle]="{'display': show_indices ? '' : 'none'}" id="indices_canvas">{{indices_chart}}</canvas>
             <div class="row">
-                <button type="button" class="btn btn-primary btn-lg col ">Historial de peso</button>
-                <button type="button" class="btn btn-primary btn-lg col ">Historial de medidas</button>
-                <button type="button" class="btn btn-primary btn-lg col">Historial de índices</button>
+                <button type="button" class="btn btn-primary btn-lg col " (click)="toggle_graph(0)">Historial de peso</button>
+                <button type="button" class="btn btn-primary btn-lg col " (click)="toggle_graph(1)">Historial de medidas</button>
+                <button type="button" class="btn btn-primary btn-lg col"  (click)="toggle_graph(2)">Historial de índices</button>
             </div>
         </div>
 
