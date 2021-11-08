@@ -6,7 +6,8 @@ GO
 
 Create procedure [dbo].UniquePlanName
     (  
-		@nombre varchar(max)
+		@nombre varchar(max),
+		@id_nutricionista int
     )
    AS
    BEGIN
@@ -15,7 +16,7 @@ Create procedure [dbo].UniquePlanName
     SET @temp = ( 
         Select nombre
         FROM Plans
-        WHERE nombre = @nombre
+        WHERE nombre = @nombre and id_nutricionista = @id_nutricionista
 	)
 
     -- if the row to be inserted already exists, put the genreID into the @genreID output parameter

@@ -10,11 +10,8 @@ namespace NutriTEC.Data.Repositories.Interfaces
     public interface IProductoRepository
     {
         List<Object> GetAllProducts();
-
         Object GetProduct(int id);
-
         string InsertProduct(Producto product);
-
         bool UpdateProductEstatus(int id, string estatus);
 
     }

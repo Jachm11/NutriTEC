@@ -10,7 +10,7 @@ namespace NutriTEC.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductoController: Controller
+    public class ProductoController : Controller
     {
         private readonly IProductoRepository _productRepository;
         public ProductoController(IProductoRepository productRepository)

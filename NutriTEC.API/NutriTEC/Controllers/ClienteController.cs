@@ -70,22 +70,8 @@ namespace NutriTEC.Controllers
             return BadRequest(result);
         }
 
-        // PUT: /Cliente
-        // Actualiza un nuevo cliente de la base de datos.
-/*        [HttpPut, ActionName("Update")]
-        public IActionResult UpdateClient([FromBody] Cliente client)
-        {
-            if (client == null)
-                return BadRequest();
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = _clientRepository.UpdateClient(client);
-            return Ok(result);
-        }*/
-
         // PUT /Cliente/nutricionist/assign?id=a&forum=b
+        // Asigna un nutricionista a un cliente.
         [HttpPut("nutricionist/assign"), ActionName("Assign Nutricionist")]
         public IActionResult AssignNuticionist(int id, int id_nutricionist)
         {
@@ -97,6 +83,7 @@ namespace NutriTEC.Controllers
         }
 
         // PUT /Cliente/forum/assign?id=a&forum=b
+        // Asigna un foro al cliente.
         [HttpPut("forum/assign"), ActionName("Assign Conversation")]
         public IActionResult AssignConversation(int id, int id_forum)
         {
@@ -121,7 +108,7 @@ namespace NutriTEC.Controllers
         }
 
         // GET: /Cliente/medidas
-        // Retorna todos los clientes.
+        // Retorna las medidas de un cliente
         [HttpGet("medidas"), ActionName("GetAll")]
         public IActionResult GetAllMedidas(int id)
         {
@@ -151,7 +138,7 @@ namespace NutriTEC.Controllers
         }
 
         // POST: /Cliente/registroconsumodiario
-        // Retorna todos los clientes.
+        // Agrega un nuevo producto al consumo diario.
         [HttpPost("registroconsumodiario"), ActionName("Insert")]
         public IActionResult InsertConsumoDiario([FromBody] Consumo_diario consumo_Diario)
         {
