@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit {
     new_nutritionist:any;
 
 
-    nombre:string;
+    primer_nombre:string;
+    segundo_nombre:string;
     primer_apellido:string;
     segundo_apellido:string;
     cedula:string;
@@ -88,11 +89,16 @@ export class RegisterComponent implements OnInit {
 
     createClientAccount(){
 
-      if(!this.nombre){
-        this.global.transactionFailed("Ingrese su nombre");
+
+      if(!this.primer_nombre){
+        this.global.transactionFailed("Ingrese su primer nombre");
         return; 
 
       }
+      if(!this.segundo_nombre){
+        this.segundo_nombre = "";
+      }
+
       if(!this.primer_apellido){
         this.global.transactionFailed("Ingrese su primer apellido");
         return;
@@ -100,7 +106,6 @@ export class RegisterComponent implements OnInit {
 
       if(!this.segundo_apellido){
         this.global.transactionFailed("Ingrese su segundo apellido");
-        alert("Ingrese su segundo apellido");
         return;
       }
 
@@ -162,7 +167,8 @@ export class RegisterComponent implements OnInit {
 
     
         this.new_client = {
-          nombre: this.nombre,
+          primer_nombre: this.primer_nombre,
+          segundo_nombre: this.segundo_nombre,
           primer_apellido:this.primer_apellido,
           segundo_apellido:this.segundo_apellido,
           fecha_nacimiento:this.fecha_nacimiento,
@@ -171,29 +177,14 @@ export class RegisterComponent implements OnInit {
           meta_consumo_diario:this.consumo_maximo_calorias,
           altura:this.altura,
           pais:this.pais,
-          estatus:"no tomado",
       
         };
 
 
-        
-        this.api.post_client(this.new_client).subscribe(()=>{}, 
-        
-        (err) => {
+        this.register_client();
 
-          if (err.statusText == 'OK'){
 
-            this.global.transactionSuccess("Se agregó el cliente exitosamente");
-            this.setDevaultValues();
 
-          }
-          else {
-
-            this.global.transactionFailed(err.error);
-
-          }
-
-        });
  
       }
 
@@ -202,9 +193,12 @@ export class RegisterComponent implements OnInit {
 
     createNutritionistAccount(){
 
-      if(!this.nombre){
-        this.global.transactionFailed("Ingrese su nombre");
+      if(!this.primer_nombre){
+        this.global.transactionFailed("Ingrese su primer nombre");
         return; 
+      }
+      if(!this.segundo_nombre){
+        this.segundo_nombre = "";
       }
       if(!this.primer_apellido){
         this.global.transactionFailed("Ingrese su primer apellido");
@@ -257,7 +251,8 @@ export class RegisterComponent implements OnInit {
 
         this.new_nutritionist = {
           codigo_nutricionista:this.codigo_nutricionista,
-          nombre:this.nombre,
+          primer_nombre:this.primer_nombre,
+          segundo_nombre:this.segundo_nombre,
           primer_apellido:this.primer_apellido,
           segundo_apellido:this.segundo_apellido,
           email:this.email,
@@ -270,21 +265,9 @@ export class RegisterComponent implements OnInit {
           tipo_cobro:this.tipo_cobro,
         }
 
-        this.api.post_client(this.new_nutritionist).subscribe(()=>{}, 
-        
-        (err) => {
 
-          if (err.statusText == 'OK'){
+        this.register_nutritionist();
 
-            this.global.transactionSuccess("Se agregó el nutricionista exitosamente");
-            this.setDevaultValues();
-
-          }
-          else {
-            this.global.transactionFailed(err.error);
-          }
-
-        });
  
       }
 
@@ -296,7 +279,8 @@ export class RegisterComponent implements OnInit {
 
     setDevaultValues(){
 
-      this.nombre = null;
+      this.primer_nombre = null;
+      this.segundo_nombre = null;
       this.primer_apellido = null;
       this.segundo_apellido = null;
       this.cedula = null;
@@ -322,9 +306,46 @@ export class RegisterComponent implements OnInit {
       this.email = null;
       this.password = null;
   
+    }
 
 
+    register_client(){
+              
+      this.api.post_client(this.new_client).subscribe(()=>{},   
+      (err) => {
 
+        if (err.statusText == 'OK'){
+          this.global.transactionSuccess("Se agregó el cliente exitosamente");
+          this.setDevaultValues();
+
+        }
+        else {
+          this.global.transactionFailed(err.error);
+        }
+
+      });
+
+    }
+
+    register_nutritionist(){
+
+      console.log(this.new_nutritionist);
+      this.api.post_nutritionist(this.new_nutritionist).subscribe(()=>{}, 
+        
+      (err) => {
+
+        console.log(err);
+        if (err.statusText == "OK"){
+
+          this.global.transactionSuccess("Se agregó el nutricionista exitosamente");
+          this.setDevaultValues();
+
+        }
+        else {
+          this.global.transactionFailed(err.error);
+        }
+
+      });
     }
 
 

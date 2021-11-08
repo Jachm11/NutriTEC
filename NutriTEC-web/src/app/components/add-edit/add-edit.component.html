@@ -54,7 +54,7 @@
         <div class="container-input-productList">
             <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">           
             <div class="products-list">
-                <app-product *ngFor="let product of current_products | filter:filterProducts" [product]="product" [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
+                <app-product *ngFor="let product of current_products" [product]="product" [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
             </div>
     
         </div>
