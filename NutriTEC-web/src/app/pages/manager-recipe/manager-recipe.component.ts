@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
+import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
@@ -12,109 +13,37 @@ export class ManagerRecipeComponent implements OnInit {
 
 
 
-  recipes = [
+  recipes = [];
 
-    {
-      nombre: "receta1",
-      productos: [
 
-        {
-          producto: {
-            nombre:"manzana con uva",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          },
-          porcion: 3
-        },
-        {
-          producto: {
-            nombre:"manzana con uva",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          },
-          porcion: 4
-        }
-
-       
-
-      ]
-    },
-    {
-      nombre: "receta2",
-      productos: [
-
-        {
-          producto: {
-            nombre:"manzana con uva",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          },
-          porcion: 3
-        }
-
-       
-
-      ]
-    },
-    {
-      nombre: "receta3",
-      productos: [
-
-        {
-          producto: {
-            nombre:"manzana con uva",
-            descripcion:"Fruta con gran cantidad de nutrientes",
-            porcion:"1 pieza",
-            barcode:"121232323232",
-            proteina: 300,
-            vitamina: 300,
-            calcio:200,
-            hierro:130,
-            energia:200,
-            grasa:220,
-            sodio:100,
-            carbohidratos:200
-          },
-          porcion: 3
-        }
-
-       
-
-      ]
-    }
-
-  ]
-
-  constructor(private global:GlobalService,private dialog:MatDialog) { }
+  constructor(private global:GlobalService,private dialog:MatDialog, private apiService:ApiService) { }
 
   ngOnInit(): void {
+
+    this.apiService.get_recipes().subscribe((recipes)=>{
+
+
+      this.recipes = recipes;
+
+
+
+    })
+
+  }
+
+
+
+  get_recipes(){
+
+    this.apiService.get_recipes().subscribe((recipes)=>{
+
+
+      this.recipes = recipes;
+
+
+
+    });
+    
   }
 
 
