@@ -1,5 +1,7 @@
 USE [nutridb]
 
+------------------------------------ REPORTE DE COBRO
+
 IF OBJECT_ID('ReporteCobro', 'P') IS NOT NULL
     DROP PROCEDURE [ReporteCobro];
 GO
@@ -7,8 +9,8 @@ GO
 CREATE procedure dbo.[ReporteCobro]
 AS
 BEGIN
-    SELECT tipo_de_pago, corre_electronico, nombre_completo, numero_de_tarjeta,
-    (SELECT COUNT(*)) as monto_total,
+    SELECT tipo_de_pago, correo_electronico, nombre_completo, numero_de_tarjeta,
+           numero_pacientes as monto_total,
     (CASE WHEN tipo_de_pago = 'Mensual' THEN '5%'
           WHEN tipo_de_pago = 'Anual' THEN '10%'
           ELSE '-'

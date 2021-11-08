@@ -18,6 +18,8 @@ namespace NutriTEC.Data
 
         public static readonly string _spRegister = "Register";
         public static readonly string _spLogin = "LogIn";
+        public static readonly string _spReporteCobro = "ReporteCobro";
+
 
         public static readonly string _uniqueEmail = "UniqueEmail";
         public static readonly string _uniqueFechaMedida = "UniqueFechaMedida";

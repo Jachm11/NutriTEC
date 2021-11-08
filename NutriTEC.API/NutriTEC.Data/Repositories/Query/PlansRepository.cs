@@ -277,7 +277,7 @@ namespace NutriTEC.Data.Repositories.Query
                         Id_producto = Convert.ToInt32(dr["id_producto"]),
                         Barcode = Convert.ToString(dr["barcode"]),
                         Descripcion = Convert.ToString(dr["descripcion"]),
-                        Tamano_porcion = float.Parse(Convert.ToString(dt.Rows[0]["tamano_porcion"])),
+                        Tamano_porcion = float.Parse(Convert.ToString(dr["tamano_porcion"])),
                         Sodio = float.Parse(Convert.ToString(dr["sodio"])),
                         Grasa = float.Parse(Convert.ToString(dr["grasa"])),
                         Energia = float.Parse(Convert.ToString(dr["energia"])),
