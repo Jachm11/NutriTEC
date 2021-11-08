@@ -64,7 +64,7 @@ namespace NutriTEC.Data.Repositories.Query
 
             SqlCommand cmd = new(_spName, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id_receta", id_receta);
+            cmd.Parameters.AddWithValue("@id", id_receta);
             cmd.Parameters.AddWithValue("@StatementType", "SelectRecipeProducts");
 
             SqlDataAdapter sd = new(cmd);
@@ -78,7 +78,133 @@ namespace NutriTEC.Data.Repositories.Query
             return list;
         }
 
+        // ************************************ INSERT PRODUCT *************************************
+        // InsertProduct: inserta un nuevo producto a la base de datos
+        // Parametros de entrada: Producto: product
+        // Salida: string: mensaje de aviso del resultado
+        public string InsertRecipe(string id_cliente, string nombre)
+        {
+            //if (!CheckBarcodeAvailability(product.Barcode)) return "El barcode ingresado ya se encuentra en uso.";
+
+            
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "Insert");
+
+            cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+
+            conn.Open();
+            int i = (int) cmd.ExecuteScalar();
+            conn.Close();
+
+            if (i == 0) return "Ya existe una receta con este nombre.";
+            else if (i < 1) return "No se ha logrado agregar la nueva receta. Por favor intente más tarde.";
+            else return "";
+        }
         
+
+        // ************************************ UPDATE PRODUCT *************************************
+        // UpdateProductEstatus: actualiza el estado de un producto de la base de datos.
+        // Parametros de entrada: Producto: product, string: estatus
+        // Salida: bool
+        public string UpdateRecipeName(int id_cliente, int id_receta, string nombre)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "Update");
+
+            cmd.Parameters.AddWithValue("@id", id_receta);
+            cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+
+            conn.Open();
+            int i = (int)cmd.ExecuteScalar();
+            conn.Close();
+
+            if (i == 0) return "Ya existe una receta con este nombre.";
+            else if (i < 1) return "No se ha logrado actualizar. Por favor intente más tarde.";
+            else return "";
+        }
+
+
+        // ************************************ DELETE RECIPE *************************************
+        // DeleteRecipe: actualiza el estado de un producto de la base de datos.
+        // Parametros de entrada: id
+        // Salida: string que indica si se logra o no.
+        public string DeleteRecipe(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "Delete");
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado eliminar la receta. Por favor intente más tarde.";
+            return "Se ha eliminado correctamente.";
+        }
+
+
+        // ************************************ ADD PRODUCT *************************************
+        // AddProduct: agrega la relacion entre una receta y un producto de la base de datos.
+        // Parametros de entrada: id receta, id_producto, porciones
+        // Salida: string que indica si se logra o no.
+        public string AddProduct(int id, int id_producto, float porciones)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "AddProduct");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id_producto", id_producto);
+            cmd.Parameters.AddWithValue("@porcion", porciones);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado agregar el producto a la receta. Por favor intente más tarde.";
+            return "Se ha agregado correctamente.";
+        }
+
+        // ************************************ REMOVE PRODUCT *************************************
+        // RemoveProduct: agrega la relacion entre una receta y un producto de la base de datos.
+        // Parametros de entrada: id receta, id_producto, porciones
+        // Salida: string que indica si se logra o no.
+        public string RemoveProduct(int id, int id_producto)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "RemoveProduct");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id_producto", id_producto);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado eliminar el producto de la receta. Por favor intente más tarde.";
+            return "Se ha eliminado correctamente.";
+        }
+
 
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
