@@ -18,13 +18,16 @@ select id_plan,
 from ((Plans join Productos_plan on Plans.id = Productos_plan.id_plan)
          join Producto on Productos_plan.id_producto = Producto.id)
 
-create view VistaListaProducto
+create view VistaRecetaProductos
 as
-SELECT id as id_producto,
-       estatus,
+SELECT R.id           as id_receta,
+       R.estatus      as estado_receta,
+       R.nombre       as nombre_receta,
+       P.id           as id_producto,
        barcode,
-       descripcion as nombre_producto,
-       tamano_porcion,
+       descripcion    as nombre_producto,
+       porciones      as porcion_agregada,
+       tamano_porcion as medida_porcion,
        sodio,
        grasa,
        energia,
@@ -33,4 +36,6 @@ SELECT id as id_producto,
        proteina,
        vitamina,
        carbohidratos
-FROM Producto P
+FROM Receta R
+         JOIN Producto_receta PR ON R.id = PR.id_receta
+         JOIN Producto P ON PR.id_producto = P.id

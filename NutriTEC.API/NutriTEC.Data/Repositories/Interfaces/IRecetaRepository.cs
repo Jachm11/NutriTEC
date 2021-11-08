@@ -10,6 +10,8 @@ namespace NutriTEC.Data.Repositories.Interfaces
     public interface IRecetaRepository
     {
         List<Object> GetRecipesForClient(int id);
+        List<Object> GetProductsForRecipe(int id);
+        
     }
 
 }

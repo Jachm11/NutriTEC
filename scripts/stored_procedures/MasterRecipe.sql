@@ -8,31 +8,8 @@ CREATE procedure dbo.[MasterRecipe](
     @StatementType NVARCHAR(20) = ''
 )
 AS
-    DECLARE @unique VARCHAR(max)
+DECLARE @unique VARCHAR(max)
 BEGIN
---     IF @StatementType = 'SelectAll'
---         BEGIN
---             SELECT id, estatus, nombre
---             FROM Receta
---             ORDER BY nombre
---         END
---                 SELECT DISTINCT R.id        as       id_receta,
---                             R.estatus   as       estado_receta,
---                             R.nombre    as       nombre_receta,
---                             P.id        as       id_producto,
---                             barcode,
---                             descripcion as       nombre_producto,
---                             porciones   as       porcion_agregada,
---                             tamano_porcion,
---                             (SELECT estadisticas
---                              FROM VistaListaProducto VP
---                              WHERE VP.id = P.id) [stats]
---
---             FROM Receta R
---                      JOIN Producto_receta PR ON R.id = PR.id_receta
---                      JOIN Producto P ON PR.id_producto = P.id
---             ORDER BY R.nombre
---         END
 
     IF @StatementType = 'SelectClientRecipes'
         BEGIN
@@ -40,6 +17,26 @@ BEGIN
             FROM Receta
             WHERE id_cliente = @id_cliente
             ORDER BY nombre
+        END
+
+    IF @StatementType = 'SelectRecipeProducts'
+        BEGIN
+            SELECT id_producto,
+                   barcode,
+                   nombre_producto,
+                   porcion_agregada,
+                   medida_porcion,
+                   sodio,
+                   grasa,
+                   energia,
+                   hierro,
+                   calcio,
+                   proteina,
+                   vitamina,
+                   carbohidratos
+            FROM VistaRecetaProductos V
+            WHERE V.id_receta = @id
+            ORDER BY nombre_producto
         END
 
     IF @StatementType = 'Insert'
