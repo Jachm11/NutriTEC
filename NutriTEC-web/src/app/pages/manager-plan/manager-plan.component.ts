@@ -82,38 +82,31 @@ export class ManagerPlanComponent implements OnInit {
 
     this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutrionist.id}).subscribe((new_plan) => {
 
-      console.log(new_plan);
-      console.log(plan.breakfast);
-      console.log(plan.morning_snack);
-      console.log(plan.launch);
-      console.log(plan.afternoon_snack);
-      console.log(plan.dinner);
-
-
-
+  
       plan.breakfast.forEach(pr => {
-        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Desayuno", porciones:pr.porcion}).subscribe();
+        console.log(pr);
+        console.log({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Desayuno", porciones:pr.porciones});
+        this.apiService.add_product_to_plan({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Desayuno", porciones:pr.porciones}).subscribe();
       });
 
       plan.morning_snack.forEach(pr => {
-        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Merienda manana", porciones:pr.porcion}).subscribe();
+        this.apiService.add_product_to_plan({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Merienda manana", porciones:pr.porciones}).subscribe();
    
       });
 
       plan.launch.forEach(pr => {
-        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Almuerzo", porciones:pr.porcion}).subscribe();
+        this.apiService.add_product_to_plan({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Almuerzo", porciones:pr.porciones}).subscribe();
       });
 
       plan.afternoon_snack.forEach(pr => {
-        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Merienda tarde", porciones:pr.porcion}).subscribe();
+        this.apiService.add_product_to_plan({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Merienda tarde", porciones:pr.porciones}).subscribe();
       });
       plan.dinner.forEach(pr => {
-        this.apiService.add_product_to_plan({id_producto:pr.producto.id, id_plan:new_plan.id, tiempo_comida:"Cena", porciones:pr.porcion}).subscribe();
+        this.apiService.add_product_to_plan({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Cena", porciones:pr.porciones}).subscribe();
       });
 
 
-
-
+      this.get_plans();
 
     });
  

@@ -16,16 +16,18 @@ export class ItemProductComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.porcion = this.product_selected.porcion;
+    this.porcion = this.product_selected.porciones;
+    console.log(this.porcion);
 
   }
 
   updatePorcion(){
-    this.update_porcion.emit({producto: this.product_selected.producto, porcion: this.porcion});
+    this.product_selected.porciones = this.porcion;
+    this.update_porcion.emit(this.product_selected);
   }
 
   deleteProduct(){
-    this.delete_product.emit(this.product_selected.producto);
+    this.delete_product.emit(this.product_selected);
   }
 
 }

@@ -6,7 +6,8 @@ import { Nutritionist } from 'src/interfaces/nutritionist';
 import { Http, ResponseType } from '@angular/http';
 import { Product } from 'src/interfaces/product';
 import { Plan } from 'src/interfaces/plan';
-
+import { GlobalService } from './global.service';
+import { Recipe } from 'src/interfaces/recipe';
 const headers =  new HttpHeaders({
   'Content-Type':'application/json'
 });
@@ -30,7 +31,7 @@ export class ApiService {
 
   private apiURL = "/api/"
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private global:GlobalService) { }
 
 
   //          _________________________
@@ -68,6 +69,10 @@ export class ApiService {
    get_product_by_plan(id_plan:number):Observable<any[]> {
     return this.http.get<any[]>(this.apiURL + `plans/${id_plan}`);
 
+   }
+
+   get_recipes():Observable<Recipe[]>{
+     return this.http.get<Recipe[]>(this.apiURL + `Recetas/Cliente/${this.global.current_client.id}`);
    }
 
 
@@ -120,6 +125,13 @@ export class ApiService {
   }
 
 
+  update_product_porcion(body:any) :Observable<any>{
+    return this.http.put<any>(this.apiURL + `Plans/UpdatePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}&porciones=${body.porciones}`, httpOptions);
+
+
+  }
+
+
 
   //          _________________________
   //_________/ DELETE
@@ -128,8 +140,8 @@ export class ApiService {
     return this.http.delete<Plan>(this.apiURL + `Plans?id_plan=${id_plan}`);
   }
 
-  delete_product_from_plan(id_plan:number, id_producto:number, tiempo_comida:string):Observable<any>{
-    return this.http.delete<any>(this.apiURL + `id_plan=${id_plan}&id_producto=${id_producto}&tiempo_comida=${tiempo_comida}`);
+  delete_product_from_plan(body:any):Observable<any>{
+    return this.http.delete<any>(this.apiURL + `Plans/DeletePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}`);
 
   }
 
