@@ -81,7 +81,7 @@ namespace NutriTEC.Data.Repositories.Query
             return plan;
         }
 
-        public string InsertPlan(int id_nutricionista, string nombre)
+        public object InsertPlan(int id_nutricionista, string nombre)
         {
             // FALTA EL UNIQUE NOMBRE
 
@@ -95,12 +95,17 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@id_nutricionista", id_nutricionista);
             cmd.Parameters.AddWithValue("@nombre", nombre);
 
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
             conn.Open();
-            int i = cmd.ExecuteNonQuery();
+            sd.Fill(dt);
             conn.Close();
 
-            if (i < 1) return "No se ha logrado agregar el nuevo plan. Por favor intente más tarde.";
-            return "El plan se ha agregado correctamente";
+            object plan = GetOnePlanDetail(dt);
+
+            if (plan == null) return "No se ha logrado agregar el nuevo plan. Por favor intente más tarde.";
+            return plan;
         }
 
         public string InsertProductPlan(Productos_plan products_plan)
@@ -246,6 +251,22 @@ namespace NutriTEC.Data.Repositories.Query
             }
 
             return planslist;
+        }
+
+        private static object GetOnePlanDetail(DataTable dt)
+        {
+            object plan = null;
+            if (dt.Rows.Count == 1)
+            {
+
+                plan = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"])
+                };
+
+            }
+            return plan;
         }
 
     }

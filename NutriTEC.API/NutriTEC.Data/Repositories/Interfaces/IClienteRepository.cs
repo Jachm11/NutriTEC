@@ -27,7 +27,8 @@ namespace NutriTEC.Data.Repositories.Interfaces
 
         public List<Object> GetMedidas(int id);
 
+        public string RegistrarConsumoDiario(Consumo_diario consumo_diario);
 
-
+        public List<Object> GetReporteAvance(int id, DateTime fechaInicio, DateTime fechaFin);
     }
 }

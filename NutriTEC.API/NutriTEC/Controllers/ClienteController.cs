@@ -135,5 +135,32 @@ namespace NutriTEC.Controllers
 
         }
 
+        // GET: /Cliente/reporteAvance
+        // Retorna el reporte de avance de un cliente para un intervalo de fechas.
+        [HttpGet("reporteAvance"), ActionName("GetAll")]
+        public IActionResult GetAllReporteAvance(int id, DateTime fechaInicio, DateTime fechaFin)
+        {
+            ModelState.Clear();
+
+            List<Object> medidas = _clientRepository.GetReporteAvance(id, fechaInicio, fechaFin);
+
+            if (medidas != null)
+                return Ok(medidas);
+            return NotFound("No se ha encontrado un cliente con el id solicitado");
+
+        }
+
+        // POST: /Cliente/registroconsumodiario
+        // Retorna todos los clientes.
+        [HttpPost("registroconsumodiario"), ActionName("Insert")]
+        public IActionResult InsertConsumoDiario([FromBody] Consumo_diario consumo_Diario)
+        {
+            ModelState.Clear();
+
+            string result = _clientRepository.RegistrarConsumoDiario(consumo_Diario);
+
+            return Ok(result);
+        }
+
     }
 }

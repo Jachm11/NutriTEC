@@ -8,7 +8,11 @@ Create procedure dbo.[MasterClient](
     @id int = NULL,
     @id_nutricionista int = NULL,
     @id_conversacion int = NULL,
+    @id_producto int = NULL,
+    @tiempo_comida varchar(20) = '',
     @fecha Date = NULL,
+    @fechaInicio Date = NULL,
+    @fechaFin Date = NULL,
     @porcentaje_musculo float = NULL,
     @porcentaje_grasa float = NULL,
     @cadera float = NULL,
@@ -16,7 +20,7 @@ Create procedure dbo.[MasterClient](
     @altura float = NULL,
     @cintura float = NULL,
     @cuello float = NULL,
-    @StatementType NVARCHAR(20) = ''
+    @StatementType NVARCHAR(max) = ''
 )
 AS
 BEGIN
@@ -93,7 +97,6 @@ BEGIN
     IF @StatementType = 'GetMedidas'
         BEGIN
 
-
             select fecha,
                    porcentaje_musculo,
                    porcentaje_grasa,
@@ -106,6 +109,30 @@ BEGIN
             where id_cliente = @id
 
         END
+
+    IF @StatementType = 'RegistroConsumoDiario'
+        BEGIN
+            insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
+            values (@id, @id_producto, @tiempo_comida, @fecha)
+        END
+
+    IF @StatementType = 'ReporteAvance'
+        BEGIN
+            select fecha,
+                   porcentaje_musculo,
+                   porcentaje_grasa,
+                   cadera,
+                   peso,
+                   altura,
+                   cintura,
+                   cuello
+            from Medidas
+            where id_cliente = @id
+              and fecha <= @fechaInicio
+              and fecha >= @fechaFin
+        END
+
+
 END
 
 GO

@@ -150,12 +150,13 @@ CREATE TABLE Fecha_plan_cliente(
 
 CREATE TABLE Consumo_diario(
 
+    id              int IDENTITY(1,1),
 	id_cliente		int NOT NULL,
 	id_producto		int NOT NULL,
-	tiempo_comida	int NOT NULL,
+	tiempo_comida	varchar(20) NOT NULL,
 	fecha			Date NOT NULL,
 
-	PRIMARY KEY(id_cliente,id_producto)
+	PRIMARY KEY(id, id_cliente,id_producto)
 );
 
 
