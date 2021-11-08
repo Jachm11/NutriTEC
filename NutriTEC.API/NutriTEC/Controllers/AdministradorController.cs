@@ -56,9 +56,9 @@ namespace NutriTEC.Controllers
 
         }
 
-        // GetOneClient: retorna el cliente obtenido de ejecutar un select by id de la base de datos
+        // GetOneAdmin: procesa los datos del administrador recibidos por el stored procedure.
         // Parametros de entrada: DataTable: dt
-        // Salida: object: cliente
+        // Salida: object: admin
         private static object GetOneAdmin(DataTable dt)
         {
             object admin = null;
