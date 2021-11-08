@@ -122,8 +122,8 @@ CREATE TABLE Plan_cliente(
 
 CREATE TABLE Producto_receta(
 
+    id_receta		int NOT NULL,
 	id_producto		int NOT NULL,
-	id_receta		int NOT NULL,
 	porciones		float NOT NULL,
 
 	PRIMARY KEY(id_producto,id_receta)
