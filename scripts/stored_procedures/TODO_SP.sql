@@ -450,6 +450,7 @@ END
 GO
 
 ----------------------------------------- MASTER CLIENT -------------------------------------------------------
+USE [nutridb]
 
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
@@ -459,6 +460,8 @@ Create procedure dbo.[MasterClient](
     @id int = NULL,
     @id_nutricionista int = NULL,
     @id_conversacion int = NULL,
+    @id_producto int = NULL,
+    @tiempo_comida varchar(20) = '',
     @fecha Date = NULL,
     @porcentaje_musculo float = NULL,
     @porcentaje_grasa float = NULL,
@@ -544,7 +547,6 @@ BEGIN
     IF @StatementType = 'GetMedidas'
         BEGIN
 
-
             select fecha,
                    porcentaje_musculo,
                    porcentaje_grasa,
@@ -557,9 +559,20 @@ BEGIN
             where id_cliente = @id
 
         END
+
+    IF @StatementType = 'RegistroConsumoDiario'
+    BEGIN
+        insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
+        values (@id, @id_producto, @tiempo_comida, @fecha)
+    END
+
+
+
+
 END
 
 GO
+
 
 ---------------------------------------------------- MASTER NUTRICIONIST -------------------------------------
 
@@ -604,6 +617,7 @@ Create procedure [dbo].[MasterNutricionist]
 
 GO
 ------------------------------------------------ MASTER PRODUCT ---------------------------------------------------
+use nutridb;
 
 IF OBJECT_ID ( 'MasterProduct', 'P' ) IS NOT NULL
     DROP PROCEDURE [MasterProduct];
@@ -712,8 +726,8 @@ Create procedure [dbo].[MasterProduct]
 	END
 
 GO
-
 ------------------------------------------- MASTER PLANS -----------------------------------------
+use nutridb;
 
 IF OBJECT_ID('MasterPlans', 'P') IS NOT NULL
     DROP PROCEDURE [MasterPlans];
@@ -751,6 +765,9 @@ BEGIN
         BEGIN
             insert into Plans (id_nutricionista, estatus, nombre)
             values (@id_nutricionista, @estatus, @nombre)
+
+            select * from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
+
         END
 
     IF @StatementType = 'InsertProductsPlan'
@@ -770,7 +787,9 @@ BEGIN
         BEGIN
             delete
             from Productos_plan
-            where id_producto = @id_producto and id_plan = @id and tiempo_comida = @tiempo_comida
+            where id_producto = @id_producto
+              and id_plan = @id
+              and tiempo_comida = @tiempo_comida
         END
 
 
@@ -778,13 +797,16 @@ BEGIN
         BEGIN
             update Productos_plan
             set porciones = @porciones
-            where id_plan = @id and id_producto = @id_producto and tiempo_comida = @tiempo_comida
+            where id_plan = @id
+              and id_producto = @id_producto
+              and tiempo_comida = @tiempo_comida
         END
 
 
 END
 
 GO
+
 
 -------------------------------------------- MASTER RECIPE --------------------------------------
 

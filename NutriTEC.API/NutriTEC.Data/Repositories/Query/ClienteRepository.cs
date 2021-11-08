@@ -318,6 +318,54 @@ namespace NutriTEC.Data.Repositories.Query
             return medidas;
         }
 
+
+        public string RegistrarConsumoDiario(Consumo_diario consumo_diario)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "RegistroConsumoDiario");
+
+            cmd.Parameters.AddWithValue("@id", consumo_diario.Id_cliente);
+            cmd.Parameters.AddWithValue("@id_producto", consumo_diario.Id_producto);
+            cmd.Parameters.AddWithValue("@tiempo_comida", consumo_diario.Tiempo_comida);
+            cmd.Parameters.AddWithValue("@fecha", consumo_diario.Fecha);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i == 1)
+                return "Se ha registrado correctamente";
+            return "Ha ocurrido un error";
+        }
+
+        public List<Object> GetReporteAvance(int id, DateTime fechaInicio, DateTime fechaFin)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "ReporteAvance");
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+            cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> medidas = AddSelectedMedidasToList(dt);
+
+            return medidas;
+        }
+
+
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
         // #########################################################################################
