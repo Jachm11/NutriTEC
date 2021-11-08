@@ -67,14 +67,10 @@ namespace NutriTEC.Controllers
             var result = _productRepository.UpdateProductEstatus(id, estatus);
 
             if (result)
-            {
                 return Ok("El producto se ha actualizado correctamente.");
-            }
+            
             else
-            {
                 return BadRequest("Error, no se ha podido actualizar el producto.");
-            }
-
         }
 
     }

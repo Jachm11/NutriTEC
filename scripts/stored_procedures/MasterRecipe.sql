@@ -1,3 +1,9 @@
+USE [nutridb]
+
+IF OBJECT_ID('MasterRecipe', 'P') IS NOT NULL
+    DROP PROCEDURE [MasterRecipe];
+GO
+
 CREATE procedure dbo.[MasterRecipe](
     @id int = NULL,
     @id_cliente int = NULL,
@@ -41,9 +47,9 @@ BEGIN
 
     IF @StatementType = 'Insert'
         BEGIN
-            SET @unique = (SELECT dbo.UniqueRecipeName(@nombre))
+            exec @unique = UniqueRecipeName @id_cliente, @nombre
             IF @unique = 1
-                RAISERROR ('Message',10,1)
+                SELECT 0
             ElSE
                 INSERT INTO Receta (id_cliente, estatus, nombre)
                 VALUES (@id_cliente, @estatus, @nombre);
@@ -52,9 +58,10 @@ BEGIN
 
     IF @StatementType = 'Update'
         BEGIN
-            SET @unique = (SELECT dbo.UniqueRecipeName(@nombre))
+            exec @unique = UniqueRecipeName @id_cliente, @nombre
             IF @unique = 1
-                RAISERROR ('Message',10,1)
+                SELECT 0
+
             ElSE
                 UPDATE Receta
                 SET nombre = @nombre
@@ -66,7 +73,7 @@ BEGIN
             UPDATE Receta
             SET estatus = 'INACTIVO'
             WHERE id = @id
-            -- IMPLEMENTAR TRIGGER QUE ELIMINE REFERENCIAS QUE TENGAN A RECETA ID.
+            -- TRIGGER ELIMINA REFERENCIAS QUE TENGAN A RECETA ID.
         END
 
     IF @StatementType = 'AddProduct'

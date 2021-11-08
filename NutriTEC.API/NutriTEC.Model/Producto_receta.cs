@@ -11,6 +11,7 @@ namespace NutriTEC.Model
     {
         [Key]
         public int Id_producto { get; set; }
+
         [Key]
         public int Id_receta { get; set; }
         public float Porciones { get; set; }
