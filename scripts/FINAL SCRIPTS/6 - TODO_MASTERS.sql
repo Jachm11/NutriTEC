@@ -375,8 +375,6 @@ Create procedure [dbo].[MasterProduct]
 GO
 
 ----------------------------------------------------- MASTER RECIPE -------------------------------------------------
-USE [nutridb]
-
 IF OBJECT_ID('MasterRecipe', 'P') IS NOT NULL
     DROP PROCEDURE [MasterRecipe];
 GO
@@ -391,14 +389,14 @@ CREATE procedure dbo.[MasterRecipe](
     @StatementType NVARCHAR(20) = ''
 )
 AS
-DECLARE @unique VARCHAR(max)
+
 BEGIN
 
     IF @StatementType = 'SelectClientRecipes'
         BEGIN
             SELECT id, estatus, nombre
             FROM Receta
-            WHERE id_cliente = @id_cliente
+            WHERE id_cliente = @id_cliente  AND estatus = 'ACTIVO'
             ORDER BY nombre
         END
 
@@ -424,25 +422,16 @@ BEGIN
 
     IF @StatementType = 'Insert'
         BEGIN
-            exec @unique = UniqueRecipeName @id_cliente, @nombre
-            IF @unique = 1
-                SELECT 0
-            ElSE
-                INSERT INTO Receta (id_cliente, estatus, nombre)
-                VALUES (@id_cliente, @estatus, @nombre);
+            INSERT INTO Receta (id_cliente, estatus, nombre)
+            VALUES (@id_cliente, @estatus, @nombre);
         END
 
 
     IF @StatementType = 'Update'
         BEGIN
-            exec @unique = UniqueRecipeName @id_cliente, @nombre
-            IF @unique = 1
-                SELECT 0
-
-            ElSE
-                UPDATE Receta
-                SET nombre = @nombre
-                WHERE id = @id
+            UPDATE Receta
+            SET nombre = @nombre
+            WHERE id = @id
         END
 
     IF @StatementType = 'Delete'

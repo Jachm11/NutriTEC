@@ -21,7 +21,7 @@ BEGIN
         BEGIN
             SELECT id, estatus, nombre
             FROM Receta
-            WHERE id_cliente = @id_cliente
+            WHERE id_cliente = @id_cliente  AND estatus = 'ACTIVO'
             ORDER BY nombre
         END
 
