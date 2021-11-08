@@ -767,9 +767,19 @@ BEGIN
         END
 
     IF @StatementType = 'DeletePlanProduct'
-    BEGIN
-        delete from Productos_plan where id_producto=@id_producto and id_plan=@id and tiempo_comida=@tiempo_comida
-    END
+        BEGIN
+            delete
+            from Productos_plan
+            where id_producto = @id_producto and id_plan = @id and tiempo_comida = @tiempo_comida
+        END
+
+
+    IF @StatementType = 'UpdateProductPlan'
+        BEGIN
+            update Productos_plan
+            set porciones = @porciones
+            where id_plan = @id and id_producto = @id_producto and tiempo_comida = @tiempo_comida
+        END
 
 
 END
@@ -815,7 +825,7 @@ BEGIN
 --                             carbohidratos
 
                             (SELECT estadisticas
-                             FROM VistaPrettyProductos VP
+                             FROM VistaListaProducto VP
                              WHERE VP.id = P.id) [stats]
 
             FROM Receta R
@@ -844,7 +854,7 @@ BEGIN
 --                             carbohidratos
 
                             (SELECT estadisticas
-                             FROM VistaPrettyProductos VP
+                             FROM VistaListaProducto VP
                              WHERE VP.id = P.id) [stats]
 
             FROM Receta R

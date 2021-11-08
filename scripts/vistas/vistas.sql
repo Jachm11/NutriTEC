@@ -18,22 +18,24 @@ select id_plan,
 from ((Plans join Productos_plan on Plans.id = Productos_plan.id_plan)
          join Producto on Productos_plan.id_producto = Producto.id)
 
-create view VistaListaProducto
+create view VistaRecetaProductos
 as
-SELECT id,
-       estatus,
-       descripcion,
-
-       STUFF((
-                 SELECT DISTINCT + ' sodio:' + CAST(sodio AS VARCHAR(max))
-                                     + ', grasa:' + CAST(grasa AS VARCHAR(max))
-                                     + ', energia:' + CAST(energia AS VARCHAR(max))
-                                     + ', hierro:' + CAST(hierro AS VARCHAR(max))
-                                     + ', calcio:' + CAST(calcio AS VARCHAR(max))
-                                     + ', proteina:' + CAST(proteina AS VARCHAR(max))
-                                     + ', vitamina:' + CAST(vitamina AS VARCHAR(max))
-                                     + ', carbohidratos:' + CAST(carbohidratos AS VARCHAR(max))
-                 FROM Producto
-                 WHERE Producto.id = P.id
-                 FOR XML PATH('')), 1, 1, '') [estadisticas]
-FROM Producto P
+SELECT R.id           as id_receta,
+       R.estatus      as estado_receta,
+       R.nombre       as nombre_receta,
+       P.id           as id_producto,
+       barcode,
+       descripcion    as nombre_producto,
+       porciones      as porcion_agregada,
+       tamano_porcion as medida_porcion,
+       sodio,
+       grasa,
+       energia,
+       hierro,
+       calcio,
+       proteina,
+       vitamina,
+       carbohidratos
+FROM Receta R
+         JOIN Producto_receta PR ON R.id = PR.id_receta
+         JOIN Producto P ON PR.id_producto = P.id

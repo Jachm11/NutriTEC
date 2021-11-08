@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Interfaces
 {
     public interface IClienteRepository
     {
@@ -26,6 +26,8 @@ namespace NutriTEC.Data
         public string RegistrarMedidas(Medidas medida);
 
         public List<Object> GetMedidas(int id);
+
+
 
     }
 }

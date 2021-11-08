@@ -6,14 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using NutriTEC.Data.Repositories.Interfaces;
 
-namespace NutriTEC.Data
+namespace NutriTEC.Data.Repositories.Query
 {
     public class PlansRepository : IPlansRepository
     {
         // Attributo de configuracion de conexion.
         private readonly SQLConfiguration _connectionString;
-        private readonly string _spName = "MasterPlans";
+
+        private readonly string _spName = Utils._spPlans;
 
         // Utilizar driver de Nuget para conectarse a la DB.
         protected SqlConnection DbConnection => new(_connectionString.ConnectionString);
@@ -146,6 +148,7 @@ namespace NutriTEC.Data
             if (i < 1) return "No se ha logrado eliminar el plan. Por favor intente más tarde.";
             return "El plan se ha eliminado correctamente.";
         }
+
 
         public string DeletePlanProduct(int id, int id_producto, string tiempo_comida)
         {
