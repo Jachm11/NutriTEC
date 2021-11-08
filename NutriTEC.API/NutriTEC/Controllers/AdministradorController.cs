@@ -10,6 +10,7 @@ using System.Data;
 
 namespace NutriTEC.Controllers
 {
+
     public class AdministradorController : Controller
     {
 
