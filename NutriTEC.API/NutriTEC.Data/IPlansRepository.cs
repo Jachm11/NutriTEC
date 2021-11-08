@@ -14,7 +14,7 @@ namespace NutriTEC.Data
 
         List<Object> GetPlan(int id);
 
-        string InsertPlan(int id_nutricionista, string nombre);
+        object InsertPlan(int id_nutricionista, string nombre);
 
         string InsertProductPlan(Productos_plan products_plan);
 

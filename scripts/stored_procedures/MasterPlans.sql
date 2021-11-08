@@ -36,6 +36,9 @@ BEGIN
         BEGIN
             insert into Plans (id_nutricionista, estatus, nombre)
             values (@id_nutricionista, @estatus, @nombre)
+
+            select * from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
+
         END
 
     IF @StatementType = 'InsertProductsPlan'
@@ -55,7 +58,9 @@ BEGIN
         BEGIN
             delete
             from Productos_plan
-            where id_producto = @id_producto and id_plan = @id and tiempo_comida = @tiempo_comida
+            where id_producto = @id_producto
+              and id_plan = @id
+              and tiempo_comida = @tiempo_comida
         END
 
 
@@ -63,7 +68,9 @@ BEGIN
         BEGIN
             update Productos_plan
             set porciones = @porciones
-            where id_plan = @id and id_producto = @id_producto and tiempo_comida = @tiempo_comida
+            where id_plan = @id
+              and id_producto = @id_producto
+              and tiempo_comida = @tiempo_comida
         END
 
 
