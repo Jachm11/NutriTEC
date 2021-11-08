@@ -363,4 +363,18 @@ export class AddEditComponent implements OnInit {
     this.total_carbohidratos = 0;
   }
 
+
+  isConsume(){
+
+    console.log("url", this.url == "/daily-register", "Editando" , this.global.isEditing(),"Agregando",this.global.isAdding())
+    if(this.url == "/daily-register" && (this.global.isEditing() || this.global.isAdding())){
+      //console.log("consume")
+      return true;
+    }
+    else{
+      //console.log("not consume")
+      return false;
+    }
+  }
+
 }

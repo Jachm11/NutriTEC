@@ -16,16 +16,18 @@
     <div *ngIf="ready == true ">
       <div class="container">
         <div class="tim-title text-primary">
-          <h1>Fichas nutricionales</h1>
+          <h1>Calendario nutricional</h1>
         </div>
       </div>
       <div class="tim-title text-white">
         <h4>Nutricionista asociado: {{nutricionista}} </h4>
       </div>
-      <app-ficha-row-holder *ngFor="let num of [].constructor(rows) ; index as i" [row]="i" [all_fichas]="fichas">
-      </app-ficha-row-holder>
+      <div class = "calendar">
+        <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+      </div>
     </div>
   </section>
+
 
 
 </div>

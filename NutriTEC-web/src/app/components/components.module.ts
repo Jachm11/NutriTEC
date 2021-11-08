@@ -46,7 +46,8 @@ import { FichaComponent } from './ficha/ficha.component';
         FilterPipe, 
         AssignClientItemComponent,
         PlanItemComponent,
-        AddEditComponent
+        AddEditComponent,
+        FichaRowHolderComponent
         ],
 })
 export class ComponentsModule { }

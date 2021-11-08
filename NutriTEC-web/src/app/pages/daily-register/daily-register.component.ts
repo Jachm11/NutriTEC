@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Ficha } from 'src/interfaces/ficha';
 
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import esLocale from '@fullcalendar/core/locales/es';
+import { GlobalService } from 'src/app/services/global.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FichaComponent } from 'src/app/components/ficha/ficha.component';
+import { Product_Consumption } from 'src/interfaces/product';
+import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
+
 @Component({
   selector: 'app-daily-register',
   templateUrl: './daily-register.component.html',
@@ -11,134 +21,134 @@ export class DailyRegisterComponent implements OnInit {
   fichas: Ficha[];
   rows: number;
   ready: boolean;
+
+  public events: any[];
+  public options: any;
  
-  constructor() { }
+  constructor(private global:GlobalService, private dialog:MatDialog ) { }
+
+
 
   ngOnInit(): void { 
 
-    this.fichas = 
-    [
+    this.options = {
+      plugins : [dayGridPlugin,timeGridPlugin,interactionPlugin],
+      defaultDate : new Date(),
+      locale: esLocale,
+      themeSystem: 'bootstrap4',
+      header:{
+        left: 'prev,next',
+        center:'title',
+        right:'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      dateClick: (e) =>  {
+        console.log(e)
+        this.onClickDate();
+      },
+      eventClick: (e) =>  {
+        console.log(e.event.id)
+        this.onClickEvent(e.event);
+      }
+    }
+
+    this.events = [
       {
-        fecha: "11/7/21",
-        nombre_plan:  "Plan para Jose viernes",
-        productos_plan: [	
-          {
-            producto:"pasta",
-            tiempo_comida: "Almuerzo",
-            porcion: 2
-          },
-          {
-            producto:"carne",
-            tiempo_comida: "Cena",
-            porcion: 2
-          }
-        ],
-        total_plan: 
-        {
-          sodio:213,
-          grasa:23,
-          energia:455,
-          hierro:23,
-          calcio:76,
-          proteina:323,
-          vitamina:23,
-          carbohidratos:4500
-        },
-        productos_consumo:[
-          {
-            producto:"pesto",
-            tiempo_comida: "Almuerzo",
-            porcion: 2
-          },
-          {
-            producto:"lomito",
-            tiempo_comida: "Cena",
-            porcion: 2
-          }
-        ],
-        total_consumo:
-        {
-          sodio:213,
-          grasa:23,
-          energia:455,
-          hierro:23,
-          calcio:76,
-          proteina:323,
-          vitamina:23,
-          carbohidratos:4500
-        }
+        title:"Plan de jose",
+        start: new Date(),
+        groupId: "plan",
+        id:12
       },
       {
-        fecha: "12/7/21",
-        nombre_plan:  "Plan para Jose sabado",
-        productos_plan: [	
-          {
-            producto:"arrroz",
-            tiempo_comida: "Almuerzo",
-            porcion: 2
-          },
-          {
-            producto:"pescado",
-            tiempo_comida: "Cena",
-            porcion: 2
-          }
-        ],
-        total_plan: 
-        {
-          sodio:213,
-          grasa:23,
-          energia:455,
-          hierro:23,
-          calcio:76,
-          proteina:323,
-          vitamina:23,
-          carbohidratos:4500
-        },
-        productos_consumo:[
-          {
-            producto:"cantones",
-            tiempo_comida: "Almuerzo",
-            porcion: 2
-          },
-          {
-            producto:"galleta",
-            tiempo_comida: "merienda",
-            porcion: 2
-          },
-          {
-            producto:"salmon",
-            tiempo_comida: "Cena",
-            porcion: 2
-          }
-        ],
-        total_consumo:
-        {
-          sodio:213,
-          grasa:23,
-          energia:455,
-          hierro:23,
-          calcio:76,
-          proteina:323,
-          vitamina:23,
-          carbohidratos:4500
-        }
+        title:"Consumo",
+        start: new Date(),
+        groupId: "consumo",
+        color : "#000000",
+        id:13
+      },
+      {
+        title:"Plan de jose",
+        start: "2021-11-09",
+        groupId: "plan",
+        id:15
       }
     ]
 
+
     this.update();
   }
-
-
 
    /**
    * Funcion que se llama una vez que el proceso asincronico de recupercion de
    * datos ha terminado 
    */
     update(){
-
-      this.rows = Math.floor(this.fichas.length/7) + 1 ;
       this.ready = true;
+      this.addEvent();
   
     }
+
+
+
+  onClickEvent(event){
+
+    let tipo = event.groupId;
+
+    console.log(tipo);
+
+    switch (tipo) {
+      case "plan":
+        
+        break;
+
+      case "consumo":
+        this.global.startEditing();
+        break;
+    
+      default:
+        break;
+    }
+
+    this.open_plan_dialog();
+
+
+  }
+
+  onClickDate(){
+
+    this.global.startAdding();
+    this.open_plan_dialog();
+
+  }
+
+  open_plan_dialog(){
+
+    const dialogRef = this.dialog.open(AddEditComponent);
+    const subscribeDialog = dialogRef.componentInstance.apply.subscribe((consumed) => {
+      this.edit_consumed(consumed);
+    })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      subscribeDialog.unsubscribe();
+      this.global.cancel();
+    })
+
+  }
+
+  edit_consumed(cosumed:Product_Consumption[]){
+
+    window.location.reload();
+
+  }
+
+
+
+  addEvent() {
+    this.events = this.events.concat( // creates a new array!
+      { title: 'event 2', date: '2021-12-08' }
+    );
+  }
+
+
+  
 
 }

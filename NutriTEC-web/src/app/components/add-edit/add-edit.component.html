@@ -1,40 +1,29 @@
-
 <app-alerts></app-alerts>
 
 <div class="item-recipe-add-container">
-  
+
     <div>
         <form>
             <div *ngIf="url === '/manager-recipe'">
                 <label for="name_recipe"></label>
-                <input
-                    type="text"
-                    class="input-name-recipe"
-                    name="name_recipe"
-                    [(ngModel)]="name_recipe"
-                    id="name_recipe"
-                    placeholder="Nombre de la receta"
-                >
+                <input type="text" class="input-name-recipe" name="name_recipe" [(ngModel)]="name_recipe"
+                    id="name_recipe" placeholder="Nombre de la receta">
             </div>
 
 
             <div *ngIf="url === '/manager-plan'">
                 <label for="name_plan"></label>
-                <input
-                    type="text"
-                    class="input-name-plan"
-                    name="name_plan"
-                    [(ngModel)]="name_plan"
-                    id="name_plan"
-                    placeholder="Nombre del plan"
-                >
+                <input type="text" class="input-name-plan" name="name_plan" [(ngModel)]="name_plan" id="name_plan"
+                    placeholder="Nombre del plan">
             </div>
 
-            <br *ngIf="url=== '/manager-plan' || url == '/assign-plan'">
-            <div *ngIf="url === '/manager-plan' || url === '/assign-plan'" style="display: flex; flex-direction: column;">
+            <br *ngIf="url=== '/manager-plan' || url == '/assign-plan' || url == '/daily-register'">
+            <div *ngIf="url === '/manager-plan' || url === '/assign-plan' || url == '/daily-register'"
+                style="display: flex; flex-direction: column;">
                 <label>Tiempo de comida</label>
-                <select class="select-time-food" [(ngModel)]="current_time_food" [ngModelOptions]="{standalone: true}" (change)="update_time_food()">
-                    <option [ngValue]="'breakfast'" [selected]="true" >Desayuno</option>
+                <select class="select-time-food" [(ngModel)]="current_time_food" [ngModelOptions]="{standalone: true}"
+                    (change)="update_time_food()">
+                    <option [ngValue]="'breakfast'" [selected]="true">Desayuno</option>
                     <option [ngValue]="'morning_snack'">Merienda mañana</option>
                     <option [ngValue]="'launch'">Almuerzo</option>
                     <option [ngValue]="'afternoon_snack'">Merienda tarde</option>
@@ -44,120 +33,137 @@
             </div>
             <br>
         </form>
-   </div>
+    </div>
 
-   
-   <br>
-   <br>
 
-    <div>       
+    <br>
+    <br>
+
+    <div>
         <div class="container-input-productList">
-            <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">           
+            <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">
             <div class="products-list">
-                <app-product *ngFor="let product of current_products | filter:filterProducts" [product]="product" [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
+                <app-product *ngFor="let product of current_products | filter:filterProducts" [product]="product"
+                    [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
             </div>
-    
+
         </div>
 
     </div>
 
-   <div style="display: flex; flex-direction: column; align-items: center;">
+    <div *ngIf='isConsume()' style="display: flex; flex-direction: column; align-items: center;">
 
-    <label class="text-black">Productos Seleccionados:</label>
-    <div class="container-productSelected">
+        <label class="text-black">Productos Seleccionados:</label>
+        <div class="container-productSelected">
 
-        <app-item-product *ngFor="let product_selected of selected_products" [product_selected]="product_selected" (update_porcion)="update_porcion($event)" (delete_product)="delete_product($event)"></app-item-product>
+            <app-item-product *ngFor="let product_selected of selected_products" [product_selected]="product_selected"
+                (update_porcion)="update_porcion($event)" (delete_product)="delete_product($event)"></app-item-product>
+
+        </div>
+
+        <div *ngIf="url === '/manager-recipe' || url === '/daily-register'"
+            style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+
+            <h4 *ngIf="url === '/manager-recipe'" class="header-info-nutritional-recipe"> Información nutricional de la
+                receta</h4>
+            <h4 *ngIf="url === '/daily-register'" class="header-info-nutritional-recipe"> Información nutricional del
+                consumo</h4>
+
+            <div class="container-info">
+                <div>
+
+                    <label>
+
+                        <ul>
+
+                            <li>
+                                <span class="label label-info">Proteína:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_proteinas}} g</span>
+                            </li>
+
+                            <li>
+                                <span class="label label-info">Vitamina:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_vitaminas}} </span>
+                            </li>
+
+                            <li>
+                                <span class="label label-info">Calcio:</span> <span style="margin-left: 10px;"
+                                    class="label label-info">{{this.total_calcio}} mg</span>
+                            </li>
+
+                            <li>
+                                <span class="label label-info">Hierro:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_hierro}} mg</span>
+                            </li>
+
+
+                        </ul>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+
+                        <ul>
+
+                            <li>
+                                <span class="label label-info">Energía:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_energia}} Kcal</span>
+
+                            </li>
+
+                            <li>
+                                <span class="label label-info">Grasa:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_grasa}} g</span>
+                            </li>
+
+                            <li>
+                                <span class="label label-info">Sodio:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_sodio}} mg</span>
+                            </li>
+
+                            <li>
+                                <span class="label label-info">Carbohidratos:</span> <span style="margin-left: 10px;"
+                                    class="label label-info"> {{this.total_carbohidratos}} g</span>
+                            </li>
+
+
+                        </ul>
+
+                    </label>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div *ngIf="url === '/manager-plan'"
+            style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+
+            <h4 *ngIf="url === '/manager-recipe' " class="header-info-nutritional-recipe"> Información nutricional de la
+                receta</h4>
+
+            <div class="container-total-kcal">
+
+
+                <label>
+                    <span class="label label-info">Total calorías:</span> <span style="margin-left: 10px;"
+                        class="label label-info"> {{this.total_calorias}} kcal</span>
+                </label>
+
+
+
+
+            </div>
+
+        </div>
+
 
     </div>
 
-    <div  *ngIf="url === '/manager-recipe'" style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-
-        <h4 class="header-info-nutritional-recipe"> Información nutricional de la receta</h4>
-
-        <div class="container-info">
-            <div>
-
-                <label>
-
-                    <ul>
-
-                        <li>
-                            <span class="label label-info">Proteína:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_proteinas}} g</span>
-                        </li>
-
-                        <li>
-                            <span class="label label-info">Vitamina:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_vitaminas}} </span>
-                        </li>
-
-                        <li>
-                            <span class="label label-info">Calcio:</span> <span style="margin-left: 10px;" class="label label-info">{{this.total_calcio}} mg</span>
-                        </li>
-
-                        <li>
-                            <span class="label label-info">Hierro:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_hierro}} mg</span>
-                        </li>
-
-
-                    </ul>
-    
-                </label>
-            </div>
-
-            <div>
-                <label>
-
-                    <ul>
-    
-                        <li>
-                            <span class="label label-info">Energía:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_energia}}  Kcal</span>
-
-                        </li>
-    
-                        <li>
-                            <span class="label label-info">Grasa:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_grasa}} g</span>
-                        </li>
-
-                        <li>
-                            <span class="label label-info">Sodio:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_sodio}} mg</span>
-                        </li>
-
-                        <li>
-                            <span class="label label-info">Carbohidratos:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_carbohidratos}} g</span>
-                        </li>
-
-
-                    </ul>
-    
-                </label>
-            </div>
-
-          
-        </div>
-    
-       </div>
-
-    <div *ngIf="url === '/manager-plan'" style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-
-        <h4 *ngIf="url === '/manager-recipe' " class="header-info-nutritional-recipe"> Información nutricional de la receta</h4>
-  
-        <div class="container-total-kcal">
-        
-
-                <label>
-                    <span class="label label-info">Total calorías:</span> <span style="margin-left: 10px;" class="label label-info"> {{this.total_calorias}} kcal</span>
-                </label>
-          
-
-
-          
-        </div>
-    
-    </div>
-
-        
-   </div>
-
-   <div style="display: flex; justify-content: space-around; align-items: center;">
+    <div *ngIf='isConsume()' style="display: flex; justify-content: space-around; align-items: center;">
 
         <button (click)="apply_changes()" class="btn btn-success"> Aplicar</button>
         <button *ngIf="url !== '/assign-plan'" (click)="cancel()" class="btn btn-secondary"> Cancel</button>
@@ -170,4 +176,3 @@
 
 
 </div>
-

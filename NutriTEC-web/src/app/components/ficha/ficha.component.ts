@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Ficha } from 'src/interfaces/ficha';
 
 @Component({
@@ -8,7 +8,7 @@ import { Ficha } from 'src/interfaces/ficha';
 })
 export class FichaComponent implements OnInit {
 
-  @Input() ficha: Ficha;
+  @Output() apply : EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 

@@ -1,0 +1,10 @@
+.calendar{
+
+    width: 80%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

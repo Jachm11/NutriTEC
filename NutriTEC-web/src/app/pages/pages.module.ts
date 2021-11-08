@@ -27,12 +27,17 @@ import { PatientOverviewComponent } from './patient-overview/patient-overview.co
 import { AssingPlanComponent } from './assing-plan/assing-plan.component';
 import { BillingComponent } from './billing/billing.component';
 
+import { FullCalendarModule } from 'primeng/fullcalendar'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         NgbModule,
         ComponentsModule,
+        FullCalendarModule
   
     ],
     declarations: [
