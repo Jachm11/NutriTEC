@@ -27,6 +27,16 @@ namespace NutriTEC.Controllers
             return Ok(_productRepository.GetAllProducts());
         }
 
+        // GET: /Producto/getAllRestricted
+        // Retorna todos los productos.
+        [HttpGet("getAllRestricted"), ActionName("GetAll")]
+        public IActionResult GetAllProductsRestricted()
+        {
+            ModelState.Clear();
+            return Ok(_productRepository.GetAllProductsRestricted());
+        }
+
+
         // GET: /Producto/1
         // Retorna al producto que coincide con el id.
         [HttpGet("{id}"), ActionName("Get")]

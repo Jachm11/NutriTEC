@@ -54,6 +54,25 @@ namespace NutriTEC.Data.Repositories.Query
             return productList;
         }
 
+        public List<Object> GetAllProductsRestricted()
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "SelectAllRestrincted");
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> productList = AddSelectedProductToList(dt);
+            return productList;
+        }
+
         // ********************************** GET PRODUCT BY ID**************************************
         // GetProduct: retorna el producto que coincide con el id de la base de datos.
         // Parametros de entrada: int: id
