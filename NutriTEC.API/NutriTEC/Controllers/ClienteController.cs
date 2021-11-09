@@ -27,6 +27,15 @@ namespace NutriTEC.Controllers
             return Ok(_clientRepository.GetAllClients());
         }
 
+        // GET: /Cliente/SinNutri
+        // Retorna todos los clientes.
+        [HttpGet("SinNutri"), ActionName("GetAll")]
+        public IActionResult GetAllClientsWithoutNutri()
+        {
+            ModelState.Clear();
+            return Ok(_clientRepository.GetAllClientsWithoutNutri());
+        }
+
         // GET: /Cliente/1
         // Retorna al cliente que coincide con el id.
         [HttpGet("{id}"), ActionName("Get")]

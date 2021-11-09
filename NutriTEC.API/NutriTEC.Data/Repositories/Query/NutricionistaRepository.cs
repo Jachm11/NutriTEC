@@ -140,7 +140,110 @@ namespace NutriTEC.Data.Repositories.Query
             return result;
         }
 
+        // ************************************ ASSIGN PLAN TO CLIENT ******************************
+        // AssignPlanToClient: asigna un plan a una fecha de un cliente
+        // Parametros de entrada: int: id_plan, int:id_cliente, DateTime:fecha
+        // Salida: string
+        public bool AssignPlanToClient(Plan_cliente plan_cliente)
+        {
+            var conn = DbConnection;
 
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "AssignPlanToClient");
+
+            cmd.Parameters.AddWithValue("@id_plan", plan_cliente.Id_plan);
+            cmd.Parameters.AddWithValue("@id_cliente", plan_cliente.Id_cliente);
+            cmd.Parameters.AddWithValue("@fecha", plan_cliente.Fecha);
+
+            conn.Open();
+            bool result = (bool)cmd.ExecuteScalar();
+            conn.Close();
+
+            return result;
+        }
+
+        // ******************************** SEGUIMIENTO PLAN FECHA ******************************
+        // SeguimientoPlanFecha: retorna una lista con las fechas que tienen un plan asignado
+        // Parametros de entrada: int:id_cliente
+        // Salida: List<object>
+        public List<object> SeguimientoPlanFecha(int id_cliente)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "SeguimientoPlanFecha");
+            cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
+            
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<object> seguimientoPlanFecha = AddSelectedSeguimientoPlanToList(dt);
+
+            return seguimientoPlanFecha;
+        }
+
+        // ******************************** SEGUIMIENTO CONSUMO DIARIO ******************************
+        // SeguimientoConsumoDiario: retorna una lista con consumos de un cliente.
+        // Parametros de entrada: int:id_cliente
+        // Salida: List<object>
+        public List<object> SeguimientoConsumoDiario(int id_cliente)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "SeguimientoConsumoDiarioFechas");
+            cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
+
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<object> seguimientoConsumo = AddSelectedSeguimientoConsumoToList(dt);
+
+            return seguimientoConsumo;
+        }
+
+        // ******************************** SEGUIMIENTO CONSUMO DIARIO POR FECHA **********************
+        // SeguimientoConsumoDiario: retorna una lista con consumos de un cliente por fecha.
+        // Parametros de entrada: int:id_cliente, DateTime:fecha
+        // Salida: List<object>
+        public List<object> SeguimientoConsumoDiarioPorFecha(int id_cliente, DateTime fecha)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "SeguimientoConsumoDiarioPorFecha");
+            cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
+            cmd.Parameters.AddWithValue("@fecha", fecha);
+
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<object> seguimientoConsumo = AddSelectedSeguimientoConsumoFechaToList(dt);
+
+            return seguimientoConsumo;
+        }
 
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
@@ -179,5 +282,81 @@ namespace NutriTEC.Data.Repositories.Query
             }
             return nutricionist;
         }
+
+
+        // AddSelectedSeguimientoPlanToList: retorna la lista de fechas del plan
+        // obtenidos al ejecutar un select de la base de datos
+        // Parametros de entrada: DataTable: dt
+        // Salida: List<Object>: lista de seguimientoPlanFecha.
+        private static List<object> AddSelectedSeguimientoPlanToList(DataTable dt)
+        {
+            List<Object> seguimientoPlanFecha = new();
+
+            // Leer todas las filas y columnas.
+            foreach (DataRow dr in dt.Rows)
+            {
+                seguimientoPlanFecha.Add(
+                    new
+                    {
+                        Id_plan = Convert.ToInt32(dr["id_plan"]),
+                        Nombre = Convert.ToString(dr["nombre"]),
+                        Fecha = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha"]))
+                    });
+            }
+            return seguimientoPlanFecha;
+        }
+
+        // AddSelectedSeguimientoConsumoToList: retorna la lista de fechas del consumo
+        // obtenidos al ejecutar un select de la base de datos
+        // Parametros de entrada: DataTable: dt
+        // Salida: List<Object>: lista de seguimientoPlanFecha.
+        private static List<object> AddSelectedSeguimientoConsumoToList(DataTable dt)
+        {
+            List<Object> seguimientoConsumo = new();
+
+            // Leer todas las filas y columnas.
+            foreach (DataRow dr in dt.Rows)
+            {
+                seguimientoConsumo.Add(
+                    new
+                    {
+                        Fecha = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha"]))
+                    });
+            }
+            return seguimientoConsumo;
+        }
+
+        // AddSelectedSeguimientoConsumoFechaToList: retorna la lista de fechas del consumo por fecha
+        // obtenidos al ejecutar un select de la base de datos
+        // Parametros de entrada: DataTable: dt
+        // Salida: List<Object>: lista de seguimientoPlanFecha.
+        private static List<object> AddSelectedSeguimientoConsumoFechaToList(DataTable dt)
+        {
+            List<Object> seguimientoConsumo = new();
+
+            // Leer todas las filas y columnas.
+            foreach (DataRow dr in dt.Rows)
+            {
+                seguimientoConsumo.Add(
+                    new
+                    {
+                        Id_producto = Convert.ToInt32(dr["id_producto"]),
+                        Tiempo_comida = Convert.ToString(dr["tiempo_comida"]),
+                        Barcode = Convert.ToString(dr["barcode"]),
+                        Tamano_porcion = float.Parse(Convert.ToString(dr["tamano_porcion"])),
+                        Descripcion = Convert.ToString(dr["descripcion"]),
+                        Sodio = float.Parse(Convert.ToString(dr["sodio"])),
+                        Grasa = float.Parse(Convert.ToString(dr["grasa"])),
+                        Energia = float.Parse(Convert.ToString(dr["energia"])),
+                        Hierro = float.Parse(Convert.ToString(dr["hierro"])),
+                        Calcio = float.Parse(Convert.ToString(dr["calcio"])),
+                        Proteina = float.Parse(Convert.ToString(dr["proteina"])),
+                        Vitamina = float.Parse(Convert.ToString(dr["vitamina"])),
+                        Carbohidratos = float.Parse(Convert.ToString(dr["carbohidratos"]))
+                    });
+            }
+            return seguimientoConsumo;
+        }
+
     }
 }

@@ -339,6 +339,28 @@ namespace NutriTEC.Data.Repositories.Query
             return medidas;
         }
 
+        // *********************** GET ALL CLIENTS SIN NUTRI ******************************
+        // GetAllClientsWithoutNutri: obtiene todos los clientes sin nutricionista asignado
+        // Parametros de entrada: 
+        // Salida: string: respuesta
+        public List<Object> GetAllClientsWithoutNutri()
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "GetClientsWithoutNutri");
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> clientsList = AddSelectedClientsToList(dt);
+            return clientsList;
+        }
 
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS

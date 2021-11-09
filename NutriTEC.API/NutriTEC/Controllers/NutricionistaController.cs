@@ -31,6 +31,48 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+
+        // GET: /Nutricionista/seguimientoplanfecha
+        // Retorna la lista de planes asignados a una fecha.
+        [HttpGet("seguimientoplanfecha"), ActionName("Get")]
+        public IActionResult GetSegumientoPlan(int id_cliente)
+        {
+            List<object> result = _nutricionistRepository.SeguimientoPlanFecha(id_cliente);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("No hay ningún cliente asociado a este ID");
+            // Si lo encuentra.
+            return Ok(result);
+        }
+
+        // GET: /Nutricionista/seguimientoconsumo_fechas
+        // Retorna la lista de consumo de cliente.
+        [HttpGet("seguimientoconsumo_fechas"), ActionName("Get")]
+        public IActionResult GetSeguimientoConsumoDiario(int id_cliente)
+        {
+            List<object> result = _nutricionistRepository.SeguimientoConsumoDiario(id_cliente);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("No hay ningún cliente asociado a este ID");
+            // Si lo encuentra.
+            return Ok(result);
+        }
+
+        // GET: /Nutricionista/seguimientoconsumo_content
+        // Retorna la lista de consumo de cliente.
+        [HttpGet("seguimientoconsumo_content"), ActionName("Get")]
+        public IActionResult GetSeguimientoConsumoDiario(int id_cliente, DateTime fecha)
+        {
+            List<object> result = _nutricionistRepository.SeguimientoConsumoDiarioPorFecha(id_cliente, fecha);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("No hay ningún cliente asociado a este ID");
+            // Si lo encuentra.
+            return Ok(result);
+        }
+
+
+
         // POST: /Nutricionista
         // Agrega un nuevo nutricionista a la base de datos.
         [HttpPost, ActionName("Insert")]
@@ -60,7 +102,18 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+        // POST: /Nutricionista
+        // Agrega un nuevo nutricionista a la base de datos.
+        [HttpPost("AssignPlanToClient"), ActionName("Insert")]
+        public IActionResult AssignPlanToClient([FromBody] Plan_cliente plan_cliente)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            bool result = _nutricionistRepository.AssignPlanToClient(plan_cliente);
+            if (result) return Ok();
+            return BadRequest("No se puede asignar porque la fecha ya cuenta con un plan");
+        }
 
     }
 }

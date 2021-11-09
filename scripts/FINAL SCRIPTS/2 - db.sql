@@ -116,6 +116,7 @@ CREATE TABLE Plan_cliente(
 	id_plan_cliente	int IDENTITY(1,1),
 	id_plan			int NOT NULL,
 	id_cliente		int NOT NULL,
+	fecha           Date NOT NULL,
 
 	PRIMARY KEY(id_plan_cliente)
 );
@@ -138,14 +139,6 @@ CREATE TABLE Productos_plan(
 	porciones		float NOT NULL,
 
 	PRIMARY KEY(id,id_producto,id_plan)
-);
-
-CREATE TABLE Fecha_plan_cliente(
-
-	id_plan_cliente		int IDENTITY(1,1),
-	fecha				Date NOT NULL,
-
-	PRIMARY KEY(id_plan_cliente)
 );
 
 CREATE TABLE Consumo_diario(
@@ -239,9 +232,4 @@ ALTER TABLE "Plan_cliente"
 ADD CONSTRAINT PLAN_CLIENTE_CLIENTE_FK FOREIGN KEY(id_cliente)
 REFERENCES "Cliente"(id);
 
--- Fecha plan cliente			|||		16		|||
-ALTER TABLE "Fecha_plan_cliente"
-ADD CONSTRAINT FECHA_PLAN_CLIENTE_PLAN_CLIENTE_FK FOREIGN KEY(id_plan_cliente)
-REFERENCES "Plan_cliente"(id_plan_cliente);
-
--- TOTAL 16 ALTER TABLES
+-- TOTAL 15 ALTER TABLES
