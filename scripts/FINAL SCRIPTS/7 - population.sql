@@ -469,3 +469,17 @@ values (1, 10, 'Cena', '10/14/2021')
 --------------------------------------------------
 
 
+
+---------------------------------- PLAN A CLIENTE -------------------------------------
+
+insert into Plan_cliente (id_plan, id_cliente, fecha)
+values (1,1, '10/14/2021');
+insert into Plan_cliente (id_plan, id_cliente, fecha)
+values (1,1, '10/15/2021');
+insert into Plan_cliente (id_plan, id_cliente, fecha)
+values (1,1, '10/16/2021');
+insert into Plan_cliente (id_plan, id_cliente, fecha)
+values (1,1, '10/17/2021');
+insert into Plan_cliente (id_plan, id_cliente, fecha)
+values (1,1, '10/18/2021');
+
