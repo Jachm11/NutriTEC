@@ -183,6 +183,27 @@ namespace NutriTEC.Data.Repositories.Query
             return (i >= 1);
         }
 
+        // ********************* UNASSIGN NUTRICIONIST TO CLIENT *************************************
+        // UnAssignNutricionistToClient: desasigna un nutricionista a un cliente.
+        // Parametros de entrada: int: id
+        // Salida: bool
+        public bool UnAssignNutricionistToClient(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "UnAssignN");
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            return (i >= 1);
+        }
+
         // ********************* ASSIGN CONVERSATION TO CLIENT *************************************
         // AssignConversationToClient: asigna un nutricionista a un cliente.
         // Parametros de entrada: int: id, id_forum

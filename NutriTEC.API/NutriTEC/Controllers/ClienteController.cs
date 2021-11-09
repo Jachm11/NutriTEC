@@ -91,6 +91,18 @@ namespace NutriTEC.Controllers
             return BadRequest("Error, no se ha podido asignar el nutricionista al cliente.");
         }
 
+        // PUT /Cliente/nutricionist/unassign?id=a&forum=b
+        // Asigna un nutricionista a un cliente.
+        [HttpPut("nutricionist/unassign"), ActionName("unAssign Nutricionist")]
+        public IActionResult UnAssignNuticionist(int id)
+        {
+            var result = _clientRepository.UnAssignNutricionistToClient(id);
+
+            if (result)
+                return Ok();
+            return BadRequest("Error, no se ha podido asignar el nutricionista al cliente.");
+        }
+
         // PUT /Cliente/forum/assign?id=a&forum=b
         // Asigna un foro al cliente.
         [HttpPut("forum/assign"), ActionName("Assign Conversation")]

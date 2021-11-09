@@ -58,11 +58,13 @@ namespace NutriTEC.Controllers
                 return BadRequest("Error, el nombre contiene valores nulos");
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return BadRequest(ModelState); 
 
-            string result = _recetaRepository.InsertRecipe(id_cliente, nombre);
-            if (result == "") return Ok();
-            return BadRequest(result);
+            object result = _recetaRepository.InsertRecipe(id_cliente, nombre);
+
+            if (result == null) 
+                return BadRequest("No se ha logrado agregar la nueva receta. Por favor intente más tarde.");
+            return Ok(result);
         }
 
 

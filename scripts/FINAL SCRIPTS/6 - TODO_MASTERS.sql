@@ -1,8 +1,6 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
-USE [nutridb]
-
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
 GO
@@ -79,6 +77,15 @@ BEGIN
             WHERE id = @id
         END
 
+    IF @StatementType = 'UnAssignN'
+        BEGIN
+            update Cliente
+            set id_nutricionista = NULL,
+                id_conversacion  = NULL
+            where id = @id;
+        END
+
+
     IF @StatementType = 'AssignC'
         BEGIN
             UPDATE Cliente
@@ -154,7 +161,8 @@ BEGIN
                    ISNULL(id_conversacion, -1)                        as id_conversacion
             FROM Usuario
                      JOIN Cliente ON Usuario.id = Cliente.id_usuario
-            WHERE rol = 'CLIENT' and id_nutricionista IS NULL
+            WHERE rol = 'CLIENT'
+              and id_nutricionista IS NULL
         END
 
 
@@ -448,6 +456,8 @@ GO
 
 
 ----------------------------------------------------- MASTER RECIPE -------------------------------------------------
+USE [nutridb]
+
 IF OBJECT_ID('MasterRecipe', 'P') IS NOT NULL
     DROP PROCEDURE [MasterRecipe];
 GO
@@ -497,6 +507,8 @@ BEGIN
         BEGIN
             INSERT INTO Receta (id_cliente, estatus, nombre)
             VALUES (@id_cliente, @estatus, @nombre);
+
+            select id, nombre from Receta where id_cliente = @id_cliente and nombre = @nombre
         END
 
 
@@ -531,5 +543,4 @@ BEGIN
 
 END
 go
-
 

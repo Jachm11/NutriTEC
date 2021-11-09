@@ -46,7 +46,7 @@ namespace NutriTEC.Controllers
         public IActionResult InsertPlan(int id_nutricionista, string nombre)
         {
             object result = _plansRepository.InsertPlan(id_nutricionista, nombre);
-            return Ok();
+            return Ok(result);
         }
 
         // POST: /plan/agregarproducto

@@ -49,6 +49,8 @@ BEGIN
         BEGIN
             INSERT INTO Receta (id_cliente, estatus, nombre)
             VALUES (@id_cliente, @estatus, @nombre);
+
+            select id, nombre from Receta where id_cliente = @id_cliente and nombre = @nombre
         END
 
 

@@ -14,6 +14,7 @@ namespace NutriTEC.Data.Repositories.Interfaces
         string InsertClient(ClienteModel client);
         object LogIn(string email, string clave);
         bool AssignNutricionistToClient(int id, int id_nutricionist);
+        bool UnAssignNutricionistToClient(int id);
         bool AssignConversationToClient(int id, int id_forum);
         public string RegistrarMedidas(Medidas medida);
         public List<Object> GetMedidas(int id);
