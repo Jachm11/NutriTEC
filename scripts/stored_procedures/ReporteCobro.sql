@@ -7,6 +7,9 @@ IF OBJECT_ID('ReporteCobro', 'P') IS NOT NULL
 GO
 
 CREATE procedure dbo.[ReporteCobro]
+    (
+    @tipo varchar(20)
+    )
 AS
 BEGIN
     SELECT tipo_de_pago, correo_electronico, nombre_completo, numero_de_tarjeta,
@@ -20,6 +23,7 @@ BEGIN
           ELSE numero_pacientes
           END) AS monto_a_cobrar
     FROM VistaNutricionistas
+    WHERE lower(tipo_de_pago) = @tipo
 END
 go
 

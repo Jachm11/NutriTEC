@@ -88,12 +88,13 @@ namespace NutriTEC.Controllers
         // GET: /Administrador/reporte-cobro
         // Retorna el reporte de cobro generado por el administrador.
         [HttpGet("reporte-cobro"), ActionName("ReporteCobro")]
-        public IActionResult GetReporteCobro()
+        public IActionResult GetReporteCobro(string tipo)
         {
             var conn = DbConnection;
 
             SqlCommand cmd = new(_spReporteCobro, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@tipo", tipo.ToLower());
 
             SqlDataAdapter sd = new(cmd);
             DataTable dt = new();
