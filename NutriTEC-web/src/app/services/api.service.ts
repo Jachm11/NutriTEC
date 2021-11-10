@@ -8,6 +8,7 @@ import { Product } from 'src/interfaces/product';
 import { Plan } from 'src/interfaces/plan';
 import { GlobalService } from './global.service';
 import { Recipe } from 'src/interfaces/recipe';
+import { Admin } from 'src/interfaces/admin';
 const headers =  new HttpHeaders({
   'Content-Type':'application/json'
 });
@@ -48,6 +49,12 @@ export class ApiService {
   loginNutritionist(email:string, clave:string):Observable<Nutritionist>{
     return this.http.get<Nutritionist>(this.apiURL + "nutricionista/login?email=" + email + "&clave=" + clave);
   }
+
+  loginAdmin(email:string, clave:string):Observable<Admin>{
+    return this.http.get<Admin>(this.apiURL + "/login?email=" + email + "&clave=" + clave);
+  }
+
+
 
   get_clients():Observable<Client[]> {
      return this.http.get<Client[]>(this.apiURL + "cliente");

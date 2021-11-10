@@ -1,0 +1,19 @@
+    { path: 'home',                   FALTA
+    { path: 'home-nutritionist',      FALTA
+    { path: 'user-profile',           FALTA
+    { path: 'register-client',        FALTA
+    { path: 'register-nutritionist',  FALTA
+    { path: 'login-client',                 LISTO (No css)
+    { path: 'login-nutritionist',           LISTO (No css)
+    { path: 'products-approval',            LISTO (No css)
+    { path: 'register-product',       FALTA
+    { path: 'manager-recipe',         FALTA
+    { path: 'assign-client',          FALTA
+    { path: 'manager-plan',           FALTA
+    { path: 'measurement-register',   FALTA
+    { path: 'daily-register',         FALTA
+    { path: 'personal-record',        FALTA
+    { path: 'patient-overview',       FALTA
+    { path: 'assign-plan',            FALTA
+    { path: 'billing',                FALTA
+    { path: 'login-admin',                  LISTO (No css)

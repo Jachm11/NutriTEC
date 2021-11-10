@@ -346,7 +346,37 @@ export class RegisterComponent implements OnInit {
   
 
 
+    register_client(){
+              
+      this.api.post_client(this.new_client).subscribe(()=>{
+        this.global.transactionSuccess("Se agregó el cliente exitosamente");
+          this.setDevaultValues();
+      },   
+      (err) => {
+          this.global.transactionFailed(err.error);
+      });
 
+    }
+
+    register_nutritionist(){
+
+      console.log(this.new_nutritionist);
+      this.api.post_nutritionist(this.new_nutritionist).subscribe(()=>{}, 
+        
+      (err) => {
+
+        console.log(err);
+        if (err.statusText == "OK"){
+
+          this.global.transactionSuccess("Se agregó el nutricionista exitosamente");
+          this.setDevaultValues();
+
+        }
+        else {
+          this.global.transactionFailed(err.error);
+        }
+
+      });
     }
 
 

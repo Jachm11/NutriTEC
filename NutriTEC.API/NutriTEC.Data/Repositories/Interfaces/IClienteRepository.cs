@@ -11,7 +11,7 @@ namespace NutriTEC.Data.Repositories.Interfaces
     {
         List<Object> GetAllClients();
         Object GetClient(int id);
-        string InsertClient(ClienteModel client);
+        Object InsertClient(ClienteModel client);
         object LogIn(string email, string clave);
         bool AssignNutricionistToClient(int id, int id_nutricionist);
         bool UnAssignNutricionistToClient(int id);
