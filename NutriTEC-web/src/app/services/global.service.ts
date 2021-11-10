@@ -63,6 +63,18 @@ export class GlobalService {
     "tipo_cobro": "Semanal"
 };
 
+
+current_admin:any = {
+  "id": 1,
+  "id_usuario": 1,
+  "primer_nombre": "Carlos",
+  "segundo_nombre": "Adrian",
+  "primer_apellido": "Araya",
+  "segundo_apellido": "Ramirez",
+  "email": "adrian@gmail.com",
+  "clave": "1234"
+  };
+
   hideAlert(){
     this.success_alert.next(false);
     this.danger_alert.next(false);

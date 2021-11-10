@@ -29,7 +29,8 @@ import { BillingComponent } from './billing/billing.component';
 
 import { FullCalendarModule } from 'primeng/fullcalendar'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction';
+import { LoginAdminComponent } from './login-admin/login-admin.component'; // a plugin!
 
 @NgModule({
     imports: [
@@ -60,6 +61,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
         PatientOverviewComponent,
         AssingPlanComponent,
         BillingComponent,
+        LoginAdminComponent,
         
        
     ],

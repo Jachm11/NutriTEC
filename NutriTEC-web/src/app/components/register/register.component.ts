@@ -311,18 +311,12 @@ export class RegisterComponent implements OnInit {
 
     register_client(){
               
-      this.api.post_client(this.new_client).subscribe(()=>{},   
-      (err) => {
-
-        if (err.statusText == 'OK'){
-          this.global.transactionSuccess("Se agregó el cliente exitosamente");
+      this.api.post_client(this.new_client).subscribe(()=>{
+        this.global.transactionSuccess("Se agregó el cliente exitosamente");
           this.setDevaultValues();
-
-        }
-        else {
+      },   
+      (err) => {
           this.global.transactionFailed(err.error);
-        }
-
       });
 
     }
