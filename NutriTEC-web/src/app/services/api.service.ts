@@ -9,6 +9,7 @@ import { Plan } from 'src/interfaces/plan';
 import { GlobalService } from './global.service';
 import { Recipe } from 'src/interfaces/recipe';
 import { Admin } from 'src/interfaces/admin';
+import { Bill } from 'src/interfaces/bill';
 const headers =  new HttpHeaders({
   'Content-Type':'application/json'
 });
@@ -86,6 +87,10 @@ export class ApiService {
 
    get_product_by_recipe(id_recipe:number):Observable<Product[]> {
      return this.http.get<Product[]>(this.apiURL + `Recetas/${id_recipe}/productos`)
+   }
+
+   get_billing_report():Observable<Bill[]>{
+     return this.http.get<Bill[]>(this.apiURL + "reporte-cobro");
    }
 
 

@@ -1,8 +1,10 @@
+FALTA -> No lo he revisado
+
     { path: 'home',                   FALTA
     { path: 'home-nutritionist',      FALTA
     { path: 'user-profile',           FALTA
-    { path: 'register-client',        FALTA
-    { path: 'register-nutritionist',  FALTA
+    { path: 'register-client',        PENDINTE: medidas -> no cliente id API
+    { path: 'register-nutritionist',        LISTO (No css)
     { path: 'login-client',                 LISTO (No css)
     { path: 'login-nutritionist',           LISTO (No css)
     { path: 'products-approval',            LISTO (No css)
