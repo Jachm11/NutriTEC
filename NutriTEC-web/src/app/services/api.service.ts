@@ -102,8 +102,8 @@ export class ApiService {
   //          _________________________
   //_________/ POST
 
-  post_client(client:Client): Observable<Client> { 
-    return this.http.post<Client>(this.apiURL + "cliente", client, httpOptions);
+  post_client(client:Client): Observable<any> { 
+    return this.http.post<any>(this.apiURL + "cliente", client, httpOptions);
   }
 
   post_nutritionist(nutricionist:Nutritionist): Observable<Nutritionist> {
