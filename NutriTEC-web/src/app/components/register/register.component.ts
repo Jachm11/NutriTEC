@@ -177,30 +177,52 @@ export class RegisterComponent implements OnInit {
       
         };
 
-        this.api.post_client(this.new_client).subscribe(()=>{
-          this.global.transactionSuccess("Se agregó el cliente exitosamente");
+
+        let measures = {
+            id_cliente: null,
+            fecha: formatDate(new Date, 'yyyy-MM-dd', 'en-US'),
+            porcentaje_musculo: this.porcentaje_musculo,
+            porcentaje_grasa: this.porcentaje_grasa,
+            cadera: this.medida_cadera,
+            peso: this.peso,
+            altura: this.altura,
+            cintura: this.medida_cintura,
+            cuello: this.medida_cuello
+          }
+
+
+        console.log(this.medida_cadera);
+
+
+        this.api.post_client(this.new_client).subscribe((client)=>{
+          
           this.setDevaultValues();
+
+
+
+
+      
+
+          console.log(client.id);
+
+          measures.id_cliente = client.id;
+          console.log(measures);
+          this.api.register_measures(measures).subscribe(()=> {
+
+            this.global.transactionSuccess("Se agregó el cliente exitosamente");
+
+          });
+
+
         }, 
         (err) => {
             this.global.transactionFailed(err.error);
         });
 
 
-        let measures = 
-        {
-          id_cliente: this.global.current_client.id,
-          fecha: formatDate(new Date, 'yyyy-MM-dd', 'en-US'),
-          porcentaje_musculo: this.porcentaje_musculo,
-          porcentaje_grasa: this.porcentaje_grasa,
-          cadera: this.medida_cadera,
-          peso: this.peso,
-          altura: this.altura,
-          cintura: this.medida_cintura,
-          cuello: this.medida_cuello
-        }
+  
 
-
-        this.api.register_measures(measures).subscribe();
+        
   
 
       }
