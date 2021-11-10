@@ -13,80 +13,84 @@
         <app-alerts></app-alerts>
 
 
+        <div *ngIf="ready == true" class = "container">
+            <div class="bill" id="pdfTable" #pdfTable>
+                <h1>Reporte de cobro NutriTEC</h1>
+                <h3>NutriTec Costa Rica S.A.</h3>
 
-        <div *ngIf = "ready == true" class="bill" id="pdfTable" #pdfTable>
-            <h1>Reporte de cobro NutriTEC</h1>
-            <h3> NutriTec Costa Rica S.A.</h3>
-               
-            <h2>Semanales</h2>
+                <h2>Semanales</h2>
 
-            <table>
-                <tr>
-                  <th>Correo</th>
-                  <th>Nombre</th>
-                  <th>Tarjeta</th>
-                  <th>Monto total</th>
-                  <th>Descuento</th>
-                  <th>Monto a cobrar</th>
-                </tr>
-                <tr>
-                  <td>CRC</td>
-                  <td>{{unit}}</td>
-                  <td>{{tickets_amount}}</td>
-                </tr>
-            </table>
+                <table>
+                    <tr>
+                        <th>Correo</th>
+                        <th>Nombre</th>
+                        <th>Tarjeta</th>
+                        <th>Monto total</th>
+                        <th>Descuento</th>
+                        <th>Monto a cobrar</th>
+                    </tr>
+                    <tr *ngFor="let bill of bills_semanal; index as i ">
+                        <td>{{bills_semanal[i].correo_electronico}}</td>
+                        <td>{{bills_semanal[i].nombre_completo}}</td>
+                        <td>{{bills_semanal[i].numero_de_tarjeta}}</td>
+                        <td style="text-align:center">{{bills_semanal[i].monto_total}}</td>
+                        <td style="text-align:center">{{bills_semanal[i].descuento}}</td>
+                        <td style="text-align:center">{{bills_semanal[i].monto_a_cobrar}}</td>
+                    </tr>
+                </table>
 
+                <br>
+                <h2>Mensuales</h2>
 
-            <h2>Mensuales</h2>
+                <table>
+                    <tr>
+                        <th>Correo</th>
+                        <th>Nombre</th>
+                        <th>Tarjeta</th>
+                        <th>Monto total</th>
+                        <th>Descuento</th>
+                        <th>Monto a cobrar</th>
+                    </tr>
+                    <tr *ngFor="let bill of bills_mensual; index as i ">
+                        <td>{{bills_mensual[i].correo_electronico}}</td>
+                        <td>{{bills_mensual[i].nombre_completo}}</td>
+                        <td>{{bills_mensual[i].numero_de_tarjeta}}</td>
+                        <td style="text-align:center">{{bills_mensual[i].monto_total}}</td>
+                        <td style="text-align:center">{{bills_mensual[i].descuento}}</td>
+                        <td style="text-align:center">{{bills_mensual[i].monto_a_cobrar}}</td>
+                    </tr>
+                </table>
+                <br>
+                <h2>Anuales</h2>
 
-            <table>
-                <tr>
-                  <th>Correo</th>
-                  <th>Nombre</th>
-                  <th>Tarjeta</th>
-                  <th>Monto total</th>
-                  <th>Descuento</th>
-                  <th>Monto a cobrar</th>
-                </tr>
-                <tr>
-                    <div>
-                        <td><div *ngFor="let correo of bills.correo_electronico">{{correo}}</div></td>
-                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
-                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
-                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
-                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
-                    </div>
-                </tr>
-            </table>
+                <table>
+                    <tr>
+                        <th>Correo</th>
+                        <th>Nombre</th>
+                        <th>Tarjeta</th>
+                        <th>Monto total</th>
+                        <th>Descuento</th>
+                        <th>Monto a cobrar</th>
+                    </tr>
+                    <tr *ngFor="let bill of bills_anual; index as i ">
+                        <td>{{bills_anual[i].correo_electronico}}</td>
+                        <td>{{bills_anual[i].nombre_completo}}</td>
+                        <td>{{bills_anual[i].numero_de_tarjeta}}</td>
+                        <td style="text-align:center">{{bills_anual[i].monto_total}}</td>
+                        <td style="text-align:center">{{bills_anual[i].descuento}}</td>
+                        <td style="text-align:center">{{bills_anual[i].monto_a_cobrar}}</td>
+                    </tr>
+                </table>
 
-            <h2>Anuales</h2>
+                <br>
+                <h6>Montos en colones CRC</h6>
+                <h6>Generado:{{date}}</h6>
 
-            <table>
-                <tr>
-                  <th>Correo</th>
-                  <th>Nombre</th>
-                  <th>Tarjeta</th>
-                  <th>Monto total</th>
-                  <th>Descuento</th>
-                  <th>Monto a cobrar</th>
-                </tr>
-                <tr>
-                  <td>CRC</td>
-                  <td>{{unit}}</td>
-                  <td>{{tickets_amount}}</td>
-                </tr>
-            </table>
-            
-        
-        
-        
-            
-            <h6>Autorizada mediante resolución No DGT-R-48-2016 del 7 de octubre de 2016</h6>
-          
-           
-          </div>
+            </div>
 
+            <button  type="button" class="btn btn-primary btn-link"  (click)="downloadAsPDF()">Descargar PDF</button>
 
+        </div>
 
     </section>
 </main>

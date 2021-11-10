@@ -1,0 +1,26 @@
+.container{
+    position: relative;
+    margin-top: 5%;
+    border: 10px;
+    border-color: aqua;
+    background-color: rgba(242, 245, 247, 0.5);
+    padding-top: 2%;
+}
+
+
+table{
+    position: relative;
+    margin-left: 10%;
+    border-collapse: separate;
+    border-spacing: 30px 0;
+}
+
+  td {
+    padding: 10px 0;
+  }
+
+.btn{
+    position: relative;
+    margin: 5%;
+    margin-left: 40%;
+}

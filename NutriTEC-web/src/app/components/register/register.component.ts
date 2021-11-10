@@ -5,8 +5,6 @@ import { GlobalService } from 'src/app/services/global.service';
 import { Nutritionist } from 'src/interfaces/nutritionist';
 import { formatDate } from '@angular/common';
 
-import * as jsPDF from 'jspdf';
-
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',

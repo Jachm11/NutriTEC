@@ -1,21 +1,21 @@
 FALTA -> No lo he revisado
 
-    { path: 'home',                   FALTA
-    { path: 'home-nutritionist',      FALTA
-    { path: 'user-profile',           FALTA
-    { path: 'register-client',        PENDINTE: medidas -> no cliente id API
+    { path: 'home',                   EN CERO
+    { path: 'home-nutritionist',      EN CERO
+    { path: 'user-profile',           SIN REVISAR
+    { path: 'register-client',              LISTO (No css)
     { path: 'register-nutritionist',        LISTO (No css)
     { path: 'login-client',                 LISTO (No css)
     { path: 'login-nutritionist',           LISTO (No css)
     { path: 'products-approval',            LISTO (No css)
-    { path: 'register-product',       FALTA
-    { path: 'manager-recipe',         FALTA
-    { path: 'assign-client',          FALTA
-    { path: 'manager-plan',           FALTA
-    { path: 'measurement-register',   FALTA
-    { path: 'daily-register',         FALTA
-    { path: 'personal-record',        FALTA
-    { path: 'patient-overview',       FALTA
-    { path: 'assign-plan',            FALTA
-    { path: 'billing',                FALTA
+    { path: 'register-product',       SIN REVISAR
+    { path: 'manager-recipe',         SIN REVISAR
+    { path: 'assign-client',          SIN REVISAR
+    { path: 'manager-plan',           SIN REVISAR
+    { path: 'measurement-register',   SIN REVISAR
+    { path: 'daily-register',             PENDIENTE CONEXION CON API Y LOGICA
+    { path: 'personal-record',            PENDIENTE CONEXION CON API Y LOGICA
+    { path: 'patient-overview',           PENDIENTE CONEXION CON API Y LOGICA
+    { path: 'assign-plan',            SIN REVISAR
+    { path: 'billing',                      LISTO (No css)
     { path: 'login-admin',                  LISTO (No css)

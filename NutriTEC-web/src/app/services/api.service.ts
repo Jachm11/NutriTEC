@@ -89,8 +89,8 @@ export class ApiService {
      return this.http.get<Product[]>(this.apiURL + `Recetas/${id_recipe}/productos`)
    }
 
-   get_billing_report():Observable<Bill[]>{
-     return this.http.get<Bill[]>(this.apiURL + "reporte-cobro");
+   get_billing_report(tipo:string):Observable<Bill[]>{
+     return this.http.get<Bill[]>(this.apiURL + `reporte-cobro?tipo=${tipo}`);
    }
 
 
