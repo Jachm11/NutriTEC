@@ -49,8 +49,6 @@ export class ApiService {
     return this.http.get<Nutritionist>(this.apiURL + "nutricionista/login?email=" + email + "&clave=" + clave);
   }
 
-
-
   get_clients():Observable<Client[]> {
      return this.http.get<Client[]>(this.apiURL + "cliente");
     
@@ -58,6 +56,10 @@ export class ApiService {
 
    get_products():Observable<Product[]> {
      return this.http.get<Product[]>(this.apiURL + "Producto")
+   }
+
+   get_products_approved():Observable<Product[]> {
+     return this.http.get<Product[]>(this.apiURL + "Producto/getAllRestricted")
    }
 
 
@@ -75,6 +77,13 @@ export class ApiService {
      return this.http.get<Recipe[]>(this.apiURL + `Recetas/Cliente/${this.global.current_client.id}`);
    }
 
+   get_product_by_recipe(id_recipe:number):Observable<Product[]> {
+     return this.http.get<Product[]>(this.apiURL + `Recetas/${id_recipe}/productos`)
+   }
+
+
+
+
 
 
 
@@ -83,7 +92,6 @@ export class ApiService {
 
   post_client(client:Client): Observable<Client> { 
     return this.http.post<Client>(this.apiURL + "cliente", client, httpOptions);
-
   }
 
   post_nutritionist(nutricionist:Nutritionist): Observable<Nutritionist> {
@@ -98,9 +106,16 @@ export class ApiService {
     return this.http.post<any>(this.apiURL + `Plans?id_nutricionista=${param.id_nutricionista}&nombre=${param.name}`, null, httpOptions);
   }
 
+  post_recipe(body:any):Observable<any> {
+    return this.http.post<any>(this.apiURL + `Recetas?id_cliente=${body.id_client}&nombre=${body.recipe_name}`, null, httpOptions);
+  }
+
   add_product_to_plan(body:any):Observable<any>{
     return this.http.post<any>(this.apiURL + `Plans/agregarproducto`, body, httpOptions);
+  }
 
+  add_product_to_recipe(body:any):Observable<any> {
+    return this.http.post<any>(this.apiURL + `Recetas/Add-Product?id_receta=${body.id_recipe}&id_producto=${body.id_product}&porciones=${body.porciones}`, null, httpOptions);
   }
 
   register_measures(body:any):Observable<any> {
@@ -128,7 +143,12 @@ export class ApiService {
   update_product_porcion(body:any) :Observable<any>{
     return this.http.put<any>(this.apiURL + `Plans/UpdatePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}&porciones=${body.porciones}`, httpOptions);
 
+  }
 
+
+  update_recipe(body:any):Observable<any> {
+    console.log(body);
+    return this.http.put<any>(this.apiURL + `Recetas?id_cliente=${body.id_client}&id_receta=${body.id_recipe}&nombre=${body.name}`, null, httpOptions);
   }
 
 
@@ -140,10 +160,21 @@ export class ApiService {
     return this.http.delete<Plan>(this.apiURL + `Plans?id_plan=${id_plan}`);
   }
 
+  delete_recipe(id_recipe:number):Observable<any> {
+    return this.http.delete<any>(this.apiURL + `Recetas?id_receta=${id_recipe}`);
+  }
+
+
   delete_product_from_plan(body:any):Observable<any>{
     return this.http.delete<any>(this.apiURL + `Plans/DeletePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}`);
 
   }
+
+  delete_product_from_recipe(body:any):Observable<any>{
+    return this.http.delete<any>(this.apiURL + `Recetas/Remove-Product?id_receta=${body.id_recipe}&id_produco=${body.id_product}`)
+
+  }
+
 
 
 

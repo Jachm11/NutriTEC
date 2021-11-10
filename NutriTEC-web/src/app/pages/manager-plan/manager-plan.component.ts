@@ -70,7 +70,15 @@ export class ManagerPlanComponent implements OnInit {
   open_edit_dialog(){
 
     this.global.startEditing(); 
-    this.dialog.open(AddEditComponent);
+    const dialogRef = this.dialog.open(AddEditComponent);
+
+    const subscribeDialog = dialogRef.componentInstance.apply.subscribe((plan) => {
+      this.edit_plan(plan);
+    })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      subscribeDialog.unsubscribe();
+    })
 
     
   }
@@ -79,13 +87,13 @@ export class ManagerPlanComponent implements OnInit {
 
   add_plan(plan:any){
 
-
     this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutrionist.id}).subscribe((new_plan) => {
-
-  
+      
+      
+      console.log(new_plan);
+      
       plan.breakfast.forEach(pr => {
-        console.log(pr);
-        console.log({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Desayuno", porciones:pr.porciones});
+
         this.apiService.add_product_to_plan({id_producto:pr.id, id_plan:new_plan.id, tiempo_comida:"Desayuno", porciones:pr.porciones}).subscribe();
       });
 
@@ -108,6 +116,11 @@ export class ManagerPlanComponent implements OnInit {
 
       this.get_plans();
 
+    }, (err)=> {
+
+      this.global.transactionFailed(err.error);
+      
+
     });
  
   }
@@ -115,17 +128,27 @@ export class ManagerPlanComponent implements OnInit {
 
   delete_plan(plan:any){
 
+    console.log(plan);
     this.apiService.delete_plan(plan.id).subscribe(() => {
+      this.global.transactionSuccess("Se ha eliminado exitosamente");
+      this.get_plans();
+
+
     }, (err) =>{
 
+    })
 
-      if(err.statusText == "OK"){
+  }
 
-        this.global.transactionSuccess("Se ha eliminado exitosamente");
-        this.get_plans();
-        
+  edit_plan(plan:any){
+    let body = {id_recipe: this.global.current_plan.id, id_client:this.global.current_client.id, name:plan.name}
+    this.apiService.update_recipe(body).subscribe(()=>{
 
-      }
+      this.global.transactionSuccess("Se ha actualizado el plan correctamente")
+
+    }, (err)=> {
+
+      this.global.transactionSuccess(err.error);
 
     })
 

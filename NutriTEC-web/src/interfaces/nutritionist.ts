@@ -1,9 +1,7 @@
-import { StringLiteralLike } from "typescript";
-
 export class Nutritionist {
-
     codigo_nutricionista:number
-    nombre:string;
+    primer_nombre:string;
+    segundo_nombre:string;
     primer_apellido:string;
     segundo_apellido:string;
     email:string;

@@ -18,6 +18,8 @@ export class PlanItemComponent implements OnInit {
 
 
   products = new BehaviorSubject<any[]>([]);
+
+  name_nutritionist:string;
   
 
 
@@ -25,14 +27,14 @@ export class PlanItemComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.plan);
+    
+    this.name_nutritionist = `${this.global.current_nutrionist.primer_nombre}  ${this.global.current_nutrionist.primer_apellido}` 
 
     this.apiService.get_product_by_plan(this.plan.id).subscribe((products) => {
 
       this.products.next(products);
-      console.log(products);
-
-    })
+  
+    });
 
 
 

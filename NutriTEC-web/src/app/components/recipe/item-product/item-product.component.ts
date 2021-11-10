@@ -17,8 +17,6 @@ export class ItemProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.porcion = this.product_selected.porciones;
-    console.log(this.porcion);
-
   }
 
   updatePorcion(){

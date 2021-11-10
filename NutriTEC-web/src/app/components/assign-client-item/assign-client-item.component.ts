@@ -14,8 +14,6 @@ export class AssignClientItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
-    console.log(this.client);
   }
 
 

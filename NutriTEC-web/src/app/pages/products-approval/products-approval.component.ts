@@ -74,13 +74,10 @@ export class ProductsApprovalComponent implements OnInit {
   accept_product(product:any){
 
     this.apiService.update_product_status(product.id, "APROBADO").subscribe(() => {
+      this.global.transactionSuccess("Producto aprobado exitosamente");
+      this.get_products();
+
     }, (err) => {
-
-      if(err.statusText == 'OK'){
-        this.global.transactionSuccess("Producto aprobado exitosamente");
-        this.get_products();
-
-      }
 
 
     });
@@ -93,12 +90,13 @@ export class ProductsApprovalComponent implements OnInit {
 
 
     this.apiService.update_product_status(product.id, "RECHAZADO").subscribe(() => {
+
+      this.global.transactionSuccess("Producto rechazado exitosamente");
+      this.get_products();
+
     }, (err) => {
 
-      if(err.statusText == 'OK'){
-        this.global.transactionSuccess("Producto rechazado exitosamente");
-        this.get_products();
-      }
+      this.global.transactionFailed(err.error);
 
 
     });
