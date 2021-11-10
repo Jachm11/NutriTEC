@@ -74,9 +74,10 @@ namespace NutriTEC.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            string result = _clientRepository.InsertClient(client);
-            if (result == "") return Ok();
-            return BadRequest(result);
+            object result = _clientRepository.InsertClient(client);
+            if (result == null) 
+                return BadRequest("No se ha logrado agregar al nuevo cliente. Por favor intente más tarde.");
+            return Ok(result);
         }
 
         // PUT /Cliente/nutricionist/assign?id=a&forum=b

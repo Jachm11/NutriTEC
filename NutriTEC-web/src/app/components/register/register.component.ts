@@ -1,9 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Input } from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { Nutritionist } from 'src/interfaces/nutritionist';
+import { formatDate } from '@angular/common';
 
+import * as jsPDF from 'jspdf';
 
 @Component({
     selector: 'app-register',
@@ -29,14 +31,13 @@ export class RegisterComponent implements OnInit {
     altura:number;
     pais:string;
     peso:number;
-    imc:number;
     medida_cadera:number;
     medida_cuello:number;
     medida_cintura:number;
     porcentaje_musculo:number;
     porcentaje_grasa:number;
     consumo_maximo_calorias:number;
-    codigo_nutricionista:string;
+    codigo_nutricionista:number;
 
     direccion:string;
     foto:string;
@@ -47,7 +48,7 @@ export class RegisterComponent implements OnInit {
     email:string;
     password:string;
 
-    constructor(private global : GlobalService, private api:ApiService) {}
+    constructor(private global : GlobalService, private api:ApiService, private router:Router) {}
 
 
     ngOnInit() {
@@ -72,31 +73,21 @@ export class RegisterComponent implements OnInit {
     {
 
       if(this.url == "/register-client"){
-
         this.createClientAccount();
-
       }
 
       else if (this.url == "/register-nutritionist"){
-
         this.createNutritionistAccount();
-
-      
       }
-
     }
 
 
     createClientAccount(){
 
-
       if(!this.primer_nombre){
         this.global.transactionFailed("Ingrese su primer nombre");
         return; 
 
-      }
-      if(!this.segundo_nombre){
-        this.segundo_nombre = "";
       }
 
       if(!this.primer_apellido){
@@ -106,6 +97,7 @@ export class RegisterComponent implements OnInit {
 
       if(!this.segundo_apellido){
         this.global.transactionFailed("Ingrese su segundo apellido");
+        alert("Ingrese su segundo apellido");
         return;
       }
 
@@ -168,7 +160,7 @@ export class RegisterComponent implements OnInit {
     
         this.new_client = {
           primer_nombre: this.primer_nombre,
-          segundo_nombre: this.segundo_nombre,
+          segundo_nombre:this.segundo_nombre,
           primer_apellido:this.primer_apellido,
           segundo_apellido:this.segundo_apellido,
           fecha_nacimiento:this.fecha_nacimiento,
@@ -177,15 +169,12 @@ export class RegisterComponent implements OnInit {
           meta_consumo_diario:this.consumo_maximo_calorias,
           altura:this.altura,
           pais:this.pais,
+          estatus:"no tomado",
       
         };
 
-
         this.register_client();
-
-
-
- 
+  
       }
 
     }
@@ -194,11 +183,8 @@ export class RegisterComponent implements OnInit {
     createNutritionistAccount(){
 
       if(!this.primer_nombre){
-        this.global.transactionFailed("Ingrese su primer nombre");
+        this.global.transactionFailed("Ingrese su nombre");
         return; 
-      }
-      if(!this.segundo_nombre){
-        this.segundo_nombre = "";
       }
       if(!this.primer_apellido){
         this.global.transactionFailed("Ingrese su primer apellido");
@@ -265,19 +251,14 @@ export class RegisterComponent implements OnInit {
           tipo_cobro:this.tipo_cobro,
         }
 
-
         this.register_nutritionist();
 
- 
       }
-
-
-
     }
 
 
 
-    setDevaultValues(){
+    setDefaultValues(){
 
       this.primer_nombre = null;
       this.segundo_nombre = null;
@@ -288,7 +269,6 @@ export class RegisterComponent implements OnInit {
       this.altura = null;
       this.pais = null;
       this.peso = null;
-      this.imc = null;
       this.medida_cadera = null;
       this.medida_cuello = null;
       this.medida_cintura = null;
@@ -305,24 +285,20 @@ export class RegisterComponent implements OnInit {
   
       this.email = null;
       this.password = null;
-  
     }
-
-
+  
     register_client(){
               
-      this.api.post_client(this.new_client).subscribe(()=>{},   
+      this.api.post_client(this.new_client).subscribe((cliente)=>{
+        this.global.current_client = cliente;
+        console.log(cliente);
+        this.global.transactionSuccess("Se ha registrado como cliente exitosamente");
+        this.register_measures();
+        this.setDefaultValues();
+        this.router.navigateByUrl("/home");
+      },   
       (err) => {
-
-        if (err.statusText == 'OK'){
-          this.global.transactionSuccess("Se agregó el cliente exitosamente");
-          this.setDevaultValues();
-
-        }
-        else {
           this.global.transactionFailed(err.error);
-        }
-
       });
 
     }
@@ -330,24 +306,38 @@ export class RegisterComponent implements OnInit {
     register_nutritionist(){
 
       console.log(this.new_nutritionist);
-      this.api.post_nutritionist(this.new_nutritionist).subscribe(()=>{}, 
-        
+      this.api.post_nutritionist(this.new_nutritionist).subscribe(()=>{
+        this.global.transactionSuccess("Se ha registrado como nutricionista exitosamente");
+          this.setDefaultValues();
+          this.router.navigateByUrl("/home-nutritionist");
+
+      },         
       (err) => {
-
-        console.log(err);
-        if (err.statusText == "OK"){
-
-          this.global.transactionSuccess("Se agregó el nutricionista exitosamente");
-          this.setDevaultValues();
-
-        }
-        else {
-          this.global.transactionFailed(err.error);
-        }
-
+        this.global.transactionFailed(err.error);
       });
     }
 
+
+
+    register_measures(){
+
+      let measures = 
+        {
+          id_cliente: this.global.current_client.id,
+          fecha: formatDate(new Date, 'yyyy-MM-dd', 'en-US'),
+          porcentaje_musculo: this.porcentaje_musculo,
+          porcentaje_grasa: this.porcentaje_grasa,
+          cadera: this.medida_cadera,
+          peso: this.peso,
+          altura: this.altura,
+          cintura: this.medida_cintura,
+          cuello: this.medida_cuello
+        }
+
+
+        this.api.register_measures(measures).subscribe();
+
+    }
 
   }
 

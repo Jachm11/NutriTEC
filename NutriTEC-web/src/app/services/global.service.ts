@@ -25,7 +25,7 @@ export class GlobalService {
   current_recipe:any;
   current_plan:any;
 
-  current_client:Client = {
+  current_client:any = {
     "id": 1,
     "id_nutricionista": 1,
     "id_conversacion": -1,
@@ -62,6 +62,18 @@ export class GlobalService {
     "tarjeta": "123-412-124",
     "tipo_cobro": "Semanal"
 };
+
+
+current_admin:any = {
+  "id": 1,
+  "id_usuario": 1,
+  "primer_nombre": "Carlos",
+  "segundo_nombre": "Adrian",
+  "primer_apellido": "Araya",
+  "segundo_apellido": "Ramirez",
+  "email": "adrian@gmail.com",
+  "clave": "1234"
+  };
 
   hideAlert(){
     this.success_alert.next(false);

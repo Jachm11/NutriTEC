@@ -115,7 +115,7 @@ namespace NutriTEC.Data.Repositories.Query
         // InsertClient: inserta un nuevo cliente a la base de datos.
         // Parametros de entrada: Cliente: client
         // Salida: string: mensaje de aviso del resultado
-        public string InsertClient(ClienteModel client)
+        public Object InsertClient(ClienteModel client)
         {
             if (!CheckEmailAvailability(client.Email)) return "El email ingresado ya se encuentra en uso.";
 
@@ -135,12 +135,24 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@meta_consumo_diario", client.Meta_consumo_diario);
             cmd.Parameters.AddWithValue("@pais", client.Pais);
 
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
             conn.Open();
-            int i = cmd.ExecuteNonQuery();
+            sd.Fill(dt);
             conn.Close();
 
-            if (i < 1) return "No se ha logrado agregar al nuevo cliente. Por favor intente más tarde.";
-            return "";
+            object result = null;
+            if (dt.Rows.Count == 1)
+            {
+                result = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                };
+
+            }
+
+           return result;
         }
 
         // ************************************ CHECK EMAIL ****************************************

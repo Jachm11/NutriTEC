@@ -21,14 +21,15 @@ import { PersonalRecordComponent } from './pages/personal-record/personal-record
 import { PatientOverviewComponent } from './pages/patient-overview/patient-overview.component';
 import { AssingPlanComponent } from './pages/assing-plan/assing-plan.component';
 import { BillingComponent } from './pages/billing/billing.component';
+import { LoginAdminComponent } from './pages/login-admin/login-admin.component';
 
 const routes: Routes =[
     { path: '', redirectTo: 'login-client', pathMatch: 'full' },
-    { path: 'home',                   component: HomeComponent },
+    { path: 'home',                   component:HomeComponent },
     { path: 'home-nutritionist',      component:HomeNutritionistComponent},
-    { path: 'user-profile',           component: ProfileComponent },
-    { path: 'register-client',        component: SignupClientComponent },
-    { path: 'register-nutritionist',  component: SignupNutritionistComponent },
+    { path: 'user-profile',           component:ProfileComponent },
+    { path: 'register-client',        component:SignupClientComponent },
+    { path: 'register-nutritionist',  component:SignupNutritionistComponent },
     { path: 'login-client',           component:LoginClientComponent},
     { path: 'login-nutritionist',     component:LoginNutritionistComponent},
     { path: 'products-approval',      component:ProductsApprovalComponent},
@@ -42,7 +43,7 @@ const routes: Routes =[
     { path: 'patient-overview',       component:PatientOverviewComponent},
     { path: 'assign-plan',            component:AssingPlanComponent},
     { path: 'billing',                component:BillingComponent},
-    { path: 'home-nutritionist',      component:HomeComponent}
+    { path: 'login-admin',            component:LoginAdminComponent}
 ];
 
 @NgModule({

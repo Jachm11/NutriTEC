@@ -16,7 +16,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Código nutricionista" type="text" [(ngModel)]="codigo_nutricionista" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
+                      <input class="form-control" placeholder="Código nutricionista" type="number" [(ngModel)]="codigo_nutricionista" [ngModelOptions]="{standalone: true}" (focus)="focus=true" (blur)="focus=false">
                     </div>
                   </div>
               
@@ -491,6 +491,21 @@
                   <div class="text-center">
                     <button type="button" class="btn btn-primary mt-4" (click)="createAccount()">Crear cuenta </button>
                   </div>
+
+                  <div class="row mt-3">
+                    <div *ngIf="registerAsClient" class="subt">
+                      <a href="#/login-client" class="text-light">
+                        <small>Ya tengo cuenta de cliente</small>
+                      </a>
+                    </div>
+                    <div *ngIf="registerAsNutritionist" class="subt">
+                      <a href="#/login-nutritionist" class="text-light">
+                        <small>Ya tengo cuenta de nutricionista</small>
+                      </a>
+                    </div>
+                  </div>
+
+                  
                 </form>
               </div>
             </div>

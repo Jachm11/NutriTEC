@@ -20,27 +20,16 @@ export class ManagerRecipeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.apiService.get_recipes().subscribe((recipes)=>{
-
-
-      this.recipes = recipes;
-
-
-
-    })
+    this.get_recipes();
 
   }
-
-
 
   get_recipes(){
 
     this.apiService.get_recipes().subscribe((recipes)=>{
 
-
       this.recipes = recipes;
-
-
+      console.log(this.recipes);
 
     });
     
@@ -64,7 +53,6 @@ export class ManagerRecipeComponent implements OnInit {
   open_edit_dialog(){
 
     this.global.startEditing();
-
     const dialogRef = this.dialog.open(AddEditComponent);
     const subscribeDialog = dialogRef.componentInstance.apply.subscribe((recipe) => {
       this.edit_recipe(recipe);
@@ -79,28 +67,70 @@ export class ManagerRecipeComponent implements OnInit {
 
 
   delete_recipe(recipe:any){
-    //Se realiza la consulta al API
-    console.log("Se debe eliminar la receta");
-    this.recipes = this.recipes.filter(r => r.nombre !== recipe.nombre);
+
+    this.apiService.delete_recipe(recipe.id).subscribe(()=>{
+
     this.global.transactionSuccess("Se eliminó la receta exitosamente");
+    this.get_recipes();
+    
+    }, (err)=>{
+
+      this.global.transactionFailed(err.error);
+
+    });
+    
+  
 
   }
 
   add_recipe(recipe:any){
-    //Se realiza la consulta al api
-    this.recipes.push(recipe);
-    console.log("data " + recipe);
-    console.log("Se agrega exitosamente la receta");
-    this.global.transactionSuccess(`Se agrego la receta exitosamente`);
 
-  }
+
+    let body = {id_client : this.global.current_client.id, recipe_name : recipe.name};
+    this.apiService.post_recipe(body).subscribe((new_recipe)=> {
+
+  
+      let products = recipe.products;
+ 
+      products.forEach(product => {
+
+        let body = {id_recipe: recipe.id, id_product: product.id, porciones: product.porciones }
+        this.apiService.add_product_to_recipe(body).subscribe();
+
+
+      });
+
+
+
+      this.global.transactionSuccess(`Se agrego la receta exitosamente`);
+      this.get_recipes();
+
+
+    }, (err)=> {
+
+      this.global.transactionFailed(err.error);
+      });
+    }
+    
+
 
 
   edit_recipe(recipe:any){
-    //Se realiza la consulta al api
-    this.recipes = this.recipes.filter(r => r.nombre !== recipe.nombre);
-    this.recipes.push(recipe);
-    this.global.transactionFailed(`Se editó la receta exitosamente`);
+
+    let body = {id_client:this.global.current_client.id, id_recipe: this.global.current_recipe.id, name: recipe.name};
+    this.apiService.update_recipe(body).subscribe(()=>{
+
+      this.get_recipes();
+      this.global.transactionSuccess(`Se actualizó la receta exitosamente`);
+
+
+    }, (err)=> {
+
+      this.global.transactionFailed(err.error);
+
+    });
+
+
 
 
 

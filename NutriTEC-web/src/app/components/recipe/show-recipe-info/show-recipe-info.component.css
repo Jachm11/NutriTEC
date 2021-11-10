@@ -9,7 +9,7 @@
 
 .data {
     display: grid;
-    grid-template-columns: 250px 250px;
+    grid-template-columns: 300px 300px;
     grid-column-gap: 0px;
     margin-top: 10px;
   

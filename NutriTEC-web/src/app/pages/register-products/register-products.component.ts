@@ -111,24 +111,18 @@ export class RegisterProductsComponent implements OnInit {
     }
 
 
-
-    console.log(this.product);
     this.apiService.post_product(this.product).subscribe(()=> {
+
+            this.global.transactionSuccess("Producto agregado exitosamente");
+        this.setDefaultValues();
     }, (err)=>{
 
 
-      if(err.statusText == 'OK'){
-        this.global.transactionSuccess("Producto agregado exitosamente");
-        this.setDefaultValues();
-      }
-      else {
+ 
         this.global.transactionFailed(err.error);
 
-      }
-
-
-
-    })
+ 
+    });
 
 
 

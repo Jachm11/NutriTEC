@@ -18,8 +18,6 @@ export class MeasurementRegisterComponent implements OnInit {
   altura:number;
 
 
-  date = new Date();
-
   constructor(private global : GlobalService, private apiService:ApiService) { }
 
   ngOnInit(): void {
@@ -78,21 +76,17 @@ export class MeasurementRegisterComponent implements OnInit {
       }
 
 
-      console.log(measures);
+ 
       
+    this.apiService.register_measures(measures).subscribe(() => {
 
+      this.global.transactionSuccess("Medidas registradas exitosamente");
+      this.setDefaultValues();
 
+    }, 
+    (err) => {
 
-
-    this.apiService.register_measures(measures).subscribe(() => {}, (err) => {
-
-      console.log(err);
-      if (err.statusText == "OK"){
-        this.global.transactionSuccess("Medidas registradas exitosamente");
-        this.setDefaultValues();
-
-      }
-
+      this.global.transactionFailed(err.error);
     });
 
 

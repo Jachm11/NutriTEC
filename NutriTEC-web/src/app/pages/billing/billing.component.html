@@ -1,1 +1,92 @@
-<p>billing works!</p>
+<main>
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <app-alerts></app-alerts>
+
+
+
+        <div *ngIf = "ready == true" class="bill" id="pdfTable" #pdfTable>
+            <h1>Reporte de cobro NutriTEC</h1>
+            <h3> NutriTec Costa Rica S.A.</h3>
+               
+            <h2>Semanales</h2>
+
+            <table>
+                <tr>
+                  <th>Correo</th>
+                  <th>Nombre</th>
+                  <th>Tarjeta</th>
+                  <th>Monto total</th>
+                  <th>Descuento</th>
+                  <th>Monto a cobrar</th>
+                </tr>
+                <tr>
+                  <td>CRC</td>
+                  <td>{{unit}}</td>
+                  <td>{{tickets_amount}}</td>
+                </tr>
+            </table>
+
+
+            <h2>Mensuales</h2>
+
+            <table>
+                <tr>
+                  <th>Correo</th>
+                  <th>Nombre</th>
+                  <th>Tarjeta</th>
+                  <th>Monto total</th>
+                  <th>Descuento</th>
+                  <th>Monto a cobrar</th>
+                </tr>
+                <tr>
+                    <div>
+                        <td><div *ngFor="let correo of bills.correo_electronico">{{correo}}</div></td>
+                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
+                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
+                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
+                        <td><div *ngFor="let number of [0,1,2,3,4]">{{number}}</div></td>
+                    </div>
+                </tr>
+            </table>
+
+            <h2>Anuales</h2>
+
+            <table>
+                <tr>
+                  <th>Correo</th>
+                  <th>Nombre</th>
+                  <th>Tarjeta</th>
+                  <th>Monto total</th>
+                  <th>Descuento</th>
+                  <th>Monto a cobrar</th>
+                </tr>
+                <tr>
+                  <td>CRC</td>
+                  <td>{{unit}}</td>
+                  <td>{{tickets_amount}}</td>
+                </tr>
+            </table>
+            
+        
+        
+        
+            
+            <h6>Autorizada mediante resolución No DGT-R-48-2016 del 7 de octubre de 2016</h6>
+          
+           
+          </div>
+
+
+
+    </section>
+</main>

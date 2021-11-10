@@ -17,9 +17,6 @@ export class ShowPlanInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    console.log(this.data.products);
-
   }
 
   close(){
