@@ -42,14 +42,14 @@
         <div class="container-input-productList">
             <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">
             <div class="products-list">
-                <app-product *ngFor="let product of current_products" [product]="product" [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
+                <app-product *ngFor="let product of current_products | filter:filterProducts" [product]="product" [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
             </div>
 
         </div>
 
     </div>
 
-    <div *ngIf='isConsume()' style="display: flex; flex-direction: column; align-items: center;">
+    <div *ngIf="isConsume() || url === '/manager-plan' || url == '/manager-recipe'" style="display: flex; flex-direction: column; align-items: center;">
 
         <label class="text-black">Productos Seleccionados:</label>
         <div class="container-productSelected">
@@ -161,7 +161,7 @@
 
     </div>
 
-    <div *ngIf='isConsume()' style="display: flex; justify-content: space-around; align-items: center;">
+    <div *ngIf="isConsume() || url == '/manager-plan' || url == '/manager-recipe'" style="display: flex; justify-content: space-around; align-items: center;">
 
         <button (click)="apply_changes()" class="btn btn-success"> Aplicar</button>
         <button *ngIf="url !== '/assign-plan'" (click)="cancel()" class="btn btn-secondary"> Cancel</button>

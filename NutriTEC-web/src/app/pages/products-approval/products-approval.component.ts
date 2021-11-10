@@ -70,10 +70,15 @@ export class ProductsApprovalComponent implements OnInit {
   reject_product(product: any) {
 
     this.apiService.update_product_status(product.id, "RECHAZADO").subscribe(() => {
+
       this.global.transactionSuccess("Producto rechazado exitosamente");
-        this.get_products();
+      this.get_products();
+
     }, (err) => {
-      this.global.transactionFailed("Se ha producido un error, por favor intente nuevamente");
+
+      this.global.transactionFailed(err.error);
+
+
     });
 
   }

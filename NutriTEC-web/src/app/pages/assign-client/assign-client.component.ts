@@ -42,6 +42,9 @@ export class AssignClientComponent implements OnInit {
     this.apiService.assign_client(client.id, this.global.current_nutrionist.id).subscribe(()=>
     {
       this.global.transactionSuccess("Cliente asignado exitosamente");
+      this.upload_clients();
+
+      
     });
 
 
