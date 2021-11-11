@@ -1,7 +1,6 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
-USE [nutridb]
 
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
@@ -128,8 +127,8 @@ BEGIN
                    cuello
             from Medidas
             where id_cliente = @id
-              and fecha <= @fechaInicio
-              and fecha >= @fechaFin
+              and fecha >= @fechaInicio
+              and fecha <= @fechaFin
         END
 
     IF @StatementType = 'GetClientsWithoutNutri'
