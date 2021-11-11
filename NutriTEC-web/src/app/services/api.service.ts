@@ -93,6 +93,16 @@ export class ApiService {
      return this.http.get<Bill[]>(this.apiURL + `reporte-cobro?tipo=${tipo}`);
    }
 
+   get_historial():any{
+     return this.http.get<any>(this.apiURL + "Cliente/medidas?id="+ this.global.current_client.id);
+     //return this.http.get<any>(this.apiURL + "Cliente/medidas?id=1")
+     //return this.http.get<any>(this.apiURL + "Cliente/reporteAvance?id=1&fechaInicio=2021-11-10&fechaFin=2021-11-09")
+   }
+
+   get_current_stats():any{
+      return this.http.get<any>(this.apiURL + "Cliente/lastmedidas?id=" + this.global.current_client.id)
+   }
+
 
 
 

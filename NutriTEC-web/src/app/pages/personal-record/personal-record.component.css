@@ -32,3 +32,26 @@
     width: 10px;
 }
 
+.btn-link{
+    margin-top: 10%;
+    width: auto;
+    position:relative;
+    left:42%;
+
+}
+
+.bill{
+    display: none;
+}
+
+table{
+    position: relative;
+    margin-left: 10%;
+    border-collapse: separate;
+    border-spacing: 30px 0;
+}
+
+  td {
+    padding: 10px 0;
+  }
+
