@@ -1,1 +1,88 @@
-<p>patient-overview works!</p>
+<main class="profile-page">
+    <section class="section-profile-cover section-shaped my-0">
+      <!-- Circles background -->
+      <div class="shape shape-style-1 shape-primary alpha-4">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </div>
+      <!-- SVG separator -->
+      <div class="separator separator-bottom separator-skew">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          
+        </svg>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="card card-profile shadow mt--300">
+          <div class="px-4">
+            <br>
+
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <h1>Bienvenido : {{this.global.current_client.primer_nombre + " " + this.global.current_client.segundo_nombre + " " + this.global.current_client.primer_apellido + " " + this.global.current_client.segundo_apellido}}</h1>
+            </div>
+         
+            <div class="text-center">
+              <h3> <strong>Edad: </strong> {{this.global.current_nutritionist.edad}}</h3>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>País: </strong> {{this.global.current_client.pais}}</div>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Fecha de nacimiento:</strong> {{this.global.current_client.fecha_nacimiento}}</div>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Meta de consumo diario:</strong> {{this.global.current_client.meta_consumo_diario}}</div>
+        
+            </div>
+            <div class="mt-5 py-5 border-top text-center">
+              <div class="row justify-content-center">
+                <div class="col-lg-9">
+
+                  <h3> <strong>Ultimas medidas:</strong>  {{this.measures.fecha}}</h3>
+                  
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="card-profile-stats d-flex justify-content-center">
+                      <div>
+                        <span class="heading">{{measures.porcentaje_musculo}}</span>
+                        <span class="description">% músculo</span>
+                      </div>
+                      <div>
+                        <span class="heading">{{measures.porcentaje_grasa}}</span>
+                        <span class="description">% grasa</span>
+                      </div>
+                      <div>
+                        <span class="heading">{{measures.cadera}}</span>
+                        <span class="description">Cadera</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="card-profile-stats d-flex justify-content-center">
+                      <div>
+                        <span class="heading">{{measures.cuello}}</span>
+                        <span class="description">Cuello</span>
+                      </div>
+                      <div>
+                        <span class="heading">{{measures.cintura}}</span>
+                        <span class="description">Cintura</span>
+                      </div>
+                      <div>
+                        <span class="heading">{{measures.cadera}}</span>
+                        <span class="description">Cadera</span>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  

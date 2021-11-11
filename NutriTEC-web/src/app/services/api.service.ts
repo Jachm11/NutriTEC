@@ -58,7 +58,7 @@ export class ApiService {
 
 
   get_clients():Observable<Client[]> {
-     return this.http.get<Client[]>(this.apiURL + "cliente");
+     return this.http.get<Client[]>(this.apiURL + "cliente/SinNutri");
     
    }
 
@@ -93,6 +93,12 @@ export class ApiService {
      return this.http.get<Bill[]>(this.apiURL + `reporte-cobro?tipo=${tipo}`);
    }
 
+   get_last_measures(id_client:number):Observable<any>{
+     return this.http.get<any>(this.apiURL + `Cliente/lastmedidas?id=${id_client}`)
+
+   }
+
+   
    get_historial():any{
      return this.http.get<any>(this.apiURL + "Cliente/medidas?id="+ this.global.current_client.id);
      //return this.http.get<any>(this.apiURL + "Cliente/medidas?id=1")

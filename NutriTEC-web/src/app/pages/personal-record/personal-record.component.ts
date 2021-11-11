@@ -293,6 +293,3 @@ export class PersonalRecordComponent implements OnInit {
    
 
 }
-
-
-

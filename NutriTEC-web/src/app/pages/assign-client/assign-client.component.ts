@@ -31,6 +31,7 @@ export class AssignClientComponent implements OnInit {
     this.apiService.get_clients().subscribe((clients) =>{
 
       this.clients = clients;
+      console.log(this.clients);
       this.clients_emitter.next(this.clients);
 
     });
@@ -39,7 +40,7 @@ export class AssignClientComponent implements OnInit {
 
 
   assign_client(client:any){
-    this.apiService.assign_client(client.id, this.global.current_nutrionist.id).subscribe(()=>
+    this.apiService.assign_client(client.id, this.global.current_nutritionist.id).subscribe(()=>
     {
       this.global.transactionSuccess("Cliente asignado exitosamente");
       this.upload_clients();
