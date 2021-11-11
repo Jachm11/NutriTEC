@@ -101,7 +101,6 @@ BEGIN
                    id_usuario,
                    estatus,
                    ISNULL(id_nutricionista, -1)                       as id_nutricionista,
-                   ISNULL(id_conversacion, -1)                        as id_conversacion,
                    primer_nombre,
                    segundo_nombre,
                    primer_apellido,

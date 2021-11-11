@@ -15,7 +15,6 @@ namespace MongoAPI.Model
 
         public int id_cliente { get; set; }
 
-        //[BsonElement("Name")]
         public int num_msg { get; set; }
 
         public string nombre_usuario { get; set; }

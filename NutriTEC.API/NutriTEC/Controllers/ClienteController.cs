@@ -104,19 +104,6 @@ namespace NutriTEC.Controllers
             return BadRequest("Error, no se ha podido asignar el nutricionista al cliente.");
         }
 
-        // PUT /Cliente/forum/assign?id=a&forum=b
-        // Asigna un foro al cliente.
-        [HttpPut("forum/assign"), ActionName("Assign Conversation")]
-        public IActionResult AssignConversation(int id, int id_forum)
-        {
-            var result = _clientRepository.AssignConversationToClient(id, id_forum);
-
-            if (result)
-                return Ok();
-            return BadRequest("Error, no se ha podido asignar el forum al cliente.");
-        }
-
-
         // POST: /Cliente/registrarMedida
         // Agrega una nueva medida a la lista de medidas
         [HttpPost("registrarMedida"), ActionName("Insert")]
@@ -137,6 +124,21 @@ namespace NutriTEC.Controllers
             ModelState.Clear();
 
             List<Object> medidas = _clientRepository.GetMedidas(id);
+
+            if (medidas != null)
+                return Ok(medidas);
+            return NotFound("No se ha encontrado un cliente con el id solicitado");
+
+        }
+
+        // GET: /Cliente/lastmedidas
+        // Retorna las medidas de un cliente
+        [HttpGet("lastmedidas"), ActionName("GetLastMedidas")]
+        public IActionResult GetLastMedidas(int id)
+        {
+            ModelState.Clear();
+
+            Object medidas = _clientRepository.GetLastMedidas(id);
 
             if (medidas != null)
                 return Ok(medidas);

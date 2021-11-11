@@ -122,33 +122,33 @@ values (13, '100230432', 8888, 'ACTIVO', '4/4/1965', 'Escazu', 'profile9.png', '
 
 ---------------------------------------- CLIENTES -------------------------------------------------------
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (3, 1, NULL, 'ACTIVO', '06/21/1999', 100, 'Costa Rica')
+values (3, 1, 'ACTIVO', '06/21/1999', 100, 'Costa Rica')
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (4, 2, NULL, 'ACTIVO', '12/13/1998', 150, 'Colombia')
+values (4, 2, 'ACTIVO', '12/13/1998', 150, 'Colombia')
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (14, 3, NULL, 'ACTIVO', '11/11/1997', 200, 'Costa Rica')
+values (14, 3, 'ACTIVO', '11/11/1997', 200, 'Costa Rica')
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (15, 4, NULL, 'ACTIVO', '07/15/2000', 100, 'Mexico')
+values (15, 4, 'ACTIVO', '07/15/2000', 100, 'Mexico')
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (16, 5, NULL, 'ACTIVO', '06/11/2001', 300, 'Peru')
+values (16, 5, 'ACTIVO', '06/11/2001', 300, 'Peru')
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (17, 6, NULL, 'ACTIVO', '01/12/1979', 150, 'Nicaragua')
+values (17, 6, 'ACTIVO', '01/12/1979', 150, 'Nicaragua')
 
-insert into Cliente (id_usuario, id_nutricionista, id_conversacion, estatus, fecha_nacimiento, meta_consumo_diario,
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
-values (18, NULL, NULL, 'ACTIVO', '01/12/1999', 150, 'Costa Rica')
+values (18, NULL, 'ACTIVO', '01/12/1999', 150, 'Costa Rica')
 
 ------------------------------------------- MEDIDAS -------------------------------------------------------
 

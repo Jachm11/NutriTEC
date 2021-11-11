@@ -47,22 +47,6 @@ namespace MongoAPI.Controllers
 
             return CreatedAtRoute("GetChat", new { id_cliente = chat.id_cliente }, chat);
         }
-        /*
-        [HttpPut("{id_cliente}")]
-        public IActionResult Update(int id_cliente, Chat chatIn)
-        {
-            var chat = _chatService.Get(id_cliente);
-
-            if (chat == null)
-            {
-                return NotFound();
-            }
-
-            _chatService.Update(id_cliente, chatIn);
-
-            return NoContent();
-        }
-        */
         
         [HttpDelete("{id_cliente}")]
         public IActionResult Delete(int id_cliente)

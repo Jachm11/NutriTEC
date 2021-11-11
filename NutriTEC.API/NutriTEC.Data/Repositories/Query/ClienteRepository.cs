@@ -216,28 +216,6 @@ namespace NutriTEC.Data.Repositories.Query
             return (i >= 1);
         }
 
-        // ********************* ASSIGN CONVERSATION TO CLIENT *************************************
-        // AssignConversationToClient: asigna un nutricionista a un cliente.
-        // Parametros de entrada: int: id, id_forum
-        // Salida: bool
-        public bool AssignConversationToClient(int id, int id_forum)
-        {
-            var conn = DbConnection;
-
-            SqlCommand cmd = new(_spName, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@StatementType", "AssignC");
-
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@Id_conversacion", id_forum);
-
-            conn.Open();
-            int i = cmd.ExecuteNonQuery();
-            conn.Close();
-
-            return (i >= 1);
-        }
-
         // ********************* REGISTRAR MEDIDAS *************************************
         // RegistrarMedidas: agrega una medida a la lista de medidas del cliente.
         // Parametros de entrada: int: id, id_forum
@@ -314,6 +292,32 @@ namespace NutriTEC.Data.Repositories.Query
             conn.Close();
 
             List<Object> medidas = AddSelectedMedidasToList(dt);
+
+            return medidas;
+        }
+
+        // ********************************** GET LAST MEDIDAS **********************************
+        // GetMedidas: retorna las medidas del cliente.
+        // Parametros de entrada: int: id
+        // Salida: List<Object>: lista de medidas
+        public Object GetLastMedidas(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "GetLastMedidas");
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            Object medidas = AddSelectedMedidasToList(dt)[0];
 
             return medidas;
         }
@@ -413,7 +417,6 @@ namespace NutriTEC.Data.Repositories.Query
 
                     Id = Convert.ToInt32(dt.Rows[0]["id"]),
                     Id_nutricionista = Convert.ToInt32(dt.Rows[0]["id_nutricionista"]),
-                    Id_conversacion = Convert.ToInt32(dt.Rows[0]["id_conversacion"]),
                     Primer_nombre = Convert.ToString(dt.Rows[0]["primer_nombre"]),
                     Segundo_nombre = Convert.ToString(dt.Rows[0]["segundo_nombre"]),
                     Primer_apellido = Convert.ToString(dt.Rows[0]["primer_apellido"]),
@@ -446,7 +449,6 @@ namespace NutriTEC.Data.Repositories.Query
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Id_nutricionista = Convert.ToInt32(dr["id_nutricionista"]),
-                        Id_conversacion = Convert.ToInt32(dr["id_conversacion"]),
                         Primer_nombre = Convert.ToString(dr["primer_nombre"]),
                         Segundo_nombre = Convert.ToString(dr["segundo_nombre"]),
                         Primer_apellido = Convert.ToString(dr["primer_apellido"]),

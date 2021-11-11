@@ -1,6 +1,8 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
+USE [nutridb]
+
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
 GO
@@ -8,7 +10,6 @@ GO
 Create procedure dbo.[MasterClient](
     @id int = NULL,
     @id_nutricionista int = NULL,
-    @id_conversacion int = NULL,
     @id_producto int = NULL,
     @tiempo_comida varchar(20) = '',
     @fecha Date = NULL,
@@ -40,8 +41,7 @@ BEGIN
                    DATEDIFF(hour, fecha_nacimiento, GETDATE()) / 8766 AS edad,
                    meta_consumo_diario,
                    pais,
-                   estatus,
-                   ISNULL(id_conversacion, -1)                        as id_conversacion
+                   estatus
             FROM Usuario
                      JOIN Cliente ON Usuario.id = Cliente.id_usuario
             WHERE rol = 'CLIENT'
@@ -62,8 +62,7 @@ BEGIN
                    DATEDIFF(hour, fecha_nacimiento, GETDATE()) / 8766 AS edad,
                    meta_consumo_diario,
                    pais,
-                   estatus,
-                   ISNULL(id_conversacion, -1)                        as id_conversacion
+                   estatus
             FROM Usuario
                      JOIN Cliente ON Usuario.id = Cliente.id_usuario
             WHERE @id = Cliente.id
@@ -80,17 +79,8 @@ BEGIN
     IF @StatementType = 'UnAssignN'
         BEGIN
             update Cliente
-            set id_nutricionista = NULL,
-                id_conversacion  = NULL
+            set id_nutricionista = NULL
             where id = @id;
-        END
-
-
-    IF @StatementType = 'AssignC'
-        BEGIN
-            UPDATE Cliente
-            SET id_conversacion = @id_conversacion
-            WHERE id = @id
         END
 
     IF @StatementType = 'RegistrarMedidas'
@@ -157,12 +147,29 @@ BEGIN
                    DATEDIFF(hour, fecha_nacimiento, GETDATE()) / 8766 AS edad,
                    meta_consumo_diario,
                    pais,
-                   estatus,
-                   ISNULL(id_conversacion, -1)                        as id_conversacion
+                   estatus
             FROM Usuario
                      JOIN Cliente ON Usuario.id = Cliente.id_usuario
             WHERE rol = 'CLIENT'
               and id_nutricionista IS NULL
+        END
+
+    IF @StatementType = 'GetLastMedidas'
+        BEGIN
+
+            select id,
+                   id_cliente,
+                   fecha,
+                   porcentaje_musculo,
+                   porcentaje_grasa,
+                   cadera,
+                   peso,
+                   altura,
+                   cintura,
+                   cuello
+            from medidas
+            where fecha = (select top 1 fecha from Medidas where id_cliente = @id order by fecha desc)
+
         END
 
 
