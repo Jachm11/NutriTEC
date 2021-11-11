@@ -40,7 +40,7 @@ export class ManagerPlanComponent implements OnInit {
 
   get_plans(){
 
-    this.apiService.get_plans_by_id(this.global.current_nutrionist.id).subscribe((plans) => {
+    this.apiService.get_plans_by_id(this.global.current_nutritionist.id).subscribe((plans) => {
 
       this.plans.next(plans);
 
@@ -87,7 +87,7 @@ export class ManagerPlanComponent implements OnInit {
 
   add_plan(plan:any){
 
-    this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutrionist.id}).subscribe((new_plan) => {
+    this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutritionist.id}).subscribe((new_plan) => {
       
       
       console.log(new_plan);

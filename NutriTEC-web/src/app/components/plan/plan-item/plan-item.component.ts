@@ -28,7 +28,7 @@ export class PlanItemComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.name_nutritionist = `${this.global.current_nutrionist.primer_nombre}  ${this.global.current_nutrionist.primer_apellido}` 
+    this.name_nutritionist = `${this.global.current_nutritionist.primer_nombre}  ${this.global.current_nutritionist.primer_apellido}` 
 
     this.apiService.get_product_by_plan(this.plan.id).subscribe((products) => {
 

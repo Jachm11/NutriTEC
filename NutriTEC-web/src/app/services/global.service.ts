@@ -43,7 +43,7 @@ export class GlobalService {
 };
 
 
-  current_nutrionist:any = {
+  current_nutritionist:any = {
     "id": 1,
     "id_usuario": 5,
     "codigo_nutricionista": 1234,
@@ -64,15 +64,15 @@ export class GlobalService {
 };
 
 
-current_admin:any = {
-  "id": 1,
-  "id_usuario": 1,
-  "primer_nombre": "Carlos",
-  "segundo_nombre": "Adrian",
-  "primer_apellido": "Araya",
-  "segundo_apellido": "Ramirez",
-  "email": "adrian@gmail.com",
-  "clave": "1234"
+  current_admin:any = {
+    "id": 1,
+    "id_usuario": 1,
+    "primer_nombre": "Carlos",
+    "segundo_nombre": "Adrian",
+    "primer_apellido": "Araya",
+    "segundo_apellido": "Ramirez",
+    "email": "adrian@gmail.com",
+    "clave": "1234"
   };
 
   hideAlert(){

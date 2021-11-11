@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { Nutritionist } from 'src/interfaces/nutritionist';
 import { formatDate } from '@angular/common';
-
+import { BlobServiceClient }  from '@azure/storage-blob';
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',

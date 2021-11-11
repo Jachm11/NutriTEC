@@ -26,8 +26,8 @@ export class LoginNutritionistComponent implements OnInit {
 
     this.apiService.loginNutritionist(this.email, this.password).subscribe((current_nutrionist)=>{
       this.global.transactionSuccess("Ingresó correctamente");
-      this.global.current_nutrionist = current_nutrionist;
-      console.log(this.global.current_nutrionist);
+      this.global.current_nutritionist = current_nutrionist;
+      console.log(this.global.current_nutritionist);
       this.router.navigateByUrl("/home-nutritionist");//Aqui va el perfil
 
 

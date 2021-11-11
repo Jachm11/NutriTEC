@@ -37,8 +37,11 @@ export class PersonalRecordComponent implements OnInit {
   constructor() {
     Chart.register(...registerables)
    }
+   
 
   ngOnInit(): void {
+
+    
 
     this.pesos_chart = new Chart('pesos_canvas', {
       type: 'line',
