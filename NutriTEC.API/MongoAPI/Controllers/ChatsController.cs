@@ -20,10 +20,14 @@ namespace MongoAPI.Controllers
             _chatService = chatService;
         }
 
+        // GET: /api/chats
+        // Retorna todos los chats.
         [HttpGet]
         public ActionResult<List<Chat>> Get() =>
             _chatService.Get();
 
+        // GET: /api/chats/1
+        // Retorna todos los chats de un cliente especifico.
         [HttpGet("{id_cliente}", Name = "GetChat")]
         public ActionResult<List<Chat>> Get(int id_cliente)
         {
@@ -37,6 +41,8 @@ namespace MongoAPI.Controllers
             return chatList;
         }
 
+        // POST: /api/chats/
+        // Crea un nuevo mensaje.
         [HttpPost]
         public ActionResult<Chat> Create(Chat chat)
         {
@@ -47,7 +53,9 @@ namespace MongoAPI.Controllers
 
             return CreatedAtRoute("GetChat", new { id_cliente = chat.id_cliente }, chat);
         }
-        
+
+        // DELETE: /api/chats/id
+        // Elimina la lista de mensajes de un cliente
         [HttpDelete("{id_cliente}")]
         public IActionResult Delete(int id_cliente)
         {

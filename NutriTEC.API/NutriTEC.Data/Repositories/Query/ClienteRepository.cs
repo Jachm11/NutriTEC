@@ -297,7 +297,7 @@ namespace NutriTEC.Data.Repositories.Query
         }
 
         // ********************************** GET LAST MEDIDAS **********************************
-        // GetMedidas: retorna las medidas del cliente.
+        // GetLastMedidas: retorna las ultimas medidas del cliente.
         // Parametros de entrada: int: id
         // Salida: List<Object>: lista de medidas
         public Object GetLastMedidas(int id)
