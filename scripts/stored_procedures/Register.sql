@@ -44,7 +44,7 @@ BEGIN
         BEGIN
             insert into Cliente (id_usuario, estatus, fecha_nacimiento, meta_consumo_diario, pais)
             values (@id_u, @estatus, @fecha_nacimiento, @meta_consumo_diario, @pais);
-            SELECT @id_u as id -- available
+            SELECT id from Cliente where id_usuario=@id_u -- available
         END
 
     IF @rol = 'NUTRICIONIST'
