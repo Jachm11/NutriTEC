@@ -103,6 +103,14 @@ export class ApiService {
       return this.http.get<any>(this.apiURL + "Cliente/lastmedidas?id=" + this.global.current_client.id)
    }
 
+   get_client_plan_dates():any{
+     return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoplanfecha?id_cliente="+this.global.current_client.id);
+   }
+
+   get_client_consume_dates():any{
+    return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoconsumo_fechas?id_cliente="+this.global.current_client.id);
+  }
+
 
 
 

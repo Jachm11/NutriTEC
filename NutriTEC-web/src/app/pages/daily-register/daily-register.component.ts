@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ficha } from 'src/interfaces/ficha';
+import { Consume_event, Ficha, Plan_event } from 'src/interfaces/ficha';
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FichaComponent } from 'src/app/components/ficha/ficha.component';
 import { Product_Consumption } from 'src/interfaces/product';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-daily-register',
@@ -22,10 +23,17 @@ export class DailyRegisterComponent implements OnInit {
   rows: number;
   ready: boolean;
 
+  plan_events: Plan_event[];
+  consume_events: Consume_event[];
+
+  nutricionista:string;
+
   public events: any[];
   public options: any;
+  ready_consume = false;
+  ready_plans = false;
  
-  constructor(private global:GlobalService, private dialog:MatDialog ) { }
+  constructor(private global:GlobalService, private dialog:MatDialog, private apiService : ApiService ) { }
 
 
 
@@ -51,6 +59,32 @@ export class DailyRegisterComponent implements OnInit {
       }
     }
 
+
+    this.apiService.get_client_consume_dates().subscribe((dates)=>{
+      console.log(dates);
+      dates.forEach(date => {
+        let event:Consume_event;
+        event.start = date.fecha;
+        this.consume_events.push(event);
+      });
+      this.ready_consume = true;
+      this.update();
+    })
+
+    this.apiService.get_client_plan_dates().subscribe((dates)=>{
+      console.log(dates);
+      dates.forEach(date => {
+        let event:Plan_event;
+        event.id = date.id_plan;
+        event.title = date.nombre;
+        event.start = date.fecha;
+        this.plan_events.push(event);
+      });
+      this.ready_plans = true;
+      this.update();
+    })
+
+
     this.events = [
       {
         title:"Plan de jose",
@@ -74,7 +108,7 @@ export class DailyRegisterComponent implements OnInit {
     ]
 
 
-    this.update();
+    
   }
 
    /**

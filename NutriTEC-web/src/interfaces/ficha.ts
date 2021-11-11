@@ -11,3 +11,22 @@ export class Ficha {
     total_consumo: Total_nutricional 
 
 }
+
+export class Plan_event{
+    
+    title:string
+    start:string
+    groupId:"plan"
+    color : "#5218fa"
+    id:number
+
+}
+
+export class Consume_event{
+    
+    title:"Consumo diario"
+    start:string
+    groupId:"consumo"
+    color : "#000000"
+
+}
