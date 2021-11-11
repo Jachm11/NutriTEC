@@ -125,8 +125,8 @@ BEGIN
                    cuello
             from Medidas
             where id_cliente = @id
-              and fecha <= @fechaInicio
-              and fecha >= @fechaFin
+              and fecha >= @fechaInicio
+              and fecha <= @fechaFin
         END
 
     IF @StatementType = 'GetClientsWithoutNutri'
