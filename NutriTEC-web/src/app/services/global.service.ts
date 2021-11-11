@@ -25,6 +25,8 @@ export class GlobalService {
   current_recipe:any;
   current_plan:any;
 
+  full_client:any;
+
   current_client:any = {
     "id": 1,
     "id_nutricionista": 1,

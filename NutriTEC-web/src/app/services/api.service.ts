@@ -56,7 +56,6 @@ export class ApiService {
   }
 
 
-
   get_clients():Observable<Client[]> {
      return this.http.get<Client[]>(this.apiURL + "cliente/SinNutri");
     
@@ -105,16 +104,20 @@ export class ApiService {
      //return this.http.get<any>(this.apiURL + "Cliente/reporteAvance?id=1&fechaInicio=2021-11-10&fechaFin=2021-11-09")
    }
 
-   get_current_stats():any{
+   get_current_stats():Observable<any>{
       return this.http.get<any>(this.apiURL + "Cliente/lastmedidas?id=" + this.global.current_client.id)
    }
 
-   get_client_plan_dates():any{
+   get_client_plan_dates():Observable<any>{
      return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoplanfecha?id_cliente="+this.global.current_client.id);
    }
 
-   get_client_consume_dates():any{
+   get_client_consume_dates():Observable<any>{
     return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoconsumo_fechas?id_cliente="+this.global.current_client.id);
+  }
+
+  get_client():Observable<Client>{
+    return this.http.get<Client>(this.apiURL+ "cliente/"+ this.global.current_client.id);
   }
 
 

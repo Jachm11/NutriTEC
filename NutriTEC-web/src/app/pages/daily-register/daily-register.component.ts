@@ -23,107 +23,120 @@ export class DailyRegisterComponent implements OnInit {
   rows: number;
   ready: boolean;
 
-  plan_events: Plan_event[];
-  consume_events: Consume_event[];
+  plan_events: any[] = [];
+  consume_events: any[] = [];
+  
+  has_nutri: boolean;
 
-  nutricionista:string;
+  nutricionista: string;
 
   public events: any[];
   public options: any;
   ready_consume = false;
   ready_plans = false;
- 
-  constructor(private global:GlobalService, private dialog:MatDialog, private apiService : ApiService ) { }
 
+  constructor(private global: GlobalService, private dialog: MatDialog, private apiService: ApiService) { }
 
-
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
     this.options = {
-      plugins : [dayGridPlugin,timeGridPlugin,interactionPlugin],
-      defaultDate : new Date(),
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      defaultDate: new Date(),
       locale: esLocale,
       themeSystem: 'bootstrap4',
-      header:{
+      header: {
         left: 'prev,next',
-        center:'title',
-        right:'dayGridMonth,timeGridWeek,timeGridDay'
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      dateClick: (e) =>  {
+      dateClick: (e) => {
         console.log(e)
         this.onClickDate();
       },
-      eventClick: (e) =>  {
+      eventClick: (e) => {
         console.log(e.event.id)
         this.onClickEvent(e.event);
       }
     }
 
+    this.apiService.get_client().subscribe((client)=>{ 
+      this.global.full_client = client;
+      if(client.id_nutricionista != null && client.id_nutricionista != undefined ){
+        this.has_nutri = true;
+        this.populate_calendar();
+      }
 
-    this.apiService.get_client_consume_dates().subscribe((dates)=>{
+    })
+
+
+  }
+
+
+
+  /**
+  * Funcion que se llama una vez que el proceso asincronico de recupercion de
+  * datos ha terminado 
+  */
+  update() {
+
+    if (this.ready_consume && this.ready_plans) {
+
+      this.events = this.plan_events.concat(this.consume_events);
+      this.ready = true;
+
+      //this.addEvent();
+
+    }
+
+
+
+
+  }
+
+
+  populate_calendar(){
+
+    this.apiService.get_client_consume_dates().subscribe((dates) => {
       console.log(dates);
       dates.forEach(date => {
-        let event:Consume_event;
-        event.start = date.fecha;
+
+        let event: Consume_event = {
+          title: "Consumo diario",
+          start: date.fecha,
+          groupId: "consumo",
+          color: "#000000"
+        };
         this.consume_events.push(event);
       });
       this.ready_consume = true;
       this.update();
     })
 
-    this.apiService.get_client_plan_dates().subscribe((dates)=>{
-      console.log(dates);
-      dates.forEach(date => {
-        let event:Plan_event;
-        event.id = date.id_plan;
-        event.title = date.nombre;
-        event.start = date.fecha;
-        this.plan_events.push(event);
-      });
-      this.ready_plans = true;
-      this.update();
-    })
+    if (this.has_nutri) {
+      this.apiService.get_client_plan_dates().subscribe((dates) => {
+        console.log(dates);
+        dates.forEach(date => {
 
-
-    this.events = [
-      {
-        title:"Plan de jose",
-        start: new Date(),
-        groupId: "plan",
-        id:12
-      },
-      {
-        title:"Consumo",
-        start: new Date(),
-        groupId: "consumo",
-        color : "#000000",
-        id:13
-      },
-      {
-        title:"Plan de jose",
-        start: "2021-11-09",
-        groupId: "plan",
-        id:15
-      }
-    ]
-
-
-    
-  }
-
-   /**
-   * Funcion que se llama una vez que el proceso asincronico de recupercion de
-   * datos ha terminado 
-   */
-    update(){
-      this.ready = true;
-      this.addEvent();
-  
+          let event: Plan_event = {
+            title: date.nombre,
+            start: date.fecha,
+            groupId: "plan",
+            color: "#5218fa",
+            id: date.id_plan
+          }
+          this.plan_events.push(event);
+        });
+        this.ready_plans = true;
+        this.update();
+      })
     }
 
 
+  }
 
-  onClickEvent(event){
+
+
+  onClickEvent(event) {
 
     let tipo = event.groupId;
 
@@ -131,13 +144,13 @@ export class DailyRegisterComponent implements OnInit {
 
     switch (tipo) {
       case "plan":
-        
+
         break;
 
       case "consumo":
         this.global.startEditing();
         break;
-    
+
       default:
         break;
     }
@@ -147,28 +160,28 @@ export class DailyRegisterComponent implements OnInit {
 
   }
 
-  onClickDate(){
+  onClickDate() {
 
     this.global.startAdding();
     this.open_plan_dialog();
 
   }
 
-  open_plan_dialog(){
+  open_plan_dialog() {
 
     const dialogRef = this.dialog.open(AddEditComponent);
     const subscribeDialog = dialogRef.componentInstance.apply.subscribe((consumed) => {
       this.edit_consumed(consumed);
     })
 
-    dialogRef.afterClosed().subscribe(result =>{
+    dialogRef.afterClosed().subscribe(result => {
       subscribeDialog.unsubscribe();
       this.global.cancel();
     })
 
   }
 
-  edit_consumed(cosumed:Product_Consumption[]){
+  edit_consumed(cosumed: Product_Consumption[]) {
 
     window.location.reload();
 
@@ -183,6 +196,6 @@ export class DailyRegisterComponent implements OnInit {
   }
 
 
-  
+
 
 }
