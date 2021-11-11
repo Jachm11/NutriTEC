@@ -14,7 +14,7 @@ FALTA -> No lo he revisado
     { path: 'manager-plan',           SIN REVISAR
     { path: 'measurement-register',   SIN REVISAR
     { path: 'daily-register',             PENDIENTE CONEXION CON API Y LOGICA
-    { path: 'personal-record',            PENDIENTE CONEXION CON API Y LOGICA
+    { path: 'personal-record',              LISTO (No css)
     { path: 'patient-overview',           PENDIENTE CONEXION CON API Y LOGICA
     { path: 'assign-plan',            SIN REVISAR
     { path: 'billing',                      LISTO (No css)

@@ -69,8 +69,7 @@ SELECT N.id                                                                     
        U.email,
        C.fecha_nacimiento,
        U.primer_nombre + ' ' + U.segundo_nombre + ' ' + U.primer_apellido + ' ' + U.segundo_apellido as Nombre_Completo,
-       C.meta_consumo_diario,
-       C.id_conversacion
+       C.meta_consumo_diario
 FROM Nutricionista N
          JOIN Cliente C on N.id = C.id_nutricionista
          JOIN Usuario U on U.id = C.id_usuario

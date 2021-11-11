@@ -27,7 +27,6 @@ CREATE TABLE Cliente (
     id					int IDENTITY(1,1),
 	id_usuario			int,
 	id_nutricionista	int,
-	id_conversacion		int,
 	estatus				varchar(20) NOT NULL,
 	fecha_nacimiento	Date NOT NULL,
 	meta_consumo_diario float NOT NULL,

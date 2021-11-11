@@ -1,0 +1,23 @@
+API MONGODB
+
+GET ALL: Obtiene todos los mensajes de la base (demostrativo, no lo van a ocupar)
+https://nutritecforum.azurewebsites.net/api/chats/
+
+GET BY ID: Obtiene todo el historial de mensajes
+https://nutritecforum.azurewebsites.net/api/chats/1
+
+POST: Crea un nuevo mensaje en el historial del cliente, no importa el valor que se le mande de num_msg, el tomara
+el valor incremental necesario
+
+https://nutritecforum.azurewebsites.net/api/chats/
+{
+    "id_cliente": 1,
+    "num_msg": 6,
+    "nombre_usuario": "asdasd",
+    "rol": "Cliente",
+    "msg": "Que perro"
+}
+
+DELETE: Borra todo el chat del cliente con id=1
+https://nutritecforum.azurewebsites.net/api/chats/1
+
