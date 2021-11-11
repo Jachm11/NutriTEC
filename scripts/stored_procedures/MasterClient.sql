@@ -82,7 +82,7 @@ BEGIN
 
     IF @StatementType = 'RegistrarMedidas'
         BEGIN
-
+            
             insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura,
                                  cuello)
             values (@id, @fecha, @porcentaje_musculo, @porcentaje_grasa, @cadera, @peso, @altura, @cintura, @cuello);
@@ -166,7 +166,7 @@ BEGIN
                    cuello
             from medidas
             where fecha = (select top 1 fecha from Medidas where id_cliente = @id order by fecha desc)
-
+                            and id_cliente=@id
         END
 
 

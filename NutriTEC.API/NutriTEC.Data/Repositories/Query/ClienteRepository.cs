@@ -220,9 +220,9 @@ namespace NutriTEC.Data.Repositories.Query
         // RegistrarMedidas: agrega una medida a la lista de medidas del cliente.
         // Parametros de entrada: int: id, id_forum
         // Salida: bool
-        public string RegistrarMedidas(Medidas medida)
+        public int RegistrarMedidas(Medidas medida)
         {
-            if (!CheckFechaMedidaAvailability(medida.Fecha, medida.Id_cliente)) return "Error, la fecha ingresada ya tiene medidas.";
+            if (!CheckFechaMedidaAvailability(medida.Fecha, medida.Id_cliente)) return -1;
 
             var conn = DbConnection;
 
@@ -246,8 +246,8 @@ namespace NutriTEC.Data.Repositories.Query
             conn.Close();
 
             if (i == 1)
-                return "Se ha agregado correctamente";
-            return "Ha ocurrido un error";
+                return 1;
+            return 0;
 
         }
 
@@ -478,7 +478,8 @@ namespace NutriTEC.Data.Repositories.Query
                 medidasList.Add(
                     new
                     {
-                        Fecha = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha"])),
+                        //Fecha = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha"])),
+                        Fecha = Utils.FormattedFecha2(Convert.ToDateTime(dr["fecha"])),
                         Porcentaje_musculo = float.Parse(Convert.ToString(dr["porcentaje_musculo"])),
                         Porcentaje_grasa = float.Parse(Convert.ToString(dr["porcentaje_grasa"])),
                         Cadera = float.Parse(Convert.ToString(dr["cadera"])),

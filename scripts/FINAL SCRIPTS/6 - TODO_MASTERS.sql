@@ -1,6 +1,7 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
+USE [nutridb]
 
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
@@ -168,13 +169,15 @@ BEGIN
                    cuello
             from medidas
             where fecha = (select top 1 fecha from Medidas where id_cliente = @id order by fecha desc)
-
+                            and id_cliente=@id
         END
 
 
 END
 
 GO
+
+
 ---------------------------------------------------- MASTER NUTRICIONIST ----------------------------------------------
 
 IF OBJECT_ID('MasterNutricionist', 'P') IS NOT NULL

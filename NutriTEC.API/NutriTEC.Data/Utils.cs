@@ -33,5 +33,10 @@ namespace NutriTEC.Data
             return string.Format("{0:dd/MM/yyyy}", fecha);   
         }
 
+        public static string FormattedFecha2(DateTime fecha)
+        {
+            return string.Format("{0:yyyy-MM-dd}", fecha);
+        }
+
     }
 }
