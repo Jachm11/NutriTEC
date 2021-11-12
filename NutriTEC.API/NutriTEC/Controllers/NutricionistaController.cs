@@ -31,6 +31,14 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+        // GET: /nutricionista/getAllMyClients
+        // Retorna todos los clientes.
+        [HttpGet("getAllMyClients"), ActionName("GetAll")]
+        public IActionResult GetAllClients(int id_nutricionista)
+        {
+            ModelState.Clear();
+            return Ok(_nutricionistRepository.GetAllMyClients(id_nutricionista));
+        }
 
         // GET: /Nutricionista/seguimientoplanfecha
         // Retorna la lista de planes asignados a una fecha.

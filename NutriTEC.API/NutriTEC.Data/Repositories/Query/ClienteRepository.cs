@@ -437,7 +437,7 @@ namespace NutriTEC.Data.Repositories.Query
         // AddSelectedClientsToList: retorna la lista de clientes obtenidos al ejecutar un select de la base de datos
         // Parametros de entrada: DataTable: dt
         // Salida: List<Object>: lista de clientes
-        private static List<object> AddSelectedClientsToList(DataTable dt)
+        public static List<object> AddSelectedClientsToList(DataTable dt)
         {
             List<Object> clientsList = new();
 

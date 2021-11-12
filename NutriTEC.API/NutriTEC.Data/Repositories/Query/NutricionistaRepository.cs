@@ -245,6 +245,30 @@ namespace NutriTEC.Data.Repositories.Query
             return seguimientoConsumo;
         }
 
+        // ********************************** GET ALL MY CLIENTS **************************************
+        // GetAllClients: retorna la lista de clientes que pertenecen a un nutricionista
+        // Parametros de entrada: sin parametros
+        // Salida: List<Object>: lista de clientes
+        public List<Object> GetAllMyClients(int id_nutricionista)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StatementType", "GetAllMyClients");
+            cmd.Parameters.AddWithValue("@id", id_nutricionista);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            List<Object> clientsList = ClienteRepository.AddSelectedClientsToList(dt);
+            return clientsList;
+        }
+
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
         // #########################################################################################
