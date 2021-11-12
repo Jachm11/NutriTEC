@@ -95,14 +95,16 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
             cmd.Parameters.AddWithValue("@nombre", nombre);
 
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
 
             conn.Open();
-            int i = cmd.ExecuteNonQuery();
-            int id = (int)cmd.ExecuteScalar();
-
+            sd.Fill(dt);
             conn.Close();
 
-            if (i < 1) return "No se ha logrado agregar la receta. Por favor intente más tarde.";
+            object id = GetOneRecipeDetail(dt);
+
+            if (id == null) return "No se ha logrado agregar la receta. Por favor intente más tarde.";
             return id;
 ;
         }
@@ -337,24 +339,27 @@ namespace NutriTEC.Data.Repositories.Query
             return list;
         }
 
-        //// GetOneRecipeDetail: retorna los datos de la receta recien creada
-        //// Parametros de entrada: DataTable: dt
-        //// Salida: object: plan
-        //private static object GetOneRecipeDetail(DataTable dt)
-        //{
-        //    object recipe = null;
-        //    if (dt.Rows.Count == 1)
-        //    {
+        // GetOneRecipeDetail: retorna los datos de la receta recien creada
+        // Parametros de entrada: DataTable: dt
+        // Salida: object: plan
+        private static object GetOneRecipeDetail(DataTable dt)
+        {
+            object recipe = null;
+            if (dt.Rows.Count == 1)
+            {
 
-        //        recipe = new
-        //        {
-        //            Id = Convert.ToInt32(dt.Rows[0]["id"]),
-        //            Nombre = Convert.ToString(dt.Rows[0]["nombre"])
-        //        };
+                recipe = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id_cliente = Convert.ToString(dt.Rows[0]["id_cliente"]),
+                    Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
 
-        //    }
-        //    return recipe;
-        //}
+                };
+
+            }
+            return recipe;
+        }
 
     }
 }

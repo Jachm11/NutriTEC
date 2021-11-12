@@ -52,7 +52,9 @@ BEGIN
             VALUES (@id_cliente, @estatus, @nombre);
 
             -- return id
-            SELECT id FROM Receta WHERE id_cliente = @id_cliente AND nombre = @nombre
+            SELECT id, id_cliente, estatus, nombre
+            FROM Receta WHERE id_cliente = @id_cliente AND nombre = @nombre
+            
         END
 
 
