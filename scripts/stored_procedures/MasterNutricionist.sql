@@ -70,10 +70,46 @@ BEGIN
 
     IF @StatementType = 'SeguimientoConsumoDiarioPorFecha'
         BEGIN
-            SELECT id_producto, tiempo_comida, barcode, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio, proteina, vitamina, carbohidratos
-            FROM Consumo_diario join Producto on id_producto = Producto.id
-            WHERE id_cliente = @id_cliente and fecha = @fecha
+            SELECT id_producto,
+                   tiempo_comida,
+                   barcode,
+                   descripcion,
+                   tamano_porcion,
+                   sodio,
+                   grasa,
+                   energia,
+                   hierro,
+                   calcio,
+                   proteina,
+                   vitamina,
+                   carbohidratos
+            FROM Consumo_diario
+                     join Producto on id_producto = Producto.id
+            WHERE id_cliente = @id_cliente
+              and fecha = @fecha
         END
+
+    IF @StatementType = 'GetAllMyClients'
+        BEGIN
+            SELECT Cliente.id,
+                   ISNULL(id_nutricionista, -1)                       as id_nutricionista,
+                   primer_nombre,
+                   segundo_nombre,
+                   primer_apellido,
+                   segundo_apellido,
+                   email,
+                   clave,
+                   fecha_nacimiento,
+                   DATEDIFF(hour, fecha_nacimiento, GETDATE()) / 8766 AS edad,
+                   meta_consumo_diario,
+                   pais,
+                   estatus
+            FROM Usuario
+                     JOIN Cliente ON Usuario.id = Cliente.id_usuario
+            WHERE rol = 'CLIENT'
+              and id_nutricionista = @id
+        END
+
 
 END
 

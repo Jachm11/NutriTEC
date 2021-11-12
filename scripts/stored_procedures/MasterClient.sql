@@ -82,7 +82,7 @@ BEGIN
 
     IF @StatementType = 'RegistrarMedidas'
         BEGIN
-            
+
             insert into Medidas (id_cliente, fecha, porcentaje_musculo, porcentaje_grasa, cadera, peso, altura, cintura,
                                  cuello)
             values (@id, @fecha, @porcentaje_musculo, @porcentaje_grasa, @cadera, @peso, @altura, @cintura, @cuello);
