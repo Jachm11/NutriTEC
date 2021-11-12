@@ -1,7 +1,6 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
-USE [nutridb]
 
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
@@ -103,6 +102,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -124,6 +124,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -165,6 +166,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from medidas
@@ -320,12 +322,19 @@ BEGIN
 
     IF @StatementType = 'SelectAll'
         BEGIN
-            select * from Plans where id_nutricionista = @id_nutricionista and estatus != 'INACTIVO'
+            select id, id_nutricionista, estatus, nombre,
+                   (select ISNULL(SUM(energia),0)
+                       from VistaProductosPlan
+                       where  P.id = id_plan) as calorias
+            from Plans P
+            where id_nutricionista = @id_nutricionista
+              and estatus != 'INACTIVO'
         END
 
     IF @StatementType = 'SelectOne'
         BEGIN
-            select *
+            select id_plan, tiempo_comida, porciones, id_producto, barcode, descripcion, tamano_porcion,
+                   sodio, grasa, energia, hierro, calcio, proteina, vitamina, carbohidratos
             from VistaProductosPlan
             where id_plan = @id
         END
@@ -335,7 +344,8 @@ BEGIN
             insert into Plans (id_nutricionista, estatus, nombre)
             values (@id_nutricionista, @estatus, @nombre)
 
-            select * from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
+            select id, id_nutricionista, estatus, nombre
+            from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
 
         END
 
@@ -375,6 +385,7 @@ BEGIN
 END
 
 GO
+
 
 
 ------------------------------------------------------- MASTER PRODUCTS ----------------------------------------------

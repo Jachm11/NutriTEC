@@ -100,6 +100,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -121,6 +122,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -162,6 +164,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from medidas

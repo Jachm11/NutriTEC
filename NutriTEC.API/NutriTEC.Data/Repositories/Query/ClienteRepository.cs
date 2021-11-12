@@ -485,6 +485,7 @@ namespace NutriTEC.Data.Repositories.Query
                         Cadera = float.Parse(Convert.ToString(dr["cadera"])),
                         Peso = float.Parse(Convert.ToString(dr["peso"])),
                         Altura = float.Parse(Convert.ToString(dr["altura"])),
+                        IMC = float.Parse(Convert.ToString(dr["IMC"])),
                         Cintura = float.Parse(Convert.ToString(dr["cintura"])),
                         Cuello = float.Parse(Convert.ToString(dr["cuello"])),
                     });
