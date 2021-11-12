@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
     }
     isClient() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        if( titlee === '#/home' ) {
+        if( titlee === '#/home-patient' ) {
             this.client = true;
             return true;
         }
@@ -109,7 +109,7 @@ export class NavbarComponent implements OnInit {
             this.client = false;
             return true;
         }
-        if( titlee === '#/patient-overview' ) {
+        if( titlee === '#/patient-overview'  ) {
             this.client = false;  
             return true;
         }

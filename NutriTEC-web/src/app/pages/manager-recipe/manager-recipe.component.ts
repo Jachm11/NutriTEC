@@ -91,6 +91,8 @@ export class ManagerRecipeComponent implements OnInit {
 
   
       let products = recipe.products;
+
+      console.log(new_recipe);
  
       products.forEach(product => {
 

@@ -1,0 +1,36 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.container-clients {
+    display: flex;
+    height: 600px;
+    flex-direction: column;
+    align-items: center;
+    color: aliceblue;
+    width: 650px;
+}
+
+.container-client-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    overflow-y: scroll;
+    border-radius: 20px;
+    padding: 10px;
+    height: 600px;
+    width: 650px;
+    border: 3px solid #508AA8;
+}
+
+.input-filter {
+    width: 100%;
+    border-radius: 20px;
+    height: 50px;
+    text-indent: 8px;
+    font-size: 15px;
+}

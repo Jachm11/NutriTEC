@@ -145,6 +145,7 @@ export class ManagerPlanComponent implements OnInit {
     this.apiService.update_recipe(body).subscribe(()=>{
 
       this.global.transactionSuccess("Se ha actualizado el plan correctamente")
+      this.get_plans();
 
     }, (err)=> {
 
