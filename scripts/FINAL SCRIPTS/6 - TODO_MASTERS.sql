@@ -564,6 +564,10 @@ BEGIN
         BEGIN
             INSERT INTO Receta (id_cliente, estatus, nombre)
             VALUES (@id_cliente, @estatus, @nombre);
+
+            -- return id
+            SELECT id, id_cliente, estatus, nombre
+            FROM Receta WHERE id_cliente = @id_cliente AND nombre = @nombre
         END
 
 
