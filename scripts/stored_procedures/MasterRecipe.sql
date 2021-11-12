@@ -21,7 +21,8 @@ BEGIN
         BEGIN
             SELECT id, estatus, nombre
             FROM Receta
-            WHERE id_cliente = @id_cliente  AND estatus = 'ACTIVO'
+            WHERE id_cliente = @id_cliente
+              AND estatus = 'ACTIVO'
             ORDER BY nombre
         END
 
@@ -49,6 +50,9 @@ BEGIN
         BEGIN
             INSERT INTO Receta (id_cliente, estatus, nombre)
             VALUES (@id_cliente, @estatus, @nombre);
+
+            -- return id
+            SELECT id FROM Receta WHERE id_cliente = @id_cliente AND nombre = @nombre
         END
 
 
@@ -71,6 +75,14 @@ BEGIN
         BEGIN
             INSERT INTO Producto_receta (id_producto, id_receta, porciones)
             VALUES (@id_producto, @id, @porcion);
+        END
+
+    IF @StatementType = 'UpdateProduct'
+        BEGIN
+            UPDATE Producto_receta
+            SET porciones = @porcion
+            WHERE id_receta = @id
+              AND id_producto = @id_producto
         END
 
     IF @StatementType = 'RemoveProduct'

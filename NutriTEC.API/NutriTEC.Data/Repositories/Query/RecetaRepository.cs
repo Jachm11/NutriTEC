@@ -82,7 +82,7 @@ namespace NutriTEC.Data.Repositories.Query
         // InsertProduct: inserta un nuevo producto a la base de datos
         // Parametros de entrada: Producto: product
         // Salida: string: mensaje de aviso del resultado
-        public string InsertRecipe(int id_cliente, string nombre)
+        public object InsertRecipe(int id_cliente, string nombre)
         {
             if (!CheckRecipeNameAvailability(id_cliente, nombre)) return "Ya existe una receta con este nombre.";
 
@@ -98,10 +98,13 @@ namespace NutriTEC.Data.Repositories.Query
 
             conn.Open();
             int i = cmd.ExecuteNonQuery();
+            int id = (int)cmd.ExecuteScalar();
+
             conn.Close();
 
             if (i < 1) return "No se ha logrado agregar la receta. Por favor intente más tarde.";
-            return "";
+            return id;
+;
         }
         
 
@@ -181,6 +184,30 @@ namespace NutriTEC.Data.Repositories.Query
             if (i < 1) return "No se ha logrado agregar el producto a la receta. Por favor intente más tarde.";
             return "";
         }
+
+
+        public string UpdateProduct(int id, int id_producto, float porciones)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "UpdateProduct");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id_producto", id_producto);
+            cmd.Parameters.AddWithValue("@porcion", porciones);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado actualizar el producto de la receta. Por favor intente más tarde.";
+            return "";
+        }
+
+
 
         // ************************************ REMOVE PRODUCT *************************************
         // RemoveProduct: agrega la relacion entre una receta y un producto de la base de datos.

@@ -22,7 +22,7 @@ namespace NutriTEC.Controllers
 
         // GET: /recetas/1
         // Retorna las recetas que coinciden con el id.
-        [HttpGet("Cliente/{id_cliente}"), ActionName("Get")]
+        [HttpGet("Cliente/{id_cliente}"), ActionName("GetRecipes")]
         public IActionResult GetRecipesForClient(int id_cliente)
         {
             Object result = _recetaRepository.GetRecipesForClient(id_cliente);
@@ -36,7 +36,7 @@ namespace NutriTEC.Controllers
 
         // GET: /recetas/1
         // Retorna los productos de una receta.
-        [HttpGet("{id_receta}/productos"), ActionName("Get")]
+        [HttpGet("{id_receta}/productos"), ActionName("GetRecipe")]
         public IActionResult GetProductsForRecipe(int id_receta)
         {
             Object result = _recetaRepository.GetProductsForRecipe(id_receta);
@@ -58,11 +58,12 @@ namespace NutriTEC.Controllers
                 return BadRequest("Error, el nombre contiene valores nulos");
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState); 
+                return BadRequest(ModelState);
 
-            string result = _recetaRepository.InsertRecipe(id_cliente, nombre);
-            if (String.IsNullOrEmpty(result)) return Ok();
-            return BadRequest(result);
+            object result = _recetaRepository.InsertRecipe(id_cliente, nombre);
+            if ( result is string  ) return BadRequest(result);
+
+            return Ok(result);
         }
 
 
@@ -93,9 +94,9 @@ namespace NutriTEC.Controllers
         }
 
 
-        // POST: /Recetas/Add-Product
+        // POST: /recetas/Add-Product
         // Agrega un producto de una receta 
-        [HttpPost("Add-Product"), ActionName("Delete")]
+        [HttpPost("Add-Product"), ActionName("Add_Product")]
         public IActionResult AddProduct(int id_receta, int id_producto, float porciones)
         {
             string result = _recetaRepository.AddProduct(id_receta, id_producto, porciones);
@@ -104,9 +105,19 @@ namespace NutriTEC.Controllers
         }
 
 
-        // DELETE: /plan/DeletePlanProduct
+        // PUT: /recetas/Update-Product
+        // Edita la porcion de un producto en una receta
+        [HttpPut("Update-Product"), ActionName("Update_Product")]
+        public IActionResult UpdateProduct(int id_receta, int id_producto, float porciones)
+        {
+            string result = _recetaRepository.UpdateProduct(id_receta, id_producto, porciones);
+            if (String.IsNullOrEmpty(result)) return Ok();
+            return BadRequest(result);
+        }
+
+        // DELETE: /recetas/Remove-Product
         // Elimina un producto de una receta
-        [HttpDelete("Remove-Product"), ActionName("Delete")]
+        [HttpDelete("Remove-Product"), ActionName("Delete_Product")]
         public IActionResult RemoveProduct(int id_receta, int id_producto)
         {
             string result = _recetaRepository.RemoveProduct(id_receta, id_producto);
