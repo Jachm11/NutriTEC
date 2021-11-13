@@ -515,6 +515,7 @@ GO
 ----------------------------------------------------- MASTER RECIPE -------------------------------------------------
 USE [nutridb]
 
+
 IF OBJECT_ID('MasterRecipe', 'P') IS NOT NULL
     DROP PROCEDURE [MasterRecipe];
 GO
@@ -536,7 +537,8 @@ BEGIN
         BEGIN
             SELECT id, estatus, nombre
             FROM Receta
-            WHERE id_cliente = @id_cliente  AND estatus = 'ACTIVO'
+            WHERE id_cliente = @id_cliente
+              AND estatus = 'ACTIVO'
             ORDER BY nombre
         END
 
@@ -566,8 +568,10 @@ BEGIN
             VALUES (@id_cliente, @estatus, @nombre);
 
             -- return id
+
             SELECT id, id_cliente, estatus, nombre
-            FROM Receta WHERE id_cliente = @id_cliente AND nombre = @nombre
+            FROM Receta WHERE id = (SELECT SCOPE_IDENTITY());
+
         END
 
 
@@ -592,6 +596,14 @@ BEGIN
             VALUES (@id_producto, @id, @porcion);
         END
 
+    IF @StatementType = 'UpdateProduct'
+        BEGIN
+            UPDATE Producto_receta
+            SET porciones = @porcion
+            WHERE id_receta = @id
+              AND id_producto = @id_producto
+        END
+
     IF @StatementType = 'RemoveProduct'
         BEGIN
             DELETE
@@ -602,4 +614,5 @@ BEGIN
 
 END
 go
+
 

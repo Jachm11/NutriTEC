@@ -52,9 +52,10 @@ BEGIN
             VALUES (@id_cliente, @estatus, @nombre);
 
             -- return id
+
             SELECT id, id_cliente, estatus, nombre
-            FROM Receta WHERE id_cliente = @id_cliente AND nombre = @nombre
-            
+            FROM Receta WHERE id = (SELECT SCOPE_IDENTITY());
+
         END
 
 
