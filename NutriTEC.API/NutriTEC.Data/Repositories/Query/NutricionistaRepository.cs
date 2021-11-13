@@ -324,7 +324,7 @@ namespace NutriTEC.Data.Repositories.Query
                     {
                         Id_plan = Convert.ToInt32(dr["id_plan"]),
                         Nombre = Convert.ToString(dr["nombre"]),
-                        Fecha = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha"]))
+                        Fecha = Utils.FormattedFecha2(Convert.ToDateTime(dr["fecha"]))
                     });
             }
             return seguimientoPlanFecha;
@@ -344,7 +344,7 @@ namespace NutriTEC.Data.Repositories.Query
                 seguimientoConsumo.Add(
                     new
                     {
-                        Fecha = Utils.FormattedFecha(Convert.ToDateTime(dr["fecha"]))
+                        Fecha = Utils.FormattedFecha2(Convert.ToDateTime(dr["fecha"]))
                     });
             }
             return seguimientoConsumo;
