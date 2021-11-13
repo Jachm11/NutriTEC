@@ -13,14 +13,16 @@ namespace NutriTEC.Data.Repositories.Interfaces
 
         List<Object> GetProductsForRecipe(int id);
 
-        public string InsertRecipe(int id_cliente, string nombre);
+        public object InsertRecipe(int id_cliente, string nombre);
 
         public string UpdateRecipeName(int id_cliente, int id_receta, string nombre);
 
         public string DeleteRecipe(int id);
 
         public string AddProduct(int id, int id_producto, float porciones);
-
+        
+        public string UpdateProduct(int id, int id_producto, float porciones);
+        
         public string RemoveProduct(int id, int id_producto);
 
 

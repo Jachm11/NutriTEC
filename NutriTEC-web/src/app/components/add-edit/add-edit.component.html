@@ -164,7 +164,7 @@
     <div *ngIf="isConsume() || url == '/manager-plan' || url == '/manager-recipe'" style="display: flex; justify-content: space-around; align-items: center;">
 
         <button (click)="apply_changes()" class="btn btn-success"> Aplicar</button>
-        <button *ngIf="url !== '/assign-plan'" (click)="cancel()" class="btn btn-secondary"> Cancel</button>
+        <button *ngIf="showCancelButton()" (click)="cancel()" class="btn btn-secondary"> Cancel</button>
     </div>
 
 

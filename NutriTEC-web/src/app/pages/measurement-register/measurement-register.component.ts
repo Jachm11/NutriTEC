@@ -18,9 +18,15 @@ export class MeasurementRegisterComponent implements OnInit {
   altura:number;
 
 
+  current_date:any;
+
+
   constructor(private global : GlobalService, private apiService:ApiService) { }
 
   ngOnInit(): void {
+
+
+    this.current_date = formatDate(new Date, 'dd-MM-yyyy', 'en-US');
   }
 
 
@@ -101,6 +107,7 @@ export class MeasurementRegisterComponent implements OnInit {
     this.cintura = null;
     this.grasa = null;
     this.cuello = null;
+    this.altura = null;
   
   }
 

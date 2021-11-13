@@ -100,6 +100,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -121,6 +122,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -162,11 +164,12 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from medidas
             where fecha = (select top 1 fecha from Medidas where id_cliente = @id order by fecha desc)
-
+                            and id_cliente=@id
         END
 
 

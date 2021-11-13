@@ -112,7 +112,12 @@ namespace NutriTEC.Controllers
             if (medida == null)
                 return BadRequest("Error, la estructura de la medida no es correcta.");
 
-            string result = _clientRepository.RegistrarMedidas(medida);
+            int result = _clientRepository.RegistrarMedidas(medida);
+
+            if (result == -1)
+                return BadRequest("Error, la fecha ingresada ya tiene medidas.");
+            else if (result == 0)
+                return BadRequest("Ha ocurrido un error, intentelo de nuevo");
             return Ok();
         }
 

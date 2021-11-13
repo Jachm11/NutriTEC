@@ -227,43 +227,43 @@ values (2, '10/14/2021', 43, 33, 25, 63, 178, 63, 31);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('2987870376', 'ESPERA', 'Manzana', 1.0, 3.0, 2.0, 40.0, 20.0, 10.0, 10.1, 11.2, 104.9);
+values ('2987870376', 'APROBADO', 'Manzana', 1.0, 3.0, 2.0, 40.0, 20.0, 10.0, 10.1, 11.2, 104.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('1646289217', 'ESPERA', 'Banano', 7.0, 3.0, 2.0, 4.0, 2.0, 1.0, 10.1, 11.2, 14.9);
+values ('1646289217', 'APROBADO', 'Banano', 7.0, 3.0, 2.0, 4.0, 2.0, 1.0, 10.1, 11.2, 14.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('6464157502', 'ESPERA', 'Naranja', 5.0, 22.0, 50, 450, 2.0, 12.0, 151, 12, 109);
+values ('6464157502', 'APROBADO', 'Naranja', 5.0, 22.0, 50, 450, 2.0, 12.0, 151, 12, 109);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('9877932744', 'ESPERA', 'Arroz', 1, 35, 22, 2, 29.0, 140, 11.1, 12.2, 2.9);
+values ('9877932744', 'APROBADO', 'Arroz', 1, 35, 22, 2, 29.0, 140, 11.1, 12.2, 2.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('8560911192', 'ESPERA', 'Frijoles', 4, 3, 22, 11, 23, 2.0, 22.1, 123.2, 4.9);
+values ('8560911192', 'APROBADO', 'Frijoles', 4, 3, 22, 11, 23, 2.0, 22.1, 123.2, 4.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('5597516352', 'ESPERA', 'Huevo', 3, 3, 55, 22, 67, 34.0, 21.1, 5.5, 4.9);
+values ('5597516352', 'APROBADO', 'Huevo', 3, 3, 55, 22, 67, 34.0, 21.1, 5.5, 4.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('9168677812', 'ESPERA', 'Galleta Marinela', 5, 3, 4, 2, 1, 1.0, 2.1, 61.2, 4.9);
+values ('9168677812', 'APROBADO', 'Galleta Marinela', 5, 3, 4, 2, 1, 1.0, 2.1, 61.2, 4.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('4272944341', 'ESPERA', 'Jamon', 1, 3, 24, 40, 21, 1.0, 2.1, 61.2, 4.9);
+values ('4272944341', 'APROBADO', 'Jamon', 1, 3, 24, 40, 21, 1.0, 2.1, 61.2, 4.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('4399622119', 'ESPERA', 'Pescado', 4, 3, 266, 40, 23, 1.0, 4.1, 5.2, 4.9);
+values ('4399622119', 'APROBADO', 'Pescado', 4, 3, 266, 40, 23, 1.0, 4.1, 5.2, 4.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
-values ('4745246973', 'ESPERA', 'Atun', 6, 3, 266, 40, 21, 1.0, 23.1, 32.2, 4.9);
+values ('4745246973', 'APROBADO', 'Atun', 6, 3, 266, 40, 21, 1.0, 23.1, 32.2, 4.9);
 
 insert into Producto (barcode, estatus, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio,
                       proteina, vitamina, carbohidratos)
@@ -323,27 +323,12 @@ insert into Producto_receta (id_producto, id_receta, porciones)
 values (3, 3, 2.0);
 ------------------------------------------- PLANES ------------------------------------------
 
+-- PLAN LA MILAGROSA
+
 insert into Plans (id_nutricionista, estatus, nombre)
 values (1, 'ACTIVO', 'La milagrosa');
 
-insert into Plans (id_nutricionista, estatus, nombre)
-values (1, 'ACTIVO', 'Ayuno');
-
-insert into Plans (id_nutricionista, estatus, nombre)
-values (1, 'ACTIVO', 'Fitness');
-
-insert into Plans (id_nutricionista, estatus, nombre)
-values (2, 'ACTIVO', '10 kilos en 1 semana');
-
-insert into Plans (id_nutricionista, estatus, nombre)
-values (2, 'ACTIVO', 'Vegano');
-
-insert into Plans (id_nutricionista, estatus, nombre)
-values (2, 'ACTIVO', 'Sin sal');
-
----------------------------------------- PRODUCTOS PLAN -------------------------------------
-
--- PLAN LA MILAGROSA
+-- PRODUCTOS PLAN LA MILAGROSA
 
 insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
 values (1, 1, 'Desayuno', 1);
@@ -358,7 +343,7 @@ insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
 values (3, 1, 'Almuerzo', 3);
 
 insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
-values (7, 1, 'Almuerzo', 1);
+values (8, 1, 'Almuerzo', 1);
 
 insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
 values (6, 1, 'Merienda tarde', 1);
@@ -366,7 +351,37 @@ values (6, 1, 'Merienda tarde', 1);
 insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
 values (9, 1, 'Cena', 2);
 
+-- PLAN AYUNO
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (1, 'ACTIVO', 'Ayuno');
+
+-- PRODUCTOS PLAN AYUNO
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (2, 2, 'Merienda manana', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4, 2, 'Almuerzo', 3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (6, 2, 'Almuerzo', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (2, 2, 'Merienda tarde', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4, 2, 'Cena', 2);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (6, 2, 'Cena', 2);
+
 -- PLAN FITNESS
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (2, 'ACTIVO', 'Fitness');
+
+-- PRODUCTOS PLAN FITNESS
 
 insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
 values (6, 3, 'Desayuno', 1);
@@ -392,6 +407,81 @@ values (9, 3, 'Cena', 3);
 insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
 values (7, 3, 'Cena', 2);
 
+-- PLAN 10 kilos en 1 semana
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (2, 'ACTIVO', '10 kilos en 1 semana');
+
+-- PRODUCTOS 10 kilos en 1 semana
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (3, 4, 'Desayuno', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (7, 4, 'Merienda manana', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4, 4, 'Almuerzo', 3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (9, 4, 'Almuerzo', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (7, 4, 'Merienda tarde', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (1, 4, 'Cena', 1);
+
+-- PLAN Vegano
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (3, 'ACTIVO', 'Vegano');
+
+-- PRODUCTOS Vegano
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (3, 5, 'Desayuno', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (2, 5, 'Merienda manana', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4, 5, 'Almuerzo', 3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (5, 5, 'Almuerzo', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (2, 5, 'Merienda tarde', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (1, 5, 'Cena', 1);
+
+-- PLAN Pura proteina
+
+insert into Plans (id_nutricionista, estatus, nombre)
+values (3, 'ACTIVO', 'Pura proteina');
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (8, 6, 'Desayuno', 3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (7, 6, 'Merienda manana', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4, 6, 'Almuerzo', 3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (9, 6, 'Almuerzo', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (10, 6, 'Merienda tarde', 1);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (4, 6, 'Cena', 3);
+
+insert into Productos_plan (id_producto, id_plan, tiempo_comida, porciones)
+values (9, 6, 'Cena', 2);
 --------------------------------------------- CONSUMO DIARIO --------------------------------------
 
 -- Consumo diario cliente 1
@@ -455,20 +545,6 @@ values (1, 9, 'Merienda tarde', '10/14/2021')
 
 insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
 values (1, 10, 'Cena', '10/14/2021')
-
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
--- AGREGAR MAS CONSUMO DIARIO PARA EL RESTO DE CLIENTES--
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
-
-
 
 ---------------------------------- PLAN A CLIENTE -------------------------------------
 

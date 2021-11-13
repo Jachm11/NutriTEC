@@ -55,7 +55,7 @@ namespace NutriTEC.Controllers
 
             if (admin == null)
                 return NotFound("Usuario o clave incorrectas.");
-            return Ok();
+            return Ok(admin);
 
         }
 

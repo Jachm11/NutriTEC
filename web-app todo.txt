@@ -1,8 +1,7 @@
 FALTA -> No lo he revisado
 
-    { path: 'home',                   EN CERO
-    { path: 'home-nutritionist',      EN CERO
-    { path: 'user-profile',           SIN REVISAR
+    { path: 'home-patient',                 LISTO (Css si se quiere mejorar)
+    { path: 'home-nutritionist',      	  LISTO (Css si se quiere mejorar)
     { path: 'register-client',              LISTO (No css)
     { path: 'register-nutritionist',        LISTO (No css)
     { path: 'login-client',                 LISTO (No css)

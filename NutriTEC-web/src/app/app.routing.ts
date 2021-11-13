@@ -22,6 +22,8 @@ import { PatientOverviewComponent } from './pages/patient-overview/patient-overv
 import { AssingPlanComponent } from './pages/assing-plan/assing-plan.component';
 import { BillingComponent } from './pages/billing/billing.component';
 import { LoginAdminComponent } from './pages/login-admin/login-admin.component';
+import { Component } from '@fullcalendar/core';
+import { HomePatientComponent } from './pages/home-patient/home-patient.component';
 
 const routes: Routes =[
     { path: '', redirectTo: 'login-client', pathMatch: 'full' },
@@ -43,7 +45,8 @@ const routes: Routes =[
     { path: 'patient-overview',       component:PatientOverviewComponent},
     { path: 'assign-plan',            component:AssingPlanComponent},
     { path: 'billing',                component:BillingComponent},
-    { path: 'login-admin',            component:LoginAdminComponent}
+    { path: 'login-admin',            component:LoginAdminComponent},
+    { path: 'home-patient',           component:HomePatientComponent}
 ];
 
 @NgModule({

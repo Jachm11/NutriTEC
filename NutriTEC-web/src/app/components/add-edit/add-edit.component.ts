@@ -60,7 +60,6 @@ export class AddEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.apiService.get_products_approved().subscribe((products) => {
-      console.log(products);
       this.products = products;
       this.current_products = products;
 
@@ -74,7 +73,6 @@ export class AddEditComponent implements OnInit {
   
         this.apiService.get_product_by_recipe(this.global.current_recipe.id).subscribe((products) =>{
           this.selected_products = products;
-          console.log(this.selected_products);
           this.update_product_list();
           this.updateNutritionalInfo();
 
@@ -191,24 +189,26 @@ export class AddEditComponent implements OnInit {
 
     });
     if(this.url == '/manager-recipe'){
+
+      let body = {id_plan: this.global.current_plan.id, id_producto:event.id, porciones: event.porciones};
+      this.apiService.update_product_porcion_recipe(body).subscribe();  
+
       this.updateNutritionalInfo();
     }
     if(this.url == '/manager-plan'){
       if(this.global.isEditing()){ 
         let body = {id_plan: this.global.current_plan.id, id_producto:event.id, tiempo_comida:this.current_time_food, porciones: event.porciones};
-        this.apiService.update_product_porcion(body).subscribe();    
+        this.apiService.update_product_porcion_plan(body).subscribe();    
       }
       this.update_total_kcal();
     }
   }
 
 
-
-
   delete_product(product:any){
 
 
-    if(this.url == '/manager-plan'){
+    if(this.url == '/manager-plan'){  
       if(this.global.isEditing()){
         let body = {id_plan: this.global.current_plan.id, id_producto: product.id, tiempo_comida:this.current_time_food};
         this.apiService.delete_product_from_plan(body).subscribe(()=> {});
@@ -263,6 +263,7 @@ export class AddEditComponent implements OnInit {
     
     this.current_products = this.products.filter(pr => {
       for(let ps of this.selected_products){
+
 
         if(pr.descripcion == ps.descripcion){
           return false;
@@ -413,6 +414,23 @@ export class AddEditComponent implements OnInit {
       //console.log("not consume")
       return false;
     }
+  }
+
+  showCancelButton(){
+
+    if(this.url == '/manager-recipe' && this.global.isAdding()){
+      return true;
+    }
+
+    if(this.url == '/manager-plan' && this.global.isAdding()){
+      return true;
+    }
+
+    return false;
+    
+
+
+
   }
 
 }

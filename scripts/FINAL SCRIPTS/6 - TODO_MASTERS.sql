@@ -102,6 +102,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -123,6 +124,7 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from Medidas
@@ -164,18 +166,22 @@ BEGIN
                    cadera,
                    peso,
                    altura,
+                   round(peso/POWER(altura/100, 2),2) as IMC,
                    cintura,
                    cuello
             from medidas
             where fecha = (select top 1 fecha from Medidas where id_cliente = @id order by fecha desc)
-
+                            and id_cliente=@id
         END
 
 
 END
 
 GO
+
+
 ---------------------------------------------------- MASTER NUTRICIONIST ----------------------------------------------
+use nutridb;
 
 IF OBJECT_ID('MasterNutricionist', 'P') IS NOT NULL
     DROP PROCEDURE [MasterNutricionist];
@@ -247,10 +253,46 @@ BEGIN
 
     IF @StatementType = 'SeguimientoConsumoDiarioPorFecha'
         BEGIN
-            SELECT id_producto, tiempo_comida, barcode, descripcion, tamano_porcion, sodio, grasa, energia, hierro, calcio, proteina, vitamina, carbohidratos
-            FROM Consumo_diario join Producto on id_producto = Producto.id
-            WHERE id_cliente = @id_cliente and fecha = @fecha
+            SELECT id_producto,
+                   tiempo_comida,
+                   barcode,
+                   descripcion,
+                   tamano_porcion,
+                   sodio,
+                   grasa,
+                   energia,
+                   hierro,
+                   calcio,
+                   proteina,
+                   vitamina,
+                   carbohidratos
+            FROM Consumo_diario
+                     join Producto on id_producto = Producto.id
+            WHERE id_cliente = @id_cliente
+              and fecha = @fecha
         END
+
+    IF @StatementType = 'GetAllMyClients'
+        BEGIN
+            SELECT Cliente.id,
+                   ISNULL(id_nutricionista, -1)                       as id_nutricionista,
+                   primer_nombre,
+                   segundo_nombre,
+                   primer_apellido,
+                   segundo_apellido,
+                   email,
+                   clave,
+                   fecha_nacimiento,
+                   DATEDIFF(hour, fecha_nacimiento, GETDATE()) / 8766 AS edad,
+                   meta_consumo_diario,
+                   pais,
+                   estatus
+            FROM Usuario
+                     JOIN Cliente ON Usuario.id = Cliente.id_usuario
+            WHERE rol = 'CLIENT'
+              and id_nutricionista = @id
+        END
+
 
 END
 
@@ -280,12 +322,19 @@ BEGIN
 
     IF @StatementType = 'SelectAll'
         BEGIN
-            select * from Plans where id_nutricionista = @id_nutricionista and estatus != 'INACTIVO'
+            select id, id_nutricionista, estatus, nombre,
+                   (select ISNULL(SUM(energia),0)
+                       from VistaProductosPlan
+                       where  P.id = id_plan) as calorias
+            from Plans P
+            where id_nutricionista = @id_nutricionista
+              and estatus != 'INACTIVO'
         END
 
     IF @StatementType = 'SelectOne'
         BEGIN
-            select *
+            select id_plan, tiempo_comida, porciones, id_producto, barcode, descripcion, tamano_porcion,
+                   sodio, grasa, energia, hierro, calcio, proteina, vitamina, carbohidratos
             from VistaProductosPlan
             where id_plan = @id
         END
@@ -295,7 +344,8 @@ BEGIN
             insert into Plans (id_nutricionista, estatus, nombre)
             values (@id_nutricionista, @estatus, @nombre)
 
-            select * from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
+            select id, id_nutricionista, estatus, nombre
+            from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
 
         END
 
@@ -335,6 +385,7 @@ BEGIN
 END
 
 GO
+
 
 
 ------------------------------------------------------- MASTER PRODUCTS ----------------------------------------------
@@ -464,6 +515,7 @@ GO
 ----------------------------------------------------- MASTER RECIPE -------------------------------------------------
 USE [nutridb]
 
+
 IF OBJECT_ID('MasterRecipe', 'P') IS NOT NULL
     DROP PROCEDURE [MasterRecipe];
 GO
@@ -485,7 +537,8 @@ BEGIN
         BEGIN
             SELECT id, estatus, nombre
             FROM Receta
-            WHERE id_cliente = @id_cliente  AND estatus = 'ACTIVO'
+            WHERE id_cliente = @id_cliente
+              AND estatus = 'ACTIVO'
             ORDER BY nombre
         END
 
@@ -513,6 +566,12 @@ BEGIN
         BEGIN
             INSERT INTO Receta (id_cliente, estatus, nombre)
             VALUES (@id_cliente, @estatus, @nombre);
+
+            -- return id
+
+            SELECT id, id_cliente, estatus, nombre
+            FROM Receta WHERE id = (SELECT SCOPE_IDENTITY());
+
         END
 
 
@@ -537,6 +596,14 @@ BEGIN
             VALUES (@id_producto, @id, @porcion);
         END
 
+    IF @StatementType = 'UpdateProduct'
+        BEGIN
+            UPDATE Producto_receta
+            SET porciones = @porcion
+            WHERE id_receta = @id
+              AND id_producto = @id_producto
+        END
+
     IF @StatementType = 'RemoveProduct'
         BEGIN
             DELETE
@@ -547,4 +614,5 @@ BEGIN
 
 END
 go
+
 

@@ -61,44 +61,39 @@ export class ApiService {
     
    }
 
-   get_products():Observable<Product[]> {
+  get_products():Observable<Product[]> {
      return this.http.get<Product[]>(this.apiURL + "Producto")
    }
 
-   get_products_approved():Observable<Product[]> {
+  get_products_approved():Observable<Product[]> {
      return this.http.get<Product[]>(this.apiURL + "Producto/getAllRestricted")
    }
 
 
-   get_plans_by_id(id:number):Observable<Plan[]> {
+  get_plans_by_id(id:number):Observable<Plan[]> {
      return this.http.get<Plan[]>(this.apiURL + `Plans?id_nutricionista=${id}`);
 
    }
 
-   get_product_by_plan(id_plan:number):Observable<any[]> {
+  get_product_by_plan(id_plan:number):Observable<any[]> {
     return this.http.get<any[]>(this.apiURL + `plans/${id_plan}`);
 
    }
 
-   get_recipes():Observable<Recipe[]>{
+  get_recipes():Observable<Recipe[]>{
      return this.http.get<Recipe[]>(this.apiURL + `Recetas/Cliente/${this.global.current_client.id}`);
    }
 
-   get_product_by_recipe(id_recipe:number):Observable<Product[]> {
+  get_product_by_recipe(id_recipe:number):Observable<Product[]> {
      return this.http.get<Product[]>(this.apiURL + `Recetas/${id_recipe}/productos`)
    }
 
-   get_billing_report(tipo:string):Observable<Bill[]>{
+  get_billing_report(tipo:string):Observable<Bill[]>{
      return this.http.get<Bill[]>(this.apiURL + `reporte-cobro?tipo=${tipo}`);
    }
 
-   get_last_measures(id_client:number):Observable<any>{
-     return this.http.get<any>(this.apiURL + `Cliente/lastmedidas?id=${id_client}`)
 
-   }
-
-   
-   get_historial():any{
+  get_historial():any{
      return this.http.get<any>(this.apiURL + "Cliente/medidas?id="+ this.global.current_client.id);
      //return this.http.get<any>(this.apiURL + "Cliente/medidas?id=1")
      //return this.http.get<any>(this.apiURL + "Cliente/reporteAvance?id=1&fechaInicio=2021-11-10&fechaFin=2021-11-09")
@@ -111,6 +106,9 @@ export class ApiService {
    get_client_plan_dates():Observable<any>{
      return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoplanfecha?id_cliente="+this.global.current_client.id);
    }
+  get_clients_by_nutritionist(body:any):Observable<any>{
+    return this.http.get<any>(this.apiURL + `Nutricionista/getAllMyClients?id_nutricionista=${body.id_nutricionist}`);
+  }
 
    get_client_consume_dates():Observable<any>{
     return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoconsumo_fechas?id_cliente="+this.global.current_client.id);
@@ -119,9 +117,6 @@ export class ApiService {
   get_client():Observable<Client>{
     return this.http.get<Client>(this.apiURL+ "cliente/"+ this.global.current_client.id);
   }
-
-
-
 
 
 
@@ -179,15 +174,23 @@ export class ApiService {
   }
 
 
-  update_product_porcion(body:any) :Observable<any>{
+  update_product_porcion_plan(body:any) :Observable<any>{
     return this.http.put<any>(this.apiURL + `Plans/UpdatePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}&porciones=${body.porciones}`, httpOptions);
 
   }
 
+  update_product_porcion_recipe(body:any) :Observable<any>{
+    return this.http.put<any>(this.apiURL + `Plans/UpdatePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}&porciones=${body.porciones}`, httpOptions);
+
+  }
 
   update_recipe(body:any):Observable<any> {
     console.log(body);
     return this.http.put<any>(this.apiURL + `Recetas?id_cliente=${body.id_client}&id_receta=${body.id_recipe}&nombre=${body.name}`, null, httpOptions);
+  }
+
+  unassign_client(body:any):Observable<any>{
+    return this.http.put<any>(this.apiURL + `Cliente/nutricionist/unassign?id=${body.id_client}`, null, httpOptions);
   }
 
 
@@ -213,6 +216,8 @@ export class ApiService {
     return this.http.delete<any>(this.apiURL + `Recetas/Remove-Product?id_receta=${body.id_recipe}&id_produco=${body.id_product}`)
 
   }
+
+
 
 
 

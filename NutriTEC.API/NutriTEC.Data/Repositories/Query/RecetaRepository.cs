@@ -82,7 +82,7 @@ namespace NutriTEC.Data.Repositories.Query
         // InsertProduct: inserta un nuevo producto a la base de datos
         // Parametros de entrada: Producto: product
         // Salida: string: mensaje de aviso del resultado
-        public string InsertRecipe(int id_cliente, string nombre)
+        public object InsertRecipe(int id_cliente, string nombre)
         {
             if (!CheckRecipeNameAvailability(id_cliente, nombre)) return "Ya existe una receta con este nombre.";
 
@@ -95,13 +95,18 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@id_cliente", id_cliente);
             cmd.Parameters.AddWithValue("@nombre", nombre);
 
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
 
             conn.Open();
-            int i = cmd.ExecuteNonQuery();
+            sd.Fill(dt);
             conn.Close();
 
-            if (i < 1) return "No se ha logrado agregar la receta. Por favor intente más tarde.";
-            return "";
+            object id = GetOneRecipeDetail(dt);
+
+            if (id == null) return "No se ha logrado agregar la receta. Por favor intente más tarde.";
+            return id;
+;
         }
         
 
@@ -181,6 +186,30 @@ namespace NutriTEC.Data.Repositories.Query
             if (i < 1) return "No se ha logrado agregar el producto a la receta. Por favor intente más tarde.";
             return "";
         }
+
+
+        public string UpdateProduct(int id, int id_producto, float porciones)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "UpdateProduct");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id_producto", id_producto);
+            cmd.Parameters.AddWithValue("@porcion", porciones);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return "No se ha logrado actualizar el producto de la receta. Por favor intente más tarde.";
+            return "";
+        }
+
+
 
         // ************************************ REMOVE PRODUCT *************************************
         // RemoveProduct: agrega la relacion entre una receta y un producto de la base de datos.
@@ -310,24 +339,27 @@ namespace NutriTEC.Data.Repositories.Query
             return list;
         }
 
-        //// GetOneRecipeDetail: retorna los datos de la receta recien creada
-        //// Parametros de entrada: DataTable: dt
-        //// Salida: object: plan
-        //private static object GetOneRecipeDetail(DataTable dt)
-        //{
-        //    object recipe = null;
-        //    if (dt.Rows.Count == 1)
-        //    {
+        // GetOneRecipeDetail: retorna los datos de la receta recien creada
+        // Parametros de entrada: DataTable: dt
+        // Salida: object: plan
+        private static object GetOneRecipeDetail(DataTable dt)
+        {
+            object recipe = null;
+            if (dt.Rows.Count == 1)
+            {
 
-        //        recipe = new
-        //        {
-        //            Id = Convert.ToInt32(dt.Rows[0]["id"]),
-        //            Nombre = Convert.ToString(dt.Rows[0]["nombre"])
-        //        };
+                recipe = new
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id_cliente = Convert.ToString(dt.Rows[0]["id_cliente"]),
+                    Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
 
-        //    }
-        //    return recipe;
-        //}
+                };
+
+            }
+            return recipe;
+        }
 
     }
 }

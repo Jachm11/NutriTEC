@@ -254,7 +254,8 @@ namespace NutriTEC.Data.Repositories.Query
                     {
                         Id = Convert.ToInt32(dr["id"]),
                         Estatus = Convert.ToString(dr["estatus"]),
-                        Nombre = Convert.ToString(dr["nombre"])
+                        Nombre = Convert.ToString(dr["nombre"]),
+                        Calorias = Convert.ToInt32(dr["calorias"])
                     });
             }
             return planslist;

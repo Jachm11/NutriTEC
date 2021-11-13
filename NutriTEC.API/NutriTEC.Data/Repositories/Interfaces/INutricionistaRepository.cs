@@ -13,10 +13,9 @@ namespace NutriTEC.Data.Repositories.Interfaces
         string InsertNutricionist(NutricionistaModel nutricionist);
         object LogIn(string email, string clave);
         bool AssignPlanToClient(Plan_cliente plan_cliente);
-
         List<object> SeguimientoPlanFecha(int id_cliente);
         List<object> SeguimientoConsumoDiario(int id_cliente);
-
+        List<Object> GetAllMyClients(int id_nutricionista);
         public List<object> SeguimientoConsumoDiarioPorFecha(int id_cliente, DateTime fecha);
 
     }

@@ -30,14 +30,17 @@ export class PlanItemComponent implements OnInit {
     
     this.name_nutritionist = `${this.global.current_nutritionist.primer_nombre}  ${this.global.current_nutritionist.primer_apellido}` 
 
+    this.get_products();
+
+
+  }
+
+  get_products(){
     this.apiService.get_product_by_plan(this.plan.id).subscribe((products) => {
 
       this.products.next(products);
   
     });
-
-
-
   }
 
 

@@ -24,7 +24,7 @@ export class LoginAdminComponent implements OnInit {
     this.apiService.loginAdmin(this.email, this.password).subscribe((current_admin) => {
       this.global.transactionSuccess("Ingresó correctamente");
       this.global.current_admin = current_admin;
-      this.router.navigateByUrl("/products-approval");//Aqui va el perfil
+      this.router.navigateByUrl("/products-approval");
 
     }, (error) => {
       this.global.transactionFailed("Datos inválidos, ingrese nuevamente su usuario");
