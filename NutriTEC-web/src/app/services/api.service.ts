@@ -31,7 +31,7 @@ const httpOptionsStringResponse = {
 })
 export class ApiService {
 
-  private apiURL = "/api/"
+  private apiURL = "https://nutritec.azurewebsites.net/"
 
   constructor(private http:HttpClient, private global:GlobalService) { }
 

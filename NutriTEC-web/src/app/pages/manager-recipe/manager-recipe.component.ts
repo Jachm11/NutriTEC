@@ -96,7 +96,7 @@ export class ManagerRecipeComponent implements OnInit {
  
       products.forEach(product => {
 
-        let body = {id_recipe: recipe.id, id_product: product.id, porciones: product.porciones }
+        let body = {id_recipe: new_recipe.id, id_product: product.id, porciones: product.porciones }
         this.apiService.add_product_to_recipe(body).subscribe();
 
 

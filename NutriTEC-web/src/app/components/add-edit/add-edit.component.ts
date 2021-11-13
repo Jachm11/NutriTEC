@@ -190,9 +190,13 @@ export class AddEditComponent implements OnInit {
     });
     if(this.url == '/manager-recipe'){
 
-      let body = {id_plan: this.global.current_plan.id, id_producto:event.id, porciones: event.porciones};
-      this.apiService.update_product_porcion_recipe(body).subscribe();  
+      if(this.global.isEditing()){
 
+        let body = {id_plan: this.global.current_plan.id, id_producto:event.id, porciones: event.porciones};
+        this.apiService.update_product_porcion_recipe(body).subscribe();  
+
+
+      }
       this.updateNutritionalInfo();
     }
     if(this.url == '/manager-plan'){

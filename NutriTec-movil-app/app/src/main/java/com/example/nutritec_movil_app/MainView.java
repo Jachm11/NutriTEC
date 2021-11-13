@@ -60,6 +60,17 @@ public class MainView extends Fragment {
             }
         });
 
+
+        binding.managerRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NavHostFragment.findNavController(MainView.this).navigate(R.id.action_mainView_to_managerRecipe);
+
+
+            }
+        });
+
         return binding.getRoot();
     }
 }

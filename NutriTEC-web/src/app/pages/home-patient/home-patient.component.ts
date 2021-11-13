@@ -9,7 +9,7 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class HomePatientComponent implements OnInit {
 
-  constructor(private apiService:ApiService, private global:GlobalService) { }
+  constructor(private apiService:ApiService, public global:GlobalService) { }
 
   id_client:number;
 
