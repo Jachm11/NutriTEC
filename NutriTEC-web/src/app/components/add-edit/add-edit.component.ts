@@ -192,7 +192,7 @@ export class AddEditComponent implements OnInit {
 
       if(this.global.isEditing()){
 
-        let body = {id_plan: this.global.current_plan.id, id_producto:event.id, porciones: event.porciones};
+        let body = {id_recipe: this.global.current_recipe.id, id_producto:event.id, porciones: event.porciones};
         this.apiService.update_product_porcion_recipe(body).subscribe();  
 
 

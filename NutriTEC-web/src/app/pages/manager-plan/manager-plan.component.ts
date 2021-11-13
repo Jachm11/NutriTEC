@@ -43,9 +43,13 @@ export class ManagerPlanComponent implements OnInit {
     this.apiService.get_plans_by_id(this.global.current_nutritionist.id).subscribe((plans) => {
 
       this.plans.next(plans);
+      console.log(plans);
 
 
 
+    }, (error) => {
+
+      console.log(error);
     })
 
   }

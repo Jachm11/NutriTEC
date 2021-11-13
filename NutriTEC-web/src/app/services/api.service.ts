@@ -173,7 +173,7 @@ export class ApiService {
   }
 
   update_product_porcion_recipe(body:any) :Observable<any>{
-    return this.http.put<any>(this.apiURL + `Plans/UpdatePlanProduct?id_plan=${body.id_plan}&id_producto=${body.id_producto}&tiempo_comida=${body.tiempo_comida}&porciones=${body.porciones}`, httpOptions);
+    return this.http.put<any>(this.apiURL + `Recetas/Update-Product?id_receta=${body.id_recipe}&id_producto=${body.id_producto}&&porciones=${body.porciones}`, httpOptions);
 
   }
 
@@ -206,10 +206,10 @@ export class ApiService {
   }
 
   delete_product_from_recipe(body:any):Observable<any>{
-    return this.http.delete<any>(this.apiURL + `Recetas/Remove-Product?id_receta=${body.id_recipe}&id_produco=${body.id_product}`)
+    return this.http.delete<any>(this.apiURL + `Recetas/Remove-Product?id_receta=${body.id_recipe}&id_producto=${body.id_product}`)
 
   }
-
+z
 
 
 
