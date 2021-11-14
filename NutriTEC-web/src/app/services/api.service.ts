@@ -37,7 +37,7 @@ const httpOptionsStringResponse = {
 export class ApiService {
 
   private apiURL = "https://nutritec.azurewebsites.net/"
-  private apiURLmongo = `/api/`
+  private apiURLmongo = `https://nutritecforum.azurewebsites.net/api/`
 
   constructor(private http:HttpClient, private global:GlobalService) { }
 

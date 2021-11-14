@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './assign-client-item.component.html',
   styleUrls: ['./assign-client-item.component.css']
 })
+
+/**
+ * Componente para asignar los clientes a un nutricionista
+ */
 export class AssignClientItemComponent implements OnInit {
 
   @Input() client:any;
@@ -29,11 +33,18 @@ export class AssignClientItemComponent implements OnInit {
 
   }
 
+
+  /**
+   * Funcion que se llama cuando se desea asignar un cliente especifico a un nutricionista
+   */
   assignClient() {
     this.assign_client.emit(this.client);
   }
 
-  
+
+  /**
+   * Funcion que se llama cuando se desea desasociar un cliente especifico a un nutricionista
+   */
   unassignClient(){
     this.unassign_client.emit(this.client);
 

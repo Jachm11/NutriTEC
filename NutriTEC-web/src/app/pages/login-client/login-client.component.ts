@@ -8,6 +8,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './login-client.component.html',
   styleUrls: ['./login-client.component.css']
 })
+/**
+ * Pagina que muestra el login del cliente
+ */
+
 export class LoginClientComponent implements OnInit {
 
   email:string;
@@ -24,6 +28,10 @@ export class LoginClientComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que se ejecuta cuando se desea realizar el login. Recoge la informacion de ingresada 
+   * por el usuario y realiza el llamado al API
+   */
   login(){
 
     this.apiService.loginClient(this.email, this.password).subscribe((current_client)=>{

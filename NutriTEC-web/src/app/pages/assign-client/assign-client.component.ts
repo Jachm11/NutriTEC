@@ -11,10 +11,13 @@ import { Client } from 'src/interfaces/client';
   styleUrls: ['./assign-client.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+/**
+ * Pagina para asignar un cliente a un nutricionista
+ */
 export class AssignClientComponent implements OnInit {
 
   filterClient = '';
-
 
   clients = [];
   clients_emitter = new BehaviorSubject<any[]>(this.clients);
@@ -27,6 +30,13 @@ export class AssignClientComponent implements OnInit {
   }
 
 
+
+
+  /**
+   * Funcion que se encarga de obtener la informacion de los clientes sin nutricionista 
+   * a traves de un request al API. Se llama cada vez que da un cambio para obtener la lista 
+   * mas actualizada de clientes
+   */
   upload_clients(){
     this.apiService.get_clients().subscribe((clients) =>{
 
@@ -39,6 +49,11 @@ export class AssignClientComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que se ejecuta cuando se asigna un cliente al nutricionista. Realiza el llamado al api
+   * para dicha accion.
+   * @param client 
+   */
   assign_client(client:any){
     this.apiService.assign_client(client.id, this.global.current_nutritionist.id).subscribe(()=>
     {

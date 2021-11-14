@@ -11,6 +11,10 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './products-approval.component.html',
   styleUrls: ['./products-approval.component.css']
 })
+
+/**
+ * Pagina que muestra los productos y permites aprobarlos o rechazarlos
+ */
 export class ProductsApprovalComponent implements OnInit {
 
   url: string;
@@ -26,6 +30,11 @@ export class ProductsApprovalComponent implements OnInit {
     this.get_products();
   }
 
+
+  /**
+   * Funcion que obtiene los productos 
+   */
+
   get_products() {
     this.apiService.get_products().subscribe((products) => {
 
@@ -36,6 +45,10 @@ export class ProductsApprovalComponent implements OnInit {
     });
   }
 
+
+  /**
+   * Funcion que filtra los productos dependiendo del estado en se encuentran
+   */
   filter() {
 
     if (this.filter_option == 'APROBADO') {
@@ -56,6 +69,10 @@ export class ProductsApprovalComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que se ejecuta cuando se acepta un producto. Realiza el llamado API.
+   * @param product  producto que se desea aceptar
+   */
   accept_product(product: any) {
 
     this.apiService.update_product_status(product.id, "APROBADO").subscribe(() => {
@@ -67,6 +84,11 @@ export class ProductsApprovalComponent implements OnInit {
 
   }
 
+
+  /**
+   * Funcion que se ejecuta cuando se rechaza un producto. Realiza el llamado API.
+   * @param product  producto que se desea rechazar
+   */
   reject_product(product: any) {
 
     this.apiService.update_product_status(product.id, "RECHAZADO").subscribe(() => {

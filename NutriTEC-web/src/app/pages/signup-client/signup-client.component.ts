@@ -6,6 +6,10 @@ import {Router} from '@angular/router';
   templateUrl: './signup-client.component.html',
   styleUrls: ['./signup-client.component.css']
 })
+
+/**
+ * Pagina que muestra el registro de los clientes
+ */
 export class SignupClientComponent implements OnInit {
 
   url:string;

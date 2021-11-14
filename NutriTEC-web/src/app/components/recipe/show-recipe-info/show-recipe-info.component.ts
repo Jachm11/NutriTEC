@@ -7,6 +7,11 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './show-recipe-info.component.html',
   styleUrls: ['./show-recipe-info.component.css']
 })
+
+
+/**
+ * Este componente es utiliza para mostrar la informacion nutrcional de la receta
+ */
 export class ShowRecipeInfoComponent implements OnInit {
 
 
@@ -55,6 +60,9 @@ export class ShowRecipeInfoComponent implements OnInit {
   }
 
 
+   /**
+    * Funcion que se llama al momento de cerrar el dialog
+    */
   close(){
 
     this.dialog.closeAll();
