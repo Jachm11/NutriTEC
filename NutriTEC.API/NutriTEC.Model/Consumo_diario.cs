@@ -15,6 +15,6 @@ namespace NutriTEC.Model
         public int Id_producto { get; set; }
         public string Tiempo_comida { get; set; }
         public DateTime Fecha { get; set; }
-        public int cantidad_porciones { get; set; }
+        public int Cantidad_porciones { get; set; }
     }
 }
