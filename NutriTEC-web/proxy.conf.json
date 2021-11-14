@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://nutritecforum.azurewebsites.net/api",
+      "target": "https://nutritec.azurewebsites.net/",
       "secure": false,
       "changeOrigin": true,
       "pathRewrite": {

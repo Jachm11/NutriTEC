@@ -40,8 +40,7 @@ import { PatientCalendarComponent } from './patient-calendar/patient-calendar.co
         FormsModule,
         NgbModule,
         ComponentsModule,
-        FullCalendarModule
-  
+        FullCalendarModule,
     ],
     declarations: [
         ProfileComponent,

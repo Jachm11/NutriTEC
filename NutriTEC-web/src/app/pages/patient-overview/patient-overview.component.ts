@@ -59,7 +59,9 @@ export class PatientOverviewComponent implements OnInit {
 
       this.global.transactionSuccess("Se desasoció el cliente");
       this.upload_clients();
-      this.apiService.delete_chat(event.id);
+      this.apiService.delete_chat(event.id).subscribe(()=>{
+        console.log("Se elimino el chat")
+      });
 
 
 

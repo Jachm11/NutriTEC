@@ -35,9 +35,11 @@ export class LoginClientComponent implements OnInit {
   login(){
 
     this.apiService.loginClient(this.email, this.password).subscribe((current_client)=>{
-        this.global.transactionSuccess("Ingresó correctamente");
         this.global.current_client = current_client;
         console.log(this.global.current_client);
+
+        localStorage.setItem("current_client", JSON.stringify(current_client));
+        this.global.transactionSuccess("Ingresó correctamente");
         this.router.navigateByUrl("/home-patient");
 
 

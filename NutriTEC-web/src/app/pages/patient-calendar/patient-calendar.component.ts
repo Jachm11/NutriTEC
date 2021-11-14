@@ -9,6 +9,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
 import { ApiService } from 'src/app/services/api.service';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 
 @Component({
@@ -172,6 +173,14 @@ export class PatientCalendarComponent implements OnInit {
     this.events = this.events.concat( // creates a new array!
       { title: 'event 2', date: datee }
     );
+  }
+
+  openChat(){
+
+    const dialogRef = this.dialog.open(ChatComponent);
+    dialogRef.componentInstance.client = this.cliente;
+
+
   }
 
 

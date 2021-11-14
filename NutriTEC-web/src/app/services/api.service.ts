@@ -36,7 +36,8 @@ const httpOptionsStringResponse = {
  */
 export class ApiService {
 
-  private apiURL = "https://nutritec.azurewebsites.net/"
+  private apiURL = "/api/"
+  
   private apiURLmongo = `https://nutritecforum.azurewebsites.net/api/`
 
   constructor(private http:HttpClient, private global:GlobalService) { }
@@ -174,6 +175,15 @@ export class ApiService {
    get_current_stats():Observable<any>{
       return this.http.get<any>(this.apiURL + "Cliente/lastmedidas?id=" + this.global.current_client.id)
    }
+
+   get_last_stats(id_client:any):Observable<any>{
+    return this.http.get<any>(this.apiURL + "Cliente/lastmedidas?id=" + id_client);
+ }
+
+
+
+
+
    
  get_client_plan_dates():Observable<any>{
      return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoplanfecha?id_cliente="+this.global.current_client.id);
@@ -444,7 +454,7 @@ export class ApiService {
   * @returns repuesta del API
   */
   delete_chat(id_client:number){
-    return this.http.delete<any>(this.apiURL + `chats/${id_client}`);
+    return this.http.delete<any>(this.apiURLmongo + `chats/${id_client}`);
 
   }
 
