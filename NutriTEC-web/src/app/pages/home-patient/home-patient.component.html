@@ -1,4 +1,5 @@
 <main class="profile-page">
+
     <section class="section-profile-cover section-shaped my-0">
       <!-- Circles background -->
       <div class="shape shape-style-1 shape-primary alpha-4">
@@ -9,14 +10,16 @@
         <span></span>
         <span></span>
         <span></span>
-
       </div>
+
       <!-- SVG separator -->
-      <div class="separator separator-bottom separator-skew">
+      <div class="separator separator-bottom separator-skew">  
         <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          
         </svg>
       </div>
+
+
+
     </section>
     <section class="section">
       <div class="container">
@@ -39,7 +42,7 @@
               <div class="row justify-content-center">
                 <div class="col-lg-9">
 
-                  <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Nutricionista actual:</strong> {{this.nutritionist.primer_nombre + " " + this.nutritionist.segundo_nombre + " " + this.nutritionist.primer_apellido + " " + this.nutritionist.segundo_apellido}}</div>
+                  <div *ngIf="current_client.id_nutricionista != -1" class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Nutricionista actual:</strong> {{this.nutritionist.primer_nombre + " " + this.nutritionist.segundo_nombre + " " + this.nutritionist.primer_apellido + " " + this.nutritionist.segundo_apellido}}</div>
         
 
                   <h3> <strong>Ultimas medidas:</strong>  {{measures.fecha}}</h3>

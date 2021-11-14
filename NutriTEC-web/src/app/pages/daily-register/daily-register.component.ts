@@ -11,6 +11,7 @@ import { FichaComponent } from 'src/app/components/ficha/ficha.component';
 import { Product_Consumption } from 'src/interfaces/product';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
 import { ApiService } from 'src/app/services/api.service';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 @Component({
   selector: 'app-daily-register',
@@ -215,7 +216,14 @@ export class DailyRegisterComponent implements OnInit {
   }
 
 
+  openChat(){
+
+    const dialogRef = this.dialog.open(ChatComponent);
+  }
+
+
 }
+
 
 enum Months{
   "Jan"="01",

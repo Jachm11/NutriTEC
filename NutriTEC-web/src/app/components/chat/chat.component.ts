@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { interval, Subscription} from "rxjs"
 
 @Component({
   selector: 'app-chat',
@@ -17,6 +18,8 @@ export class ChatComponent implements OnInit {
   message:string = "";
   chat:any[];
   url = ''
+  client:any;
+  subscription:Subscription;
 
   constructor(private apiService:ApiService, private global:GlobalService, private router:Router) {
    }
@@ -25,6 +28,17 @@ export class ChatComponent implements OnInit {
 
     this.url = this.router.url;
     this.get_chats();
+
+    const source = interval(3000);
+
+    this.subscription = source.subscribe(() => {
+
+      this.get_chats();
+
+
+    });
+
+
 
   }
 
@@ -60,26 +74,26 @@ export class ChatComponent implements OnInit {
 
       if(this.isClient()){
 
-    
-
         body = {id_cliente : this.global.current_client.id, 
                     nombre_usuario: this.global.current_client.primer_nombre, 
                     rol: "Cliente", 
-                    msg: this.message, num_msg:1
+                    msg: this.message, 
+                    num_msg:1
                   };       
       }
 
       if(this.isNutritionist()){
 
-        body = {id_cliente : this.global.current_client.id, 
+        body = {id_cliente : this.client.id, 
           nombre_usuario: this.global.current_nutritionist.primer_nombre, 
           rol: "Nutricionista", 
-          msg: this.message, num_msg:1
+          msg: this.message, 
+          num_msg:1
         };    
       }
 
-      
-      console.log(body);
+
+
       this.apiService.post_message(body).subscribe(()=>{
 
         this.get_chats();
@@ -100,7 +114,7 @@ export class ChatComponent implements OnInit {
    * @returns 
    */
   isClient(){
-    return this.url == "/profile";
+    return this.url == "/daily-register";
   }
 
   /**
@@ -108,7 +122,7 @@ export class ChatComponent implements OnInit {
    * @returns 
    */
   isNutritionist(){
-    return this.url == '';
+    return this.url == '/patient-calendar';
   }
 
 

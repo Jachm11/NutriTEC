@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { ApiService } from 'src/app/services/api.service'; 
 import * as jsPDF from 'jspdf';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-personal-record',
@@ -46,7 +47,7 @@ export class PersonalRecordComponent implements OnInit {
   from_date:any;
 
 
-  constructor( private apiService: ApiService) {
+  constructor( private apiService: ApiService, private global:GlobalService) {
     Chart.register(...registerables)
    }
 
@@ -88,9 +89,11 @@ export class PersonalRecordComponent implements OnInit {
   search(){
 
     if(!this.from_date){
+        this.global.transactionFailed("Debe ingresar una fecha de inicio");
         return;
     }
     if(!this.to_date){
+        this.global.transactionFailed("Debe ingresar una fecha de fin");
         return;
     }
 

@@ -19,11 +19,12 @@ export class HomePatientComponent implements OnInit {
   measures:any;
   nutritionist:any;
   current_client:any;
+  hast_nutri:boolean = false;
 
   ngOnInit(): void {
 
     this.current_client = this.global.current_client;
-    this.id_client = this.global.current_client.id;
+    this.id_client = this.current_client.id;
     this.apiService.get_current_stats().subscribe((measures)=> {
 
       this.measures = measures;
@@ -33,9 +34,9 @@ export class HomePatientComponent implements OnInit {
 
 
 
+    console.log(this.current_client.id_nutricionista != -1);
     if(this.current_client.id_nutricionista != -1){
-        console.log("entraaa");
-        let body = {id_nutritionist: this.global.current_client.id_nutricionista}
+        let body = {id_nutritionist: this.current_client.id_nutricionista }
         this.apiService.get_nutritionist_by_id(body).subscribe((nutritionist) =>{
         this.nutritionist = nutritionist;
       

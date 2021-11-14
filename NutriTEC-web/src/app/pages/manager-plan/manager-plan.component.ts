@@ -117,6 +117,7 @@ export class ManagerPlanComponent implements OnInit {
     this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutritionist.id}).subscribe((new_plan) => {
       
       
+      this.global.transactionSuccess("Se agregó el plan exitosamente");
       console.log(new_plan);
       
       plan.breakfast.forEach(pr => {
@@ -178,18 +179,24 @@ export class ManagerPlanComponent implements OnInit {
    */
   edit_plan(plan:any){
     let body = {id_recipe: this.global.current_plan.id, id_client:this.global.current_client.id, name:plan.name}
-    this.apiService.update_recipe(body).subscribe(()=>{
+    this.get_plans();
+    console.log("entraa");
+    /** 
+     
+     his.apiService.(body).subscribe(()=>{
 
-      console.log("entraaa");
       this.global.transactionSuccess("Se ha actualizado el plan correctamente")
       this.get_plans();
 
-    }, (err)=> {
+      }, (err)=> {
 
       console.log(err);
       this.global.transactionFailed(err.error);
+      })
 
-    })
+     * 
+     */
+
 
   }
 
