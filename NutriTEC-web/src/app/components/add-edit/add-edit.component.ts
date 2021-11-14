@@ -622,6 +622,20 @@ export class AddEditComponent implements OnInit {
   }
 
 
+  /**
+   * 
+   * @returns 
+   */
+  isPlan(){
+
+    if(this.url == "/daily-register" && (!this.global.isEditing() && !this.global.isAdding())){
+      //console.log("consume")
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
   /**
    * Funcion que verifica si se encuentra la vista de registro diario

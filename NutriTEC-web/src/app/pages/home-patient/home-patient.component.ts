@@ -18,21 +18,35 @@ export class HomePatientComponent implements OnInit {
   id_client:number;
   measures:any;
   nutritionist:any;
+  current_client:any;
 
   ngOnInit(): void {
 
+    this.current_client = this.global.current_client;
     this.id_client = this.global.current_client.id;
     this.apiService.get_current_stats().subscribe((measures)=> {
 
       this.measures = measures;
+
+
     });
 
 
-    let body = {id_nutritionist: this.global.current_client.id_nutricionista}
-    console.log(body);
-    this.apiService.get_nutritionist_by_id(body).subscribe((nutritionist) =>{
-      this.nutritionist = nutritionist;
-    })
+
+    if(this.current_client.id_nutricionista != -1){
+        console.log("entraaa");
+        let body = {id_nutritionist: this.global.current_client.id_nutricionista}
+        this.apiService.get_nutritionist_by_id(body).subscribe((nutritionist) =>{
+        this.nutritionist = nutritionist;
+      
+      });
+
+
+
+    }
+
+
+
 
     
 
