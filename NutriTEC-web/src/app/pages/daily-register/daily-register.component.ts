@@ -60,7 +60,6 @@ export class DailyRegisterComponent implements OnInit {
         this.onClickDate(yourDate);
       },
       eventClick: (e) => {
-        //console.log(e.event);
         let str = e.event.start.toString() 
         let yourDate  = str[11]+str[12]+str[13]+str[14] + '-' + Months[str[4]+str[5]+str[6]] +  '-'+ str[8]+str[9];
         this.onClickEvent(e.event , yourDate );
@@ -77,36 +76,13 @@ export class DailyRegisterComponent implements OnInit {
         this.nutricionista =  nutri.primer_nombre +  " "+   nutri.primer_apellido 
       })
 
-
-
       this.populate_calendar();
       
 
     })
     
-
-
   }
 
-
-  /**
-  * Funcion que se llama una vez que el proceso asincronico de recupercion de
-  * datos ha terminado 
-  */
-  update() {
-
-    if (this.ready_consume && this.ready_plans) {
-
-      this.events = this.plan_events.concat(this.consume_events);
-      console.log(this.events);
-      this.ready = true;
-
-      //this.addEvent();
-
-    }
-
-
-  }
 
   populate_calendar(){
 
@@ -145,8 +121,24 @@ export class DailyRegisterComponent implements OnInit {
       })
     }
 
-
   }
+
+   /**
+  * Funcion que se llama una vez que el proceso asincronico de recupercion de
+  * datos ha terminado 
+  */
+    update() {
+
+      if (this.ready_consume && this.ready_plans) {
+  
+        this.events = this.plan_events.concat(this.consume_events);
+        this.ready = true;
+
+  
+      }
+  
+  
+    }
 
   onClickEvent(event, date) {
 
@@ -204,14 +196,6 @@ export class DailyRegisterComponent implements OnInit {
 
     this.events = this.events.concat(consumed)
 
-    //window.location.reload();
-
-  }
-
-  addEvent(datee) {
-    this.events = this.events.concat( // creates a new array!
-      { title: 'event 2', date: datee }
-    );
   }
 
 

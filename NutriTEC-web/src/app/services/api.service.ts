@@ -316,6 +316,11 @@ export class ApiService {
     return this.http.post<any>(this.apiURL + `Cliente/registroconsumodiario`, body, httpOptions);
   }
 
+  post_plan_client(body:any):Observable<any>{
+    return this.http.post<any>(this.apiURL + `Nutricionista/AssignPlanToClient`, body, httpOptions);
+  }
+
+
 
 
 

@@ -1,0 +1,35 @@
+.calendar{
+
+    width: 55%;
+    height: 55%;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tittle{
+
+    margin-top: 5%;
+    position: relative;
+    margin-left: 40%;
+}
+
+.button-chat {
+    margin-top: 10px;
+}
+
+.center{
+    position: relative;
+    margin-top: 5%;
+    margin-left: 30%;
+}
+
+.select{
+
+    background-color: rgba(23, 109, 158, 0.5);
+    width: 80px;
+    height: 40px;
+}
+

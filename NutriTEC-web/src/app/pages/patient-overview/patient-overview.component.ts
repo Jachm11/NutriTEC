@@ -74,9 +74,15 @@ export class PatientOverviewComponent implements OnInit {
 
   openOverview(client){
 
-    console.log(client)
     this.global.current_client = client
     this.router.navigateByUrl("patient-calendar")
+    
+  }
+
+  openAssing(client){
+
+    this.global.current_client = client
+    this.router.navigateByUrl("assign-plan")
     
   }
 
