@@ -24,6 +24,7 @@ export class AddEditComponent implements OnInit {
 
   //RECETAS
   name_recipe:string;
+  
 
   total_proteinas:number = 0;
   total_vitaminas:number = 0;
@@ -50,6 +51,14 @@ export class AddEditComponent implements OnInit {
 
 
   request = [];
+
+
+  //Calendario
+  date = "";
+  id_plan: number;
+  full_plan: any;
+  name_consumo:string;
+  ready_plan: boolean;
 
   constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog, private apiService:ApiService) {
     
@@ -107,6 +116,44 @@ export class AddEditComponent implements OnInit {
       }
 
     }
+
+    if(this.date != ""){
+
+      //CONSUMO
+      if(this.isConsume()){
+        this.name_consumo = "Consumo de: "+ this.date;
+
+
+      }
+
+      //PLAN
+      else{
+
+        //this.full_plan = {id : this.id_plan,
+       // nombre : this.name_plan }
+
+        // console.log(this.id_plan, "aaqui estoy ")
+        this.apiService.get_plans_by_id(this.id_plan).subscribe((plan)=>{
+
+          plan.forEach(plan_unico => {
+            console.log(plan_unico)
+            console.log(plan_unico.nombre)
+            console.log(this.name_consumo)
+
+            if (plan_unico.nombre == this.name_consumo){
+              this.full_plan = plan_unico;
+            }
+            
+          });
+          this.ready_plan = true;
+          console.log(this.full_plan);
+          
+         })
+        
+      }
+
+    }
+
   }
 
 
@@ -402,6 +449,11 @@ export class AddEditComponent implements OnInit {
     this.total_carbohidratos = 0;
   }
 
+
+  isPlan(){
+
+    return !this.isConsume();
+  }
 
   isConsume(){
 

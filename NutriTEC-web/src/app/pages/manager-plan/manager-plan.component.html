@@ -29,7 +29,7 @@
 
                 <div class="container-plan">
 
-                    <app-plan-item *ngFor="let plan of plans | async" [plan]="plan" [url]=url (delete_plan)="delete_plan($event)" (edit_plan)="open_edit_dialog()"></app-plan-item>
+                    <app-plan-item *ngFor="let plan of plans | async" [plan]="plan" [url]= "url" (delete_plan)="delete_plan($event)" (edit_plan)="open_edit_dialog()"></app-plan-item>
   
                 </div>
 

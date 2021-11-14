@@ -58,7 +58,6 @@ export class ApiService {
 
   get_clients():Observable<Client[]> {
      return this.http.get<Client[]>(this.apiURL + "cliente/SinNutri");
-    
    }
 
   get_products():Observable<Product[]> {
@@ -116,6 +115,22 @@ export class ApiService {
 
   get_client():Observable<Client>{
     return this.http.get<Client>(this.apiURL+ "cliente/"+ this.global.current_client.id);
+  }
+
+  get_one_consume_day(date):Observable<Plan[]>{
+    return this.http.get<Plan[]>(this.apiURL + "Nutricionista/seguimientoconsumo_content?id_cliente="+this.global.current_client.id+"&fecha="+date)
+  }
+
+  // get_one_plan_products():Observable<any>{
+  //   console.log("Hola me llamaron" , this.global.current_plan_id)
+  //   return this.http.get<any>(this.apiURL + "Plans/"+ this.global.current_plan_id);
+  // }
+
+  get_nutricionista():Observable<Nutritionist>{
+    return this.http.get<Nutritionist>(this.apiURL + "Nutricionista/"+this.global.full_client.id_nutricionista);
+  }
+  get_plan(id):Observable<Plan>{
+    return this.http.get<Plan>(this.apiURL + "Plans/"+id);
   }
 
 

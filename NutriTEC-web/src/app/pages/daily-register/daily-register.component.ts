@@ -27,6 +27,7 @@ export class DailyRegisterComponent implements OnInit {
   consume_events: any[] = [];
   
   has_nutri: boolean;
+  
 
   nutricionista: string;
 
@@ -41,7 +42,7 @@ export class DailyRegisterComponent implements OnInit {
 
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-      defaultDate: new Date(),
+      defaultDate: '2021-10-18',
       locale: esLocale,
       themeSystem: 'bootstrap4',
       header: {
@@ -50,12 +51,15 @@ export class DailyRegisterComponent implements OnInit {
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
       dateClick: (e) => {
-        console.log(e)
-        this.onClickDate();
+        let str = e.date.toString() 
+        let yourDate  = str[11]+str[12]+str[13]+str[14] + '-' + Months[str[4]+str[5]+str[6]] +  '-'+ str[8]+str[9];
+        this.onClickDate(yourDate);
       },
       eventClick: (e) => {
-        console.log(e.event.id)
-        this.onClickEvent(e.event);
+        //console.log(e.event);
+        let str = e.event.start.toString() 
+        let yourDate  = str[11]+str[12]+str[13]+str[14] + '-' + Months[str[4]+str[5]+str[6]] +  '-'+ str[8]+str[9];
+        this.onClickEvent(e.event , yourDate );
       }
     }
 
@@ -63,14 +67,22 @@ export class DailyRegisterComponent implements OnInit {
       this.global.full_client = client;
       if(client.id_nutricionista != null && client.id_nutricionista != undefined ){
         this.has_nutri = true;
-        this.populate_calendar();
       }
 
+      this.apiService.get_nutricionista().subscribe((nutri)=>{
+        this.nutricionista = "Doctor " + nutri.primer_apellido
+      })
+
+
+
+      this.populate_calendar();
+      
+
     })
+    
 
 
   }
-
 
 
   /**
@@ -82,6 +94,7 @@ export class DailyRegisterComponent implements OnInit {
     if (this.ready_consume && this.ready_plans) {
 
       this.events = this.plan_events.concat(this.consume_events);
+      console.log(this.events);
       this.ready = true;
 
       //this.addEvent();
@@ -89,10 +102,7 @@ export class DailyRegisterComponent implements OnInit {
     }
 
 
-
-
   }
-
 
   populate_calendar(){
 
@@ -134,9 +144,7 @@ export class DailyRegisterComponent implements OnInit {
 
   }
 
-
-
-  onClickEvent(event) {
+  onClickEvent(event, date) {
 
     let tipo = event.groupId;
 
@@ -155,21 +163,28 @@ export class DailyRegisterComponent implements OnInit {
         break;
     }
 
-    this.open_plan_dialog();
+    console.log(event)
+    console.log(event.event)
+    console.log(event.id)
+    this.open_plan_dialog(date, event.id, event.title);
 
 
   }
 
-  onClickDate() {
+  onClickDate(date: string) {
 
     this.global.startAdding();
-    this.open_plan_dialog();
+    this.open_plan_dialog(date, 0, "consumo");
 
   }
 
-  open_plan_dialog() {
+  open_plan_dialog(date:string, id_plan: number , name:string) {
 
     const dialogRef = this.dialog.open(AddEditComponent);
+    dialogRef.componentInstance.date = date;
+    this.global.current_plan_id = id_plan;
+    dialogRef.componentInstance.id_plan = id_plan;
+    dialogRef.componentInstance.name_consumo = name;
     const subscribeDialog = dialogRef.componentInstance.apply.subscribe((consumed) => {
       this.edit_consumed(consumed);
     })
@@ -189,13 +204,43 @@ export class DailyRegisterComponent implements OnInit {
 
 
 
-  addEvent() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+  addEvent(datee) {
     this.events = this.events.concat( // creates a new array!
-      { title: 'event 2', date: '2021-12-08' }
+      { title: 'event 2', date: datee }
     );
   }
 
+  
 
 
 
+
+}
+
+enum Months{
+  "Jan"="01",
+  "Feb"="02",
+  "Mar"="03",
+  "Apr"="04",
+  "May"="05",
+  "Jun"="06",
+  "Jul"="07",
+  "Aug"="08",
+  "Sep"="09",
+  "Oct"="10",
+  "Nov"="11",
+  "Dec"="12",
 }

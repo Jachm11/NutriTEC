@@ -76,6 +76,7 @@ export class GlobalService {
     "email": "adrian@gmail.com",
     "clave": "1234"
   };
+  current_plan_id: number;
 
   hideAlert(){
     this.success_alert.next(false);
