@@ -26,13 +26,10 @@ export class PatientOverviewComponent implements OnInit {
 
   upload_clients(){
 
-    console.log(this.global.current_nutritionist.id);
     let body = {id_nutricionist: this.global.current_nutritionist.id}
     this.apiService.get_clients_by_nutritionist(body).subscribe((clients) =>{
 
-      console.log(clients);
       this.clients = clients;
-      console.log(this.clients);
       this.clients_emitter.next(this.clients);
 
     });
@@ -48,6 +45,7 @@ export class PatientOverviewComponent implements OnInit {
 
       this.global.transactionSuccess("Se desasoció el cliente");
       this.upload_clients();
+      this.apiService.delete_chat(event.id);
 
 
 

@@ -61,13 +61,8 @@ public class Login extends Fragment {
                 JSONObject client = ApiService.login(email, password);
 
 
-
-
                 if(client != null){
-
-
                     try {
-
                         current_client = new Client(client.getInt("id"),
                                                     client.getString("primer_nombre"),
                                                     client.getString("segundo_nombre"),
@@ -78,10 +73,11 @@ public class Login extends Fragment {
                                                     client.getInt("edad"),
                                                     client.getString("pais"));
 
+
                         System.out.println(current_client);
                         NavHostFragment.findNavController(Login.this)
                                 .navigate(R.id.action_login_to_mainView);
-                    }
+                   }
                     catch (JSONException e) {
                         e.printStackTrace();
                     }

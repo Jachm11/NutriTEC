@@ -4,40 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ManagerRecipe">
+    tools:context=".ProductsRecipe">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue">
 
-
         <ListView
             android:id="@+id/recipes_list"
             android:layout_width="391dp"
-            android:layout_height="510dp"
+            android:layout_height="530dp"
             android:background="@drawable/border_holder"
             android:dividerHeight="10.0sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.925"></ListView>
+            app:layout_constraintVertical_bias="0.738"></ListView>
 
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/green"
-            android:text="Agregar"
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="190dp"
+            android:layout_height="46dp"
+            android:text="Productos"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/recipes_list"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.925" />
-
+            app:layout_constraintVertical_bias="0.854" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </FrameLayout>

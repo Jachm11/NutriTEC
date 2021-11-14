@@ -39,6 +39,9 @@
               <div class="row justify-content-center">
                 <div class="col-lg-9">
 
+                  <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Nutricionista actual:</strong> {{this.nutritionist.primer_nombre + " " + this.nutritionist.segundo_nombre + " " + this.nutritionist.primer_apellido + " " + this.nutritionist.segundo_apellido}}</div>
+        
+
                   <h3> <strong>Ultimas medidas:</strong>  {{this.measures.fecha}}</h3>
                   
                   <div style="display: flex; flex-direction: column; align-items: center;">
@@ -71,6 +74,18 @@
                       <div>
                         <span class="heading">{{measures.peso}}</span>
                         <span class="description">Peso</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="card-profile-stats d-flex justify-content-center">
+                      <div>
+                        <span class="heading">{{measures.imc}}</span>
+                        <span class="description">IMC</span>
+                      </div>
+                      <div>
+              
                       </div>
                     </div>
                   </div>

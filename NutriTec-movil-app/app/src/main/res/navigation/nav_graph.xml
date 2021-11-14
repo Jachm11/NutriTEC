@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainView_to_registerMeasures"
             app:destination="@id/registerMeasures" />
+        <action
+            android:id="@+id/action_mainView_to_managerRecipe"
+            app:destination="@id/managerRecipe" />
     </fragment>
     <fragment
         android:id="@+id/registerMeasures"
@@ -34,5 +37,68 @@
         <action
             android:id="@+id/action_registerMeasures_to_mainView"
             app:destination="@id/mainView" />
+    </fragment>
+    <fragment
+        android:id="@+id/managerRecipe"
+        android:name="com.example.nutritec_movil_app.ManagerRecipe"
+        android:label="fragment_manager_recipe"
+        tools:layout="@layout/fragment_manager_recipe" >
+        <action
+            android:id="@+id/action_managerRecipe_to_mainView"
+            app:destination="@id/mainView" />
+        <action
+            android:id="@+id/action_managerRecipe_to_recipeMenu"
+            app:destination="@id/recipeMenu" />
+        <action
+            android:id="@+id/action_managerRecipe_to_addEditRecipe"
+            app:destination="@id/addEditRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/products"
+        android:name="com.example.nutritec_movil_app.ProductsRecipe"
+        android:label="fragment_produts_recipe"
+        tools:layout="@layout/fragment_products_recipe">
+        <action
+            android:id="@+id/action_information_to_recipeMenu"
+            app:destination="@id/recipeMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeMenu"
+        android:name="com.example.nutritec_movil_app.RecipeMenu"
+        android:label="fragment_recipe_menu"
+        tools:layout="@layout/fragment_recipe_menu" >
+        <action
+            android:id="@+id/action_recipeMenu_to_managerRecipe"
+            app:destination="@id/managerRecipe" />
+        <action
+            android:id="@+id/action_recipeMenu_to_information"
+            app:destination="@id/products" />
+        <action
+            android:id="@+id/action_recipeMenu_to_information2"
+            app:destination="@id/information" />
+        <action
+            android:id="@+id/action_recipeMenu_to_addEditRecipe"
+            app:destination="@id/addEditRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/information"
+        android:name="com.example.nutritec_movil_app.Information"
+        android:label="fragment_information"
+        tools:layout="@layout/fragment_information" >
+        <action
+            android:id="@+id/action_information_to_recipeMenu2"
+            app:destination="@id/recipeMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditRecipe"
+        android:name="com.example.nutritec_movil_app.AddEditRecipe"
+        android:label="fragment_add_edit_recipe"
+        tools:layout="@layout/fragment_add_edit_recipe" >
+        <action
+            android:id="@+id/action_addEditRecipe_to_recipeMenu"
+            app:destination="@id/recipeMenu" />
+        <action
+            android:id="@+id/action_addEditRecipe_to_managerRecipe"
+            app:destination="@id/managerRecipe" />
     </fragment>
 </navigation>

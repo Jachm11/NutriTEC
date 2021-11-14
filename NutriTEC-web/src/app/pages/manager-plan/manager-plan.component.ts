@@ -43,9 +43,13 @@ export class ManagerPlanComponent implements OnInit {
     this.apiService.get_plans_by_id(this.global.current_nutritionist.id).subscribe((plans) => {
 
       this.plans.next(plans);
+      console.log(plans);
 
 
 
+    }, (error) => {
+
+      console.log(error);
     })
 
   }
@@ -144,12 +148,14 @@ export class ManagerPlanComponent implements OnInit {
     let body = {id_recipe: this.global.current_plan.id, id_client:this.global.current_client.id, name:plan.name}
     this.apiService.update_recipe(body).subscribe(()=>{
 
+      console.log("entraaa");
       this.global.transactionSuccess("Se ha actualizado el plan correctamente")
       this.get_plans();
 
     }, (err)=> {
 
-      this.global.transactionSuccess(err.error);
+      console.log(err);
+      this.global.transactionFailed(err.error);
 
     })
 
