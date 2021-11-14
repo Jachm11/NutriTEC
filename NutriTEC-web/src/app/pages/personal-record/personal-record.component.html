@@ -34,7 +34,28 @@
                     <div class="col data"><span>Medida de cuello:{{measures.cuello}}cm</span></div>
                 </div>
 
-                <h2 class="text-primary subtittle">Historial completo</h2>
+
+       
+                <h2 class="text-primary subtittle">Historial</h2>
+
+                <div class="container-search-dates">
+
+                    <div style="display: flex; flex-direction: column;">
+                        <label class="text-white">Fecha incio: </label>
+                        <input type="date" [(ngModel)]="from_date" >
+                    </div>
+
+                    <div style="display: flex; flex-direction: column;">
+                        <label class="text-white">Fecha final: </label>
+                        <input type="date" [(ngModel)]="to_date" >
+                    </div>
+
+                    <div>
+                        <button class="search-button" (click)=search()> Buscar </button>
+                    </div>
+                    
+            
+                </div>
 
 
                 <div class="container">

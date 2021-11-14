@@ -38,6 +38,9 @@ export class PersonalRecordComponent implements OnInit {
   ready_table = false;
   ready_medidas = false;
 
+  to_date:any;
+  from_date:any;
+
 
   constructor( private apiService: ApiService) {
     Chart.register(...registerables)
@@ -71,6 +74,35 @@ export class PersonalRecordComponent implements OnInit {
         this.ready_medidas = true;
     });
 
+  }
+
+
+  search(){
+
+    this.apiService.get_historial_by_dates(this.from_date, this.to_date).subscribe((data)=>{
+
+        this.destroyCharts();
+        
+        this.plain_data = data;
+
+        this.fechas = this.for_data(0);
+
+        this.pesos_data = this.for_data(1);
+
+        this.cintura_data = this.for_data(2);
+        this.cadera_data = this.for_data(3);
+        this.cuello_data = this.for_data(4);
+            
+        this.grasa_data = this.for_data(5);
+        this.musculo_data = this.for_data(6);
+
+        this.create_graphics();
+        console.log(this.plain_data[1]);
+        this.ready_table = true;
+    }, (error)=>{
+
+        console.log(error);
+    });
   }
 
 
@@ -263,6 +295,14 @@ export class PersonalRecordComponent implements OnInit {
                   }
               }
           });
+    }
+
+
+    destroyCharts(){
+
+        this.medidas_chart.destroy();
+        this.indices_chart.destroy();
+        this.pesos_chart.destroy();
     }
 
 
