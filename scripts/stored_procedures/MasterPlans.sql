@@ -23,7 +23,7 @@ BEGIN
     IF @StatementType = 'SelectAll'
         BEGIN
             select id, id_nutricionista, estatus, nombre,
-                   (select ISNULL(SUM(energia),0)
+                   (select ISNULL(SUM(energia*porciones),0)
                        from VistaProductosPlan
                        where  P.id = id_plan) as calorias
             from Plans P

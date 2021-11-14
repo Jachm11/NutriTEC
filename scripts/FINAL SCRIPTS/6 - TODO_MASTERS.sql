@@ -1,6 +1,7 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
+USE [nutridb]
 
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
@@ -21,6 +22,7 @@ Create procedure dbo.[MasterClient](
     @altura float = NULL,
     @cintura float = NULL,
     @cuello float = NULL,
+    @cantidad_porciones int = NULL,
     @StatementType NVARCHAR(max) = ''
 )
 AS
@@ -112,8 +114,8 @@ BEGIN
 
     IF @StatementType = 'RegistroConsumoDiario'
         BEGIN
-            insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-            values (@id, @id_producto, @tiempo_comida, @fecha)
+            insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+            values (@id, @id_producto, @tiempo_comida, @fecha, @cantidad_porciones)
         END
 
     IF @StatementType = 'ReporteAvance'
@@ -181,7 +183,6 @@ GO
 
 
 ---------------------------------------------------- MASTER NUTRICIONIST ----------------------------------------------
-use nutridb;
 
 IF OBJECT_ID('MasterNutricionist', 'P') IS NOT NULL
     DROP PROCEDURE [MasterNutricionist];
@@ -265,7 +266,8 @@ BEGIN
                    calcio,
                    proteina,
                    vitamina,
-                   carbohidratos
+                   carbohidratos,
+                   cantidad_porciones
             FROM Consumo_diario
                      join Producto on id_producto = Producto.id
             WHERE id_cliente = @id_cliente
@@ -299,7 +301,6 @@ END
 GO
 
 ----------------------------------------------- MASTER PLANS --------------------------------------------------------
-
 IF OBJECT_ID('MasterPlans', 'P') IS NOT NULL
     DROP PROCEDURE [MasterPlans];
 GO
@@ -323,7 +324,7 @@ BEGIN
     IF @StatementType = 'SelectAll'
         BEGIN
             select id, id_nutricionista, estatus, nombre,
-                   (select ISNULL(SUM(energia),0)
+                   (select ISNULL(SUM(energia*porciones),0)
                        from VistaProductosPlan
                        where  P.id = id_plan) as calorias
             from Plans P
@@ -385,9 +386,6 @@ BEGIN
 END
 
 GO
-
-
-
 ------------------------------------------------------- MASTER PRODUCTS ----------------------------------------------
 use nutridb;
 
