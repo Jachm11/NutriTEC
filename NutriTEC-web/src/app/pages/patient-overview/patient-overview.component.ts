@@ -8,6 +8,10 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './patient-overview.component.html',
   styleUrls: ['./patient-overview.component.css']
 })
+
+/**
+ * Pagina que los clientes asociados a un nutricionista
+ */
 export class PatientOverviewComponent implements OnInit {
 
   filterClient = '';
@@ -24,6 +28,11 @@ export class PatientOverviewComponent implements OnInit {
   }
 
 
+
+  /**
+   * Funcion que obtiene los pacientes asociados al nutricionista que 
+   * se encuentra en sesion
+   */
   upload_clients(){
 
     let body = {id_nutricionist: this.global.current_nutritionist.id}
@@ -37,9 +46,13 @@ export class PatientOverviewComponent implements OnInit {
   }
 
 
+
+  /**
+   * Funcion que desasocia un paciente del nutricionista que se encuentra en sesion
+   * @param event 
+   */
   unassign_client(event){
 
-  
     let body = {id_client: event.id}
     this.apiService.unassign_client(body).subscribe(()=>{
 

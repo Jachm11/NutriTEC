@@ -11,6 +11,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.css']
 })
+
+/**
+ * Componente para crear o editar recetas o planes
+ */
 export class AddEditComponent implements OnInit {
 
   url:string;
@@ -110,6 +114,10 @@ export class AddEditComponent implements OnInit {
   }
 
 
+
+  /**
+   * Funcion que actualiza el tiempo de comida actual tal como lo selecciono el usuario 
+   */
   update_time_food(){
 
     if(this.previous_time_food != this.current_time_food){
@@ -154,6 +162,12 @@ export class AddEditComponent implements OnInit {
 
   }
 
+
+
+  /**
+   * Funcion que agrega un producto a la lista de los productos seleccionados
+   * @param product 
+   */
   add_product_to_selected_products(product:any){
 
     if(this.url == '/manager-plan'){
@@ -181,6 +195,12 @@ export class AddEditComponent implements OnInit {
 
 
 
+
+  /**
+   * Funcion que actualiza la porcion de uno de los productos que se encuentra 
+   * en la lista de productos seleccionados
+   * @param event 
+   */
   update_porcion(event:any){
     this.selected_products.forEach(ps => {
       if(ps.descripcion === event.descripcion){
@@ -211,6 +231,12 @@ export class AddEditComponent implements OnInit {
   }
 
 
+
+
+  /**
+   * Funcion que elimina un producto de la lista de productos seleccionados y lo devuelve a la lista de productos disponibles 
+   * @param product 
+   */
   delete_product(product:any){
 
 
@@ -238,6 +264,10 @@ export class AddEditComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que calcula el total de las calorias a partir de los productos de la lista 
+   * de productos seleccionados
+   */
   update_total_kcal(){
     let current_total = 0;
     this.setDefaultInfoNutritionalValues();
@@ -250,6 +280,10 @@ export class AddEditComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que calcula el total de la informacion nutricional de un plan a partir de los productos 
+   * seleccionados
+   */
   updateNutritionalInfo(){
     this.setDefaultInfoNutritionalValues();
     this.selected_products.forEach(ps => {
@@ -265,8 +299,12 @@ export class AddEditComponent implements OnInit {
 
   }
 
+
+
+  /**
+   * Funcion que actualiza la lista de productos disponibles
+   */
   update_product_list(){
-    
     this.current_products = this.products.filter(pr => {
       for(let ps of this.selected_products){
 
@@ -284,6 +322,10 @@ export class AddEditComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que se llama cuando se desea guardar los cambios realizados, ya sea crear o editar un plan o receta  
+   * @returns 
+   */
   apply_changes(){
 
     if(this.url === "/manager-recipe"){
@@ -381,6 +423,9 @@ export class AddEditComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que se llama cuando el usuario cierra el dialog del componente 
+   */
   cancel(){
     this.global.cancel();
     this.setDefaultValues();
@@ -388,6 +433,11 @@ export class AddEditComponent implements OnInit {
   }
 
 
+
+
+  /**
+   * Funcion que reinicia los valores de las varaibles usadas a lo largo del componente
+   */
   setDefaultValues(){
     this.selected_products = [];
     this.name_recipe = null;
@@ -396,6 +446,9 @@ export class AddEditComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que reinicia los valores de la informacion de nutricional
+   */
   setDefaultInfoNutritionalValues(){
     this.total_calcio = 0;
     this.total_proteinas = 0;
@@ -409,6 +462,11 @@ export class AddEditComponent implements OnInit {
   }
 
 
+
+  /**
+   * Funcion que verifica si se encuentra la vista de registro diario
+   * @returns 
+   */
   isConsume(){
 
     //console.log("url", this.url == "/daily-register", "Editando" , this.global.isEditing(),"Agregando",this.global.isAdding())
@@ -422,6 +480,11 @@ export class AddEditComponent implements OnInit {
     }
   }
 
+
+  /**
+   * Funcion que decide si se debe mostrar el biton cancelar
+   * @returns 
+   */
   showCancelButton(){
 
     if(this.url == '/manager-recipe' && this.global.isAdding()){

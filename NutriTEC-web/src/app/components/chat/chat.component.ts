@@ -8,6 +8,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
+
+/**
+ * Componente para mostrar el chat
+ */
 export class ChatComponent implements OnInit {
 
   message:string = "";
@@ -24,6 +28,10 @@ export class ChatComponent implements OnInit {
 
   }
 
+
+  /**
+   * Funcion que realiza la llamada al API para obtener los mensajes de un chat de un cliente
+   */
   get_chats(){
 
     this.apiService.get_chat_by_id(this.global.current_client.id).subscribe((chat)=>{
@@ -37,6 +45,9 @@ export class ChatComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que envia un mensaje y actualiza los mensajes del chat
+   */
   send_message(){
 
 
@@ -84,10 +95,18 @@ export class ChatComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que verifica si es un cliente el que envia el mensaje
+   * @returns 
+   */
   isClient(){
     return this.url == "/profile";
   }
 
+  /**
+   * Funcion que verifica si es un nutricionista el que envia un mensaje
+   * @returns 
+   */
   isNutritionist(){
     return this.url == '';
   }

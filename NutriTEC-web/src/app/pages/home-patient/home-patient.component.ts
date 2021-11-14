@@ -7,6 +7,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './home-patient.component.html',
   styleUrls: ['./home-patient.component.css']
 })
+
+/**
+ * Paguna que muestra el perfil del paciente
+ */
 export class HomePatientComponent implements OnInit {
 
   constructor(private apiService:ApiService, public global:GlobalService) { }

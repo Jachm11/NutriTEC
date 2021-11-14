@@ -15,6 +15,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   templateUrl: './manager-plan.component.html',
   styleUrls: ['./manager-plan.component.css']
 })
+
+/**
+ * Pagina que muestra la vista de la gestion del plan 
+ */
 export class ManagerPlanComponent implements OnInit {
 
   url:string;
@@ -38,6 +42,10 @@ export class ManagerPlanComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que obtiene los planes asociados a un nutricionista. Realiza el llamado 
+   * al API.
+   */
   get_plans(){
 
     this.apiService.get_plans_by_id(this.global.current_nutritionist.id).subscribe((plans) => {
@@ -55,6 +63,11 @@ export class ManagerPlanComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que se ejecuta cuando se crea una plan. Abre el dialog  con el componente 
+   * para comenzar a crear la receta. Una vez que se crea. Recoge la informacion ingresada 
+   * por el usuario. 
+   */
   open_add_dialog(){
 
     this.global.startAdding();
@@ -71,6 +84,11 @@ export class ManagerPlanComponent implements OnInit {
   }
 
 
+    /**
+   * Funcion que se ejecuta cuando se edita una plan. Abre el dialog  con el componente 
+   * para comenzar a editar la receta. Una vez que se crea. Recoge la informacion ingresada 
+   * por el usuario. 
+   */
   open_edit_dialog(){
 
     this.global.startEditing(); 
@@ -89,6 +107,11 @@ export class ManagerPlanComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que agrega un plan. Realiza el post para crear la funcion y luego agrega los productos del plan 
+   * mediante llamadas individuales para cada uno de los productos 
+   * @param plan 
+   */
   add_plan(plan:any){
 
     this.apiService.post_plan({name: plan.name, id_nutricionista: this.global.current_nutritionist.id}).subscribe((new_plan) => {
@@ -130,6 +153,10 @@ export class ManagerPlanComponent implements OnInit {
   }
 
 
+
+  /**
+   * Funcion que se ejecuta cuando se elimina una plan.
+   */
   delete_plan(plan:any){
 
     console.log(plan);
@@ -144,6 +171,11 @@ export class ManagerPlanComponent implements OnInit {
 
   }
 
+
+  /**
+   * Funcion que se ejecuta c cuando se edita un plan 
+   * @param plan 
+   */
   edit_plan(plan:any){
     let body = {id_recipe: this.global.current_plan.id, id_client:this.global.current_client.id, name:plan.name}
     this.apiService.update_recipe(body).subscribe(()=>{

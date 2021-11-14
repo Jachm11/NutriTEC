@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from 'src/app/services/api.service'; 
 import * as jsPDF from 'jspdf';
 
 @Component({
@@ -8,6 +8,10 @@ import * as jsPDF from 'jspdf';
   templateUrl: './personal-record.component.html',
   styleUrls: ['./personal-record.component.css']
 })
+
+/**
+ * Pagina que muestra el reporte historico de las medidas de un paciente
+ */
 export class PersonalRecordComponent implements OnInit {
 
   measures: any;
@@ -77,7 +81,18 @@ export class PersonalRecordComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que recoge las fechas ingresadas por el usuario y busca las medidas 
+   * en ese intervalo de tiempo 
+   */
   search(){
+
+    if(!this.from_date){
+        return;
+    }
+    if(!this.to_date){
+        return;
+    }
 
     this.apiService.get_historial_by_dates(this.from_date, this.to_date).subscribe((data)=>{
 

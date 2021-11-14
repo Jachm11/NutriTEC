@@ -16,6 +16,10 @@ import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component
   templateUrl: './daily-register.component.html',
   styleUrls: ['./daily-register.component.css']
 })
+
+/**
+ * Pagina para el registro diario de consumo
+ */
 export class DailyRegisterComponent implements OnInit {
 
   fichas: Ficha[];

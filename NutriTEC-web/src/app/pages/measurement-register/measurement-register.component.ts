@@ -7,6 +7,10 @@ import { formatDate } from '@angular/common';
   templateUrl: './measurement-register.component.html',
   styleUrls: ['./measurement-register.component.css']
 })
+
+/**
+ * Pagina que muestra el registro de medidas
+ */
 export class MeasurementRegisterComponent implements OnInit {
 
   musculo:number;
@@ -30,6 +34,11 @@ export class MeasurementRegisterComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que recoge la informacion ingresada por el usuario y realiza el llamado 
+   * el API 
+   * @returns 
+   */
   onSubmit(){
 
     if(!this.musculo){
@@ -99,6 +108,9 @@ export class MeasurementRegisterComponent implements OnInit {
 
   }
 
+  /**
+   * Funcion que reinicia los valores ingresados por el usuario
+   */
   setDefaultValues(){
 
     this.musculo = null;

@@ -8,6 +8,9 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './login-admin.component.html',
   styleUrls: ['./login-admin.component.css']
 })
+/**
+ * Pagina que muestra el login para el administrador
+ */
 export class LoginAdminComponent implements OnInit {
 
   email: string;
@@ -19,6 +22,10 @@ export class LoginAdminComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que se ejecuta cuando se desea realizar el login. Recoge la informacion de ingresada 
+   * por el usuario y realiza el llamado al API
+   */
   login() {
 
     this.apiService.loginAdmin(this.email, this.password).subscribe((current_admin) => {

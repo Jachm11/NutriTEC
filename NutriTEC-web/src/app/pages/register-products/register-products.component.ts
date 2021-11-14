@@ -10,6 +10,10 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './register-products.component.html',
   styleUrls: ['./register-products.component.css']
 })
+
+/**
+ * Pagina que muestra el registro de productos
+ */
 export class RegisterProductsComponent implements OnInit {
 
 
@@ -38,6 +42,11 @@ export class RegisterProductsComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que recoge la informacion ingresada por el usuario, verifica que todos 
+   * los campos hayan sido llenados y realiza el llamado al API
+   * @returns 
+   */
   onSubmit(){
 
     if(!this.codigo_barras){
@@ -133,6 +142,9 @@ export class RegisterProductsComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que reinicia los valores ingresados por el usuario
+   */
   setDefaultValues(){
 
     this.codigo_barras = null;

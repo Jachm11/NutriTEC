@@ -6,6 +6,12 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
+
+
+/**
+ * Este componente es una abstraccion de un producto de la base de datos, posee todos los 
+ * atributos posibles y los muestra
+ */
 export class ProductComponent implements OnInit {
 
   @Input() product;
@@ -23,18 +29,28 @@ export class ProductComponent implements OnInit {
   
   }
 
+
+  /**
+   * Funcion que decide si se debe mostrar el contendor con la informacion del producto
+   */
   toggleShowMe()
   {
     this.showMe = !this.showMe;
   }
 
 
+  /**
+   * Funcion que se llama al momento en que el administrador acepta un producto
+   */
   acceptProduct(){
     this.accept_product.emit(this.product);
 
   }
 
 
+  /**
+   * Esta funcion se llama cuando el adminitrador rechazada un producto
+   */
   rejectProduct(){
 
   
@@ -42,6 +58,10 @@ export class ProductComponent implements OnInit {
 
   }
 
+
+  /**
+   * Funcion para agregar un producto cuando se esta creando o editando un plan o receta
+   */
   addProduct(){
     this.add_product.emit(this.product);
 
