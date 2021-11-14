@@ -21,6 +21,7 @@ import { AddEditComponent } from './add-edit/add-edit.component';
 import { ApiService } from '../services/api.service';
 import { FichaRowHolderComponent } from './ficha-row-holder/ficha-row-holder.component';
 import { FichaComponent } from './ficha/ficha.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
     imports: [
@@ -35,7 +36,7 @@ import { FichaComponent } from './ficha/ficha.component';
         ProductComponent,
         AlertsComponent,
         ItemRecipeComponent,
-        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,ShowRecipeInfoComponent, AddEditComponent, FichaRowHolderComponent, FichaComponent,
+        FilterPipe, ItemProductComponent, AssignClientItemComponent, PlanItemComponent, ShowPlanInfoComponent,ShowRecipeInfoComponent, AddEditComponent, FichaRowHolderComponent, FichaComponent, ChatComponent,
     ],
     entryComponents: [],
     exports: [

@@ -12,8 +12,8 @@ export class HomePatientComponent implements OnInit {
   constructor(private apiService:ApiService, public global:GlobalService) { }
 
   id_client:number;
-
   measures:any;
+  nutritionist:any;
 
   ngOnInit(): void {
 
@@ -21,8 +21,14 @@ export class HomePatientComponent implements OnInit {
     this.apiService.get_current_stats().subscribe((measures)=> {
 
       this.measures = measures;
-      console.log(measures);
     });
+
+
+    let body = {id_nutritionist: this.global.current_client.id_nutricionista}
+    console.log(body);
+    this.apiService.get_nutritionist_by_id(body).subscribe((nutritionist) =>{
+      this.nutritionist = nutritionist;
+    })
 
     
 

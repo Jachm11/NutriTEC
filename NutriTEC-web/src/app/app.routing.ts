@@ -46,7 +46,8 @@ const routes: Routes =[
     { path: 'assign-plan',            component:AssingPlanComponent},
     { path: 'billing',                component:BillingComponent},
     { path: 'login-admin',            component:LoginAdminComponent},
-    { path: 'home-patient',           component:HomePatientComponent}
+    { path: 'home-patient',           component:HomePatientComponent},
+    { path: 'profile',                component:ProfileComponent}
 ];
 
 @NgModule({

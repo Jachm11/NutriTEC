@@ -148,12 +148,14 @@ export class ManagerPlanComponent implements OnInit {
     let body = {id_recipe: this.global.current_plan.id, id_client:this.global.current_client.id, name:plan.name}
     this.apiService.update_recipe(body).subscribe(()=>{
 
+      console.log("entraaa");
       this.global.transactionSuccess("Se ha actualizado el plan correctamente")
       this.get_plans();
 
     }, (err)=> {
 
-      this.global.transactionSuccess(err.error);
+      console.log(err);
+      this.global.transactionFailed(err.error);
 
     })
 

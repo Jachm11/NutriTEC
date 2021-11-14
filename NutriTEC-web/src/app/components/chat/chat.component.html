@@ -1,0 +1,32 @@
+<div class="card text-center card-container">
+    <div class="card-header">
+      CHAT 
+    </div>
+
+
+
+    <div class="card-body">
+
+        <p *ngFor="let message of chat" class="p-2" [ngClass]="message.rol== 'Cliente' ? 'enviado' : 'recibido'">
+            {{message.msg}}
+        </p>
+
+        
+ 
+    </div>
+
+
+    <div class="card-footer text-muted input-group" (ngSubmit)="send_message()">
+            <input type="text" class="form-control" placeholder="Ingrese su mensaje" [(ngModel)]="message" [ngModelOptions]="{standalone: true}">
+            
+            
+            <div class="input-group-append" (click)="send_message()">
+              <span class="input-group-text" id="basic-addon2"alt="send message">
+
+                <label class="ni ni-send send" style="width: 20px;"></label>
+
+              </span>
+            </div>
+      
+    </div>
+  </div>

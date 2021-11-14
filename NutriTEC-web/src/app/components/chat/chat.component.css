@@ -1,0 +1,60 @@
+.card-container {
+    width: 300px;
+    height: 600px;
+    position: fixed;
+    right: 10;
+    bottom: 0;
+}
+
+.card-header {
+    background-color: rgb(102,102,243);
+    color:white;
+}
+
+.card-body {
+    padding: 0.5rem;
+    overflow-y: scroll;
+    background-image: url(https://i.pinimg.com/originals/0f/05/27/0f05274b1bdc8feed70822513cd7a903.jpg);
+}
+
+
+.enviado {
+
+    display: block;
+    float: right;
+    background-color: teal;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+    min-width: 50.01%;
+
+
+}
+
+
+.recibido {
+
+    display: block;
+    float: left;
+    background-color: gray;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+    min-width: 50.01%;
+
+
+}
+
+
+.send:active {
+    transform: scale(2);
+}
+
+.mat-dialog-container {
+    padding: 0 !important; 
+}
+
+::ng-deep mat-dialog-container {
+    padding: 0px !important;
+  }
+

@@ -32,7 +32,7 @@
                 </div>
 
 
-            
+
                 <div *ngIf="show" class="container-client-list">
                     
                     <app-assign-client-item *ngFor="let client of clients_emitter | async | filterClients:filterClient" [client]="client" (unassign_client)="unassign_client($event)" ></app-assign-client-item>

@@ -202,7 +202,9 @@ export class AddEditComponent implements OnInit {
     if(this.url == '/manager-plan'){
       if(this.global.isEditing()){ 
         let body = {id_plan: this.global.current_plan.id, id_producto:event.id, tiempo_comida:this.current_time_food, porciones: event.porciones};
-        this.apiService.update_product_porcion_plan(body).subscribe();    
+        this.apiService.update_product_porcion_plan(body).subscribe(()=>{
+          console.log("Se actualizó exitosamente el producto");
+        },(err) => console.log(err));    
       }
       this.update_total_kcal();
     }
