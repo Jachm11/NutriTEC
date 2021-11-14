@@ -31,7 +31,8 @@ import { FullCalendarModule } from 'primeng/fullcalendar'; // must go before plu
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { HomePatientComponent } from './home-patient/home-patient.component'; // a plugin!
+import { HomePatientComponent } from './home-patient/home-patient.component';
+import { PatientCalendarComponent } from './patient-calendar/patient-calendar.component'; // a plugin!
 //import { FilterRecipesPipe } from '../pipe/filter-recipes.filter';
 
 @NgModule({
@@ -65,6 +66,7 @@ import { HomePatientComponent } from './home-patient/home-patient.component'; //
         BillingComponent,
         LoginAdminComponent,
         HomePatientComponent,
+        PatientCalendarComponent,
         //FilterRecipesPipe
         
        

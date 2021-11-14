@@ -24,6 +24,7 @@ import { BillingComponent } from './pages/billing/billing.component';
 import { LoginAdminComponent } from './pages/login-admin/login-admin.component';
 import { Component } from '@fullcalendar/core';
 import { HomePatientComponent } from './pages/home-patient/home-patient.component';
+import { PatientCalendarComponent } from './pages/patient-calendar/patient-calendar.component';
 
 const routes: Routes =[
     { path: '', redirectTo: 'login-client', pathMatch: 'full' },
@@ -47,7 +48,8 @@ const routes: Routes =[
     { path: 'billing',                component:BillingComponent},
     { path: 'login-admin',            component:LoginAdminComponent},
     { path: 'home-patient',           component:HomePatientComponent},
-    { path: 'profile',                component:ProfileComponent}
+    { path: 'profile',                component:ProfileComponent},
+    { path: 'patient-calendar',       component:PatientCalendarComponent}
 ];
 
 @NgModule({

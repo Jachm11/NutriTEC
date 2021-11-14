@@ -7,12 +7,12 @@
     </div>
 
     <div>
-        <input disable type="number" min=0 placeholder="Porción" [(ngModel)]="porcion"
+        <input [disabled]="disable" type = "number" min=0 placeholder="Porción" [(ngModel)]="porcion"
             (change)="updatePorcion()">
     </div>
 
     <div>
-        <button (click)="deleteProduct()">Eliminar</button>
+        <button *ngIf="url != '/patient-calendar'" (click)="deleteProduct()">Eliminar</button>
     </div>
 
 

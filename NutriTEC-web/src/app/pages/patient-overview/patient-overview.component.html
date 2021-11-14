@@ -19,14 +19,14 @@
         <div class = "frame">
 
      
-            <h1 class="text-white">ASIGNACION DE PACIENTES</h1>
+            <h1 class="text-white">SEGUIMIENTO DE PACIENTES</h1>
 
 
             <div class="container-clients">
 
                 <div style="width: 100%; height: 50px;">
 
-                    <input type=text class="input-filter" placeholder="Buscar clientes..." [(ngModel)]="filterClient">
+                    <input type=text class="input-filter" placeholder="Buscar pacientes..." [(ngModel)]="filterClient">
 
 
                 </div>
@@ -35,7 +35,7 @@
 
                 <div *ngIf="show" class="container-client-list">
                     
-                    <app-assign-client-item *ngFor="let client of clients_emitter | async | filterClients:filterClient" [client]="client" (unassign_client)="unassign_client($event)" ></app-assign-client-item>
+                    <app-assign-client-item *ngFor="let client of clients_emitter | async | filterClients:filterClient" [client]="client" (unassign_client)="unassign_client($event)" (overview)="openOverview($event)" ></app-assign-client-item>
 
                 </div>
 
@@ -59,6 +59,10 @@
 
         
         </div>
+
+
+
+
 
     </section>
 

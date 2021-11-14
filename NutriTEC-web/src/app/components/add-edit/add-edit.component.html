@@ -43,7 +43,7 @@
     <br>
     <br>
 
-    <div *ngIf="!isPlan()">
+    <div *ngIf="!isPlan() && !isNutri()">
         <div class="container-input-productList">
             <div>
                 <input type=text class="input-filter" placeholder="Buscar productos..." [(ngModel)]="filterProducts">
@@ -51,7 +51,7 @@
                     <app-product *ngFor="let product of current_products | filter:filterProducts" [product]="product"
                         [url]="url" (add_product)="add_product_to_selected_products($event)"></app-product>
 
-                    <div *ngIf="isConsume()">
+                    <div *ngIf="isConsume() ">
                         <app-recipe-item *ngFor="let recipe of current_recipes | filterRecipes:filterProducts"
                             [recipe]="recipe" [url]="url" (add_product)="add_recipe_to_selected_products($event)">
                         </app-recipe-item>
@@ -92,7 +92,7 @@
 
         </div>
 
-        <div *ngIf="url === '/manager-recipe' || url === '/daily-register'"
+        <div *ngIf="url === '/manager-recipe' || url === '/daily-register' || url ==='/patient-calendar' "
             style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
 
             <h4 *ngIf="url === '/manager-recipe'" class="header-info-nutritional-recipe"> Información nutricional de la
@@ -194,12 +194,14 @@
 
     </div>
 
+    <div *ngIf=" !isNutri()">
     <div *ngIf="isConsume() || url == '/manager-plan' || url == '/manager-recipe'"
         style="display: flex; justify-content: space-around; align-items: center;">
 
         <button (click)="apply_changes()" class="btn btn-success"> Aplicar</button>
         <button *ngIf="showCancelButton()" (click)="cancel()" class="btn btn-secondary"> Cancel</button>
     </div>
+</div>
 
 
 
