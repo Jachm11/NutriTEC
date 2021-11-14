@@ -347,9 +347,12 @@ export class AddEditComponent implements OnInit {
         let body = {id_recipe: this.global.current_recipe.id, id_product: product.id}
         this.apiService.delete_product_from_recipe(body).subscribe();
       }
-    }  
+    } 
+    
+    console.log(product, "Este es eliminado")
+    console.log(this.added_products)
     this.selected_products =  this.selected_products.filter(ps => ps.descripcion !== product.descripcion);
-    this.added_products =  this.added_products.filter(ps => ps.descripcion !== product.descripcion && ps.des);
+    this.added_products =  this.added_products.filter(p_added => {p_added.descripcion == product.descripcion && p_added.tiempo_comida == product.tiempo_comida} );
     this.current_products.push(product);
     this.updateNutritionalInfo();
 
@@ -494,6 +497,8 @@ export class AddEditComponent implements OnInit {
 
     if(this.url == "/daily-register"){
 
+      console.log(this.added_products);
+
       this.added_products.forEach(prod => {
 
         let body = {
@@ -509,10 +514,20 @@ export class AddEditComponent implements OnInit {
         })
         
       });
-        
 
+      if (this.global.isAdding()){
 
-
+        let body = {
+          title:"Consumo diario",
+          start:this.date,
+          groupId:"consumo",
+          color : "#06D6A0"
+        }
+  
+        this.apply.emit(body); 
+ 
+      }
+      
     }
     this.setDefaultValues();
     this.matDialog.closeAll();

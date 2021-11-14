@@ -196,36 +196,19 @@ export class DailyRegisterComponent implements OnInit {
 
   }
 
-  edit_consumed(cosumed: Product_Consumption[]) {
+  edit_consumed(consumed: Consume_event) {
 
-    window.location.reload();
+    this.events = this.events.concat(consumed)
+
+    //window.location.reload();
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   addEvent(datee) {
     this.events = this.events.concat( // creates a new array!
       { title: 'event 2', date: datee }
     );
   }
-
-  
-
-
 
 
 }
