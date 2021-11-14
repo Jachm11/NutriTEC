@@ -299,9 +299,9 @@ export class AddEditComponent implements OnInit {
 
   update_porcion(event:any){
     this.selected_products.forEach(ps => {
-      if(ps.descripcion === event.descripcion){
+      if(ps.descripcion === event.descripcion && ps.tiempo_comida === event.tiempo_comida){
         ps.cantidad_porciones = event.cantidad_porciones;
-        console.log("Actualizado",ps.porciones)
+        console.log("Actualizado",ps.cantidad_porciones)
       }
 
     });
@@ -348,11 +348,11 @@ export class AddEditComponent implements OnInit {
         this.apiService.delete_product_from_recipe(body).subscribe();
       }
     } 
-    
-    console.log(product, "Este es eliminado")
-    console.log(this.added_products)
+
     this.selected_products =  this.selected_products.filter(ps => ps.descripcion !== product.descripcion);
-    this.added_products =  this.added_products.filter(p_added => {p_added.descripcion == product.descripcion && p_added.tiempo_comida == product.tiempo_comida} );
+    this.added_products = this.added_products.filter(added_P => {
+      return added_P.id != product.id || added_P.tiempo_comida != product.tiempo_comida
+    });
     this.current_products.push(product);
     this.updateNutritionalInfo();
 

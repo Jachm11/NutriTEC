@@ -25,6 +25,7 @@ export class ItemProductComponent implements OnInit {
 
   updatePorcion(){
     this.product_selected.porciones = this.porcion;
+    this.product_selected.cantidad_porciones = this.porcion;
     this.update_porcion.emit(this.product_selected);
   }
 
