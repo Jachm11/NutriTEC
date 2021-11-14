@@ -488,63 +488,63 @@ values (9, 6, 'Cena', 2);
 
 -- Fecha 10/12/2021
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 1, 'Desayuno', '10/12/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 1, 'Desayuno', '10/12/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 2, 'Merienda manana', '10/12/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 2, 'Merienda manana', '10/12/2021',2)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 3, 'Almuerzo', '10/12/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 3, 'Almuerzo', '10/12/2021',3)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 4, 'Almuerzo', '10/12/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 4, 'Almuerzo', '10/12/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 5, 'Merienda tarde', '10/12/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 5, 'Merienda tarde', '10/12/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 6, 'Cena', '10/12/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 6, 'Cena', '10/12/2021',2)
 
 -- Fecha 10/13/2021
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 3, 'Desayuno', '10/13/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 3, 'Desayuno', '10/13/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 4, 'Merienda manana', '10/13/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 4, 'Merienda manana', '10/13/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 5, 'Almuerzo', '10/13/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 5, 'Almuerzo', '10/13/2021',2)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 6, 'Almuerzo', '10/13/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 6, 'Almuerzo', '10/13/2021',3)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 7, 'Merienda tarde', '10/13/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 7, 'Merienda tarde', '10/13/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 8, 'Cena', '10/13/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 8, 'Cena', '10/13/2021',2)
 
 -- Fecha 10/14/2021
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 2, 'Desayuno', '10/14/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 2, 'Desayuno', '10/14/2021',3)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 3, 'Merienda manana', '10/14/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 3, 'Merienda manana', '10/14/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 4, 'Almuerzo', '10/14/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 4, 'Almuerzo', '10/14/2021',2)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 8, 'Almuerzo', '10/14/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 8, 'Almuerzo', '10/14/2021',1)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 9, 'Merienda tarde', '10/14/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 9, 'Merienda tarde', '10/14/2021',3)
 
-insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-values (1, 10, 'Cena', '10/14/2021')
+insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+values (1, 10, 'Cena', '10/14/2021',1)
 
 ---------------------------------- PLAN A CLIENTE -------------------------------------
 

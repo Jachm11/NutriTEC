@@ -338,6 +338,7 @@ namespace NutriTEC.Data.Repositories.Query
             cmd.Parameters.AddWithValue("@id_producto", consumo_diario.Id_producto);
             cmd.Parameters.AddWithValue("@tiempo_comida", consumo_diario.Tiempo_comida);
             cmd.Parameters.AddWithValue("@fecha", consumo_diario.Fecha);
+            cmd.Parameters.AddWithValue("@cantidad_porciones", consumo_diario.cantidad_porciones);
 
             conn.Open();
             int i = cmd.ExecuteNonQuery();

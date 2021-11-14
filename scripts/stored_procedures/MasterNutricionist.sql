@@ -82,7 +82,8 @@ BEGIN
                    calcio,
                    proteina,
                    vitamina,
-                   carbohidratos
+                   carbohidratos,
+                   cantidad_porciones
             FROM Consumo_diario
                      join Producto on id_producto = Producto.id
             WHERE id_cliente = @id_cliente

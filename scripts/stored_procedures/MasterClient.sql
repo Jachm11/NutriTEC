@@ -19,6 +19,7 @@ Create procedure dbo.[MasterClient](
     @altura float = NULL,
     @cintura float = NULL,
     @cuello float = NULL,
+    @cantidad_porciones int = NULL,
     @StatementType NVARCHAR(max) = ''
 )
 AS
@@ -110,8 +111,8 @@ BEGIN
 
     IF @StatementType = 'RegistroConsumoDiario'
         BEGIN
-            insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha)
-            values (@id, @id_producto, @tiempo_comida, @fecha)
+            insert into Consumo_diario (id_cliente, id_producto, tiempo_comida, fecha, cantidad_porciones)
+            values (@id, @id_producto, @tiempo_comida, @fecha, @cantidad_porciones)
         END
 
     IF @StatementType = 'ReporteAvance'

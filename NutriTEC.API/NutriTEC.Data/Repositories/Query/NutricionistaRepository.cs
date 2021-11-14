@@ -376,7 +376,8 @@ namespace NutriTEC.Data.Repositories.Query
                         Calcio = float.Parse(Convert.ToString(dr["calcio"])),
                         Proteina = float.Parse(Convert.ToString(dr["proteina"])),
                         Vitamina = float.Parse(Convert.ToString(dr["vitamina"])),
-                        Carbohidratos = float.Parse(Convert.ToString(dr["carbohidratos"]))
+                        Carbohidratos = float.Parse(Convert.ToString(dr["carbohidratos"])),
+                        Cantidad_porciones = Convert.ToInt32(dr["cantidad_porciones"])
                     });
             }
             return seguimientoConsumo;

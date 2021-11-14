@@ -142,11 +142,12 @@ CREATE TABLE Productos_plan(
 
 CREATE TABLE Consumo_diario(
 
-    id              int IDENTITY(1,1),
-	id_cliente		int NOT NULL,
-	id_producto		int NOT NULL,
-	tiempo_comida	varchar(20) NOT NULL,
-	fecha			Date NOT NULL,
+    id                  int IDENTITY(1,1),
+	id_cliente		    int NOT NULL,
+	id_producto		    int NOT NULL,
+	tiempo_comida	    varchar(20) NOT NULL,
+	fecha			    Date NOT NULL,
+	cantidad_porciones  int NOT NULL,
 
 	PRIMARY KEY(id, id_cliente,id_producto)
 );
