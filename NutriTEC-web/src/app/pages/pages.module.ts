@@ -32,6 +32,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { HomePatientComponent } from './home-patient/home-patient.component'; // a plugin!
+//import { FilterRecipesPipe } from '../pipe/filter-recipes.filter';
 
 @NgModule({
     imports: [
@@ -64,6 +65,7 @@ import { HomePatientComponent } from './home-patient/home-patient.component'; //
         BillingComponent,
         LoginAdminComponent,
         HomePatientComponent,
+        //FilterRecipesPipe
         
        
     ],

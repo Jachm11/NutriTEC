@@ -37,7 +37,7 @@ const httpOptionsStringResponse = {
 export class ApiService {
 
   private apiURL = "https://nutritec.azurewebsites.net/"
-  private apiURLmongo = `/api/`
+  private apiURLmongo = `https://nutritecforum.azurewebsites.net/api/`
 
   constructor(private http:HttpClient, private global:GlobalService) { }
 
@@ -80,7 +80,6 @@ export class ApiService {
    */
   get_clients():Observable<Client[]> {
      return this.http.get<Client[]>(this.apiURL + "cliente/SinNutri");
-    
    }
 
 
@@ -172,19 +171,26 @@ export class ApiService {
    * Funcion GET para para obtener las medidas actuales de un paciente 
    * @returns JSON con las medidas actuales de un cliente
   */
-  get_current_stats():any{
+   get_current_stats():Observable<any>{
       return this.http.get<any>(this.apiURL + "Cliente/lastmedidas?id=" + this.global.current_client.id)
    }
-
+   
+ get_client_plan_dates():Observable<any>{
+     return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoplanfecha?id_cliente="+this.global.current_client.id);
+   }
 
   /**
    * Funcion GET para para obtener los clientes asociados a un nutricionista
    * @returns JSON con todos los planes asociados a un nutricionista
   */
+  
   get_clients_by_nutritionist(body:any):Observable<any>{
     return this.http.get<any>(this.apiURL + `Nutricionista/getAllMyClients?id_nutricionista=${body.id_nutricionist}`);
   }
 
+   get_client_consume_dates():Observable<any>{
+    return this.http.get<any>(this.apiURL+ "Nutricionista/seguimientoconsumo_fechas?id_cliente="+this.global.current_client.id);
+  }
 
   /**
    * Funcion GET para para obtener un nutricionista dado un id
@@ -192,7 +198,13 @@ export class ApiService {
    */
   get_nutritionist_by_id(body:any):Observable<any> {
     return this.http.get<any>(this.apiURL + `nutricionista/${body.id_nutritionist}`);
+  }
+  get_client():Observable<Client>{
+    return this.http.get<Client>(this.apiURL+ "cliente/"+ this.global.current_client.id);
+  }
 
+  get_one_consume_day(date):Observable<any>{
+    return this.http.get<any>(this.apiURL + "Nutricionista/seguimientoconsumo_content?id_cliente="+this.global.current_client.id+"&fecha="+date)
   }
 
 
@@ -204,10 +216,12 @@ export class ApiService {
     return this.http.get<any>(this.apiURLmongo + `chats/${id_client}`);
   }
 
-
-
-
-
+  get_nutricionista():Observable<Nutritionist>{
+    return this.http.get<Nutritionist>(this.apiURL + "Nutricionista/"+this.global.full_client.id_nutricionista);
+  }
+  get_plan(id):Observable<Plan>{
+    return this.http.get<Plan>(this.apiURL + "Plans/"+id);
+  }
 
 
   //          _________________________
@@ -296,6 +310,10 @@ export class ApiService {
   post_message(body:any):Observable<any> {
     return this.http.post<any>(this.apiURLmongo + `chats/`, body, httpOptions);
 
+  }
+
+  post_consume(body:any):Observable<any>{
+    return this.http.post<any>(this.apiURL + `Cliente/registroconsumodiario`, body, httpOptions);
   }
 
 
