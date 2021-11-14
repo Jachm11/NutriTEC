@@ -45,7 +45,6 @@ import { HomePatientComponent } from './home-patient/home-patient.component'; //
     ],
     declarations: [
         ProfileComponent,
-        LandingComponent,
         LoginClientComponent,
         LoginNutritionistComponent,
         RegisterProductsComponent,
