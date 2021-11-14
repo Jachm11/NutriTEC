@@ -96,11 +96,7 @@ export class AddEditComponent implements OnInit {
       }
     }
 
-    if(this.url == '/patient-calendar'){
-      this.update_total_kcal();
-      this.updateNutritionalInfo();
-
-    }
+    
 
     if(this.url == '/manager-plan'){
 
@@ -135,15 +131,15 @@ export class AddEditComponent implements OnInit {
       if(this.isConsume()){
         this.name_consumo = "Consumo de: "+ this.date;
 
+        if(!this.isNutri()){
+
         this.apiService.get_recipes().subscribe((recetas)=>{
 
           this.current_recipes = recetas;
-
-          console.log("Aqui" ,this.current_recipes)
-
-
+        
 
         })
+      }
 
 
         this.apiService.get_one_consume_day(this.date).subscribe((prods)=>{
@@ -176,8 +172,6 @@ export class AddEditComponent implements OnInit {
             }
             
           });
-          console.log(prods)
-          //this.disable = false;
           
         })
 
@@ -190,18 +184,13 @@ export class AddEditComponent implements OnInit {
         this.apiService.get_plans_by_id(this.id_plan).subscribe((plan)=>{
 
           plan.forEach(plan_unico => {
-            console.log(plan_unico)
-            console.log(plan_unico.nombre)
-            console.log(this.name_consumo)
 
             if (plan_unico.nombre == this.name_consumo){
               this.full_plan = plan_unico;
             }
             
           });
-          this.ready_plan = true;
-          console.log(this.full_plan);
-          
+          this.ready_plan = true;          
          })
         
       }
@@ -249,6 +238,7 @@ export class AddEditComponent implements OnInit {
       }
   
       this.update_product_list();
+      this.updateNutritionalInfo();
       this.previous_time_food = this.current_time_food;
         
     }
@@ -323,7 +313,7 @@ export class AddEditComponent implements OnInit {
       this.updateNutritionalInfo();
     }
 
-    if(this.url == '/daily-register'){
+    if(this.url == '/daily-register' || this.url == '/patient-calendar'){
       this.updateNutritionalInfo();
     }
     if(this.url == '/manager-plan'){
