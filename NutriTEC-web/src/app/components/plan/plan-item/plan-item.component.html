@@ -1,112 +1,111 @@
-
 <div class="plan-item">
 
 
-        
-        <div class="container-info-plan">
+
+    <div class="container-info-plan">
 
 
-            <div>
-                <div style="display: flex;">
-                    <label class="label-title">Nombre: </label > <label class="label-info">{{plan.nombre}}</label>
-                </div>
-    
-                <div style="display: flex;">
-                    <label class="label-title">Nutricionista: </label> <label class="label-info">{{name_nutritionist}}</label>
-                </div>
-    
-                <div style="display: flex;">
-                    <label class="label-title">Total calorías: </label> <label class="label-info"> {{plan.calorias}}</label>
-                </div>
-
+        <div>
+            <div style="display: flex;">
+                <label class="label-title">Nombre: </label> <label class="label-info">{{plan.nombre}}</label>
             </div>
 
-            <div class="container-button-edit">
-                <button class="btn edit-button" (click)="edit()"> Editar</button>
-                <button class="btn btn-danger" (click)="delete()"> Eliminar</button>
+            <div *ngIf="url != '/daily-register'" style="display: flex;">
+                <label class="label-title">Nutricionista: </label> <label
+                    class="label-info">{{name_nutritionist}}</label>
             </div>
 
-
+            <div style="display: flex;">
+                <label class="label-title">Total calorías: </label> <label class="label-info"> {{plan.calorias}}</label>
+            </div>
 
         </div>
 
-
-        <br>
-
-
-        <div class="container-times-food">
-
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr;">
-
-                <div class="container-time-food">
-                    <div>
-                        <label>Desayuno</label>
-                    </div>
-                    <div>
-                        <button class="btn btn-info" (click)="showBreakfastInfo()"> Mostrar</button>
-                    </div>
-                </div>
-
-     
-                <div class="container-time-food">
-    
-                    <div>
-                        <label>Merienda mañana</label>
-                    </div>
-    
-                    <div>
-    
-                        <button class="btn btn-info" (click)="showMorningSnackInfo()"> Mostrar</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr;">
-
-                <div class="container-time-food">
-                    <div>
-                        <label>Almuerzo</label>
-                    </div>
-                    <div>
-                        <button class="btn btn-info" (click)="showLaunchInfo()"> Mostrar</button>
-                    </div>
-                </div>
-
-     
-                <div class="container-time-food">
-    
-                    <div >
-                        <label>Merienda tarde</label>
-                    </div>
-    
-                    <div>
-    
-                        <button class="btn btn-info" (click)="showAfternoonSnackInfo()"> Mostrar</button>
-                    </div>
-                </div>
-
-            </div>
+        <div *ngIf="url != '/daily-register'" class="container-button-edit">
+            <button class="btn edit-button" (click)="edit()"> Editar</button>
+            <button class="btn btn-danger" (click)="delete()"> Eliminar</button>
+        </div>
 
 
 
+    </div>
 
+
+    <br>
+
+
+    <div class="container-times-food">
+
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr;">
 
             <div class="container-time-food">
                 <div>
-                    <label>Tarde</label>
+                    <label>Desayuno</label>
                 </div>
-    
                 <div>
-    
-                    <button class="btn btn-info" (click)="showDinnerInfo()"> Mostrar</button>
-  
+                    <button class="btn btn-info" (click)="showBreakfastInfo()"> Mostrar</button>
                 </div>
             </div>
 
 
+            <div class="container-time-food">
+
+                <div>
+                    <label>Merienda mañana</label>
+                </div>
+
+                <div>
+
+                    <button class="btn btn-info" (click)="showMorningSnackInfo()"> Mostrar</button>
+                </div>
+            </div>
+
         </div>
- 
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr;">
+
+            <div class="container-time-food">
+                <div>
+                    <label>Almuerzo</label>
+                </div>
+                <div>
+                    <button class="btn btn-info" (click)="showLaunchInfo()"> Mostrar</button>
+                </div>
+            </div>
+
+
+            <div class="container-time-food">
+
+                <div>
+                    <label>Merienda tarde</label>
+                </div>
+
+                <div>
+
+                    <button class="btn btn-info" (click)="showAfternoonSnackInfo()"> Mostrar</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="container-time-food">
+            <div>
+                <label>Tarde</label>
+            </div>
+
+            <div>
+
+                <button class="btn btn-info" (click)="showDinnerInfo()"> Mostrar</button>
+
+            </div>
+        </div>
+
+
+    </div>
+
 </div>
-        

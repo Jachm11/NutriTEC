@@ -13,6 +13,7 @@ import { ShowPlanInfoComponent } from '../show-plan-info/show-plan-info.componen
 export class PlanItemComponent implements OnInit {
 
   @Input() plan:any;
+  @Input() url: string;
   @Output() edit_plan: EventEmitter<any> = new EventEmitter();
   @Output() delete_plan: EventEmitter<any> = new EventEmitter();
 
