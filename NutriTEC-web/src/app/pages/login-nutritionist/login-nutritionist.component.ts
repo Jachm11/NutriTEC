@@ -8,6 +8,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './login-nutritionist.component.html',
   styleUrls: ['./login-nutritionist.component.css']
 })
+
+/**
+ * Pagina que muestea el login del nutricionista
+ */
 export class LoginNutritionistComponent implements OnInit {
 
   email:string;
@@ -22,6 +26,10 @@ export class LoginNutritionistComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que se ejecuta cuando se desea realizar el login. Recoge la informacion de ingresada 
+   * por el usuario y realiza el llamado al API
+   */
   login(){
 
     this.apiService.loginNutritionist(this.email, this.password).subscribe((current_nutrionist)=>{

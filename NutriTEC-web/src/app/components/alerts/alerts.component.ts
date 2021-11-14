@@ -5,6 +5,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.css']
 })
+
+/**
+ * Componente para mostrar las alertas
+ */
 export class AlertsComponent implements OnInit {
 
 

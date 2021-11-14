@@ -7,6 +7,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './show-plan-info.component.html',
   styleUrls: ['./show-plan-info.component.css']
 })
+
+/**
+ * Componente que muestra la informacion nutricional de un plan
+ */
 export class ShowPlanInfoComponent implements OnInit {
 
   filterProducts = '';
@@ -19,6 +23,10 @@ export class ShowPlanInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  /**
+   * Funcion que se llama al cerrar el dialog de muestra los productos
+   */
   close(){
     this.dialog.closeAll();
   

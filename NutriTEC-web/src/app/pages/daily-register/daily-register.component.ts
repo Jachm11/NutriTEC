@@ -17,6 +17,10 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './daily-register.component.html',
   styleUrls: ['./daily-register.component.css']
 })
+
+/**
+ * Pagina para el registro diario de consumo
+ */
 export class DailyRegisterComponent implements OnInit {
 
   fichas: Ficha[];

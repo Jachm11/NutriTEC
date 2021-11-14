@@ -10,6 +10,12 @@ import { BlobServiceClient }  from '@azure/storage-blob';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
+
+
+/**
+ * Este componente permite registar un cliente o nutricionista para la aplicacion. Contiene los espacios necesarios
+ * para ingresar la informacion y los muestra dependiendo del rol que se este registrando.
+ */
 export class RegisterComponent implements OnInit {
 
     @Input() url:string;
@@ -67,6 +73,11 @@ export class RegisterComponent implements OnInit {
     }
 
 
+
+    /**
+     * Funcion que se ejecuta para al momento de crear un cuenta. Decide dependiendo del URL 
+     * si se crear un cliente o un nutricionista.
+     */
     createAccount()
     {
 
@@ -80,6 +91,12 @@ export class RegisterComponent implements OnInit {
     }
 
 
+
+    /**
+     * Funcion que recoge la informacion de un cliente, verifica que todos los campos hayan sido llenado y emite 
+     * el evento para que el cliente sea creado
+     * @returns 
+     */
     createClientAccount(){
 
       if(!this.primer_nombre){
@@ -178,6 +195,11 @@ export class RegisterComponent implements OnInit {
     }
 
 
+      /**
+     * Funcion que recoge la informacion de un nutricionista, verifica que todos los campos hayan sido llenado y emite 
+     * el evento para que el nutricionista sea creado
+     * @returns 
+     */
     createNutritionistAccount(){
 
       if(!this.primer_nombre){
@@ -256,6 +278,9 @@ export class RegisterComponent implements OnInit {
 
 
 
+    /**
+     * Funcion que reinicia los valores ingresados por el usuario
+     */
     setDefaultValues(){
 
       this.primer_nombre = null;
@@ -285,6 +310,11 @@ export class RegisterComponent implements OnInit {
       this.password = null;
     }
   
+
+    /**
+     * Funcion que realiza el llamado al API para registar un cliente. Enviar la informacion ingresada 
+     * por el usario a traves de un JSON
+     */
     register_client(){
               
       this.api.post_client(this.new_client).subscribe((cliente)=>{
@@ -301,6 +331,11 @@ export class RegisterComponent implements OnInit {
 
     }
 
+    
+    /**
+     * Funcion que realiza el llamado al API para registar un nutricionista. Enviar la informacion ingresada 
+     * por el usario a traves de un JSON
+     */
     register_nutritionist(){
 
       console.log(this.new_nutritionist);
@@ -317,6 +352,11 @@ export class RegisterComponent implements OnInit {
 
 
 
+    
+    /**
+     * Funcion que realiza el llamado al API para registar las medidas iniciales del cliente cuando se registra. Enviar la informacion ingresada 
+     * por el usario a traves de un JSON
+     */
     register_measures(){
 
       let measures = 

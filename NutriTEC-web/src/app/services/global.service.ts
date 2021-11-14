@@ -27,44 +27,8 @@ export class GlobalService {
 
   full_client:any;
 
-  current_client:any = {
-    "id": 1,
-    "id_nutricionista": 1,
-    "id_conversacion": -1,
-    "primer_nombre": "Sebastian",
-    "segundo_nombre": "",
-    "primer_apellido": "Mora",
-    "segundo_apellido": "Godinez",
-    "email": "sebas@gmail.com",
-    "clave": "4D6993543CD9203435AA92560D5AABA1",
-    "fecha_nacimiento": "21/06/1999",
-    "edad": 22,
-    "meta_consumo_diario": 100,
-    "pais": "Costa Rica",
-    "estatus": "ACTIVO"
-};
-
-
-  current_nutritionist:any = {
-    "id": 1,
-    "id_usuario": 5,
-    "codigo_nutricionista": 1234,
-    "estatus": "ACTIVO",
-    "primer_nombre": "Juan",
-    "segundo_nombre": "Pedro",
-    "primer_apellido": "Perico",
-    "segundo_apellido": "Gonzales",
-    "email": "pedro@gmail.com",
-    "clave": "FD001EA34060B68520EB05BE55C7B7F5",
-    "cedula": "502340221",
-    "fecha_nacimiento": "11/02/1980",
-    "edad": 41,
-    "direccion": "Heredia",
-    "foto": "profile.png",
-    "tarjeta": "123-412-124",
-    "tipo_cobro": "Semanal"
-};
-
+  current_client:any;
+  current_nutritionist:any;
 
   current_admin:any = {
     "id": 1,

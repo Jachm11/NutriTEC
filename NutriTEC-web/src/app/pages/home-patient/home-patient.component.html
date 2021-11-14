@@ -25,14 +25,14 @@
             <br>
 
             <div style="display: flex; flex-direction: column; align-items: center;">
-              <h1>Bienvenido : {{this.global.current_client.primer_nombre + " " + this.global.current_client.segundo_nombre + " " + this.global.current_client.primer_apellido + " " + this.global.current_client.segundo_apellido}}</h1>
+              <h1>Bienvenido : {{current_client.primer_nombre + " " + current_client.segundo_nombre + " " + current_client.primer_apellido + " " + current_client.segundo_apellido}}</h1>
             </div>
          
             <div class="text-center">
-              <h3> <strong>Edad: </strong> {{this.global.current_nutritionist.edad}}</h3>
-              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>País: </strong> {{this.global.current_client.pais}}</div>
-              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Fecha de nacimiento:</strong> {{this.global.current_client.fecha_nacimiento}}</div>
-              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Meta de consumo diario:</strong> {{this.global.current_client.meta_consumo_diario}}</div>
+              <h3> <strong>Edad: </strong> {{current_client.edad}}</h3>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>País: </strong> {{current_client.pais}}</div>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Fecha de nacimiento:</strong> {{current_client.fecha_nacimiento}}</div>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Meta de consumo diario:</strong> {{current_client.meta_consumo_diario}}</div>
         
             </div>
             <div class="mt-5 py-5 border-top text-center">
@@ -42,7 +42,7 @@
                   <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i> <strong>Nutricionista actual:</strong> {{this.nutritionist.primer_nombre + " " + this.nutritionist.segundo_nombre + " " + this.nutritionist.primer_apellido + " " + this.nutritionist.segundo_apellido}}</div>
         
 
-                  <h3> <strong>Ultimas medidas:</strong>  {{this.measures.fecha}}</h3>
+                  <h3> <strong>Ultimas medidas:</strong>  {{measures.fecha}}</h3>
                   
                   <div style="display: flex; flex-direction: column; align-items: center;">
                     <div class="card-profile-stats d-flex justify-content-center">

@@ -9,6 +9,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './manager-recipe.component.html',
   styleUrls: ['./manager-recipe.component.css']
 })
+
+/**
+ * Pagina que muestra la gestion de una receta
+ */
 export class ManagerRecipeComponent implements OnInit {
 
 
@@ -24,6 +28,10 @@ export class ManagerRecipeComponent implements OnInit {
 
   }
 
+
+  /**
+   * Funcion que obtiene las recetas de un cliente que se encuentra en sesion. 
+   */
   get_recipes(){
 
     this.apiService.get_recipes().subscribe((recipes)=>{
@@ -36,6 +44,10 @@ export class ManagerRecipeComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion que se ejecuta cuando se crea una receta. Abre un dialog para ingresar los datos 
+   * de la nueva receta
+   */
   open_add_dialog(){
 
     this.global.startAdding();
@@ -50,6 +62,11 @@ export class ManagerRecipeComponent implements OnInit {
     })
   }
 
+
+  /**
+   * Funcion que se ejecuta cuando se edita una receta. Abre un dialog para ingresar los
+   * cambios que se desean crear. 
+   */
   open_edit_dialog(){
 
     this.global.startEditing();
@@ -66,6 +83,10 @@ export class ManagerRecipeComponent implements OnInit {
 
 
 
+  /**
+   * Funcion que se ejecuta cuando se desea elimianr una receta
+   * @param recipe 
+   */
   delete_recipe(recipe:any){
 
     this.apiService.delete_recipe(recipe.id).subscribe(()=>{
@@ -83,6 +104,13 @@ export class ManagerRecipeComponent implements OnInit {
 
   }
 
+
+
+
+  /**
+   * Funcion que agrega una nueva receta y sus productos.
+   * @param recipe 
+   */
   add_recipe(recipe:any){
 
 

@@ -8,6 +8,10 @@ import * as jsPDF from 'jspdf';
   templateUrl: './billing.component.html',
   styleUrls: ['./billing.component.css']
 })
+
+/**
+ * Pagina para mostar la facturacion
+ */
 export class BillingComponent implements OnInit {
 
   bills_semanal : Bill[];

@@ -6,6 +6,10 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './home-nutritionist.component.html',
   styleUrls: ['./home-nutritionist.component.css']
 })
+
+/**
+ * Pagina que muestra el perfil del nutricionista
+ */
 export class HomeNutritionistComponent implements OnInit {
 
   constructor(public global:GlobalService) { }
