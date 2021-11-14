@@ -39,6 +39,8 @@ namespace MongoAPI
 
             services.AddSingleton<ChatService>();
 
+            services.AddCors();
+
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.UseMemberCasing());
         }
@@ -54,6 +56,12 @@ namespace MongoAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true) // allow any origin
+               .AllowCredentials()); // allow credentials
 
             app.UseAuthorization();
 
