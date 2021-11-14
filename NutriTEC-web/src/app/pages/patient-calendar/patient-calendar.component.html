@@ -1,0 +1,30 @@
+<div>
+    <section class="section section-shaped section-lg">
+      <div class="shape shape-style-1 bg-gradient-default">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+  
+      <app-alerts></app-alerts>
+  
+      <div *ngIf="ready == true ">
+        <div class="container">
+          <div class="tittle">
+            <h1 class=text-white>Calendario nutricional de: {{cliente.primer_nombre + " " + cliente.primer_apellido}}</h1>
+          </div>
+        </div>
+        <div class = "calendar">
+          <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+        </div>
+      </div>
+    </section>
+  
+  
+  
+  </div>

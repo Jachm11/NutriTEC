@@ -77,6 +77,7 @@ export class GlobalService {
     "clave": "1234"
   };
   current_plan_id: number;
+  view_plan: boolean;
 
   hideAlert(){
     this.success_alert.next(false);

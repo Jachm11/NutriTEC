@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-patient-overview',
   templateUrl: './patient-overview.component.html',
@@ -21,7 +22,7 @@ export class PatientOverviewComponent implements OnInit {
   clients_emitter = new BehaviorSubject<any[]>(this.clients);
   show = true;
 
-  constructor(private global:GlobalService, private apiService:ApiService) { }
+  constructor(private global:GlobalService, private apiService:ApiService,  private router : Router ) { }
 
   ngOnInit() : void {
     this.upload_clients();
@@ -69,10 +70,14 @@ export class PatientOverviewComponent implements OnInit {
     })
 
 
+  }
 
+  openOverview(client){
 
-
-
+    console.log(client)
+    this.global.current_client = client
+    this.router.navigateByUrl("patient-calendar")
+    
   }
 
 }

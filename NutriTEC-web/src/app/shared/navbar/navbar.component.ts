@@ -113,6 +113,10 @@ export class NavbarComponent implements OnInit {
             this.client = false;  
             return true;
         }
+        if( titlee === '#/patient-calendar'  ) {
+            this.client = false;  
+            return true;
+        }
 
         if( titlee === '#/manager-plan' ) {
             this.client = false;

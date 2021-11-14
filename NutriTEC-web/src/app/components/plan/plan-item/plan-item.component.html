@@ -10,10 +10,12 @@
                 <label class="label-title">Nombre: </label> <label class="label-info">{{plan.nombre}}</label>
             </div>
 
+            <div *ngIf="url != '/patient-calendar'">
             <div *ngIf="url != '/daily-register'" style="display: flex;">
                 <label class="label-title">Nutricionista: </label> <label
                     class="label-info">{{name_nutritionist}}</label>
             </div>
+        </div>
 
             <div style="display: flex;">
                 <label class="label-title">Total calorías: </label> <label class="label-info"> {{plan.calorias}}</label>
@@ -21,9 +23,11 @@
 
         </div>
 
+        <div *ngIf="url != '/patient-calendar'">
         <div *ngIf="url != '/daily-register'" class="container-button-edit">
             <button class="btn edit-button" (click)="edit()"> Editar</button>
             <button class="btn btn-danger" (click)="delete()"> Eliminar</button>
+        </div>
         </div>
 
 

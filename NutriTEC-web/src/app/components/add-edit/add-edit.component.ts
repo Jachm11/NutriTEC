@@ -66,7 +66,7 @@ export class AddEditComponent implements OnInit {
   ready_plan: boolean;
   added_products = [];
   current_recipes = [];
-  disable = true;
+  disable = false;
 
   constructor(private router:Router, private global:GlobalService, private matDialog:MatDialog, private apiService:ApiService) {
     
@@ -98,6 +98,12 @@ export class AddEditComponent implements OnInit {
         });
     
       }
+    }
+
+    if(this.url == '/patient-calendar'){
+      this.update_total_kcal();
+      this.updateNutritionalInfo();
+
     }
 
     if(this.url == '/manager-plan'){
@@ -628,9 +634,13 @@ export class AddEditComponent implements OnInit {
    */
   isPlan(){
 
-    if(this.url == "/daily-register" && (!this.global.isEditing() && !this.global.isAdding())){
+    if( (this.url == "/daily-register")  && (!this.global.isEditing() && !this.global.isAdding())){
       //console.log("consume")
       return true;
+    }
+
+    if (this.url == "/patient-calendar" && this.global.view_plan){
+      return true
     }
     else{
       return false;
@@ -644,14 +654,24 @@ export class AddEditComponent implements OnInit {
   isConsume(){
 
     //console.log("url", this.url == "/daily-register", "Editando" , this.global.isEditing(),"Agregando",this.global.isAdding())
-    if(this.url == "/daily-register" && (this.global.isEditing() || this.global.isAdding())){
+    if((this.url == "/daily-register")  && (this.global.isEditing() || this.global.isAdding())){
       //console.log("consume")
       return true;
+    }
+    if (this.url == "/patient-calendar" && !this.global.view_plan){
+      return true
     }
     else{
       //console.log("not consume")
       return false;
     }
+  }
+
+  isNutri(){
+    if (this.url == "/patient-calendar"){
+      return true
+    }
+    return false
   }
 
 

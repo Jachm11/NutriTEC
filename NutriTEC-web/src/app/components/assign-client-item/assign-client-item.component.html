@@ -24,7 +24,7 @@
         <div class="container-button-add">
 
             <div *ngIf="url == '/patient-overview'" style="display: flex;">
-                <button class="btn btn-info"> Seguimiento</button>
+                <button class="btn btn-info" (click)="showOverview()"> Seguimiento</button>
                 <button class="btn btn-danger" (click)="unassignClient()"> Desasociar</button>
             
             </div>
