@@ -17,7 +17,7 @@ export class Plan_event{
     title:string
     start:string
     groupId:"plan"
-    color : "#5218fa"
+    color : "#508AA8"
     id:number
 
 }
@@ -27,6 +27,6 @@ export class Consume_event{
     title:"Consumo diario"
     start:string
     groupId:"consumo"
-    color : "#000000"
+    color : "#06D6A0"
 
 }

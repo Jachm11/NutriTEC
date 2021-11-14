@@ -3,11 +3,12 @@
 
 
     <div>
-        <span class="badge badge-success">{{product_selected.descripcion}}</span> 
+        <span class="badge badge-success">{{product_selected.descripcion}}</span>
     </div>
 
     <div>
-        <input type="number" min=0 placeholder="Porción" [(ngModel)]="porcion" (change)="updatePorcion()">
+        <input disable type="number" min=0 placeholder="Porción" [(ngModel)]="porcion"
+            (change)="updatePorcion()">
     </div>
 
     <div>

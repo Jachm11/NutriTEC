@@ -55,14 +55,6 @@ export class ShowRecipeInfoComponent implements OnInit {
   }
 
 
-  get_products(){
-
-
-
-    
-  }
-
-
   close(){
 
     this.dialog.closeAll();

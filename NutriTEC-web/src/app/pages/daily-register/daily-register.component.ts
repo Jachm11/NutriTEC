@@ -70,7 +70,7 @@ export class DailyRegisterComponent implements OnInit {
       }
 
       this.apiService.get_nutricionista().subscribe((nutri)=>{
-        this.nutricionista = "Doctor " + nutri.primer_apellido
+        this.nutricionista =  nutri.primer_nombre +  " "+   nutri.primer_apellido 
       })
 
 
@@ -114,7 +114,7 @@ export class DailyRegisterComponent implements OnInit {
           title: "Consumo diario",
           start: date.fecha,
           groupId: "consumo",
-          color: "#000000"
+          color: "#06D6A0"
         };
         this.consume_events.push(event);
       });
@@ -131,7 +131,7 @@ export class DailyRegisterComponent implements OnInit {
             title: date.nombre,
             start: date.fecha,
             groupId: "plan",
-            color: "#5218fa",
+            color: "#508AA8",
             id: date.id_plan
           }
           this.plan_events.push(event);

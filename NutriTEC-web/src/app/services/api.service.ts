@@ -121,8 +121,8 @@ export class ApiService {
     return this.http.get<Client>(this.apiURL+ "cliente/"+ this.global.current_client.id);
   }
 
-  get_one_consume_day(date):Observable<Plan[]>{
-    return this.http.get<Plan[]>(this.apiURL + "Nutricionista/seguimientoconsumo_content?id_cliente="+this.global.current_client.id+"&fecha="+date)
+  get_one_consume_day(date):Observable<any>{
+    return this.http.get<any>(this.apiURL + "Nutricionista/seguimientoconsumo_content?id_cliente="+this.global.current_client.id+"&fecha="+date)
   }
 
   get_chat_by_id(id_client:number):Observable<any>{
@@ -176,6 +176,10 @@ export class ApiService {
   post_message(body:any):Observable<any> {
     return this.http.post<any>(this.apiURLmongo + `chats/`, body, httpOptions);
 
+  }
+
+  post_consume(body:any):Observable<any>{
+    return this.http.post<any>(this.apiURL + `Cliente/registroconsumodiario`, body, httpOptions);
   }
 
 
