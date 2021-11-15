@@ -90,9 +90,9 @@ public class Login extends Fragment {
                                                     client.getString("pais"));
 
 
-                        System.out.println(current_client);
-                        NavHostFragment.findNavController(Login.this)
-                                .navigate(R.id.action_login_to_mainView);
+                            System.out.println(current_client);
+                            NavHostFragment.findNavController(Login.this)
+                                    .navigate(R.id.action_login_to_mainView);
                    }
                     catch (JSONException e) {
                         e.printStackTrace();

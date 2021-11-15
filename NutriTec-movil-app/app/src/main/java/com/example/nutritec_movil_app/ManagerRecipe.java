@@ -112,9 +112,7 @@ public class ManagerRecipe extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setReorderingAllowed(true);
-
                 transaction.replace(R.id.nav_host_fragment_content_main, AddEditRecipe.class, null);
-
                 transaction.commit();
 
             }

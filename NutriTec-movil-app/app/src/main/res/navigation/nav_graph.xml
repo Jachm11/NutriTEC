@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/login">
 
+
     <fragment
         android:id="@+id/login"
         android:name="com.example.nutritec_movil_app.Login"
@@ -28,6 +29,9 @@
         <action
             android:id="@+id/action_mainView_to_managerRecipe"
             app:destination="@id/managerRecipe" />
+        <action
+            android:id="@+id/action_mainView_to_dailyRegister"
+            app:destination="@id/dailyRegister" />
     </fragment>
     <fragment
         android:id="@+id/registerMeasures"
@@ -100,5 +104,17 @@
         <action
             android:id="@+id/action_addEditRecipe_to_managerRecipe"
             app:destination="@id/managerRecipe" />
+        <action
+            android:id="@+id/action_addEditRecipe_to_mainView"
+            app:destination="@id/mainView" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyRegister"
+        android:name="com.example.nutritec_movil_app.DailyRegister"
+        android:label="fragment_daily_register"
+        tools:layout="@layout/fragment_daily_register" >
+        <action
+            android:id="@+id/action_dailyRegister_to_mainView"
+            app:destination="@id/mainView" />
     </fragment>
 </navigation>

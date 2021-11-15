@@ -19,6 +19,7 @@ public class Product {
     public int proteina;
     public int vitamina;
     public int carbohidratos;
+    public String time_food;
 
     /**
      * Constructor

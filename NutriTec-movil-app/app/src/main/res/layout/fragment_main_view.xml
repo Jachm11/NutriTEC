@@ -29,9 +29,21 @@
             android:id="@+id/manager_recipe_button"
             android:layout_width="215dp"
             android:layout_height="78dp"
-            android:layout_marginTop="76dp"
-            android:text="Gestión de recetas"
+            android:layout_marginTop="68dp"
             android:backgroundTint="@color/blue2"
+            android:text="Gestión de recetas"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_measures_button" />
+
+        <Button
+            android:id="@+id/daily_consume"
+            android:layout_width="215dp"
+            android:layout_height="78dp"
+            android:layout_marginTop="200dp"
+            android:backgroundTint="@color/blue2"
+            android:text="Consumo diario"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

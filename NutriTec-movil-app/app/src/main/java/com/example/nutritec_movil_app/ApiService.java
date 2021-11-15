@@ -106,7 +106,7 @@ public class ApiService {
         Calendar c = Calendar.getInstance();
         String date = sdf.format(c.getTime());
         try {
-            body.put("id_cliente", Login.current_client.id);
+            body.put(" id_cliente", Login.current_client.id);
             body.put("fecha", date);
             body.put("porcentaje_musculo", Integer.parseInt(muscles));
             body.put("porcentaje_grasa", Integer.parseInt(fat));

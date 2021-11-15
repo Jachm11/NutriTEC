@@ -1,16 +1,12 @@
 package com.example.nutritec_movil_app;
 
-import android.hardware.camera2.TotalCaptureResult;
+import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -18,18 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.example.nutritec_movil_app.adapter.ProductAdapter;
 import com.example.nutritec_movil_app.databinding.FragmentAddEditRecipeBinding;
+import com.example.nutritec_movil_app.databinding.FragmentDailyRegisterBinding;
 import com.example.nutritec_movil_app.entity.Product;
-import com.example.nutritec_movil_app.entity.Recipe;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,14 +39,17 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * Fragmento para agregar o editar una receta
  * A simple {@link Fragment} subclass.
- * Use the {@link AddEditRecipe#newInstance} factory method to
+ * Use the {@link DailyRegister#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddEditRecipe extends Fragment {
+public class DailyRegister extends Fragment implements DatePickerDialog.OnDateSetListener {
 
-    FragmentAddEditRecipeBinding binding;
+    FragmentDailyRegisterBinding binding;
+
+    int day;
+    int month;
+    int year;
 
 
 
@@ -59,7 +59,16 @@ public class AddEditRecipe extends Fragment {
     List<Product> products_selected = new ArrayList<>();
 
 
-    public AddEditRecipe() {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public DailyRegister() {
         // Required empty public constructor
     }
 
@@ -69,53 +78,71 @@ public class AddEditRecipe extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AddEditRecipe.
+     * @return A new instance of fragment DailyRegister.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddEditRecipe newInstance(String param1, String param2) {
-        AddEditRecipe fragment = new AddEditRecipe();
+    public static DailyRegister newInstance(String param1, String param2) {
+        DailyRegister fragment = new DailyRegister();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
-
-    /**
-     * Metodo que se ejecuta despues de que el fragmento sea creado
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentAddEditRecipeBinding.inflate(inflater, container, false);
+        binding = FragmentDailyRegisterBinding.inflate(inflater, container, false);
+
+        ArrayList<String> times_food = new ArrayList<>();
+        times_food.add("Desayuno");
+        times_food.add("Merienda manana");
+        times_food.add("Almuerzo");
+        times_food.add("Merienda tarde");
+        times_food.add("Cena");
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, times_food);
+        binding.foodTime.setAdapter(arrayAdapter);
 
 
         this.products = ApiService.get_products();
         this.current_products = this.products;
 
-        if(Global.isEditing()){
-            this.products_selected = RecipeMenu.products;
-            binding.nameRecipe.setText(ManagerRecipe.current_recipe.nombre);
-        }
+
 
         this.updateProductsSelectedDropDown();
         this.updateProductsDropDown();
+
+
+        binding.date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                showDatePickerDialog();
+
+
+            }
+        });
 
 
         /**
          * Se define el comportamiento para el boton de agregar producto
          */
         binding.addProductButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
 
@@ -146,6 +173,7 @@ public class AddEditRecipe extends Fragment {
          * Se define el comportamiento del boton para eliminar un producto seleccionado
          */
         binding.deleteProductButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
 
@@ -172,6 +200,7 @@ public class AddEditRecipe extends Fragment {
 
 
         binding.productsSelectedDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -182,6 +211,8 @@ public class AddEditRecipe extends Fragment {
                     if(product.descripcion.equals(current_product)){
 
                         binding.porcion.setText(Integer.toString(product.porciones));
+
+
 
                     }
 
@@ -203,6 +234,7 @@ public class AddEditRecipe extends Fragment {
          * Se define el comportamiento para el boton que actualiza la porcion
          */
         binding.updatePorcionButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
 
@@ -214,6 +246,8 @@ public class AddEditRecipe extends Fragment {
                     products_selected.stream().forEach(product -> {
                         if (product.descripcion.equals(product_selected)) {
                             product.porciones = porcion;
+                            String time_food = binding.foodTime.getSelectedItem().toString();
+                            product.time_food = time_food;
 
                             if (Global.isEditing()) {
 
@@ -236,53 +270,21 @@ public class AddEditRecipe extends Fragment {
         });
 
 
-
-
-        /**
-         * Define el comportamiento del boton para agregar una receta
-         */
-        binding.addRecipe.setOnClickListener(new View.OnClickListener() {
+        binding.addDaily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String name_recipe = binding.nameRecipe.getText().toString();
+                register();
+                Toast.makeText(getContext(), "Se registro correctamente", Toast.LENGTH_LONG).show();
 
-                if(!name_recipe.equals("")){
-
-
-
-                    if(Global.isAdding()){
-                        ApiService.add_recpe(binding.nameRecipe.getText().toString(), products_selected);
-                        Toast.makeText(getContext(), "Se agregó exitosamente", Toast.LENGTH_LONG).show();
-
-                    }
-
-                    else if(Global.isEditing()){
-
-                        ApiService.update_recipe(binding.nameRecipe.getText().toString(), ManagerRecipe.current_recipe.id ,Login.current_client.id);
-                        Toast.makeText(getContext(), "Se editó exitosamente", Toast.LENGTH_LONG).show();
-
-                    }
-
-
-
-
-
-
-
-
-
-
-                }
-                else {
-                    Toast.makeText(getContext(), "Ingrese el nombre para la receta", Toast.LENGTH_LONG).show();
-                }
 
 
             }
         });
+
         return binding.getRoot();
     }
+
 
 
     /**
@@ -322,6 +324,76 @@ public class AddEditRecipe extends Fragment {
     }
 
 
+    private void showDatePickerDialog() {
+
+        DatePickerDialog datagramPacket = new DatePickerDialog(
+                getContext(), this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        );
+
+        datagramPacket.show();
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+        System.out.println(i + "/" + i1 + "/" + i2);
+        this.day = i2;
+        this.month = i1;
+        this.year = i;
+        binding.dateTextView.setText(i + "/" + i1 + "/" + i2);
+    }
 
 
-}
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void register() {
+
+
+        this.products_selected.stream().forEach(product -> {
+
+
+
+            JSONObject body = new JSONObject();
+            try {
+                body.put("id_cliente", Login.current_client.id);
+                body.put("id_producto", product.id);
+                body.put("tiempo_comida", product.time_food);
+                body.put("fecha", year + "-" + month + "-" + day    );
+                body.put("cantidad_porciones", Integer.parseInt(binding.porcion.getText().toString()));
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(body.toString());
+
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody request_body = RequestBody.create(JSON, body.toString());
+
+
+            Request request = new Request.Builder().url(ApiService.URL + "Cliente/registroconsumodiario").post(request_body).build();
+            OkHttpClient client = new OkHttpClient();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println(response);
+
+                }
+            });
+
+
+        });
+
+    }
+
+
+    }

@@ -87,6 +87,20 @@ public class MainView extends Fragment {
             }
         });
 
+        /**
+         * Se define el comprtamiento del boton para ingresar a la gestion de recetas
+         */
+        binding.dailyConsume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NavHostFragment.findNavController(MainView.this).navigate(R.id.action_mainView_to_dailyRegister);
+
+
+            }
+        });
+
+
         return binding.getRoot();
     }
 }
