@@ -324,12 +324,12 @@ export class RegisterComponent implements OnInit {
     register_client(){
               
       this.api.post_client(this.new_client).subscribe((cliente)=>{
+
         this.global.current_client = cliente;
-        console.log(cliente);
         this.global.transactionSuccess("Se ha registrado como cliente exitosamente");
         this.register_measures();
         this.setDefaultValues();
-        this.router.navigateByUrl("/home");
+        this.router.navigateByUrl("/login-client");
       },   
       (err) => {
           this.global.transactionFailed(err.error);
@@ -344,11 +344,12 @@ export class RegisterComponent implements OnInit {
      */
     register_nutritionist(){
 
-      this.global.current_nutritionist = this.new_nutritionist;
+      
       this.api.post_nutritionist(this.new_nutritionist).subscribe(()=>{
+
         this.global.transactionSuccess("Se ha registrado como nutricionista exitosamente");
           this.setDefaultValues();
-          this.router.navigateByUrl("/home-nutritionist");
+          this.router.navigateByUrl("/login-nutritionist");
 
       },         
       (err) => {
