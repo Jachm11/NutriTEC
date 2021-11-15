@@ -70,7 +70,9 @@ BEGIN
             insert into Plans (id_nutricionista, estatus, nombre)
             values (@id_nutricionista, @estatus, @nombre)
 
-            select id, id_nutricionista, estatus, nombre
+            select id, estatus, nombre, (select ISNULL(SUM(energia * porciones), 0)
+                    from VistaProductosPlan
+                    where Plans.id = id_plan) as calorias
             from Plans
             where id_nutricionista = @id_nutricionista
               and nombre = @nombre

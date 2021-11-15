@@ -75,6 +75,14 @@ values ('CLIENT', 'Jose', 'Armando', 'Lopez', 'Jimenez', 'armando@gmail.com', 'a
 insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
 values ('CLIENT', 'Karina', 'Lucia', 'Lopez', 'Paez', 'kari@gmail.com', 'kari123')
 
+-- Cliente: id_usuario = 19   clave = arma123
+insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
+values ('CLIENT', 'Paulo', '', 'Londra', 'Jimenez', 'paulo@gmail.com', 'paulo123')
+
+-- Cliente: id_usuario = 20   clave = kari123
+insert into Usuario (rol, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, email, clave)
+values ('CLIENT', 'Katiana', 'Maria', 'Perico', 'Zelaya', 'katiana@gmail.com', 'katiana123')
+
 ------------------------------------------ ADMINISTRADORES ----------------------------------------------
 
 insert into Administrador (id_usuario)
@@ -149,6 +157,14 @@ values (17, 6, 'ACTIVO', '01/12/1979', 150, 'Nicaragua')
 insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
                      pais)
 values (18, NULL, 'ACTIVO', '01/12/1999', 150, 'Costa Rica')
+
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
+                     pais)
+values (19, NULL, 'ACTIVO', '01/11/1989', 110, 'Nicaragua')
+
+insert into Cliente (id_usuario, id_nutricionista, estatus, fecha_nacimiento, meta_consumo_diario,
+                     pais)
+values (20, NULL, 'ACTIVO', '01/10/1999', 100, 'Costa Rica')
 
 ------------------------------------------- MEDIDAS -------------------------------------------------------
 
