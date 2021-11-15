@@ -46,8 +46,9 @@ BEGIN
     UPDATE Usuario
     SET clave = @md5
     WHERE id = @id;
-
 END
+
+GO
 ---------------------------------------- RECIPE RELATIONS TRIGGER -----------------------------------------
 
 IF OBJECT_ID('Products_Recipe', 'P') IS NOT NULL
@@ -78,6 +79,7 @@ BEGIN
         END
 END
 
+GO
 ---------------------------------------- LOG IN ----------------------------------------------------
 
 IF OBJECT_ID('LogIn', 'P') IS NOT NULL
