@@ -215,6 +215,8 @@ public class AddEditRecipe extends Fragment {
                         if (product.descripcion.equals(product_selected)) {
                             product.porciones = porcion;
 
+
+
                             if (Global.isEditing()) {
 
                                 ApiService.update_porcion(product, ManagerRecipe.current_recipe.id);

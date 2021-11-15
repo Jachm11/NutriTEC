@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -212,6 +213,13 @@ public class DailyRegister extends Fragment implements DatePickerDialog.OnDateSe
 
                         binding.porcion.setText(Integer.toString(product.porciones));
 
+                        ArrayAdapter<String> adapter = (ArrayAdapter<String>) binding.foodTime.getAdapter();
+
+                        int pos = adapter.getPosition(product.time_food);
+
+                        binding.foodTime.setSelection(pos);
+
+
 
 
                     }
@@ -247,6 +255,7 @@ public class DailyRegister extends Fragment implements DatePickerDialog.OnDateSe
                         if (product.descripcion.equals(product_selected)) {
                             product.porciones = porcion;
                             String time_food = binding.foodTime.getSelectedItem().toString();
+
                             product.time_food = time_food;
 
                             if (Global.isEditing()) {
