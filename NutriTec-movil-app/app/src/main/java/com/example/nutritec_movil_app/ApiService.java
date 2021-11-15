@@ -26,6 +26,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
+/**
+ * Clase que contiene el servicio del API para realizar las diferentes funcionalidades
+ */
 public class ApiService {
 
 
@@ -33,6 +37,12 @@ public class ApiService {
     private static ArrayList<JSONObject> body = new ArrayList<JSONObject>();
 
 
+    /**
+     * Metodo que verifica si los datos ingresados por el usuario para verificar si existe
+     * @param email
+     * @param password
+     * @return
+     */
     public static JSONObject login(String email, String password){
 
         Request request = new Request.Builder().url(URL + "cliente/login?email=" + email + "&clave=" + password).addHeader("Content-Type", "application/json").build();
@@ -80,6 +90,16 @@ public class ApiService {
     }
 
 
+    /**
+     * Metodo para que realiza la llamada al API para registar las medidas del usuario
+     * @param weight
+     * @param muscles
+     * @param fat
+     * @param hips
+     * @param waist
+     * @param neck
+     * @param height
+     */
     public static void register_measures(String weight, String muscles, String fat, String hips, String waist, String neck, String height) {
         JSONObject body = new JSONObject();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -115,6 +135,11 @@ public class ApiService {
     }
 
 
+    /**
+     * Metodo que realiza la llamada al API para obtener las recetas asociadas al usuario
+     * @param id
+     * @return
+     */
     public static ArrayList<Recipe> get_recipes(int id){
         ArrayList<Recipe> recipes = new ArrayList<>();
         Request request = new Request.Builder().url(URL + "Recetas/Cliente/" + id).build();
@@ -144,56 +169,10 @@ public class ApiService {
     }
 
 
-    public static ArrayList<Product> get_products_by_recipe(int id_recipe){
-
-        ArrayList<Product> products = new ArrayList<>();
-        Request request = new Request.Builder().url(URL + "Recetas/" +id_recipe + "/productos").build();
-        OkHttpClient client = new OkHttpClient();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                System.out.println(e.getLocalizedMessage());
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String data = response.body().source().readUtf8();
-                    JSONArray json_response = new  JSONArray(data);
-                    for(int i=0; i< json_response.length(); i++){
-                        JSONObject current_product = (JSONObject) json_response.get(i);
-                        products.add(new Product(current_product.getInt("id"),
-                                current_product.getInt("barcode"),
-                                current_product.getString("descripcion"),
-                                current_product.getInt("tamano_porcion"),
-                                current_product.getInt("porciones"),
-                                current_product.getInt("sodio"),
-                                current_product.getInt("grasa"),
-                                current_product.getInt("energia"),
-                                current_product.getInt("hierro"),
-                                current_product.getInt("calcio"),
-                                current_product.getInt("proteina"),
-                                current_product.getInt("vitamina"),
-                                current_product.getInt("carbohidratos")));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-
-        sleep();
-
-
-
-        return products;
-
-
-
-    }
-
-
-
+    /**
+     * Metodo que realiza el llamado al API para eliminar la receta
+     * @param id_recipe
+     */
     public static void delete_recipe(int id_recipe){
         Request request = new Request.Builder().url(URL + "Recetas?id_receta=" +id_recipe).delete().build();
         OkHttpClient client = new OkHttpClient();
@@ -212,6 +191,10 @@ public class ApiService {
     }
 
 
+    /**
+     * Metodo que realiza el llamado al api para obtener los productos asociados a un producto
+     * @return
+     */
     public static ArrayList<Product> get_products(){
 
         ArrayList<Product> products = new ArrayList<>();
@@ -240,7 +223,7 @@ public class ApiService {
                                 current_product.getInt("barcode"),
                                 current_product.getString("descripcion"),
                                 current_product.getInt("tamano_porcion"),
-                                0,
+                                1,
                                 current_product.getInt("sodio"),
                                 current_product.getInt("grasa"),
                                 current_product.getInt("energia"),
@@ -269,7 +252,11 @@ public class ApiService {
     }
 
 
-
+    /**
+     * Metodo que realiza el llamado al API para agregar una receta
+     * @param name_recipe
+     * @param products
+     */
     public static void add_recpe(String name_recipe, List<Product> products){
 
         JSONObject body = new JSONObject();
@@ -317,6 +304,12 @@ public class ApiService {
         });
     }
 
+
+    /**
+     * Metodo que realiza el llamado al API para agregar un producto a una receta
+     * @param product
+     * @param id_recipe
+     */
     public static void add_product_to_recipe(Product product, int id_recipe){
 
         JSONObject body = new JSONObject();
@@ -340,6 +333,12 @@ public class ApiService {
 
     }
 
+
+    /**
+     * Metodo que realiza el llamado al API para eliminar un producto a una receta
+     * @param product
+     * @param id_recipe
+     */
     public static void delete_product_recipe(Product product, int id_recipe) {
 
         Request request = new Request.Builder().url(URL + "Recetas/Remove-Product?id_receta=" + id_recipe + "&id_producto=" + product.id).delete().build();
@@ -359,6 +358,12 @@ public class ApiService {
 
     }
 
+
+    /**
+     * Metodo que realiza el llamado al API para actualizar la porcion un producto a una receta
+     * @param product
+     * @param id_recipe
+     */
     public static void update_porcion(Product product, int id_recipe) {
 
         JSONObject body = new JSONObject();
@@ -382,6 +387,13 @@ public class ApiService {
 
     }
 
+
+    /**
+     * Metodo que realiza el llamado al API para actualizar una receta
+     * @param name_recipe
+     * @param id_recipe
+     * @param id_cliente
+     */
     public static void update_recipe(String name_recipe, int id_recipe, int id_cliente) {
 
         JSONObject body = new JSONObject();
@@ -406,6 +418,9 @@ public class ApiService {
     }
 
 
+    /**
+     * Metodo que duerme el thread por un cierto tiempo
+     */
     public static void sleep(){
 
         try {

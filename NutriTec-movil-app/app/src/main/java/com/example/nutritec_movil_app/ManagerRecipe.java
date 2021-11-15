@@ -20,6 +20,8 @@ import com.example.nutritec_movil_app.entity.Recipe;
 import java.util.ArrayList;
 
 /**
+ * Fragmento que muestra la gestion de receta. Muestra todas las recetas
+ * asociadas a un cliente
  * A simple {@link Fragment} subclass.
  * Use the {@link ManagerRecipe#newInstance} factory method to
  * create an instance of this fragment.
@@ -57,6 +59,14 @@ public class ManagerRecipe extends Fragment {
 
     }
 
+
+    /**
+     * Metodo que se ejecuta despues de que el fragmento sea creado
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +82,10 @@ public class ManagerRecipe extends Fragment {
         binding.recipesList.setAdapter(recipesAdapter);
 
 
+        /**
+         * Se deifine el comportamiento cuando uno de los items de la lista
+         * de recetas sea creado
+         */
         binding.recipesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -86,6 +100,9 @@ public class ManagerRecipe extends Fragment {
         });
 
 
+        /**
+         * Se define el comportamiento del boton para agregar recetas
+         */
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

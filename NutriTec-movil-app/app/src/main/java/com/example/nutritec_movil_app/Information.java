@@ -14,6 +14,7 @@ import com.example.nutritec_movil_app.entity.Product;
 import java.util.HashMap;
 
 /**
+ * Fragmento que muestra la informacion de la receta
  * A simple {@link Fragment} subclass.
  * Use the {@link Information#newInstance} factory method to
  * create an instance of this fragment.
@@ -43,7 +44,7 @@ public class Information extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Information.
+     * @return A new instance of fragment Information          .
      */
     // TODO: Rename and change types and number of parameters
     public static Information newInstance(String param1, String param2) {
@@ -56,6 +57,14 @@ public class Information extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
+    /**
+     * Metodo que se llama despues de que se crea el fragmento
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

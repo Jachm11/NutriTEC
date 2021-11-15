@@ -16,11 +16,16 @@ import com.example.nutritec_movil_app.entity.Client;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
+ * Fragmento que muestra el login de la aplicacion
  * A simple {@link Fragment} subclass.
  * Use the {@link Login#} factory method to
  * create an instance of this fragment.
@@ -45,12 +50,23 @@ public class Login extends Fragment {
 
     }
 
+    /**
+     * Metodo que se llama despues de que se crea el fragmento
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
 
+
+        /**
+         * Se define el comportamiento del boton para realizar el login
+         */
         binding.enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,5 +110,4 @@ public class Login extends Fragment {
 
         return binding.getRoot();
     }
-
 }

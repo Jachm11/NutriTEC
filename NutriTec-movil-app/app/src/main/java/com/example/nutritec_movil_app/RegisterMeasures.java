@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
+ * Fragmento para registar las medidas
  * A simple {@link Fragment} subclass.
  * Use the {@link RegisterMeasures#newInstance} factory method to
  * create an instance of this fragment.
@@ -54,6 +55,14 @@ public class RegisterMeasures extends Fragment {
 
     }
 
+
+    /**
+     * Metodo que se ejecuta cuando el fragmento es creado
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +70,11 @@ public class RegisterMeasures extends Fragment {
 
         binding = FragmentRegisterMeasuresBinding.inflate(inflater, container, false);
 
+
+        /**
+         * Se define las instrucciones que se ejecutaran cuando el boton de
+         * registrar medidas sea presionado
+         */
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,5 +1,9 @@
 package com.example.nutritec_movil_app.entity;
 
+
+/**
+ * Clase que modela un cliente
+ */
 public class Client {
 
 
@@ -14,6 +18,18 @@ public class Client {
     public String pais;
 
 
+    /**
+     * Constructor
+     * @param id
+     * @param primer_nombre
+     * @param segundo_nombre
+     * @param primer_apellido
+     * @param segundo_apellido
+     * @param email
+     * @param fecha_nacimiento
+     * @param edad
+     * @param pais
+     */
     public Client(int id, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String email, String fecha_nacimiento, int edad, String pais) {
         this.id = id;
         this.primer_nombre = primer_nombre;

@@ -1,5 +1,9 @@
 package com.example.nutritec_movil_app.entity;
 
+
+/**
+ * Clase que modela un producto
+ */
 public class Product {
 
     public int id;
@@ -16,6 +20,22 @@ public class Product {
     public int vitamina;
     public int carbohidratos;
 
+    /**
+     * Constructor
+     * @param id
+     * @param barcode
+     * @param descripcion
+     * @param tamano_porciones
+     * @param porciones
+     * @param sodio
+     * @param grasa
+     * @param energia
+     * @param hierro
+     * @param calcio
+     * @param proteina
+     * @param vitamina
+     * @param carbohidratos
+     */
     public Product(int id, int barcode, String descripcion, int tamano_porciones, int porciones, int sodio, int grasa, int energia, int hierro, int calcio, int proteina, int vitamina, int carbohidratos) {
         this.id = id;
         this.barcode = barcode;
