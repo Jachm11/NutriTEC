@@ -337,6 +337,19 @@ BEGIN
               and estatus != 'INACTIVO'
         END
 
+        IF @StatementType = 'SelectOneSpecific'
+        BEGIN
+            select id,
+                   id_nutricionista,
+                   estatus,
+                   nombre,
+                   (select ISNULL(SUM(energia * porciones), 0)
+                    from VistaProductosPlan
+                    where P.id = id_plan) as calorias
+            from Plans P
+            where id = @id
+        END
+
     IF @StatementType = 'SelectOne'
         BEGIN
             select id_plan,

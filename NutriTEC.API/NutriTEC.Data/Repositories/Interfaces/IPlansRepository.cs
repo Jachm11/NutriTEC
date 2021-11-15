@@ -12,6 +12,7 @@ namespace NutriTEC.Data.Repositories.Interfaces
 
         List<Object> GetAllPlans(int id_nutricionista);
         List<Object> GetPlan(int id);
+        Object GetPlanSpecific(int id);
         object InsertPlan(int id_nutricionista, string nombre);
         string InsertProductPlan(Productos_plan products_plan);
         string DeletePlan(int id);

@@ -40,6 +40,19 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+        // GET: /plan/getplanspecific
+        // Retorna al plan que coincide con el id.
+        [HttpGet("getplanspecific"), ActionName("Get")]
+        public IActionResult GetPlanSpecific(int id_plan)
+        {
+            Object result = _plansRepository.GetPlanSpecific(id_plan);
+
+            // Si no se encuentra.
+            if (result == null) return NotFound("No hay ningún plan asociado a este ID");
+            // Si lo encuentra.
+            return Ok(result);
+        }
+
         // POST: /plan/
         // Agrega un nuevo plan a la lista de planes.
         [HttpPost, ActionName("Insert")]
@@ -96,6 +109,8 @@ namespace NutriTEC.Controllers
             string result = _plansRepository.UpdateProductPlan(id_plan, id_producto, tiempo_comida, porciones);
             return Ok();
         }
+
+
 
     }
 }
