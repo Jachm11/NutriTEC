@@ -111,6 +111,14 @@ public class RegisterMeasures extends Fragment {
                 } else {
 
                     ApiService.register_measures(weight, muscles, fat, hips, waist, neck, height);
+                    binding.weight.setText("0");
+                    binding.height.setText("0");
+                    binding.muscles.setText("0");
+                    binding.fat.setText("0");
+                    binding.hips.setText("0");
+                    binding.waist.setText("0");
+                    binding.neck.setText("0");
+
 
 
 
