@@ -39,16 +39,18 @@ select * from Receta
 select * from Producto
 
 -- insertar la relacion
-DECLARE @receta int = 5
-insert into Producto_receta (id_producto, id_receta, porciones) values (14, @receta, 2.5);
-insert into Producto_receta (id_producto, id_receta, porciones) values (15, @receta, 3.0);
+DECLARE @receta int = 4
+insert into Producto_receta (id_producto, id_receta, porciones) values (18, @receta, 2.5);
+insert into Producto_receta (id_producto, id_receta, porciones) values (19, @receta, 3.0);
 
 select * from Producto_receta
 
 -- 3. REALIZAR EL UPDATE A ESTADO INACTIVO.
-DECLARE @receta int = 5
+DECLARE @receta int = 4
 UPDATE Receta
 SET estatus = 'INACTIVO'
 WHERE id = @receta
 
+select * from Receta
+select * from Producto_receta
 
