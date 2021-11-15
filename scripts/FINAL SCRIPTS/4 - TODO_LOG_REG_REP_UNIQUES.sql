@@ -16,7 +16,6 @@ BEGIN
     SELECT @hash = CONVERT(VARCHAR(max), HashBytes('MD5', @data), 2)
     RETURN @hash
 END
-
 GO
 
 
