@@ -155,6 +155,34 @@ public class AddEditRecipe extends Fragment {
         });
 
 
+        binding.productsSelectedDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String  current_product = binding.productsSelectedDropdown.getSelectedItem().toString();
+
+                products_selected.stream().forEach(product -> {
+
+                    if(product.descripcion.equals(current_product)){
+
+                        binding.porcion.setText(Integer.toString(product.porciones));
+
+                    }
+
+
+
+                });
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         /**
          * Se define el comportamiento para el boton que actualiza la porcion
          */
@@ -190,6 +218,8 @@ public class AddEditRecipe extends Fragment {
 
             }
         });
+
+
 
 
         /**

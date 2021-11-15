@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ComponentsModule } from '../components/components.module';
 import { LoginClientComponent } from './login-client/login-client.component';
-import { LoginNutritionistComponent } from './login-nutritionist/login-nutritionist.component';
 import { RegisterProductsComponent } from './register-products/register-products.component';
 import { SignupNutritionistComponent } from './signup-nutritionist/signup-nutritionist.component';
 import { SignupClientComponent } from './signup-client/signup-client.component';
@@ -25,22 +24,21 @@ import { DailyRegisterComponent } from './daily-register/daily-register.componen
 import { PatientOverviewComponent } from './patient-overview/patient-overview.component';
 import { AssingPlanComponent } from './assing-plan/assing-plan.component';
 import { BillingComponent } from './billing/billing.component';
-
 import { FullCalendarModule } from 'primeng/fullcalendar'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { HomePatientComponent } from './home-patient/home-patient.component';
-import { PatientCalendarComponent } from './patient-calendar/patient-calendar.component'; // a plugin!
+import { HomePatientComponent } from './home-patient/home-patient.component'; // a plugin!
 //import { FilterRecipesPipe } from '../pipe/filter-recipes.filter';
-
+import { LoginNutritionistComponent } from './login-nutritionist/login-nutritionist.component';
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         NgbModule,
         ComponentsModule,
-        FullCalendarModule,
+        FullCalendarModule
+  
     ],
     declarations: [
         ProfileComponent,
@@ -63,7 +61,6 @@ import { PatientCalendarComponent } from './patient-calendar/patient-calendar.co
         BillingComponent,
         LoginAdminComponent,
         HomePatientComponent,
-        PatientCalendarComponent,
         //FilterRecipesPipe
         
        
