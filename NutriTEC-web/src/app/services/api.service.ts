@@ -388,6 +388,19 @@ export class ApiService {
   }
 
 
+
+  /**
+   * Funcion PUT para actualizar un plan
+   * @param body informacion de un plan
+   * @returns repuesta del api
+   */
+   update_plan(body:any):Observable<any> {
+    return this.http.put<any>(this.apiURL + `Plans/updateplanname?id=${body.id_plan}&nombre=${body.name}`, null, httpOptions);
+  }
+
+
+
+
   /**
    * Funcion PUT para desasociar a un cliente
    * @param body informacion deun cliente 

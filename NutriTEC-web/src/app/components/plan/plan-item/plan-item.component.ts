@@ -66,6 +66,8 @@ export class PlanItemComponent implements OnInit {
    */
   edit(){
     this.global.current_plan = this.plan;
+ 
+
     this.edit_plan.emit(this.plan);
 
   }
