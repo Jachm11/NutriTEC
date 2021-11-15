@@ -1,8 +1,6 @@
 USE [nutridb]
 
 ------------------------------------------- MASTER CLIENT --------------------------------------------------------
-USE [nutridb]
-
 IF OBJECT_ID('MasterClient', 'P') IS NOT NULL
     DROP PROCEDURE [MasterClient];
 GO
@@ -82,6 +80,11 @@ BEGIN
             update Cliente
             set id_nutricionista = NULL
             where id = @id;
+
+            delete
+            from Plan_cliente
+            where id_cliente = @id;
+
         END
 
     IF @StatementType = 'RegistrarMedidas'
@@ -301,17 +304,16 @@ END
 GO
 
 ----------------------------------------------- MASTER PLANS --------------------------------------------------------
+use nutridb;
+
 IF OBJECT_ID('MasterPlans', 'P') IS NOT NULL
     DROP PROCEDURE [MasterPlans];
 GO
 
 Create procedure [dbo].[MasterPlans](
     @id int = NULL,
-    @id_cliente int = NULL,
     @id_nutricionista int = NULL,
     @id_producto int = NULL,
-    @id_plan_cliente int = NULL,
-    @fecha Date = NULL,
     @nombre varchar(20) = NULL,
     @tiempo_comida varchar(20) = NULL,
     @porciones float = NULL,
@@ -323,10 +325,13 @@ BEGIN
 
     IF @StatementType = 'SelectAll'
         BEGIN
-            select id, id_nutricionista, estatus, nombre,
-                   (select ISNULL(SUM(energia*porciones),0)
-                       from VistaProductosPlan
-                       where  P.id = id_plan) as calorias
+            select id,
+                   id_nutricionista,
+                   estatus,
+                   nombre,
+                   (select ISNULL(SUM(energia * porciones), 0)
+                    from VistaProductosPlan
+                    where P.id = id_plan) as calorias
             from Plans P
             where id_nutricionista = @id_nutricionista
               and estatus != 'INACTIVO'
@@ -334,8 +339,21 @@ BEGIN
 
     IF @StatementType = 'SelectOne'
         BEGIN
-            select id_plan, tiempo_comida, porciones, id_producto, barcode, descripcion, tamano_porcion,
-                   sodio, grasa, energia, hierro, calcio, proteina, vitamina, carbohidratos
+            select id_plan,
+                   tiempo_comida,
+                   porciones,
+                   id_producto,
+                   barcode,
+                   descripcion,
+                   tamano_porcion,
+                   sodio,
+                   grasa,
+                   energia,
+                   hierro,
+                   calcio,
+                   proteina,
+                   vitamina,
+                   carbohidratos
             from VistaProductosPlan
             where id_plan = @id
         END
@@ -346,7 +364,9 @@ BEGIN
             values (@id_nutricionista, @estatus, @nombre)
 
             select id, id_nutricionista, estatus, nombre
-            from Plans where id_nutricionista = @id_nutricionista and nombre = @nombre
+            from Plans
+            where id_nutricionista = @id_nutricionista
+              and nombre = @nombre
 
         END
 
@@ -382,10 +402,19 @@ BEGIN
               and tiempo_comida = @tiempo_comida
         END
 
+    IF @StatementType = 'UpdatePlanName'
+        BEGIN
+            update Plans
+            set nombre = @nombre
+            where id = @id
+        END
+
 
 END
 
 GO
+
+
 ------------------------------------------------------- MASTER PRODUCTS ----------------------------------------------
 use nutridb;
 

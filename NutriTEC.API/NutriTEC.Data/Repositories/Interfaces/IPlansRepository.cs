@@ -17,6 +17,7 @@ namespace NutriTEC.Data.Repositories.Interfaces
         string DeletePlan(int id);
         string DeletePlanProduct(int id, int id_producto, string tiempo_comida);
         string UpdateProductPlan(int id, int id_producto, string tiempo_comida, int porciones);
+        bool UpdatePlanName(int id, string nombre);
 
     }
 }
