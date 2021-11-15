@@ -36,7 +36,7 @@ const httpOptionsStringResponse = {
  */
 export class ApiService {
 
-  private apiURL = "/api/"
+  private apiURL = "https://nutritec.azurewebsites.net/"
   
   private apiURLmongo = `https://nutritecforum.azurewebsites.net/api/`
 
@@ -99,6 +99,18 @@ export class ApiService {
   get_products_approved():Observable<Product[]> {
      return this.http.get<Product[]>(this.apiURL + "Producto/getAllRestricted")
    }
+
+
+  /**
+   * Funcion GET para para obtener una plan dado un id
+   * @returns JSON con un plan
+   */
+
+  get_plan_by_id(id_plan:number):Observable<any>{
+    return this.http.get<any>(this.apiURL + `Plans/getplanspecific?id_plan=${id_plan}`)
+
+
+  }
 
 
 

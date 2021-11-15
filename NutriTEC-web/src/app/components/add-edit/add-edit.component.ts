@@ -182,23 +182,6 @@ export class AddEditComponent implements OnInit {
 
       }
 
-      //PLAN
-      else {
-
-        this.apiService.get_plans_by_id(this.id_plan).subscribe((plan) => {
-
-          plan.forEach(plan_unico => {
-
-            if (plan_unico.nombre == this.name_consumo) {
-              this.full_plan = plan_unico;
-            }
-
-          });
-          this.ready_plan = true;
-        })
-
-      }
-
     }
 
 

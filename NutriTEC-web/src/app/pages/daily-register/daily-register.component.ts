@@ -12,6 +12,7 @@ import { Product_Consumption } from 'src/interfaces/product';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
 import { ApiService } from 'src/app/services/api.service';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
+import { PlanItemComponent } from 'src/app/components/plan/plan-item/plan-item.component';
 
 @Component({
   selector: 'app-daily-register',
@@ -149,21 +150,18 @@ export class DailyRegisterComponent implements OnInit {
 
     switch (tipo) {
       case "plan":
-
+        this.open_plan_item_dialog(event.id);
         break;
 
       case "consumo":
         this.global.startEditing();
+        this.open_plan_dialog(date, event.id, event.title);
         break;
 
       default:
         break;
     }
 
-    console.log(event)
-    console.log(event.event)
-    console.log(event.id)
-    this.open_plan_dialog(date, event.id, event.title);
 
 
   }
@@ -174,6 +172,21 @@ export class DailyRegisterComponent implements OnInit {
     this.open_plan_dialog(date, 0, "consumo");
 
   }
+
+
+  open_plan_item_dialog(id_plan:number){
+
+    this.apiService.get_plan_by_id(id_plan).subscribe((plan)=>{
+
+      const dialogRef = this.dialog.open(PlanItemComponent);
+
+      dialogRef.componentInstance.plan = plan;
+
+
+    });
+
+  }
+
 
   open_plan_dialog(date:string, id_plan: number , name:string) {
 
