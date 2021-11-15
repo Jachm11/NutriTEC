@@ -12,9 +12,16 @@ import { GlobalService } from 'src/app/services/global.service';
  */
 export class HomeNutritionistComponent implements OnInit {
 
+
+  photo:any;
+
   constructor(public global:GlobalService) { }
 
   ngOnInit(): void {
+
+
+    this.photo = localStorage.getItem(this.global.current_nutritionist.foto);
+    console.log(this.photo);
   }
 
 }

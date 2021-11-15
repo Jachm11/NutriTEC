@@ -121,7 +121,7 @@ export class AssingPlanComponent implements OnInit {
       this.apiService.post_plan_client(date).subscribe(()=>{
         this.global.transactionSuccess("Plan asignado exitosamente")
       },(error)=>{
-        this.global.transactionFailed(error);
+        this.global.transactionFailed(error.error);
       })
       
     });

@@ -44,7 +44,8 @@ export class RegisterComponent implements OnInit {
     codigo_nutricionista:number;
 
     direccion:string;
-    foto:string;
+    foto:any;
+    foto_URL:any;
     tarjeta:string;
     tipo_cobro:string;
 
@@ -202,6 +203,7 @@ export class RegisterComponent implements OnInit {
      */
     createNutritionistAccount(){
 
+      
       if(!this.primer_nombre){
         this.global.transactionFailed("Ingrese su nombre");
         return; 
@@ -226,10 +228,10 @@ export class RegisterComponent implements OnInit {
         return;
       }
       
-      //if(!this.foto){
-      //  this.global.transactionFailed("Suba su foto de perfil");
-      //  return;
-      //}
+      if(!this.foto){
+        this.global.transactionFailed("Suba su foto de perfil");
+        return;
+      }
 
       if(!this.tarjeta){
         this.global.transactionFailed("Ingrese su numero de tarjeta");
@@ -251,8 +253,12 @@ export class RegisterComponent implements OnInit {
         this.global.transactionFailed("Ingrese su contraseña");
         return;
       }
+      
 
       else {
+
+
+        this.upload_image();
 
 
         this.new_nutritionist = {
@@ -266,7 +272,7 @@ export class RegisterComponent implements OnInit {
           cedula:this.cedula,
           fecha_nacimiento:this.fecha_nacimiento,
           direccion:this.direccion,
-          foto:"foto",
+          foto:this.foto,
           tarjeta:this.tarjeta,
           tipo_cobro:this.tipo_cobro,
         }
@@ -338,7 +344,7 @@ export class RegisterComponent implements OnInit {
      */
     register_nutritionist(){
 
-      console.log(this.new_nutritionist);
+      this.global.current_nutritionist = this.new_nutritionist;
       this.api.post_nutritionist(this.new_nutritionist).subscribe(()=>{
         this.global.transactionSuccess("Se ha registrado como nutricionista exitosamente");
           this.setDefaultValues();
@@ -377,7 +383,39 @@ export class RegisterComponent implements OnInit {
 
     }
 
+
+    select_image(images){
+
+      let image = images.item(0);
+
+      this.foto = image.name;
+      console.log(this.foto);
+      
+
+      let reader = new FileReader();
+      reader.readAsDataURL(image);
+
+      reader.onload = () => {
+        
+        this.foto_URL = reader.result;
+        
+      };
+
+
+      
+
+
   }
+
+
+    upload_image(){
+
+
+      localStorage.setItem(this.foto, this.foto_URL);
+      
+  }
+
+}
 
 
 

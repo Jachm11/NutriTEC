@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEditComponent } from 'src/app/components/add-edit/add-edit.component';
 import { ApiService } from 'src/app/services/api.service';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
+import { PlanItemComponent } from 'src/app/components/plan/plan-item/plan-item.component';
 
 
 @Component({
@@ -122,21 +123,33 @@ export class PatientCalendarComponent implements OnInit {
     switch (tipo) {
       case "plan":
         this.global.view_plan = true;
+        this.open_plan_item_dialog(event.id);
         break;
 
       case "consumo":
         this.global.startEditing();
+        this.open_plan_dialog(date, event.id, event.title);
         break;
 
       default:
         break;
     }
 
-    console.log(event)
-    console.log(event.event)
-    console.log(event.id)
-    this.open_plan_dialog(date, event.id, event.title);
+ 
 
+  }
+
+
+  open_plan_item_dialog(id_plan:number){
+
+    this.apiService.get_plan_by_id(id_plan).subscribe((plan)=>{
+
+      const dialogRef = this.dialog.open(PlanItemComponent);
+
+      dialogRef.componentInstance.plan = plan;
+
+
+    });
 
   }
 
@@ -153,6 +166,11 @@ export class PatientCalendarComponent implements OnInit {
     const subscribeDialog = dialogRef.componentInstance.apply.subscribe((consumed) => {
       this.edit_consumed(consumed);
     })
+    
+
+
+  
+    
 
     dialogRef.afterClosed().subscribe(result => {
       subscribeDialog.unsubscribe();

@@ -31,6 +31,7 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { HomePatientComponent } from './home-patient/home-patient.component'; // a plugin!
 //import { FilterRecipesPipe } from '../pipe/filter-recipes.filter';
 import { LoginNutritionistComponent } from './login-nutritionist/login-nutritionist.component';
+import { PatientCalendarComponent } from './patient-calendar/patient-calendar.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -61,6 +62,8 @@ import { LoginNutritionistComponent } from './login-nutritionist/login-nutrition
         BillingComponent,
         LoginAdminComponent,
         HomePatientComponent,
+        PatientCalendarComponent
+        
         //FilterRecipesPipe
         
        

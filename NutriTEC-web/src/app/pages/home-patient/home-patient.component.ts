@@ -21,6 +21,8 @@ export class HomePatientComponent implements OnInit {
   current_client:any;
   hast_nutri:boolean = false;
 
+
+
   ngOnInit(): void {
 
     this.current_client = this.global.current_client;
@@ -42,6 +44,8 @@ export class HomePatientComponent implements OnInit {
       
       });
 
+
+  
 
 
     }

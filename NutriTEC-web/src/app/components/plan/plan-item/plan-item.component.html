@@ -13,7 +13,7 @@
             <div *ngIf="url != '/patient-calendar'">
             <div *ngIf="url != '/daily-register'" style="display: flex;">
                 <label class="label-title">Nutricionista: </label> <label
-                    class="label-info">{{name_nutritionist}}</label>
+                    class="label-info">{{this.global.current_nutritionist.primer_nombre + " " + this.global.current_nutritionist.primer_apellido}}</label>
             </div>
         </div>
 

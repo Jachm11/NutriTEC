@@ -178,12 +178,10 @@ export class ManagerPlanComponent implements OnInit {
    * @param plan 
    */
   edit_plan(plan:any){
-    let body = {id_recipe: this.global.current_plan.id, id_client:this.global.current_client.id, name:plan.name}
-    this.get_plans();
-    console.log("entraa");
-    /** 
+    console.log(this.global.current_plan);
+    let body = {id_plan: this.global.current_plan.id, name:plan.name}
      
-     his.apiService.(body).subscribe(()=>{
+     this.apiService.update_plan(body).subscribe(()=>{
 
       this.global.transactionSuccess("Se ha actualizado el plan correctamente")
       this.get_plans();
@@ -192,10 +190,10 @@ export class ManagerPlanComponent implements OnInit {
 
       console.log(err);
       this.global.transactionFailed(err.error);
-      })
+      });
 
-     * 
-     */
+     
+     
 
 
   }

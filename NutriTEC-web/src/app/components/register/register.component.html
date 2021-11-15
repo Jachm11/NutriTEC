@@ -378,7 +378,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-album-2"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Foto" type="file" [(ngModel)]="foto" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
+                      <input class="form-control" placeholder="Foto" type="file"  (change)="select_image($event.target.files)" [ngModelOptions]="{standalone: true}" (focus)="focus2=true" (blur)="focus2=false">
                     </div>
                   </div>
   

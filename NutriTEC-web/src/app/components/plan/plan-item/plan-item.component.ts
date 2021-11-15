@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';  
@@ -28,13 +29,15 @@ export class PlanItemComponent implements OnInit {
   
 
 
-  constructor(private dialog:MatDialog, private global:GlobalService, private apiService:ApiService) { }
+  constructor(private dialog:MatDialog, private global:GlobalService, private apiService:ApiService, private router:Router) { 
+    this.url = router.url;
+
+
+  }
 
   ngOnInit(): void {
 
     
-    this.name_nutritionist = `${this.global.current_nutritionist.primer_nombre}  ${this.global.current_nutritionist.primer_apellido}` 
-
     this.get_products();
 
 
@@ -66,6 +69,8 @@ export class PlanItemComponent implements OnInit {
    */
   edit(){
     this.global.current_plan = this.plan;
+ 
+
     this.edit_plan.emit(this.plan);
 
   }

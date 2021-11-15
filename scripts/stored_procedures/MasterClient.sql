@@ -79,6 +79,11 @@ BEGIN
             update Cliente
             set id_nutricionista = NULL
             where id = @id;
+
+            delete
+            from Plan_cliente
+            where id_cliente = @id;
+
         END
 
     IF @StatementType = 'RegistrarMedidas'

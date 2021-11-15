@@ -88,7 +88,6 @@ namespace NutriTEC.Data.Repositories.Query
         // Salida: object: plan
         public object InsertPlan(int id_nutricionista, string nombre)
         {
-            // FALTA EL UNIQUE NOMBRE
             if (!CheckNameAvailability(id_nutricionista, nombre)) return "El nombre ingresado ya se encuentra en uso.";
 
             var conn = DbConnection;
@@ -233,6 +232,59 @@ namespace NutriTEC.Data.Repositories.Query
             return "El producto del plan se ha actualizado correctamente.";
         }
 
+        // ********************************** UPDATE PLAN NAME *******************************
+        // UpdatePlanName: actualiza el nombre de un plan de la base de datos.
+        // Parametros de entrada: int: id, string: nombre
+        // Salida: string: respuesta de operacion
+        public bool UpdatePlanName(int id, string nombre)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "UpdatePlanName");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return false;
+            return true;
+        }
+
+        // ********************************** GET PLAN SPECIFIC  *******************************
+        // GetPlanSpecific: obtiene los datos de un plan por id.
+        // Parametros de entrada: int: id
+        // Salida: object: plan deseado.
+        public Object GetPlanSpecific(int id)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "SelectOneSpecific");
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataAdapter sd = new(cmd);
+            DataTable dt = new();
+
+            conn.Open();
+            sd.Fill(dt);
+            conn.Close();
+
+            object plan = GetOnePlanDetail(dt);
+
+            if (plan == null) return "No se ha logrado agregar el nuevo plan. Por favor intente más tarde.";
+            return plan;
+
+        }
+
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
         // #########################################################################################
@@ -306,7 +358,9 @@ namespace NutriTEC.Data.Repositories.Query
                 plan = new
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["id"]),
-                    Nombre = Convert.ToString(dt.Rows[0]["nombre"])
+                    Estatus = Convert.ToString(dt.Rows[0]["estatus"]),
+                    Nombre = Convert.ToString(dt.Rows[0]["nombre"]),
+                    Calorias = Convert.ToInt32(dt.Rows[0]["calorias"])
                 };
 
             }
