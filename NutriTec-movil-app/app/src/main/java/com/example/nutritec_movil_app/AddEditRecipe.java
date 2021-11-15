@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Fragmento para agregar o editar una receta
  * A simple {@link Fragment} subclass.
  * Use the {@link AddEditRecipe#newInstance} factory method to
  * create an instance of this fragment.
@@ -67,6 +68,14 @@ public class AddEditRecipe extends Fragment {
 
     }
 
+
+    /**
+     * Metodo que se ejecuta despues de que el fragmento sea creado
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -87,6 +96,9 @@ public class AddEditRecipe extends Fragment {
         this.updateProductsDropDown();
 
 
+        /**
+         * Se define el comportamiento para el boton de agregar producto
+         */
         binding.addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +126,9 @@ public class AddEditRecipe extends Fragment {
         });
 
 
+        /**
+         * Se define el comportamiento del boton para eliminar un producto seleccionado
+         */
         binding.deleteProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,8 +155,37 @@ public class AddEditRecipe extends Fragment {
         });
 
 
+        binding.productsSelectedDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String  current_product = binding.productsSelectedDropdown.getSelectedItem().toString();
+
+                products_selected.stream().forEach(product -> {
+
+                    if(product.descripcion.equals(current_product)){
+
+                        binding.porcion.setText(Integer.toString(product.porciones));
+
+                    }
 
 
+
+                });
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        /**
+         * Se define el comportamiento para el boton que actualiza la porcion
+         */
         binding.updatePorcionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,6 +220,11 @@ public class AddEditRecipe extends Fragment {
         });
 
 
+
+
+        /**
+         * Define el comportamiento del boton para agregar una receta
+         */
         binding.addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,6 +251,9 @@ public class AddEditRecipe extends Fragment {
     }
 
 
+    /**
+     * Metodo que actualiza la lista de productos
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateProductsDropDown() {
 
@@ -217,6 +269,10 @@ public class AddEditRecipe extends Fragment {
 
     }
 
+
+    /**
+     * Metodo que actualiza la lista de productos seleccionados
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateProductsSelectedDropDown() {
 

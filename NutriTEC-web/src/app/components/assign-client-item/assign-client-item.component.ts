@@ -16,6 +16,7 @@ export class AssignClientItemComponent implements OnInit {
   @Output() assign_client: EventEmitter<any> = new EventEmitter();
   @Output() unassign_client: EventEmitter<any> = new EventEmitter();
   @Output() overview: EventEmitter<any> = new EventEmitter();
+  @Output() assing: EventEmitter<any> = new EventEmitter();
 
   url:string;
 
@@ -52,6 +53,11 @@ export class AssignClientItemComponent implements OnInit {
 
   showOverview(){
     this.overview.emit(this.client);
+
+  }
+
+  showAssing(){
+    this.assing.emit(this.client);
 
   }
 

@@ -18,6 +18,9 @@ import com.example.nutritec_movil_app.entity.Recipe;
 
 import java.util.ArrayList;
 
+/**
+ * Clase que customiza un adaptador para la listView
+ */
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
 
 
@@ -61,11 +64,7 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
 
 
         TextView textView1 = currentItemView.findViewById(R.id.name_recipe);
-        textView1.setText("Nombre " + currentRecipe.nombre);
-
-
-        ListView recipes_list = currentItemView.findViewById(R.id.recipes_list);
-        ArrayList<Product> products = ApiService.get_products_by_recipe(currentRecipe.id);
+        textView1.setText(currentRecipe.nombre);
 
 
 

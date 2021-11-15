@@ -16,6 +16,7 @@ import com.example.nutritec_movil_app.databinding.FragmentProductsRecipeBinding;
 import com.example.nutritec_movil_app.entity.Product;
 
 /**
+ *  Fragmento que muestra los productos de una receta
  * A simple {@link Fragment} subclass.
  * Use the {@link ProductsRecipe#newInstance} factory method to
  * create an instance of this fragment.
@@ -52,14 +53,20 @@ public class ProductsRecipe extends Fragment {
 
     }
 
+
+    /**
+     * Funcion que se ejecuta despues de que el fragmento sea creado
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentProductsRecipeBinding.inflate(inflater, container, false);
-
-
 
         ArrayAdapter<Product> arrayAdapter = new ProductAdapter(getContext(), RecipeMenu.products);
 

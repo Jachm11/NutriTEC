@@ -17,7 +17,9 @@ import com.example.nutritec_movil_app.entity.Product;
 import com.example.nutritec_movil_app.entity.Recipe;
 
 import java.util.ArrayList;
-
+/**
+ * Clase que customiza un adaptador para la listView
+ */
 public class ProductAdapter extends ArrayAdapter {
 
 
@@ -62,6 +64,9 @@ public class ProductAdapter extends ArrayAdapter {
 
         TextView textView2 = currentItemView.findViewById(R.id.barcode);
         textView2.setText("Código de barras: " + currentProduct.barcode);
+
+        TextView textView10 = currentItemView.findViewById(R.id.tamano_porcion);
+        textView10.setText("Tamaño porción: " + currentProduct.tamano_porciones);
 
         TextView textView3 = currentItemView.findViewById(R.id.sodio);
         textView3.setText("Sodio: " + currentProduct.sodio);

@@ -35,7 +35,7 @@
 
                 <div *ngIf="show" class="container-client-list">
                     
-                    <app-assign-client-item *ngFor="let client of clients_emitter | async | filterClients:filterClient" [client]="client" (unassign_client)="unassign_client($event)" (overview)="openOverview($event)" ></app-assign-client-item>
+                    <app-assign-client-item *ngFor="let client of clients_emitter | async | filterClients:filterClient" [client]="client" (unassign_client)="unassign_client($event)" (overview)="openOverview($event)" (assing)="openAssing($event)" ></app-assign-client-item>
 
                 </div>
 

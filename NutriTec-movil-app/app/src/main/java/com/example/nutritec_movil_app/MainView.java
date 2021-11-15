@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.nutritec_movil_app.databinding.FragmentMainViewBinding;
 
 /**
+ * Fragmento que muestra la vista principal
  * A simple {@link Fragment} subclass.
  * Use the {@link MainView#newInstance} factory method to
  * create an instance of this fragment.
@@ -46,12 +47,24 @@ public class MainView extends Fragment {
 
     }
 
+
+    /**
+     * Metodo que se llama despues de que se crea el fragmento
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMainViewBinding.inflate(inflater, container, false);
 
+
+        /**
+         * Se define el comportamiento del boton para  registar medidas
+         */
         binding.registerMeasuresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +74,9 @@ public class MainView extends Fragment {
         });
 
 
+        /**
+         * Se define el comprtamiento del boton para ingresar a la gestion de recetas
+         */
         binding.managerRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,19 +1,58 @@
 <div>
-    <section class="section section-shaped section-lg">
-        <div class="shape shape-style-1 bg-gradient-default">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 bg-gradient-default">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <app-alerts></app-alerts>
+
+    <div class="container">
+      <div class="tittle">
+        <h1 class=text-white>Asignación de planes</h1>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <form *ngIf="ready == true">
+
+
+        <label class="label-selected" class="label-selected ">
+          <h2 class="text-white">Seleccione un plan: </h2>
+        </label>
+        <select [(ngModel)]="current_plan" name="plan" class="form-group">
+
+          <option (click)="selected()" class="select" *ngFor="let plan of plans " [value]="plan.id">
+            <h3>{{plan.nombre}}</h3>
+          </option>
+
+
+        </select>
+
+
+      </form>
+
+    </div>
 
  
-   
 
-    </section>
+      <div class="calendar">
+        <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+      </div>
+
+      <div class="container center">
+        <button (click)="submit()" class="btn btn-success"> Asignar </button>
+      </div>
+
+
+  </section>
 
 </div>
