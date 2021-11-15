@@ -233,6 +233,30 @@ namespace NutriTEC.Data.Repositories.Query
             return "El producto del plan se ha actualizado correctamente.";
         }
 
+        // ********************************** UPDATE PLAN NAME *******************************
+        // UpdatePlanName: actualiza el nombre de un plan de la base de datos.
+        // Parametros de entrada: int: id, string: nombre
+        // Salida: string: respuesta de operacion
+        public bool UpdatePlanName(int id, string nombre)
+        {
+            var conn = DbConnection;
+
+            SqlCommand cmd = new(_spName, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@StatementType", "UpdatePlanName");
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (i < 1) return false;
+            return true;
+        }
+
         // #########################################################################################
         // UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS
         // #########################################################################################

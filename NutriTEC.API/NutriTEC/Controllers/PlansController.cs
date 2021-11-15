@@ -49,6 +49,18 @@ namespace NutriTEC.Controllers
             return Ok(result);
         }
 
+        // POST: /planupdateplanname
+        // Agrega un nuevo plan a la lista de planes.
+        [HttpPut("updateplanname"), ActionName("Update")]
+        public IActionResult UpdatePlanName(int id, string nombre)
+        {
+            bool result = _plansRepository.UpdatePlanName(id, nombre);
+
+            if (result)
+                return Ok();
+            return NotFound("Error, no se ha encontrado un plan con este id");
+        }
+
         // POST: /plan/agregarproducto
         // Agrega un nuevo producto a un plan.
         [HttpPost("agregarproducto"), ActionName("Insert")]
