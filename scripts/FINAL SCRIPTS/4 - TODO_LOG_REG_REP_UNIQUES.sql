@@ -1,5 +1,7 @@
------------------------------ HASH MD5 -------------------------------------
 USE [nutridb]
+
+
+----------------------------- HASH MD5 -------------------------------------
 IF OBJECT_ID('Hash_MD5', 'P') IS NOT NULL
     DROP PROCEDURE [Hash_MD5];
 GO
@@ -17,69 +19,7 @@ END
 
 GO
 
----------------------------------------- TRIGGER MD5 -------------------------------------------------------
 
-IF OBJECT_ID('MD5', 'P') IS NOT NULL
-    DROP TRIGGER [MD5];
-GO
-
--- TRIGGER MD5
-CREATE TRIGGER dbo.[MD5]
-    ON dbo.Usuario
-    AFTER INSERT, UPDATE
-    AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE
-        @id int,
-        @clave VARCHAR(max),
-        @md5 VARCHAR(max)
-
-    -- id
-    SELECT @id = id FROM INSERTED
-    -- clave
-    SELECT @clave = clave FROM INSERTED
-    -- MD5
-    SET @md5 = (SELECT dbo.Hash_MD5(@clave))
-
-    UPDATE Usuario
-    SET clave = @md5
-    WHERE id = @id;
-END
-
-GO
----------------------------------------- RECIPE RELATIONS TRIGGER -----------------------------------------
-
-IF OBJECT_ID('Products_Recipe', 'P') IS NOT NULL
-    DROP TRIGGER [RecipeRelations];
-GO
-
--- TRIGGER MD5
-CREATE TRIGGER dbo.[RecipeRelations]
-    ON dbo.Receta
-    AFTER UPDATE
-    AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE
-        @id int,
-        @status VARCHAR(max)
-
-    -- id
-    SELECT @id = id FROM DELETED
-    -- status
-    SELECT @status = estatus FROM INSERTED
-
-    if @status = 'INACTIVO'
-        BEGIN
-            DELETE FROM Producto_receta
-            WHERE id_receta = @id
-        END
-END
-
-GO
 ---------------------------------------- LOG IN ----------------------------------------------------
 
 IF OBJECT_ID('LogIn', 'P') IS NOT NULL
@@ -226,7 +166,6 @@ BEGIN
         END
 
 END
-
 GO
 
 ------------------------------------ REPORTE DE COBRO
@@ -253,6 +192,255 @@ BEGIN
           END) AS monto_a_cobrar
     FROM VistaNutricionistas
     WHERE lower(tipo_de_pago) = @tipo
+END
+GO
+
+------------------------------------------------ UNIQUE BARCODE --------------------------------------------
+
+IF OBJECT_ID('UniqueBarcode', 'P') IS NOT NULL
+    DROP PROCEDURE UniqueBarcode;
+GO
+
+Create procedure [dbo].UniqueBarcode(
+    @barcode varchar(50)
+)
+AS
+BEGIN
+
+    DECLARE @temp varchar(20)
+    SET @temp = (
+        Select barcode
+        FROM (
+                 SELECT barcode
+                 FROM Producto
+                 WHERE barcode = @barcode
+             ) q1
+    )
+
+
+    IF @temp IS NULL
+        BEGIN
+            SELECT CAST(1 AS bit) -- available
+        END
+
+    IF @temp IS NOT NULL
+        BEGIN
+            SELECT CAST(0 AS bit) -- unavailable
+        END
+
+END
+
+GO
+
+-------------------------------------------- UNIQUE EMAIL -------------------------------------------
+
+IF OBJECT_ID('UniqueEmail', 'P') IS NOT NULL
+    DROP PROCEDURE UniqueEmail;
+GO
+
+Create procedure [dbo].UniqueEmail(
+    @email varchar(20)
+)
+AS
+BEGIN
+
+    DECLARE @temp varchar(20)
+    SET @temp = (
+        Select email
+        FROM Usuario
+        WHERE email = @email
+    )
+
+
+    IF @temp IS NULL
+        BEGIN
+            SELECT CAST(1 AS bit) -- available
+        END
+
+    IF @temp IS NOT NULL
+        BEGIN
+            SELECT CAST(0 AS bit) -- unavailable
+        END
+
+END
+
+GO
+
+----------------------------------------------------- UNIQUE FECHA MEDIDA -----------------------------------------
+
+IF OBJECT_ID('UniqueFechaMedida', 'P') IS NOT NULL
+    DROP PROCEDURE UniqueFechaMedida;
+GO
+
+Create procedure [dbo].UniqueFechaMedida(
+    @fecha Date,
+    @id_cliente int
+)
+AS
+BEGIN
+
+    DECLARE @temp Date
+    SET @temp = (
+        Select fecha
+        FROM (
+                 SELECT fecha
+                 FROM Medidas
+                 WHERE fecha = @fecha
+                   and @id_cliente = id_cliente
+             ) q1
+    )
+
+
+    IF @temp IS NULL
+        BEGIN
+            SELECT CAST(1 AS bit) -- available
+        END
+
+    IF @temp IS NOT NULL
+        BEGIN
+            SELECT CAST(0 AS bit) -- unavailable
+        END
+
+END
+
+GO
+
+---------------------------------------------- UNIQUE PLAN NAME -----------------------------------------------
+
+IF OBJECT_ID ( 'UniquePlanName', 'P' ) IS NOT NULL
+    DROP PROCEDURE UniquePlanName;
+GO
+
+Create procedure [dbo].UniquePlanName
+    (
+		@nombre varchar(max),
+		@id_nutricionista int
+    )
+   AS
+   BEGIN
+
+    DECLARE @temp varchar(max)
+    SET @temp = (
+        Select nombre
+        FROM Plans
+        WHERE nombre = @nombre and id_nutricionista = @id_nutricionista
+        EXCEPT
+        SELECT nombre
+        FROM Plans
+        WHERE estatus = 'INACTIVO'
+	)
+
+    -- if the row to be inserted already exists, put the genreID into the @genreID output parameter
+
+    IF @temp IS NULL
+        BEGIN
+        SELECT CAST(1 AS bit) -- available
+        END
+
+    IF @temp IS NOT NULL
+        BEGIN
+        SELECT CAST(0 AS bit) -- unavailable
+        END
+
+	END
+
+GO
+
+
+------------------------------------- UNIQUE PRODUCT DESCRIPTION ------------------------------------------------
+
+IF OBJECT_ID('UniqueProductDescription', 'P') IS NOT NULL
+    DROP PROCEDURE UniqueProductDescription;
+GO
+
+Create procedure [dbo].UniqueProductDescription(
+    @description varchar(max)
+)
+AS
+BEGIN
+
+    DECLARE @temp varchar(max)
+    SET @temp = (
+        Select descripcion
+        FROM Producto
+        WHERE descripcion = @description
+    )
+
+    IF @temp IS NULL
+        BEGIN
+            SELECT CAST(1 AS bit) -- available
+        END
+
+    IF @temp IS NOT NULL
+        BEGIN
+            SELECT CAST(0 AS bit) -- unavailable
+        END
+
+END
+
+GO
+
+------------------------------------------------ UNIQUE RECIPE NAME -------------------------------------------------
+
+
+IF OBJECT_ID('UniqueRecipeName', 'P') IS NOT NULL
+    DROP PROCEDURE [UniqueRecipeName];
+GO
+
+CREATE procedure [dbo].UniqueRecipeName(
+    @id_cliente int,
+    @id_receta int = NULL,
+    @nombre varchar(max),
+    @StatementType NVARCHAR(max) = ''
+)
+AS
+BEGIN
+
+    DECLARE @temp varchar(max)
+
+    IF @StatementType = 'UniqueRecipe'
+        BEGIN
+            SET @temp = (
+                Select nombre
+                FROM Receta
+                WHERE nombre = @nombre
+                  and id_cliente = @id_cliente
+                  and estatus = 'ACTIVO'
+            )
+
+            -- if the row to be inserted already exists, put the genreID into the @genreID output parameter
+
+            IF @temp IS NULL
+                BEGIN
+                    SELECT CAST(1 AS bit) -- available
+                END
+
+            IF @temp IS NOT NULL
+                BEGIN
+                    SELECT CAST(0 AS bit) -- unavailable
+                END
+
+        END
+
+    -- SI ES UN UPDATE AL MISMO NOMBRE
+    IF @StatementType = 'SameName'
+        BEGIN
+            SET @temp = (
+                Select nombre
+                FROM Receta
+                WHERE id = @id_receta and id_cliente = @id_cliente
+            )
+            IF @temp = @nombre
+                BEGIN
+                    SELECT CAST(1 AS bit) -- same name
+                END
+
+            IF @temp != @nombre
+                BEGIN
+                    SELECT CAST(0 AS bit) -- different name
+                END
+        END
+
 END
 go
 
