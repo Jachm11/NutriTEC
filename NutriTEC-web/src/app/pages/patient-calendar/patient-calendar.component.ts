@@ -135,11 +135,7 @@ export class PatientCalendarComponent implements OnInit {
         break;
     }
 
-    //console.log(event)
-    //console.log(event.event)
-    //console.log(event.id)
-    //this.open_plan_dialog(date, event.id, event.title);
-
+ 
 
   }
 
@@ -153,10 +149,7 @@ export class PatientCalendarComponent implements OnInit {
       dialogRef.componentInstance.plan = plan;
 
 
-    })
-
-
-
+    });
 
   }
 
